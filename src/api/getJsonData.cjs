@@ -1,5 +1,4 @@
-export const getHotPage = async () => {
-  const url = "https://www.reddit.com/hot.json";
+async function getJsonData(url) {
   try {
     const response = await fetch(url);
     if (response.ok) {
@@ -11,4 +10,6 @@ export const getHotPage = async () => {
   } catch (error) {
     console.log(error);
   }
-};
+}
+
+module.exports = getJsonData;

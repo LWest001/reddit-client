@@ -3,7 +3,7 @@ import "./App.css";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Counter } from "../features/Counter/Counter";
-import { getHotPage } from "../api/getHotPage";
+import { getHotPage } from "../api/getJsonData.cjs";
 
 function App() {
   return (
