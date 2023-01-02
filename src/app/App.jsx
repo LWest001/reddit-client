@@ -1,7 +1,9 @@
 import reactLogo from "../assets/react.svg";
 import "./App.css";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Counter } from "../features/Counter/Counter";
+import { getHotPage } from "../api/getHotPage";
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
             Edit <code>src/App.jsx</code> and save to test HMR
           </p>
         </div>
+        <a
+          href="https://www.reddit.com/api/v1/authorize?client_id=edxXr1WIfOdugyJ5pEJZBsSnqHz7-A&response_type=code&
+    state=random&redirect_uri=effulgent-semolina-e038d2.netlify.app&duration=DURATION&scope=SCOPE_STRING"
+        ></a>
         <p className="read-the-docs">
           Click on the Vite and React logos to learn more
         </p>
