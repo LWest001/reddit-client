@@ -3,6 +3,7 @@ nav ul {
   flex-direction: row;
   font-size: 2rem;
   justify-content: start;
+  gap: 1rem;
 }
 
 nav ul li a {
@@ -15,4 +16,13 @@ nav ul li a {
 
 h1 {
   font-size: 2rem;
+}
+
+.SortSelector {
+  font-size: 2rem;
+}
+
+header {
+  margin: 5px;
+  
 }

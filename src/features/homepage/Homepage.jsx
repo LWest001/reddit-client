@@ -1,5 +1,5 @@
-const Homepage = () => {
-  return <>Homepage</>;
+const Homepage = ({ sortType }) => {
+  return <>Homepage {sortType}</>;
 };
 
 export default Homepage;
