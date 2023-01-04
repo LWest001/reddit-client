@@ -31,7 +31,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/">🍔</Link>
+            <Link to="/">☰</Link>
           </li>
           <li>
             <SortSelector />
