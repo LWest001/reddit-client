@@ -4,6 +4,7 @@ import SortSelector from "./SortSelector";
 import { sortType } from "../features/homepage/homepageSlice";
 import { useEffect } from "react";
 import { selectSortType } from "../features/homepage/homepageSlice";
+import "./Header.css";
 
 const Header = () => {
   const selectedType = useSelector(selectSortType);
