@@ -42,6 +42,7 @@ const homepageSlice = createSlice({
       .addCase(fetchThreads.fulfilled, (state, action) => {
         state.status = "succeeded";
         const loadedThreads = action.payload.map((thread) => {
+
           const data = thread.data;
           return (
             <ThreadCard
@@ -68,6 +69,7 @@ const homepageSlice = createSlice({
             //   : {thread.data.title} (👍
             //   {thread.data.score})
             // </p>
+
           );
         });
 
