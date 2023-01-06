@@ -1,0 +1,33 @@
+.ThreadCard {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  line-height: 1.5;
+}
+
+.threadCardSubredditHeader {
+  height: 2rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.threadCardSubredditHeader img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ThreadCard .authorName {
+  margin-bottom: 1rem;
+}
+
+.ThreadCard .threadPreview {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
