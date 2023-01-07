@@ -70,7 +70,11 @@ const ThreadCard = ({
         <div className="threadContentPreview">
           {image && (
             <a href={image}>
-              <img src={image} alt={`Image for thread: ${threadTitle}`} />
+              <img
+                src={image}
+                alt={`Image for thread: ${threadTitle}`}
+                className="previewImage"
+              />
             </a>
           )}
           {gallery && (

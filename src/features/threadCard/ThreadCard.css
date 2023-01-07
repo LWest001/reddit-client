@@ -36,9 +36,14 @@
   font-weight: bold;
 }
 
-.threadContentPreview img {
-  width: 100%;
-  max-width: 960px;
+.previewImage {
+  max-width: 100%;
+  max-height: 50vh;
+}
+
+video {
+  max-width: 100%;
+  max-height: 50vh;
 }
 
 .ThreadCard .vid-audio-message {
@@ -57,6 +62,7 @@
   background-color: lightgray;
   border-radius: 5px;
   padding: 5px;
+  align-items: center;
 }
 
 .ThreadCard .readMore {
