@@ -67,15 +67,17 @@ const ThreadCard = ({
         {!["link", "gallery", "self"].includes(threadType) && (
           <h2 className="threadTitle">{threadTitle}</h2>
         )}
-        <div className="threadContentPreview centered">
+        <div className="threadContentPreview">
           {image && (
-            <a href={image}>
-              <img
-                src={image}
-                alt={`Image for thread: ${threadTitle}`}
-                className="previewImage"
-              />
-            </a>
+            <div className="centered">
+              <a href={image}>
+                <img
+                  src={image}
+                  alt={`Image for thread: ${threadTitle}`}
+                  className="previewImage"
+                />
+              </a>
+            </div>
           )}
           {gallery && (
             <>
