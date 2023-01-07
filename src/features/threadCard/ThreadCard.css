@@ -79,3 +79,7 @@
   font-weight: normal;
   grid-column: 1/6;
 }
+
+.thumbnail {
+  border-radius: 3px;
+}

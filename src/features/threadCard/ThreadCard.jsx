@@ -2,6 +2,7 @@ import "./ThreadCard.css";
 import { useState } from "react";
 import defaultThumb from "../../assets/defaultThumb.png";
 import selfThumb from "../../assets/selfThumb.png";
+import nsfwThumb from "../../assets/nsfwThumb.png";
 
 const ThreadCard = ({
   subredditAvatar,
@@ -46,6 +47,9 @@ const ThreadCard = ({
   }
   if (thumbnail === "self") {
     thumbnail = selfThumb;
+  }
+  if (thumbnail === "nsfw") {
+    thumbnail = nsfwThumb;
   }
 
   return (
@@ -115,11 +119,11 @@ const ThreadCard = ({
                 className="thumbnail"
               />
               <p className="selfTitle">{threadTitle}</p>
-              <p className={`selfText previewText`} id={`previewText${id}`}>
-                {selfText.substring(0, 150)}...
-              </p>
               {selfText && (
                 <>
+                  <p className={`selfText previewText`} id={`previewText${id}`}>
+                    {selfText.substring(0, 150)}...
+                  </p>
                   <p className={`selfText fullText`} id={`fullText${id}`}>
                     {selfText}
                   </p>
