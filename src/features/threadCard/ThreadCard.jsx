@@ -1,5 +1,7 @@
 import "./ThreadCard.css";
 import { useState } from "react";
+import defaultThumb from "../../assets/defaultThumb.png";
+import selfThumb from "../../assets/selfThumb.png";
 
 const ThreadCard = ({
   subredditAvatar,
@@ -14,7 +16,7 @@ const ThreadCard = ({
   image,
   link,
   richVideo,
-  selftext,
+  selfText,
   threadType,
   thumbnail,
   video,
@@ -39,6 +41,13 @@ const ThreadCard = ({
     }
   };
 
+  if (thumbnail === "default") {
+    thumbnail = defaultThumb;
+  }
+  if (thumbnail === "self") {
+    thumbnail = selfThumb;
+  }
+
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardSubredditHeader">
@@ -51,7 +60,9 @@ const ThreadCard = ({
       </div>
       <p className="authorName">u/{author}</p>
       <div className="threadPreview">
-        <h2 className="threadTitle">{threadTitle}</h2>
+        {!["link", "gallery", "self"].includes(threadType) && (
+          <h2 className="threadTitle">{threadTitle}</h2>
+        )}
         <div className="threadContentPreview">
           {image && (
             <a href={image}>
@@ -60,22 +71,28 @@ const ThreadCard = ({
           )}
           {gallery && (
             <>
-              GALLERY
-              <a href={gallery}>
-                <img
-                  className="thumbnail"
-                  src={thumbnail}
-                  alt={`Thumbnail for thread: ${threadTitle}`}
-                />
-              </a>
+              Gallery
+              <div className="galleryPreview">
+                <a href={gallery}>
+                  <img
+                    className="thumbnail"
+                    src={thumbnail}
+                    alt={`Thumbnail for thread: ${threadTitle}`}
+                  />
+                </a>
+                <p className="galleryText">{threadTitle}</p>
+              </div>
             </>
           )}
           {threadType === "link" && (
-            <img
-              src={thumbnail}
-              alt={`Thumbnail for thread: ${threadTitle}`}
-              className="thumbnail"
-            />
+            <div className="linkPreview">
+              <img
+                src={thumbnail}
+                alt={`Thumbnail for thread: ${threadTitle}`}
+                className="thumbnail"
+              />
+              <p className="linkText">{threadTitle}</p>
+            </div>
           )}
           {video && (
             <>
@@ -90,22 +107,32 @@ const ThreadCard = ({
               </span>
             </>
           )}
-          {selftext && (
-            <>
-              <p className={`selftext previewText`} id={`previewText${id}`}>
-                {selftext.substring(0, 150)}...
+          {threadType === "self" && (
+            <div className="selfPreview">
+              <img
+                src={thumbnail}
+                alt={`Thumbnail for thread: ${threadTitle}`}
+                className="thumbnail"
+              />
+              <p className="selfTitle">{threadTitle}</p>
+              <p className={`selfText previewText`} id={`previewText${id}`}>
+                {selfText.substring(0, 150)}...
               </p>
-              <p className={`selftext fullText`} id={`fullText${id}`}>
-                {selftext}
-              </p>
-              <button
-                className="readMore"
-                id={`readMore${id}`}
-                onClick={handleReadMore}
-              >
-                Read more
-              </button>
-            </>
+              {selfText && (
+                <>
+                  <p className={`selfText fullText`} id={`fullText${id}`}>
+                    {selfText}
+                  </p>
+                  <button
+                    className="readMore"
+                    id={`readMore${id}`}
+                    onClick={handleReadMore}
+                  >
+                    Read more
+                  </button>
+                </>
+              )}
+            </div>
           )}
           {/* Rich Video: basically it sends html that embeds a video*/}
         </div>

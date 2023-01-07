@@ -96,7 +96,7 @@ const homepageSlice = createSlice({
               link={"https://reddit.com" + data.permalink}
               thumbnail={data.thumbnail}
               richVideo={threadType === "richVideo" && data.media_embed}
-              selftext={threadType === "self" && data.selftext}
+              selfText={threadType === "self" && data.selftext}
               threadType={threadType}
               video={
                 threadType === "video" &&

@@ -63,6 +63,19 @@
   width: fit-content;
 }
 
-.selftext.fullText {
+.fullText {
   display: none;
+}
+
+.galleryPreview,
+.linkPreview,
+.selfPreview {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.previewText,
+.fullText {
+  font-weight: normal;
+  grid-column: 1/6;
 }
