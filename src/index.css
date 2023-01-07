@@ -12,6 +12,7 @@ nav ul {
   font-size: 2rem;
   justify-content: start;
   gap: 1rem;
+  align-items: center;
 }
 
 nav ul li a {

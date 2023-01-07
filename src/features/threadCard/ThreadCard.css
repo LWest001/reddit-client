@@ -36,3 +36,13 @@
 .ThreadCard .threadPreview img {
   width: 100%;
 }
+
+.ThreadCard .vid-audio-message {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 0.8em;
+}
+
+.ThreadCard .threadPreview .thumbnail {
+  width: 96px;
+}

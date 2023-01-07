@@ -15,6 +15,40 @@ const initialState = {
   error: null,
 };
 
+const getThreadType = (data) => {
+  if (data.is_gallery) {
+    return "gallery";
+  }
+  if (data.post_hint) {
+    switch (data.post_hint) {
+      case "image":
+        return "image";
+      case "hosted:video":
+        return "video";
+      case "link":
+        return "link";
+      case "self":
+        return "self";
+      case "rich:video":
+        return "richVideo";
+    }
+  }
+  return "unknown";
+};
+
+const getTimeStamp = (created_utc) => {
+  const today = new Date(Date.now()).toLocaleDateString();
+  const createdDate = new Date(created_utc * 1000).toLocaleDateString();
+  if (today === createdDate) {
+    return new Date(created_utc * 1000).toLocaleTimeString("en-US", {
+      timeStyle: "short",
+    });
+  }
+  return new Date(created_utc * 1000).toLocaleDateString("en-US", {
+    timeStyle: "short",
+  });
+};
+
 export const fetchThreads = createAsyncThunk(
   "homepage/fetchThreads",
   async (param) => {
@@ -34,6 +68,7 @@ const homepageSlice = createSlice({
       },
     },
   },
+
   extraReducers(builder) {
     builder
       .addCase(fetchThreads.pending, (state, action) => {
@@ -42,25 +77,26 @@ const homepageSlice = createSlice({
       .addCase(fetchThreads.fulfilled, (state, action) => {
         state.status = "succeeded";
         const loadedThreads = action.payload.map((thread) => {
-
           const data = thread.data;
+          const threadType = getThreadType(data);
           return (
             <ThreadCard
               key={getRandomKey()}
               subredditAvatar={""}
               subredditName={data.subreddit}
               author={data.author}
-              timestamp={new Date(data.created_utc * 1000).toLocaleTimeString(
-                "en-US",
-                {
-                  timeStyle: "short",
-                }
-              )}
+              timestamp={getTimeStamp(data.created_utc)}
               threadTitle={data.title}
               score={data.score}
-              image={data.url}
+              gallery={threadType === "gallery" && data.url}
+              image={threadType === "image" && data.url}
               link={"https://reddit.com" + data.permalink}
               thumbnail={data.thumbnail}
+              richVideo={threadType === "richVideo" && data.media_embed}
+              video={
+                threadType === "video" &&
+                data.secure_media.reddit_video.fallback_url
+              }
             />
             // <p>
             //   <span className="subredditName card">
@@ -69,7 +105,6 @@ const homepageSlice = createSlice({
             //   : {thread.data.title} (👍
             //   {thread.data.score})
             // </p>
-
           );
         });
 
