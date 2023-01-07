@@ -79,10 +79,12 @@ const homepageSlice = createSlice({
         state.status = "succeeded";
         const loadedThreads = action.payload.map((thread) => {
           const data = thread.data;
+          const keyId = getRandomKey();
           const threadType = getThreadType(data);
           return (
             <ThreadCard
-              key={getRandomKey()}
+              key={keyId}
+              id={keyId}
               subredditAvatar={""}
               subredditName={data.subreddit}
               author={data.author}

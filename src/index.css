@@ -6,6 +6,12 @@ body {
   max-width: 1000px;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 nav ul {
   display: flex;
   flex-direction: row;

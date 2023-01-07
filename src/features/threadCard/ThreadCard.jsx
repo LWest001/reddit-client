@@ -2,6 +2,7 @@ import "./ThreadCard.css";
 
 const ThreadCard = ({
   subredditAvatar,
+  id,
   subredditName,
   author,
   timestamp,
@@ -17,6 +18,9 @@ const ThreadCard = ({
   thumbnail,
   video,
 }) => {
+  const readMoreHandler = (e) => {
+
+  }
   return (
     <div className="ThreadCard">
       <div className="threadCardSubredditHeader">
@@ -69,7 +73,13 @@ const ThreadCard = ({
             </>
           )}
           {selftext && (
-            <p className="selftext">{selftext.substring(0, 150)}...</p>
+            <>
+              <p className="selftext previewtext">
+                {selftext.substring(0, 150)}...
+              </p>
+              <p className="selftext fulltext">{selftext}</p>
+              <button className="readMore">Read more</button>
+            </>
           )}
           {/* Rich Video: basically it sends html that embeds a video*/}
         </div>
