@@ -12,6 +12,8 @@ const ThreadCard = ({
   image,
   link,
   richVideo,
+  selftext,
+  threadType,
   thumbnail,
   video,
 }) => {
@@ -28,36 +30,49 @@ const ThreadCard = ({
       <p className="authorName">u/{author}</p>
       <div className="threadPreview">
         <h2 className="threadTitle">{threadTitle}</h2>
-        {image && (
-          <a href={image}>
-            <img src={image} alt={`Image for thread: ${threadTitle}`} />
-          </a>
-        )}
-        {gallery && (
-          <>
-            GALLERY
-            <a href={gallery}>
-              <img
-                className="thumbnail"
-                src={thumbnail}
-                alt={`Thumbnail for thread: ${threadTitle}`}
-              />
+        <div className="threadContentPreview">
+          {image && (
+            <a href={image}>
+              <img src={image} alt={`Image for thread: ${threadTitle}`} />
             </a>
-          </>
-        )}
-        {video && (
-          <>
-            <video controls>
-              <source src={video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <span className="vid-audio-message">
-              Sorry! Reddit Client does not yet support video with audio. Click
-              View Comments below to navigate to the Reddit page with audio.
-            </span>
-          </>
-        )}
-        {/* Rich Video: basically it sends html that embeds a video*/}
+          )}
+          {gallery && (
+            <>
+              GALLERY
+              <a href={gallery}>
+                <img
+                  className="thumbnail"
+                  src={thumbnail}
+                  alt={`Thumbnail for thread: ${threadTitle}`}
+                />
+              </a>
+            </>
+          )}
+          {threadType === "link" && (
+            <img
+              src={thumbnail}
+              alt={`Thumbnail for thread: ${threadTitle}`}
+              className="thumbnail"
+            />
+          )}
+          {video && (
+            <>
+              <video controls>
+                <source src={video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <span className="vid-audio-message">
+                Sorry! Reddit Client does not yet support video with audio.
+                Click View Comments below to navigate to the Reddit page with
+                audio.
+              </span>
+            </>
+          )}
+          {selftext && (
+            <p className="selftext">{selftext.substring(0, 150)}...</p>
+          )}
+          {/* Rich Video: basically it sends html that embeds a video*/}
+        </div>
       </div>
       <p>
         <a href={link}>

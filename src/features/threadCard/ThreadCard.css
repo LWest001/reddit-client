@@ -46,3 +46,11 @@
 .ThreadCard .threadPreview .thumbnail {
   width: 96px;
 }
+
+.ThreadCard .threadContentPreview {
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+  border-radius: 5px;
+  padding: 5px;
+}

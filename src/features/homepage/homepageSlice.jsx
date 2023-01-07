@@ -19,6 +19,9 @@ const getThreadType = (data) => {
   if (data.is_gallery) {
     return "gallery";
   }
+  if (data.is_self) {
+    return "self";
+  }
   if (data.post_hint) {
     switch (data.post_hint) {
       case "image":
@@ -44,9 +47,7 @@ const getTimeStamp = (created_utc) => {
       timeStyle: "short",
     });
   }
-  return new Date(created_utc * 1000).toLocaleDateString("en-US", {
-    timeStyle: "short",
-  });
+  return new Date(created_utc * 1000).toLocaleDateString("en-US", {});
 };
 
 export const fetchThreads = createAsyncThunk(
@@ -93,6 +94,8 @@ const homepageSlice = createSlice({
               link={"https://reddit.com" + data.permalink}
               thumbnail={data.thumbnail}
               richVideo={threadType === "richVideo" && data.media_embed}
+              selftext={threadType === "self" && data.selftext}
+              threadType={threadType}
               video={
                 threadType === "video" &&
                 data.secure_media.reddit_video.fallback_url
