@@ -62,6 +62,9 @@ video {
   background-color: lightgray;
   border-radius: 5px;
   padding: 5px;
+}
+
+.threadContentPreview.centered {
   align-items: center;
 }
 
