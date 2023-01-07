@@ -1,4 +1,5 @@
 import "./ThreadCard.css";
+import { useState } from "react";
 
 const ThreadCard = ({
   subredditAvatar,
@@ -18,11 +19,28 @@ const ThreadCard = ({
   thumbnail,
   video,
 }) => {
-  const readMoreHandler = (e) => {
+  const [readMore, setReadMore] = useState("hide");
+  const handleReadMore = (e) => {
+    const previewText = document.getElementById(`previewText${id}`);
+    const fullText = document.getElementById(`fullText${id}`);
+    const button = document.getElementById(`readMore${id}`);
 
-  }
+    if (readMore === "hide") {
+      previewText.style.display = "none";
+      fullText.style.display = "block";
+      button.textContent = "Hide full text";
+      setReadMore("readMore");
+    }
+    if (readMore === "readMore") {
+      previewText.style.display = "block";
+      fullText.style.display = "none";
+      button.textContent = "Read more";
+      setReadMore("hide");
+    }
+  };
+
   return (
-    <div className="ThreadCard">
+    <div className="ThreadCard" id={id}>
       <div className="threadCardSubredditHeader">
         <span>
           {/* Figure out how to get a subreddit avatar url */}
@@ -74,11 +92,19 @@ const ThreadCard = ({
           )}
           {selftext && (
             <>
-              <p className="selftext previewtext">
+              <p className={`selftext previewText`} id={`previewText${id}`}>
                 {selftext.substring(0, 150)}...
               </p>
-              <p className="selftext fulltext">{selftext}</p>
-              <button className="readMore">Read more</button>
+              <p className={`selftext fullText`} id={`fullText${id}`}>
+                {selftext}
+              </p>
+              <button
+                className="readMore"
+                id={`readMore${id}`}
+                onClick={handleReadMore}
+              >
+                Read more
+              </button>
             </>
           )}
           {/* Rich Video: basically it sends html that embeds a video*/}
