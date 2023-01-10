@@ -2,8 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import ThreadCard from "../threadCard/ThreadCard";
 
-const URL = (param) => `https://www.reddit.com/${param}.json`;
-
 function getRandomKey() {
   return crypto.randomUUID();
 }
@@ -52,8 +50,16 @@ const getTimeStamp = (created_utc) => {
 
 export const fetchThreads = createAsyncThunk(
   "homepage/fetchThreads",
-  async (param) => {
-    const response = await axios.get(URL(param));
+  async (sortType) => {
+    const URL = `https://www.reddit.com/${sortType}.json`;
+    const response = await axios.get(URL);
+    await response.data.data.children.forEach(async (thread) => {
+      const subredditName = thread.data.subreddit;
+      const subredditAboutResponse = await axios.get(
+        `https://www.reddit.com/r/${subredditName}/about.json`
+      );
+      thread.data.icon = subredditAboutResponse.data.data.icon_img;
+    });
     return response.data.data.children;
   }
 );
@@ -81,17 +87,18 @@ const homepageSlice = createSlice({
           const data = thread.data;
           const keyId = getRandomKey();
           const threadType = getThreadType(data);
+          console.log(`${data.icon}`);
           return (
             <ThreadCard
               key={keyId}
               id={keyId}
-              subredditAvatar={""}
               subredditName={data.subreddit}
               author={data.author}
               timestamp={getTimeStamp(data.created_utc)}
               threadTitle={data.title}
               score={data.score}
               gallery={threadType === "gallery" && data.url}
+              icon={data.icon}
               image={threadType === "image" && data.url}
               link={"https://reddit.com" + data.permalink}
               thumbnail={data.thumbnail}
@@ -103,13 +110,6 @@ const homepageSlice = createSlice({
                 data.secure_media.reddit_video.fallback_url
               }
             />
-            // <p>
-            //   <span className="subredditName card">
-            //     {thread.data.subreddit}
-            //   </span>
-            //   : {thread.data.title} (👍
-            //   {thread.data.score})
-            // </p>
           );
         });
 

@@ -5,7 +5,7 @@ import selfThumb from "../../assets/selfThumb.png";
 import nsfwThumb from "../../assets/nsfwThumb.png";
 
 const ThreadCard = ({
-  subredditAvatar,
+  icon,
   id,
   subredditName,
   author,
@@ -57,7 +57,7 @@ const ThreadCard = ({
       <div className="threadCardSubredditHeader">
         <span>
           {/* Figure out how to get a subreddit avatar url */}
-          {/* <img src={subredditAvatar} alt="Subreddit avatar" /> */}
+          <img src={icon} alt="Subreddit avatar" />
           r/{subredditName}
         </span>{" "}
         <span>{timestamp}</span>

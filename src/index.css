@@ -3,13 +3,16 @@
 }
 
 body {
-  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin: auto;
+  max-width: 1000px;
 }
 
 nav ul {
