@@ -32,7 +32,13 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/">☰</Link>
+            <Link to="/">
+              <div className="burgerLines">
+                <div className="burgerLine"></div>
+                <div className="burgerLine"></div>
+                <div className="burgerLine"></div>
+              </div>
+            </Link>
           </li>
           <li>
             <SortSelector />

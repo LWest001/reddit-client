@@ -42,7 +42,12 @@ const Homepage = () => {
       dispatch(fetchThreads(sortType));
     }
   }, [threadsStatus, sortType, dispatch]);
-  return <>{threads}</>;
+  return (
+    <>
+      {threadsStatus === "loading" && "Loading..."}
+      {threadsStatus === "succeeded" && threads}
+    </>
+  );
 };
 
 export default Homepage;

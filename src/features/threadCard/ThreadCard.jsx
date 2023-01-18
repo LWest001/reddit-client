@@ -62,15 +62,14 @@ const ThreadCard = ({
 
   return (
     <div className="ThreadCard" id={id}>
-      <div className="threadCardSubredditHeader">
-        <span>
-          {/* Figure out how to get a subreddit avatar url */}
-          <img src={icon} alt="Subreddit avatar" />
+      <div className="threadCardHeader">
+        <img src={icon} alt="Subreddit avatar" className="subredditIcon" />
+        <p className="ThreadCardHeaderText">
           r/{subredditName}
-        </span>{" "}
-        <span>{timestamp}</span>
+          <span className="authorName">u/{author}</span>
+        </p>
+        <span className="timestamp">{timestamp}</span>
       </div>
-      <p className="authorName">u/{author}</p>
       <div className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
           <h2 className="threadTitle">{threadTitle}</h2>
@@ -155,7 +154,7 @@ const ThreadCard = ({
           {/* Rich Video: basically it sends html that embeds a video*/}
         </div>
       </div>
-      <p>
+      <p className="threadFooter">
         <a href={link}>
           <button className="viewComments">🗨️View comments</button>
         </a>

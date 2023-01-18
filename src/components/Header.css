@@ -1,5 +1,54 @@
 .Header {
-  height: 3rem;
   border-bottom: 3px solid lightgray;
-  margin: 1rem initial 1rem inital;
+  align-items: center;
+}
+
+.SortSelector {
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: gainsboro;
+  height:32px
+}
+
+.burgerLine {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  border-radius: 5px;
+}
+
+.burgerLines {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 36px;
+}
+
+.burgerLines :first-child {
+  margin-top: 3px;
+}
+
+.burgerLines :last-child {
+  margin-bottom: 3px;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  font-size: 2rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+nav ul li {
+  display: flex;
+}
+
+nav ul li a {
+  text-decoration: none;
+}
+
+#searchLink {
+  margin-left: auto;
 }

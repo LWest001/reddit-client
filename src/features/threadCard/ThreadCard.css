@@ -1,39 +1,47 @@
 .ThreadCard {
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 10px 0;
+  --radius: 5px;
+  --border: 5px;
+  border: 2px solid black;
+  border-radius: calc(var(--radius) + var(--border));
+  margin: 10px 5px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
   line-height: 1.5;
   box-shadow: 2px 2px 6px black;
 }
 
-.threadCardSubredditHeader {
-  height: 1rem;
-  display: flex;
-  width: 100%;
+.threadCardHeader {
+  height: fit-content;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  width: auto;
   justify-content: space-between;
-  align-items: flex-end;
   line-height: 0.8rem;
   background: linear-gradient(-90deg, #ffffff, lightgray);
+  padding: 5px;
+  border-radius: var(--radius);
+  margin: var(--border);
 }
 
-.threadCardSubredditHeader img {
-  width: 1rem;
-  height: 1rem;
+.threadCardHeader img {
+  width: 2rem;
+  height: 2rem;
 }
 
 .ThreadCard .authorName {
-  margin-bottom: 1rem;
   font-size: 0.8rem;
 }
 
 .ThreadCard .threadPreview {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   font-weight: bold;
+}
+
+.ThreadCard .timestamp {
+  align-items: center;
+  justify-content: end;
+  display: flex;
 }
 
 .previewImage {
@@ -56,11 +64,21 @@ video {
   width: 96px;
 }
 
+.ThreadCardHeaderText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 5px;
+}
+
 .ThreadCard .threadContentPreview {
   display: flex;
   flex-direction: column;
   background-color: lightgray;
-  border-radius: 5px;
+  border-radius: var(--radius);
+  margin: var(--border);
   padding: 5px;
 }
 
@@ -72,6 +90,15 @@ video {
 
 .ThreadCard .readMore {
   width: fit-content;
+}
+
+.ThreadCard .threadFooter {
+  border-radius: var(--radius);
+  margin: var(--border);
+}
+
+.ThreadCard .threadTitle {
+  margin: var(--border);
 }
 
 .fullText {
@@ -99,4 +126,9 @@ video {
 
 .thumbnail {
   border-radius: 3px;
+}
+
+.subredditIcon {
+  border-radius: 50%;
+  border: 2px solid black;
 }
