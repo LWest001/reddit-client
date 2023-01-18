@@ -3,9 +3,9 @@ import { useState } from "react";
 import defaultThumb from "../../assets/defaultThumb.png";
 import selfThumb from "../../assets/selfThumb.png";
 import nsfwThumb from "../../assets/nsfwThumb.png";
+import axios from "axios";
 
 const ThreadCard = ({
-  icon,
   id,
   subredditName,
   author,
@@ -23,6 +23,7 @@ const ThreadCard = ({
   video,
 }) => {
   const [readMore, setReadMore] = useState("hide");
+  const [icon, setIcon] = useState("");
   const handleReadMore = (e) => {
     const previewText = document.getElementById(`previewText${id}`);
     const fullText = document.getElementById(`fullText${id}`);
@@ -51,6 +52,13 @@ const ThreadCard = ({
   if (thumbnail === "nsfw") {
     thumbnail = nsfwThumb;
   }
+
+  async function getIcon(subredditName) {
+    const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
+    const response = await axios.get(URL);
+    setIcon(response.data.data.icon_img);
+  }
+  getIcon(subredditName);
 
   return (
     <div className="ThreadCard" id={id}>

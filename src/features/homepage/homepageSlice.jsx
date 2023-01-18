@@ -8,6 +8,7 @@ function getRandomKey() {
 
 const initialState = {
   threads: [],
+  icons: {},
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
   sortType: "best", // 'best' | 'new' | 'top' | 'hot' | 'rising'
   error: null,
@@ -53,13 +54,6 @@ export const fetchThreads = createAsyncThunk(
   async (sortType) => {
     const URL = `https://www.reddit.com/${sortType}.json`;
     const response = await axios.get(URL);
-    await response.data.data.children.forEach(async (thread) => {
-      const subredditName = thread.data.subreddit;
-      const subredditAboutResponse = await axios.get(
-        `https://www.reddit.com/r/${subredditName}/about.json`
-      );
-      thread.data.icon = subredditAboutResponse.data.data.icon_img;
-    });
     return response.data.data.children;
   }
 );
@@ -86,7 +80,7 @@ const homepageSlice = createSlice({
         const loadedThreads = action.payload.map((thread) => {
           const data = thread.data;
           const threadType = getThreadType(data);
-          console.log(`${data}`);
+
           return {
             keyId: getRandomKey(),
             subredditName: data.subreddit,
@@ -95,7 +89,6 @@ const homepageSlice = createSlice({
             threadTitle: data.title,
             score: data.score,
             gallery: threadType === "gallery" && data.url,
-            icon: data.icon,
             image: threadType === "image" && data.url,
             link: "https://reddit.com" + data.permalink,
             thumbnail: data.thumbnail,
