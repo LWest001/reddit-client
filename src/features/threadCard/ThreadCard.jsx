@@ -101,7 +101,7 @@ const ThreadCard = ({
                       src={thumbnail}
                       alt={`Thumbnail for thread: ${threadTitle}`}
                     />
-                    Gallery
+                    View gallery ➡️
                   </div>
                 </a>
                 <p className="galleryText">{threadTitle}</p>

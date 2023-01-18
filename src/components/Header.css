@@ -51,25 +51,31 @@ nav ul li a {
 
 #searchLink {
   margin-left: auto;
-  cursor: pointer;
-  margin-right: 3px;
+  margin-right: 10px;
   height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #searchInput {
   font-size: 1.3rem;
   border-radius: 100px;
-  border: none;
-  width: 1.8rem;
-  /* transition: 200ms; */
+  display: flex;
+}
+
+#searchInput:empty {
+  border: 1px transparent;
+  width: 3rem;
 }
 
 #searchInput:focus {
   width: 100%;
   border: 1px solid black;
   text-indent: 0.5rem;
+  height: fit-content;
 }
 
-#searchInput:focus::placeholder {
+#searchInput::placeholder {
   text-align: end;
 }

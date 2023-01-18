@@ -5,6 +5,8 @@ import { sortType } from "../features/homepage/homepageSlice";
 import { useEffect } from "react";
 import { selectSortType } from "../features/homepage/homepageSlice";
 import "./Header.css";
+import { query } from "../features/search/searchResultsSlice";
+import { selectQuery } from "../features/search/searchResultsSlice";
 
 const Header = () => {
   const selectedType = useSelector(selectSortType);
@@ -20,6 +22,15 @@ const Header = () => {
   const handleClick = () => {
     dispatch(sortType("best"));
     navigate("best");
+  };
+  const handleChange = (e) => {
+    dispatch(query(e.target.value));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.target[0].value = "";
+    dispatch(query(""));
   };
 
   return (
@@ -44,7 +55,14 @@ const Header = () => {
             <SortSelector />
           </li>
           <li id="searchLink">
-            <input id="searchInput" placeholder="🔍"></input>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="search"
+                id="searchInput"
+                placeholder="🔍"
+                onChange={handleChange}
+              />
+            </form>
           </li>
         </ul>
       </nav>
