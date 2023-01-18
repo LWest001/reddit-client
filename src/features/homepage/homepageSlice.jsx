@@ -85,34 +85,28 @@ const homepageSlice = createSlice({
         state.status = "succeeded";
         const loadedThreads = action.payload.map((thread) => {
           const data = thread.data;
-          const keyId = getRandomKey();
           const threadType = getThreadType(data);
           console.log(`${data.icon}`);
-          return (
-            <ThreadCard
-              key={keyId}
-              id={keyId}
-              subredditName={data.subreddit}
-              author={data.author}
-              timestamp={getTimeStamp(data.created_utc)}
-              threadTitle={data.title}
-              score={data.score}
-              gallery={threadType === "gallery" && data.url}
-              icon={data.icon}
-              image={threadType === "image" && data.url}
-              link={"https://reddit.com" + data.permalink}
-              thumbnail={data.thumbnail}
-              richVideo={threadType === "richVideo" && data.media_embed}
-              selfText={threadType === "self" && data.selftext}
-              threadType={threadType}
-              video={
-                threadType === "video" &&
-                data.secure_media.reddit_video.fallback_url
-              }
-            />
-          );
+          return {
+            keyId: getRandomKey(),
+            subredditName: data.subreddit,
+            author: data.author,
+            timestamp: getTimeStamp(data.created_utc),
+            threadTitle: data.title,
+            score: data.score,
+            gallery: threadType === "gallery" && data.url,
+            icon: data.icon,
+            image: threadType === "image" && data.url,
+            link: "https://reddit.com" + data.permalink,
+            thumbnail: data.thumbnail,
+            richVideo: threadType === "richVideo" && data.media_embed,
+            selfText: threadType === "self" && data.selftext,
+            threadType: threadType,
+            video:
+              threadType === "video" &&
+              data.secure_media.reddit_video.fallback_url,
+          };
         });
-
         state.threads = loadedThreads;
       })
       .addCase(fetchThreads.rejected, (state, action) => {
