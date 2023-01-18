@@ -86,7 +86,7 @@ const homepageSlice = createSlice({
         const loadedThreads = action.payload.map((thread) => {
           const data = thread.data;
           const threadType = getThreadType(data);
-          console.log(`${data.icon}`);
+          console.log(`${data}`);
           return {
             keyId: getRandomKey(),
             subredditName: data.subreddit,

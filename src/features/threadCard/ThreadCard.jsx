@@ -6,7 +6,7 @@ import nsfwThumb from "../../assets/nsfwThumb.png";
 
 const ThreadCard = ({
   icon,
-  keyId,
+  id,
   subredditName,
   author,
   timestamp,
@@ -24,9 +24,9 @@ const ThreadCard = ({
 }) => {
   const [readMore, setReadMore] = useState("hide");
   const handleReadMore = (e) => {
-    const previewText = document.getElementById(`previewText${keyId}`);
-    const fullText = document.getElementById(`fullText${keyId}`);
-    const button = document.getElementById(`readMore${keyId}`);
+    const previewText = document.getElementById(`previewText${id}`);
+    const fullText = document.getElementById(`fullText${id}`);
+    const button = document.getElementById(`readMore${id}`);
 
     if (readMore === "hide") {
       previewText.style.display = "none";
@@ -53,7 +53,7 @@ const ThreadCard = ({
   }
 
   return (
-    <div className="ThreadCard" id={keyId}>
+    <div className="ThreadCard" id={id}>
       <div className="threadCardSubredditHeader">
         <span>
           {/* Figure out how to get a subreddit avatar url */}
@@ -127,18 +127,15 @@ const ThreadCard = ({
               <p className="selfTitle">{threadTitle}</p>
               {selfText && (
                 <>
-                  <p
-                    className={`selfText previewText`}
-                    id={`previewText${keyId}`}
-                  >
+                  <p className={`selfText previewText`} id={`previewText${id}`}>
                     {selfText.substring(0, 150)}...
                   </p>
-                  <p className={`selfText fullText`} id={`fullText${keyId}`}>
+                  <p className={`selfText fullText`} id={`fullText${id}`}>
                     {selfText}
                   </p>
                   <button
                     className="readMore"
-                    id={`readMore${keyId}`}
+                    id={`readMore${id}`}
                     onClick={handleReadMore}
                   >
                     Read more
