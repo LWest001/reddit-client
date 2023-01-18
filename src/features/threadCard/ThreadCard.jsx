@@ -69,10 +69,11 @@ const ThreadCard = ({
           <div className="subredditIcon">r/</div>
         )}
         <p className="ThreadCardHeaderText">
-          r/{subredditName}
-          <span className="authorName">u/{author}</span>
+          <span className="subredditName">r/{subredditName}</span>
+          <span className="subtext">
+            Posted by <span className="author">u/{author}</span> ▪️ {timestamp}
+          </span>
         </p>
-        <span className="timestamp">{timestamp}</span>
       </div>
       <div className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
@@ -92,14 +93,16 @@ const ThreadCard = ({
           )}
           {gallery && (
             <>
-              Gallery
               <div className="galleryPreview">
-                <a href={gallery}>
-                  <img
-                    className="thumbnail"
-                    src={thumbnail}
-                    alt={`Thumbnail for thread: ${threadTitle}`}
-                  />
+                <a href={gallery} target="_blank">
+                  <div className="galleryThumbnailBox">
+                    <img
+                      className="thumbnail"
+                      src={thumbnail}
+                      alt={`Thumbnail for thread: ${threadTitle}`}
+                    />
+                    Gallery
+                  </div>
                 </a>
                 <p className="galleryText">{threadTitle}</p>
               </div>
@@ -112,7 +115,7 @@ const ThreadCard = ({
                 alt={`Thumbnail for thread: ${threadTitle}`}
                 className="thumbnail"
               />
-              <p className="linkText">{threadTitle}</p>
+              <span className="linkText">{threadTitle}</span>
             </div>
           )}
           {video && (

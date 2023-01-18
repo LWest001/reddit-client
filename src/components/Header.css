@@ -8,7 +8,7 @@
   border: none;
   border-radius: 5px;
   background-color: gainsboro;
-  height:32px
+  height: 32px;
 }
 
 .burgerLine {
@@ -51,4 +51,25 @@ nav ul li a {
 
 #searchLink {
   margin-left: auto;
+  cursor: pointer;
+  margin-right: 3px;
+  height: 32px;
+}
+
+#searchInput {
+  font-size: 1.3rem;
+  border-radius: 100px;
+  border: none;
+  width: 1.8rem;
+  /* transition: 200ms; */
+}
+
+#searchInput:focus {
+  width: 100%;
+  border: 1px solid black;
+  text-indent: 0.5rem;
+}
+
+#searchInput:focus::placeholder {
+  text-align: end;
 }

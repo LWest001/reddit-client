@@ -44,7 +44,7 @@ const Header = () => {
             <SortSelector />
           </li>
           <li id="searchLink">
-            <Link to="/search">🔍</Link>
+            <input id="searchInput" placeholder="🔍"></input>
           </li>
         </ul>
       </nav>
