@@ -63,7 +63,11 @@ const ThreadCard = ({
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
-        <img src={icon} alt="Subreddit avatar" className="subredditIcon" />
+        {icon ? (
+          <img src={icon} alt="Subreddit avatar" className="subredditIcon" />
+        ) : (
+          <div className="subredditIcon">r/</div>
+        )}
         <p className="ThreadCardHeaderText">
           r/{subredditName}
           <span className="authorName">u/{author}</span>
