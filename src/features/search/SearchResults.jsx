@@ -6,8 +6,8 @@ import {
   selectSortType,
 } from "./searchResultsSlice";
 import { useEffect } from "react";
-import ThreadCard from "../threadCard/ThreadCard";
 import { useSearchParams } from "react-router-dom";
+import SearchCard from "./SearchCard/SearchCard";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const SearchResults = () => {
 
   const threads = threadsData.map((thread) => {
     return (
-      <ThreadCard
+      <SearchCard
         key={thread.keyId}
         id={thread.keyId}
         subredditName={thread.subredditName}
@@ -27,6 +27,7 @@ const SearchResults = () => {
         timestamp={thread.timestamp}
         threadTitle={thread.threadTitle}
         score={thread.score}
+        commentCount={thread.commentCount}
         gallery={thread.threadType === "gallery" && thread.gallery}
         icon={thread.icon}
         image={thread.threadType === "image" && thread.image}

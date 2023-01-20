@@ -83,7 +83,7 @@ const ThreadCard = ({
           <h2 className="threadTitle">{threadTitle}</h2>
         )}
         <div className="threadContentPreview">
-          {image && (
+          {threadType == "image" && (
             <div className="centered">
               <a href={image}>
                 <img
@@ -94,7 +94,7 @@ const ThreadCard = ({
               </a>
             </div>
           )}
-          {gallery && (
+          {threadType == "gallery" && (
             <>
               <div className="galleryPreview">
                 <a href={gallery} target="_blank">
@@ -121,7 +121,7 @@ const ThreadCard = ({
               <span className="linkText">{threadTitle}</span>
             </div>
           )}
-          {video && (
+          {threadType == "video" && (
             <>
               <video controls>
                 <source src={video} type="video/mp4" />

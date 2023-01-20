@@ -53,6 +53,7 @@ const searchResultsSlice = createSlice({
             timestamp: getTimeStamp(data.created_utc),
             threadTitle: data.title,
             score: data.score,
+            commentCount: data.num_comments,
             link: "https://reddit.com" + data.permalink,
             thumbnail: data.thumbnail,
             selfText: threadType === "self" && data.selftext,
