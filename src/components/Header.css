@@ -62,6 +62,7 @@ nav ul li a {
   font-size: 1.3rem;
   border-radius: 100px;
   display: flex;
+  cursor: pointer;
 }
 
 #searchInput:empty {
@@ -74,6 +75,7 @@ nav ul li a {
   border: 1px solid black;
   text-indent: 0.5rem;
   height: fit-content;
+  cursor: text;
 }
 
 #searchInput::placeholder {

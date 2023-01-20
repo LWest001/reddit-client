@@ -1,10 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import ThreadCard from "../threadCard/ThreadCard";
-
-function getRandomKey() {
-  return crypto.randomUUID();
-}
+import { getThreadType } from "../../functions/getThreadType";
+import { getTimeStamp } from "../../functions/getTimeStamp";
+import { getRandomKey } from "../../functions/getRandomKey";
 
 const initialState = {
   threads: [],
@@ -12,41 +10,6 @@ const initialState = {
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
   sortType: "best", // 'best' | 'new' | 'top' | 'hot' | 'rising'
   error: null,
-};
-
-const getThreadType = (data) => {
-  if (data.is_gallery) {
-    return "gallery";
-  }
-  if (data.is_self) {
-    return "self";
-  }
-  if (data.post_hint) {
-    switch (data.post_hint) {
-      case "image":
-        return "image";
-      case "hosted:video":
-        return "video";
-      case "link":
-        return "link";
-      case "self":
-        return "self";
-      case "rich:video":
-        return "richVideo";
-    }
-  }
-  return "unknown";
-};
-
-const getTimeStamp = (created_utc) => {
-  const today = new Date(Date.now()).toLocaleDateString();
-  const createdDate = new Date(created_utc * 1000).toLocaleDateString();
-  if (today === createdDate) {
-    return new Date(created_utc * 1000).toLocaleTimeString("en-US", {
-      timeStyle: "short",
-    });
-  }
-  return new Date(created_utc * 1000).toLocaleDateString("en-US", {});
 };
 
 export const fetchThreads = createAsyncThunk(

@@ -1,37 +1,45 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  createSearchParams,
+} from "react-router-dom";
 import SortSelector from "./SortSelector";
 import { sortType } from "../features/homepage/homepageSlice";
 import { useEffect } from "react";
 import { selectSortType } from "../features/homepage/homepageSlice";
 import "./Header.css";
-import { query } from "../features/search/searchResultsSlice";
+import { setQuery } from "../features/search/searchResultsSlice";
 import { selectQuery } from "../features/search/searchResultsSlice";
+import { setStatus } from "../features/search/searchResultsSlice";
 
 const Header = () => {
   const selectedType = useSelector(selectSortType);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const query = useSelector(selectQuery);
+
   useEffect(() => {
     if (selectedType === "best") {
       document.querySelector("select").selectedIndex = 0;
     }
   }, [selectedType]);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const handleClick = () => {
     dispatch(sortType("best"));
-    navigate("best");
-  };
-  const handleChange = (e) => {
-    dispatch(query(e.target.value));
+    navigate("/");
   };
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
+    dispatch(setStatus("idle"));
+    const params = { q: query };
+    navigate({
+      pathname: "/search",
+      search: `?${createSearchParams(params)}`,
+    });
     e.target[0].value = "";
-    dispatch(query(""));
-  };
+  }
 
   return (
     <header className="Header">
@@ -60,7 +68,7 @@ const Header = () => {
                 type="search"
                 id="searchInput"
                 placeholder="🔍"
-                onChange={handleChange}
+                onChange={(e) => dispatch(setQuery(e.target.value))}
               />
             </form>
           </li>

@@ -4,6 +4,7 @@ import defaultThumb from "../../assets/defaultThumb.png";
 import selfThumb from "../../assets/selfThumb.png";
 import nsfwThumb from "../../assets/nsfwThumb.png";
 import axios from "axios";
+import { useEffect } from "react";
 
 const ThreadCard = ({
   id,
@@ -24,7 +25,7 @@ const ThreadCard = ({
 }) => {
   const [readMore, setReadMore] = useState("hide");
   const [icon, setIcon] = useState("");
-  const handleReadMore = (e) => {
+  const handleReadMore = () => {
     const previewText = document.getElementById(`previewText${id}`);
     const fullText = document.getElementById(`fullText${id}`);
     const button = document.getElementById(`readMore${id}`);
@@ -53,12 +54,14 @@ const ThreadCard = ({
     thumbnail = nsfwThumb;
   }
 
-  async function getIcon(subredditName) {
-    const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
-    const response = await axios.get(URL);
-    setIcon(response.data.data.icon_img);
-  }
-  getIcon(subredditName);
+  useEffect(() => {
+    async function getIcon(subredditName) {
+      const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
+      const response = await axios.get(URL);
+      setIcon(response.data.data.icon_img);
+    }
+    getIcon(subredditName);
+  }, [window.URL]);
 
   return (
     <div className="ThreadCard" id={id}>
