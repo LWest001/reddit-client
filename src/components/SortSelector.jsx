@@ -1,13 +1,17 @@
 import { useDispatch } from "react-redux";
-import { sortType } from "../features/homepage/homepageSlice";
 import { useNavigate } from "react-router-dom";
+import { setSortType } from "./sortSelectorSlice";
+import { useParams } from "react-router-dom";
+import { setStatus } from "../features/homepage/homepageSlice";
 
 const SortSelector = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { sortType } = useParams();
 
   const handleChange = ({ target }) => {
-    dispatch(sortType(target.value));
+    dispatch(setSortType(target.value));
+    dispatch(setStatus("idle"));
     navigate(target.value);
   };
   return (

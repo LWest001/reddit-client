@@ -1,16 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllThreads } from "./searchResultsSlice";
-import { selectSortType } from "./searchResultsSlice";
-import { selectThreadsStatus } from "./searchResultsSlice";
+import {
+  selectThreadsStatus,
+  fetchSearchResults,
+  selectAllThreads,
+  selectSortType,
+} from "./searchResultsSlice";
 import { useEffect } from "react";
-import { fetchSearchResults } from "./searchResultsSlice";
 import ThreadCard from "../threadCard/ThreadCard";
+import { useSearchParams } from "react-router-dom";
 
-const SearchResults = ({ query }) => {
+const SearchResults = () => {
   const dispatch = useDispatch();
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
   const sortType = useSelector(selectSortType);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q");
 
   const threads = threadsData.map((thread) => {
     return (

@@ -1,18 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchThreads } from "./homepageSlice";
 import { useEffect } from "react";
-import {
-  selectSortType,
-  selectThreadsStatus,
-  selectAllThreads,
-} from "./homepageSlice";
+import { selectThreadsStatus, selectAllThreads } from "./homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
+import { useParams } from "react-router-dom";
 
 const Homepage = () => {
   const dispatch = useDispatch();
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
-  const sortType = useSelector(selectSortType);
+  const { sortType } = useParams();
 
   const threads = threadsData.map((thread) => {
     return (

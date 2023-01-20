@@ -1,17 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  useNavigate,
-  createSearchParams,
-} from "react-router-dom";
+import { Link, useNavigate, createSearchParams } from "react-router-dom";
 import SortSelector from "./SortSelector";
-import { sortType } from "../features/homepage/homepageSlice";
 import { useEffect } from "react";
-import { selectSortType } from "../features/homepage/homepageSlice";
+import { selectSortType } from "./sortSelectorSlice";
 import "./Header.css";
 import { setQuery } from "../features/search/searchResultsSlice";
 import { selectQuery } from "../features/search/searchResultsSlice";
 import { setStatus } from "../features/search/searchResultsSlice";
+import { setSortType } from "./sortSelectorSlice";
 
 const Header = () => {
   const selectedType = useSelector(selectSortType);
@@ -26,7 +22,7 @@ const Header = () => {
   }, [selectedType]);
 
   const handleClick = () => {
-    dispatch(sortType("best"));
+    dispatch(setSortType("best"));
     navigate("/");
   };
 

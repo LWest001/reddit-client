@@ -8,9 +8,7 @@ import { getRandomKey } from "../../functions/getRandomKey";
 const initialState = {
   query: "",
   threads: [],
-  icons: {},
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
-  sortType: "best", // 'best' | 'new' | 'top' | 'hot' | 'rising'
   error: null,
 };
 

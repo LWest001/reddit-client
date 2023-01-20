@@ -6,7 +6,6 @@ import { getRandomKey } from "../../functions/getRandomKey";
 
 const initialState = {
   threads: [],
-  icons: {},
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
   sortType: "best", // 'best' | 'new' | 'top' | 'hot' | 'rising'
   error: null,
@@ -25,10 +24,9 @@ const homepageSlice = createSlice({
   name: "homepage",
   initialState,
   reducers: {
-    sortType: {
+    setStatus: {
       reducer(state, action) {
-        state.sortType = action.payload;
-        state.status = "idle";
+        state.status = action.payload;
       },
     },
   },
@@ -73,8 +71,7 @@ const homepageSlice = createSlice({
 });
 
 export const selectAllThreads = (state) => state.homepage.threads;
-export const selectSortType = (state) => state.homepage.sortType;
 export const selectThreadsStatus = (state) => state.homepage.status;
 
-export const { sortType } = homepageSlice.actions;
+export const { setStatus } = homepageSlice.actions;
 export default homepageSlice.reducer;
