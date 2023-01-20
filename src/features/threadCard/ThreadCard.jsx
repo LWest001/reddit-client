@@ -6,6 +6,8 @@ import nsfwThumb from "../../assets/nsfwThumb.png";
 import axios from "axios";
 import { useEffect } from "react";
 import Embed from "react-tiny-oembed";
+import { Link } from "react-router-dom";
+import { setStatus } from "../homepage/homepageSlice";
 
 const ThreadCard = ({
   id,
@@ -74,7 +76,14 @@ const ThreadCard = ({
           <div className="subredditIcon">r/</div>
         )}
         <p className="ThreadCardHeaderText">
-          <span className="subredditName">r/{subredditName}</span>
+          <span className="subredditName">
+            <Link
+              to={`/r/${subredditName}`}
+              onClick={() => dispatchEvent(setStatus("idle"))}
+            >
+              r/{subredditName}
+            </Link>
+          </span>
           <span className="subtext">
             Posted by <span className="author">u/{author}</span> ▪️ {timestamp}
           </span>

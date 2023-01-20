@@ -1,15 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchThreads } from "./homepageSlice";
+import { fetchThreads } from "../homepage/homepageSlice";
 import { useEffect } from "react";
-import { selectThreadsStatus, selectAllThreads } from "./homepageSlice";
+import {
+  selectThreadsStatus,
+  selectAllThreads,
+} from "../homepage/homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
 
-const Homepage = () => {
+const Subreddit = () => {
   const dispatch = useDispatch();
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
-  const { sortType } = useParams();
+  const { sortType, subredditName } = useParams();
 
   const threads = threadsData.map((thread) => {
     return (
@@ -37,7 +40,7 @@ const Homepage = () => {
 
   useEffect(() => {
     if (threadsStatus === "idle") {
-      dispatch(fetchThreads(sortType ? sortType : "best"));
+      dispatch(fetchThreads({ subredditName: subredditName }));
     }
   }, [threadsStatus, sortType, dispatch]);
   return (
@@ -48,4 +51,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Subreddit;

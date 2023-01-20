@@ -6,8 +6,9 @@ import { selectSortType } from "./sortSelectorSlice";
 import "./Header.css";
 import { setQuery } from "../features/search/searchResultsSlice";
 import { selectQuery } from "../features/search/searchResultsSlice";
-import { setStatus } from "../features/search/searchResultsSlice";
+import { setStatus as setSearchStatus } from "../features/search/searchResultsSlice";
 import { setSortType } from "./sortSelectorSlice";
+import { setStatus as setHomepageStatus } from "../features/homepage/homepageSlice";
 
 const Header = () => {
   const selectedType = useSelector(selectSortType);
@@ -23,12 +24,13 @@ const Header = () => {
 
   const handleClick = () => {
     dispatch(setSortType("best"));
+    dispatch(setHomepageStatus("idle"));
     navigate("/");
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(setStatus("idle"));
+    dispatch(setSearchStatus("idle"));
     const params = { q: query };
     navigate({
       pathname: "/search",

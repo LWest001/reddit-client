@@ -7,7 +7,6 @@ import { getRandomKey } from "../../functions/getRandomKey";
 const initialState = {
   threads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
-  sortType: "best", // 'best' | 'new' | 'top' | 'hot' | 'rising'
   error: null,
 };
 
@@ -15,8 +14,14 @@ export const fetchThreads = createAsyncThunk(
   "homepage/fetchThreads",
   async (options) => {
     const { sortType, subredditName, query } = options;
-    const URL = `https://www.reddit.com/${sortType}.json`;
-    const response = await axios.get(URL);
+    const baseURL = "https://www.reddit.com";
+    let URL;
+    if (subredditName) {
+      URL = `/r/${subredditName}.json`;
+    } else {
+      URL = `/${sortType}.json`;
+    }
+    const response = await axios.get(baseURL + URL);
     return response.data.data.children;
   }
 );
