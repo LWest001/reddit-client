@@ -30,6 +30,7 @@ const Homepage = () => {
         selfText={thread.threadType === "self" && thread.selfText}
         threadType={thread.threadType}
         video={thread.threadType === "video" && thread.video}
+        commentCount={thread.commentCount}
       />
     );
   });

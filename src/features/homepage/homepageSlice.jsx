@@ -49,11 +49,12 @@ const homepageSlice = createSlice({
             timestamp: getTimeStamp(data.created_utc),
             threadTitle: data.title,
             score: data.score,
+            commentCount: data.num_comments,
             gallery: threadType === "gallery" && data.url,
             image: threadType === "image" && data.url,
             link: "https://reddit.com" + data.permalink,
             thumbnail: data.thumbnail,
-            richVideo: threadType === "richVideo" && data.media_embed,
+            richVideo: threadType === "richVideo" && data.url,
             selfText: threadType === "self" && data.selftext,
             threadType: threadType,
             video:

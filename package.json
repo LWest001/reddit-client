@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
+    "react-tiny-oembed": "^1.1.0",
     "redux": "^4.2.0",
     "sort-by": "^1.2.0"
   },

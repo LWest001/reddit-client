@@ -76,14 +76,15 @@ const SearchCard = ({
         </p>
       </div>
       {thumbnail && (
-        <figure className="thumbnailContainer">
-
-        <img
-          className="thumbnail"
-          src={thumbnail}
-          alt={`Thumbnail for thread: ${threadTitle}`}
-        />
-        </figure>
+        <a href={link}>
+          <figure className="thumbnailContainer">
+            <img
+              className="thumbnail"
+              src={thumbnail}
+              alt={`Thumbnail for thread: ${threadTitle}`}
+            />
+          </figure>
+        </a>
       )}
     </div>
   );

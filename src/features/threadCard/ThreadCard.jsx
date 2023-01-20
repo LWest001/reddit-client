@@ -5,6 +5,7 @@ import selfThumb from "../../assets/selfThumb.png";
 import nsfwThumb from "../../assets/nsfwThumb.png";
 import axios from "axios";
 import { useEffect } from "react";
+import Embed from "react-tiny-oembed";
 
 const ThreadCard = ({
   id,
@@ -13,6 +14,7 @@ const ThreadCard = ({
   timestamp,
   threadTitle,
   score,
+  commentCount,
   awards,
   gallery,
   image,
@@ -162,11 +164,22 @@ const ThreadCard = ({
             </div>
           )}
           {/* Rich Video: basically it sends html that embeds a video*/}
+          {threadType === "richVideo" && (
+            <>
+              <Embed
+                url={richVideo}
+                // proxy="https://cors-anywhere.herokuapp.com/"
+              />
+              <div>richVideo</div>
+            </>
+          )}
         </div>
       </div>
       <p className="threadFooter">
         <a href={link}>
-          <button className="viewComments">🗨️View comments</button>
+          <button className="viewComments">
+            🗨️View {commentCount} comments
+          </button>
         </a>
         <span>👍{score}</span>
       </p>
