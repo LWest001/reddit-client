@@ -19,6 +19,7 @@ const SortSelector = () => {
       className="SortSelector"
       name="SortSelector"
       onChange={handleChange}
+      value={sortType}
     >
       <option value="best">👍Best</option>
       <option value="hot">🔥Hot</option>

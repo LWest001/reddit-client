@@ -37,7 +37,11 @@ const Homepage = () => {
 
   useEffect(() => {
     if (threadsStatus === "idle") {
-      dispatch(fetchThreads(sortType ? sortType : "best"));
+      dispatch(
+        fetchThreads({
+          sortType: sortType ? sortType : "best",
+        })
+      );
     }
   }, [threadsStatus, sortType, dispatch]);
   return (

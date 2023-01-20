@@ -13,7 +13,8 @@ const initialState = {
 
 export const fetchThreads = createAsyncThunk(
   "homepage/fetchThreads",
-  async (sortType) => {
+  async (options) => {
+    const { sortType, subredditName, query } = options;
     const URL = `https://www.reddit.com/${sortType}.json`;
     const response = await axios.get(URL);
     return response.data.data.children;
