@@ -29,7 +29,7 @@ const SearchCard = ({
   if (thumbnail === "default" || thumbnail === "spoiler") {
     thumbnail = defaultThumb;
   }
-  if (thumbnail === "self") {
+  if (thumbnail === "self" || !thumbnail) {
     thumbnail = selfThumb;
   }
   if (thumbnail === "nsfw") {
