@@ -5,9 +5,10 @@ import selfThumb from "../../assets/selfThumb.png";
 import nsfwThumb from "../../assets/nsfwThumb.png";
 import axios from "axios";
 import { useEffect } from "react";
-import Embed from "react-tiny-oembed";
+import Embed, { defaultProviders } from "react-tiny-oembed";
 import { Link } from "react-router-dom";
 import { setStatus } from "../homepage/homepageSlice";
+import providers from "../../assets/providers.json";
 
 const ThreadCard = ({
   id,
@@ -176,7 +177,8 @@ const ThreadCard = ({
           {threadType === "richVideo" && (
             <>
               <Embed
-                url={richVideo}
+                url={richVideo.url}
+                providers={[...defaultProviders, richVideo.provider]}
                 // proxy="https://cors-anywhere.herokuapp.com/"
               />
               <div>richVideo</div>

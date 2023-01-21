@@ -3,6 +3,7 @@ import axios from "axios";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { getRandomKey } from "../../functions/getRandomKey";
+import providers from "../../assets/providers.json";
 
 const initialState = {
   threads: [],
@@ -60,7 +61,14 @@ const homepageSlice = createSlice({
             image: threadType === "image" && data.url,
             link: "https://reddit.com" + data.permalink,
             thumbnail: data.thumbnail,
-            richVideo: threadType === "richVideo" && data.url,
+            richVideo: threadType === "richVideo" && {
+              oembed: data.media.oembed,
+              url: data.url,
+              provider: providers.find(
+                (provider) =>
+                  provider.provider_name === data.media.oembed.provider_name
+              ),
+            },
             selfText: threadType === "self" && data.selftext,
             threadType: threadType,
             video:
