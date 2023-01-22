@@ -174,14 +174,11 @@ const ThreadCard = ({
           )}
           {/* Rich Video: basically it sends html that embeds a video*/}
           {threadType === "richVideo" && (
-            <>
-              <Embed
-                url={richVideo.url}
-                providers={[...defaultProviders, richVideo.provider]}
-                // proxy="https://cors-anywhere.herokuapp.com/"
-              />
-              <div>richVideo</div>
-            </>
+            <Embed
+              url={richVideo.url}
+              providers={[...defaultProviders, richVideo.provider]}
+              // proxy="https://cors-anywhere.herokuapp.com/"
+            />
           )}
         </div>
       </div>
