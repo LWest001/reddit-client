@@ -7,7 +7,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import { Link } from "react-router-dom";
-import { setStatus } from "../homepage/homepageSlice";
+import { setStatus as setHomepageStatus } from "../homepage/homepageSlice";
+import { useDispatch } from "react-redux";
 
 const ThreadCard = ({
   id,
@@ -29,6 +30,7 @@ const ThreadCard = ({
 }) => {
   const [readMore, setReadMore] = useState("hide");
   const [icon, setIcon] = useState("");
+  const dispatch = useDispatch();
   const handleReadMore = () => {
     const previewText = document.getElementById(`previewText${id}`);
     const fullText = document.getElementById(`fullText${id}`);
@@ -79,7 +81,7 @@ const ThreadCard = ({
           <span className="subredditName">
             <Link
               to={`/r/${subredditName}`}
-              onClick={() => dispatchEvent(setStatus("idle"))}
+              onClick={() => dispatch(setHomepageStatus("idle"))}
             >
               r/{subredditName}
             </Link>

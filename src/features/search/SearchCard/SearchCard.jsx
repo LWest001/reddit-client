@@ -5,6 +5,9 @@ import selfThumb from "../../../assets/selfThumb.png";
 import nsfwThumb from "../../../assets/nsfwThumb.png";
 import axios from "axios";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { setStatus as setHomepageStatus } from "../../homepage/homepageSlice";
+import { useDispatch } from "react-redux";
 
 const SearchCard = ({
   id,
@@ -25,6 +28,7 @@ const SearchCard = ({
   commentCount,
 }) => {
   const [icon, setIcon] = useState("");
+  const dispatch = useDispatch();
 
   if (thumbnail === "default" || thumbnail === "spoiler") {
     thumbnail = defaultThumb;
@@ -55,7 +59,15 @@ const SearchCard = ({
             <div className="subredditIcon">r/</div>
           )}
           <p className="SearchCardHeaderText">
-            <span className="subredditName">r/{subredditName}</span> ▪️
+            <span className="subredditName">
+              <Link
+                to={`/r/${subredditName}`}
+                onClick={() => dispatch(setHomepageStatus("idle"))}
+              >
+                r/{subredditName}
+              </Link>
+            </span>{" "}
+            ▪️
             <span className="author">u/{author}</span> ▪️
             <span className="timestamp">{timestamp}</span>
           </p>
