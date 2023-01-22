@@ -1,0 +1,31 @@
+.subredditInfo {
+  margin: 10px 5px;
+  text-align: justify;
+  padding: 5px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.subredditInfo .subredditIcon {
+  width: 128px;
+  height: 128px;
+  border: 3px solid black;
+  grid-row: span 2;
+}
+
+.subredditTitle {
+  align-self: flex-end;
+}
+.subredditSubtitle {
+  align-self: flex-start;
+  font-weight: bold;
+}
+
+.subredditIcon.placeholder {
+  height: 64px;
+  width: 64px;
+  font-size: 30px;
+}

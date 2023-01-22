@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchThreads } from "../homepage/homepageSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   selectThreadsStatus,
   selectAllThreads,
 } from "../homepage/homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import "./Subreddit.css";
 
 const Subreddit = () => {
+  const [subredditInfo, setSubredditInfo] = useState({});
   const dispatch = useDispatch();
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
@@ -40,6 +43,15 @@ const Subreddit = () => {
   });
 
   useEffect(() => {
+    async function getIcon(subredditName) {
+      const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
+      const response = await axios.get(URL);
+      setSubredditInfo(response.data.data);
+    }
+    getIcon(subredditName);
+  }, [window.URL]);
+
+  useEffect(() => {
     if (threadsStatus === "idle") {
       console.log(subredditName);
       dispatch(fetchThreads({ subredditName: subredditName }));
@@ -48,6 +60,21 @@ const Subreddit = () => {
   return (
     <>
       {threadsStatus === "loading" && "Loading..."}
+      <section className="subredditInfo">
+        {subredditInfo.icon_img ? (
+          <img
+            src={subredditInfo.icon_img}
+            alt="Subreddit icon"
+            className="subredditIcon"
+          />
+        ) : (
+          <div className="subredditIcon placeholder">r/</div>
+        )}
+        <h1 className="subredditTitle">{subredditInfo.title}</h1>
+        <h2 className="subredditSubtitle">
+          {subredditInfo.display_name_prefixed}
+        </h2>
+      </section>
       {threadsStatus === "succeeded" && threads}
     </>
   );
