@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import { Link } from "react-router-dom";
 import { setStatus } from "../homepage/homepageSlice";
-import providers from "../../assets/providers.json";
 
 const ThreadCard = ({
   id,

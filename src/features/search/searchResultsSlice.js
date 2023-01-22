@@ -70,7 +70,6 @@ const searchResultsSlice = createSlice({
 
 export const selectQuery = (state) => state.searchResults.query;
 export const selectAllThreads = (state) => state.searchResults.threads;
-export const selectSortType = (state) => state.searchResults.sortType;
 export const selectThreadsStatus = (state) => state.searchResults.status;
 
 export const { setQuery, setStatus } = searchResultsSlice.actions;

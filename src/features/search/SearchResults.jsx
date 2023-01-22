@@ -3,11 +3,11 @@ import {
   selectThreadsStatus,
   fetchSearchResults,
   selectAllThreads,
-  selectSortType,
 } from "./searchResultsSlice";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import SearchCard from "./SearchCard/SearchCard";
+import { selectSortType } from "../../components/sortSelectorSlice";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
