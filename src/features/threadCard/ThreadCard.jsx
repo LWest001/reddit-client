@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 
 const ThreadCard = ({
   id,
+  cardType,
   subredditName,
   author,
   timestamp,
@@ -61,31 +62,39 @@ const ThreadCard = ({
   }
 
   useEffect(() => {
-    async function getIcon(subredditName) {
-      const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
-      const response = await axios.get(URL);
-      setIcon(response.data.data.icon_img);
+    if (cardType === "homepage") {
+      async function getIcon(subredditName) {
+        const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
+        const response = await axios.get(URL);
+        setIcon(response.data.data.icon_img);
+      }
+      getIcon(subredditName);
     }
-    getIcon(subredditName);
   }, [window.URL]);
 
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
         {icon ? (
-          <img src={icon} alt="Subreddit avatar" className="subredditIcon" />
+          <img
+            src={icon}
+            alt="Subreddit avatar"
+            className={`subredditIcon ${cardType}`}
+          />
         ) : (
-          <div className="subredditIcon">r/</div>
+          <div className={`subredditIcon ${cardType}`}>r/</div>
         )}
         <p className="ThreadCardHeaderText">
-          <span className="subredditName">
-            <Link
-              to={`/r/${subredditName}`}
-              onClick={() => dispatch(setHomepageStatus("idle"))}
-            >
-              r/{subredditName}
-            </Link>
-          </span>
+          {cardType === "homepage" && (
+            <span className="subredditName">
+              <Link
+                to={`/r/${subredditName}`}
+                onClick={() => dispatch(setHomepageStatus("idle"))}
+              >
+                r/{subredditName}
+              </Link>
+            </span>
+          )}
           <span className="subtext">
             Posted by <span className="author">u/{author}</span> ▪️ {timestamp}
           </span>

@@ -17,6 +17,7 @@ const Subreddit = () => {
   const threads = threadsData.map((thread) => {
     return (
       <ThreadCard
+        cardType="subreddit"
         key={thread.keyId}
         id={thread.keyId}
         subredditName={thread.subredditName}

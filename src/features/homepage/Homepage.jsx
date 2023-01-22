@@ -16,6 +16,7 @@ const Homepage = () => {
       <ThreadCard
         key={thread.keyId}
         id={thread.keyId}
+        cardType="homepage"
         subredditName={thread.subredditName}
         author={thread.author}
         timestamp={thread.timestamp}

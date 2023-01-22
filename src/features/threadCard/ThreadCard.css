@@ -156,3 +156,7 @@ video {
   justify-content: center;
   background: linear-gradient(45deg, rgba(0, 0, 255, 0.507), white);
 }
+
+.subredditIcon.subreddit {
+  display: none;
+}
