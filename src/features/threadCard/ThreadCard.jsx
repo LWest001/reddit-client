@@ -155,17 +155,9 @@ const ThreadCard = ({
           )}
 
           {threadType == "video" && (
-            <>
-              <video controls>
-                <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <span className="vid-audio-message">
-                Sorry! Reddit Client does not yet support video with audio.
-                Click View Comments below to navigate to the Reddit page with
-                audio.
-              </span>
-            </>
+            <div className="centered">
+              <div dangerouslySetInnerHTML={{ __html: video }}></div>
+            </div>
           )}
 
           {threadType === "self" && (
