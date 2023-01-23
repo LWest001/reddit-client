@@ -16,22 +16,22 @@ const Homepage = () => {
       <ThreadCard
         key={thread.keyId}
         id={thread.keyId}
-        cardType="homepage"
-        subredditName={thread.subredditName}
         author={thread.author}
-        timestamp={thread.timestamp}
-        threadTitle={thread.threadTitle}
-        score={thread.score}
-        gallery={thread.threadType === "gallery" && thread.gallery}
-        icon={thread.icon}
-        image={thread.threadType === "image" && thread.image}
-        link={thread.link}
-        thumbnail={thread.thumbnail}
-        richVideo={thread.threadType === "richVideo" && thread.richVideo}
-        selfText={thread.threadType === "self" && thread.selfText}
-        threadType={thread.threadType}
-        video={thread.threadType === "video" && thread.video}
+        cardType="homepage"
         commentCount={thread.commentCount}
+        gallery={thread.gallery}
+        icon={thread.icon}
+        image={thread.image}
+        link={thread.link}
+        score={thread.score}
+        selfText={thread.selfText}
+        richVideo={thread.richVideo}
+        subredditName={thread.subredditName}
+        threadTitle={thread.threadTitle}
+        threadType={thread.threadType}
+        thumbnail={thread.thumbnail}
+        timestamp={thread.timestamp}
+        video={thread.video}
       />
     );
   });

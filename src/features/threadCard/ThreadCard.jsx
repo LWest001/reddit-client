@@ -1,29 +1,29 @@
 import "./ThreadCard.css";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
-import Embed, { defaultProviders } from "react-tiny-oembed";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { setStatus as setHomepageStatus } from "../homepage/homepageSlice";
 import { useDispatch } from "react-redux";
+import Embed, { defaultProviders } from "react-tiny-oembed";
+import axios from "axios";
+import { setStatus as setHomepageStatus } from "../homepage/homepageSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 
 const ThreadCard = ({
-  id,
-  cardType,
-  subredditName,
   author,
-  timestamp,
-  threadTitle,
-  score,
-  commentCount,
   awards,
+  cardType,
+  commentCount,
   gallery,
+  id,
   image,
   link,
+  postFlair,
   richVideo,
+  score,
   selfText,
+  subredditName,
+  timestamp,
+  threadTitle,
   threadType,
   thumbnail,
   video,
@@ -63,16 +63,10 @@ const ThreadCard = ({
     }
   }, [window.URL]);
 
-  useEffect(() => {
-    if (threadType === "self") {
-      const previewText = document.getElementById(`previewText${id}`);
-      const fullText = document.getElementById(`fullText${id}`);
-      selfText = parseMarkdownText(selfText);
-      previewText.innerHTML = `${selfText.textContent.substring(0, 150)}...`;
-      fullText.innerHTML = selfText;
-    }
-    parseMarkdownText(selfText, id);
-  }, [threadType]);
+  const bodyTextHTML = selfText && parseMarkdownText(selfText);
+  const titleTextHTML = threadTitle && {
+    __html: parseMarkdownText(threadTitle),
+  };
 
   return (
     <div className="ThreadCard" id={id}>
@@ -104,10 +98,15 @@ const ThreadCard = ({
       </div>
       <div className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
-          <h2 className="threadTitle">{threadTitle}</h2>
+          <>
+            <span className="postFlair">{postFlair?.text}</span>
+            <h2
+              className="threadTitle"
+              dangerouslySetInnerHTML={titleTextHTML}
+            />
+          </>
         )}
         <div className="threadContentPreview">
-        
           {threadType == "image" && (
             <div className="centered">
               <a href={image}>
@@ -133,7 +132,10 @@ const ThreadCard = ({
                     View gallery ➡️
                   </div>
                 </a>
-                <p className="galleryText">{threadTitle}</p>
+                <p
+                  className="galleryText"
+                  dangerouslySetInnerHTML={titleTextHTML}
+                />
               </div>
             </>
           )}
@@ -145,7 +147,10 @@ const ThreadCard = ({
                 alt={`Thumbnail for thread: ${threadTitle}`}
                 className="thumbnail"
               />
-              <span className="linkText">{threadTitle}</span>
+              <span
+                className="linkText"
+                dangerouslySetInnerHTML={titleTextHTML}
+              />
             </div>
           )}
 
@@ -170,14 +175,29 @@ const ThreadCard = ({
                 alt={`Thumbnail for thread: ${threadTitle}`}
                 className="thumbnail"
               />
-              <p className="selfTitle">{threadTitle}</p>
+              <p
+                className="selfTitle"
+                dangerouslySetInnerHTML={titleTextHTML}
+              />
               {selfText && (
                 <>
                   <p
                     className={`selfText previewText`}
                     id={`previewText${id}`}
+                    dangerouslySetInnerHTML={{
+                      __html: `${bodyTextHTML.textContent.substring(
+                        0,
+                        150
+                      )}...`,
+                    }}
                   ></p>
-                  <p className={`selfText fullText`} id={`fullText${id}`}></p>
+                  <p
+                    className={`selfText fullText`}
+                    id={`fullText${id}`}
+                    dangerouslySetInnerHTML={{
+                      __html: bodyTextHTML,
+                    }}
+                  ></p>
                   <button
                     className="readMore"
                     id={`readMore${id}`}

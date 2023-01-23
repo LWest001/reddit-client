@@ -60,6 +60,13 @@ const homepageSlice = createSlice({
             gallery: threadType === "gallery" && data.url,
             image: threadType === "image" && data.url,
             link: "https://reddit.com" + data.permalink,
+            postFlair: {
+              backgroundColor: data.link_flair_background_color,
+              textColor: data.link_flair_text_color,
+              text:
+                data.link_flair_richtext[0]?.t ||
+                data.link_flair_richtext[1]?.t,
+            },
             thumbnail: data.thumbnail,
             richVideo: threadType === "richVideo" && {
               oembed: data.media.oembed,

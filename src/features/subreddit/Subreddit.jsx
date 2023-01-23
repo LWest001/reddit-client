@@ -28,16 +28,17 @@ const Subreddit = () => {
         timestamp={thread.timestamp}
         threadTitle={thread.threadTitle}
         score={thread.score}
-        gallery={thread.threadType === "gallery" && thread.gallery}
+        gallery={thread.gallery}
         icon={thread.icon}
-        image={thread.threadType === "image" && thread.image}
+        image={thread.image}
         link={thread.link}
         thumbnail={thread.thumbnail}
-        richVideo={thread.threadType === "richVideo" && thread.richVideo}
-        selfText={thread.threadType === "self" && thread.selfText}
+        richVideo={thread.richVideo}
+        selfText={thread.selfText}
         threadType={thread.threadType}
-        video={thread.threadType === "video" && thread.video}
+        video={thread.video}
         commentCount={thread.commentCount}
+        postFlair={thread.postFlair}
       />
     );
   });
@@ -53,6 +54,7 @@ const Subreddit = () => {
 
   useEffect(() => {
     if (threadsStatus === "idle") {
+      console.log(subredditName);
       dispatch(fetchThreads({ subredditName: subredditName }));
     }
   }, [threadsStatus, sortType, dispatch]);
