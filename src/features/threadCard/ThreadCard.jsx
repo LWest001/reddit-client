@@ -1,12 +1,13 @@
 import "./ThreadCard.css";
 import { useState } from "react";
-import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import axios from "axios";
 import { useEffect } from "react";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import { Link } from "react-router-dom";
 import { setStatus as setHomepageStatus } from "../homepage/homepageSlice";
 import { useDispatch } from "react-redux";
+import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
+import parseMarkdownText from "../../functions/parseMarkdownText";
 
 const ThreadCard = ({
   id,
@@ -62,6 +63,17 @@ const ThreadCard = ({
     }
   }, [window.URL]);
 
+  useEffect(() => {
+    if (threadType === "self") {
+      const previewText = document.getElementById(`previewText${id}`);
+      const fullText = document.getElementById(`fullText${id}`);
+      selfText = parseMarkdownText(selfText);
+      previewText.innerHTML = `${selfText.textContent.substring(0, 150)}...`;
+      fullText.innerHTML = selfText;
+    }
+    parseMarkdownText(selfText, id);
+  }, [threadType]);
+
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
@@ -95,6 +107,7 @@ const ThreadCard = ({
           <h2 className="threadTitle">{threadTitle}</h2>
         )}
         <div className="threadContentPreview">
+        
           {threadType == "image" && (
             <div className="centered">
               <a href={image}>
@@ -106,6 +119,7 @@ const ThreadCard = ({
               </a>
             </div>
           )}
+
           {threadType == "gallery" && (
             <>
               <div className="galleryPreview">
@@ -123,6 +137,7 @@ const ThreadCard = ({
               </div>
             </>
           )}
+
           {threadType === "link" && (
             <div className="linkPreview">
               <img
@@ -133,6 +148,7 @@ const ThreadCard = ({
               <span className="linkText">{threadTitle}</span>
             </div>
           )}
+
           {threadType == "video" && (
             <>
               <video controls>
@@ -146,6 +162,7 @@ const ThreadCard = ({
               </span>
             </>
           )}
+
           {threadType === "self" && (
             <div className="selfPreview">
               <img
@@ -156,12 +173,11 @@ const ThreadCard = ({
               <p className="selfTitle">{threadTitle}</p>
               {selfText && (
                 <>
-                  <p className={`selfText previewText`} id={`previewText${id}`}>
-                    {selfText.substring(0, 150)}...
-                  </p>
-                  <p className={`selfText fullText`} id={`fullText${id}`}>
-                    {selfText}
-                  </p>
+                  <p
+                    className={`selfText previewText`}
+                    id={`previewText${id}`}
+                  ></p>
+                  <p className={`selfText fullText`} id={`fullText${id}`}></p>
                   <button
                     className="readMore"
                     id={`readMore${id}`}
@@ -173,7 +189,7 @@ const ThreadCard = ({
               )}
             </div>
           )}
-          {/* Rich Video: basically it sends html that embeds a video*/}
+
           {threadType === "richVideo" && (
             <Embed
               url={richVideo.url}

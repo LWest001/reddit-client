@@ -19,5 +19,5 @@ export const getThreadType = (data) => {
         return "richVideo";
     }
   }
-  return "unknown";
+  return "link";
 };

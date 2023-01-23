@@ -1,11 +1,16 @@
 import defaultThumb from "../assets/defaultThumb.png";
 import selfThumb from "../assets/selfThumb.png";
 import nsfwThumb from "../assets/nsfwThumb.png";
+import spoilerThumb from "../assets/spoilerThumb.png";
 
 function getDefaultThumbnail(thumbnail) {
-  if (thumbnail === "default" || thumbnail === "spoiler") {
+  if (thumbnail === "default") {
     return defaultThumb;
   }
+  if (thumbnail === "spoiler") {
+    return spoilerThumb;
+  }
+
   if (thumbnail === "self" || !thumbnail) {
     return selfThumb;
   }
