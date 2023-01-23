@@ -1,13 +1,11 @@
 import "./SearchCard.css";
 import { useState } from "react";
-import defaultThumb from "../../../assets/defaultThumb.png";
-import selfThumb from "../../../assets/selfThumb.png";
-import nsfwThumb from "../../../assets/nsfwThumb.png";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { setStatus as setHomepageStatus } from "../../homepage/homepageSlice";
 import { useDispatch } from "react-redux";
+import getDefaultThumbnail from "../../../functions/getDefaultThumbnail";
 
 const SearchCard = ({
   id,
@@ -30,15 +28,7 @@ const SearchCard = ({
   const [icon, setIcon] = useState("");
   const dispatch = useDispatch();
 
-  if (thumbnail === "default" || thumbnail === "spoiler") {
-    thumbnail = defaultThumb;
-  }
-  if (thumbnail === "self" || !thumbnail) {
-    thumbnail = selfThumb;
-  }
-  if (thumbnail === "nsfw") {
-    thumbnail = nsfwThumb;
-  }
+  thumbnail = getDefaultThumbnail(thumbnail);
 
   useEffect(() => {
     async function getIcon(subredditName) {

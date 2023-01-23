@@ -1,8 +1,6 @@
 import "./ThreadCard.css";
 import { useState } from "react";
-import defaultThumb from "../../assets/defaultThumb.png";
-import selfThumb from "../../assets/selfThumb.png";
-import nsfwThumb from "../../assets/nsfwThumb.png";
+import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import axios from "axios";
 import { useEffect } from "react";
 import Embed, { defaultProviders } from "react-tiny-oembed";
@@ -51,15 +49,7 @@ const ThreadCard = ({
     }
   };
 
-  if (thumbnail === "default") {
-    thumbnail = defaultThumb;
-  }
-  if (thumbnail === "self") {
-    thumbnail = selfThumb;
-  }
-  if (thumbnail === "nsfw") {
-    thumbnail = nsfwThumb;
-  }
+  thumbnail = getDefaultThumbnail(thumbnail);
 
   useEffect(() => {
     if (cardType === "homepage") {
