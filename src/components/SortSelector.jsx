@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { redirect, useLocation, useNavigate } from "react-router-dom";
 import { setSortType } from "./sortSelectorSlice";
 import { useParams } from "react-router-dom";
 import { setStatus } from "../features/homepage/homepageSlice";
@@ -7,7 +7,8 @@ import { setStatus } from "../features/homepage/homepageSlice";
 const SortSelector = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { sortType } = useParams();
+  const { sortType, subredditName } = useParams();
+  const location = useLocation();
 
   const handleChange = ({ target }) => {
     dispatch(setSortType(target.value));

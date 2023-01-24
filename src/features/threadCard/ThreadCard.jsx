@@ -60,7 +60,6 @@ const ThreadCard = ({
         setIcon(response.data.data.icon_img);
       }
       getIcon(subredditName);
-      console.log("useeffect");
     }
   }, []);
 

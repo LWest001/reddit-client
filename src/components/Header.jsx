@@ -11,16 +11,16 @@ import { setSortType } from "./sortSelectorSlice";
 import { setStatus as setHomepageStatus } from "../features/homepage/homepageSlice";
 
 const Header = () => {
-  const selectedType = useSelector(selectSortType);
+  const selectedSort = useSelector(selectSortType);
+  const query = useSelector(selectQuery);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const query = useSelector(selectQuery);
 
   useEffect(() => {
-    if (selectedType === "best") {
+    if (selectedSort === "best") {
       document.querySelector("select").selectedIndex = 0;
     }
-  }, [selectedType]);
+  }, [selectedSort]);
 
   const handleClick = () => {
     dispatch(setSortType("best"));
