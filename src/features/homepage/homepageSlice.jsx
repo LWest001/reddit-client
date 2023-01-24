@@ -82,7 +82,7 @@ const homepageSlice = createSlice({
               threadType === "video" &&
               `<iframe
   id="reddit-embed"
-  src="https://www.redditmedia.com${data.permalink}?ref_source=embed&amp;ref=share&amp;embed=true"
+  src="https://www.redditmedia.com${data.permalink}?ref_source=embed&amp;embed=true"
   sandbox="allow-scripts allow-same-origin allow-popups"
   style="border: none;"
   height="638"
