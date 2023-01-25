@@ -1,9 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  // selectThreadsStatus,
-  fetchSearchResults,
-  // selectAllThreads,
-} from "./searchResultsSlice";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import SearchCard from "./SearchCard/SearchCard";

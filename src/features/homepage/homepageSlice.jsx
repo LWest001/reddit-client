@@ -8,6 +8,7 @@ import providers from "../../assets/providers.json";
 const initialState = {
   threads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
+  query: "",
   error: null,
 };
 
@@ -37,6 +38,11 @@ const homepageSlice = createSlice({
   name: "homepage",
   initialState,
   reducers: {
+    setQuery: {
+      reducer(state, action) {
+        state.query = action.payload;
+      },
+    },
     setStatus: {
       reducer(state, action) {
         state.status = action.payload;
@@ -108,6 +114,7 @@ const homepageSlice = createSlice({
 
 export const selectAllThreads = (state) => state.homepage.threads;
 export const selectThreadsStatus = (state) => state.homepage.status;
+export const selectQuery = (state) => state.homepage.query;
 
-export const { setStatus } = homepageSlice.actions;
+export const { setStatus, setQuery } = homepageSlice.actions;
 export default homepageSlice.reducer;

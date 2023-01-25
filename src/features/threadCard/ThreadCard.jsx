@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import axios from "axios";
-import { setStatus as setHomepageStatus } from "../homepage/homepageSlice";
+import { setStatus } from "../homepage/homepageSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 
@@ -85,7 +85,7 @@ const ThreadCard = ({
             <span className="subredditName">
               <Link
                 to={`/r/${subredditName}`}
-                onClick={() => dispatch(setHomepageStatus("idle"))}
+                onClick={() => dispatch(setStatus("idle"))}
               >
                 r/{subredditName}
               </Link>

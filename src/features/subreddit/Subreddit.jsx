@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchThreads } from "../homepage/homepageSlice";
 import { useEffect, useState } from "react";
 import {
   selectThreadsStatus,
   selectAllThreads,
+  fetchThreads,
 } from "../homepage/homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";

@@ -2,13 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, createSearchParams } from "react-router-dom";
 import SortSelector from "./SortSelector";
 import { useEffect } from "react";
-import { selectSortType } from "./sortSelectorSlice";
+import { selectSortType, setSortType } from "./sortSelectorSlice";
+import { setStatus as setHomepageStatus, setQuery, selectQuery } from "../features/homepage/homepageSlice";
 import "./Header.css";
-import { setQuery } from "../features/search/searchResultsSlice";
-import { selectQuery } from "../features/search/searchResultsSlice";
-import { setStatus as setSearchStatus } from "../features/search/searchResultsSlice";
-import { setSortType } from "./sortSelectorSlice";
-import { setStatus as setHomepageStatus } from "../features/homepage/homepageSlice";
 
 const Header = () => {
   const selectedSort = useSelector(selectSortType);
@@ -30,7 +26,7 @@ const Header = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(setSearchStatus("idle"));
+    dispatch(setHomepageStatus("idle"));
     const params = { q: query };
     navigate({
       pathname: "/search",

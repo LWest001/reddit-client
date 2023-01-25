@@ -10,7 +10,6 @@ const SortSelector = () => {
   const { sortType, subredditName } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
-  const sort = searchParams.get("sort");
 
   const handleChange = ({ target }) => {
     dispatch(setSortType(target.value));
