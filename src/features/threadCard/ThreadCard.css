@@ -1,15 +1,22 @@
-.ThreadCard {
+.ThreadCard,
+.SkeletonThreadCard,
+.ErrorPage {
   --radius: 5px;
   --border: 5px;
-  border: 2px solid black;
   border-radius: calc(var(--radius) + var(--border));
-  margin: 10px 0;
+  margin: 10px 2px;
   display: flex;
   flex-direction: column;
   line-height: 1.5;
   box-shadow: 2px 2px 5px black;
   max-width: 100%;
   overflow: hidden;
+  background-color: lightgray;
+}
+
+.skeleton {
+  /* width: 100%; */
+  width: 98vw;
 }
 
 .threadCardHeader {
@@ -19,7 +26,7 @@
   width: auto;
   justify-content: space-between;
   line-height: 0.8rem;
-  background: linear-gradient(-90deg, #ffffff, lightgray);
+  background: radial-gradient(ellipse at top left, #ffffff, lightgray);
   padding: 5px;
   border-radius: var(--radius);
   margin: var(--border);
@@ -97,6 +104,9 @@
 .ThreadCard .threadFooter {
   border-radius: var(--radius);
   margin: var(--border);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2%;
 }
 
 .ThreadCard .threadTitle {
@@ -159,9 +169,12 @@
   display: none;
 }
 .videoWrapper {
- /* width: 100%; */
+  /* width: 100%; */
 }
 
 video {
   max-width: 100%;
+}
+
+.postFlair {
 }

@@ -1,0 +1,14 @@
+.SkeletonThreadCard {
+  width: 99vw;
+}
+.SkeletonThreadCard .skeletonContent {
+  background-color: slategray;
+  padding: 3px;
+  color: slategray;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.skeletonImg {
+  height: 300px;
+}

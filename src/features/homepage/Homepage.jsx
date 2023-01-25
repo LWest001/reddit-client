@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { selectThreadsStatus, selectAllThreads } from "./homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
+import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,12 @@ const Homepage = () => {
   }, [threadsStatus, sortType, dispatch]);
   return (
     <>
-      {threadsStatus === "loading" && "Loading..."}
+      {threadsStatus === "loading" && (
+        <>
+          <SkeletonThreadCard />
+          <SkeletonThreadCard />
+        </>
+      )}
       {threadsStatus === "succeeded" && threads}
     </>
   );

@@ -1,14 +1,18 @@
 .Header {
-  border-bottom: 3px solid lightgray;
   align-items: center;
+  background-color: lightgray;
+  box-shadow: 2px 2px 5px black;
+  border-radius: 0 0 5px 5px;
+  margin: 0 2px;
 }
 
 .SortSelector {
   font-size: 1rem;
   border: none;
   border-radius: 5px;
-  background-color: gainsboro;
+  background-color: slategray;
   height: 32px;
+  color: whitesmoke;
 }
 
 .burgerLine {
@@ -63,16 +67,15 @@ nav ul li a {
   border-radius: 100px;
   display: flex;
   cursor: pointer;
+  border: none;
 }
 
 #searchInput:empty {
-  border: 1px transparent;
   width: 3rem;
 }
 
 #searchInput:focus {
   width: 100%;
-  border: 1px solid black;
   text-indent: 0.5rem;
   height: fit-content;
   cursor: text;
