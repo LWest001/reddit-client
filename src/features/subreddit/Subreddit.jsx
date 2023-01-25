@@ -54,7 +54,9 @@ const Subreddit = () => {
 
   useEffect(() => {
     if (threadsStatus === "idle") {
-      dispatch(fetchThreads({ subredditName: subredditName }));
+      dispatch(
+        fetchThreads({ subredditName: subredditName, sortType: sortType })
+      );
     }
   }, [threadsStatus, sortType, dispatch]);
   return (

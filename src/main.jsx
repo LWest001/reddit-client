@@ -14,13 +14,22 @@ import {
 import Homepage from "./features/homepage/Homepage";
 import Subreddit from "./features/subreddit/Subreddit";
 import SearchResults from "./features/search/SearchResults";
+import ErrorPage from "./features/ErrorPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/:sortType?" element={<App />}>
-      <Route index element={<Homepage />} />
-      <Route path="r/:subredditName/:sortType?" element={<Subreddit />} />
-      <Route path="search?/:sortType?" element={<SearchResults />} />
+    <Route path="/:sortType?" element={<App />} errorElement={<ErrorPage />}>
+      <Route index element={<Homepage />} errorElement={<ErrorPage />} />
+      <Route
+        path="r/:subredditName/:sortType?"
+        element={<Subreddit />}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path="search/:sortType?"
+        element={<SearchResults />}
+        errorElement={<ErrorPage />}
+      />
     </Route>
   )
   //   [

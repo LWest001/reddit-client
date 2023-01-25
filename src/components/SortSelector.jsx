@@ -13,7 +13,11 @@ const SortSelector = () => {
   const handleChange = ({ target }) => {
     dispatch(setSortType(target.value));
     dispatch(setStatus("idle"));
-    navigate(target.value);
+    if (subredditName) {
+      navigate(`r/${subredditName}/${target.value}`);
+    } else {
+      navigate(`/${target.value}`);
+    }
   };
   return (
     <select

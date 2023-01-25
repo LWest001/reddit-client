@@ -4,6 +4,7 @@ import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { getRandomKey } from "../../functions/getRandomKey";
 import providers from "../../assets/providers.json";
+import { useParams } from "react-router";
 
 const initialState = {
   threads: [],
@@ -18,7 +19,11 @@ export const fetchThreads = createAsyncThunk(
     const baseURL = "https://www.reddit.com";
     let URL;
     if (subredditName) {
-      URL = `/r/${subredditName}.json`;
+      if (sortType) {
+        URL = `/r/${subredditName}/${sortType}.json`;
+      } else {
+        URL = `/r/${subredditName}.json`;
+      }
     } else {
       URL = `/${sortType}.json`;
     }
