@@ -9,6 +9,7 @@ import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./Subreddit.css";
+import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 
 const Subreddit = () => {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -61,7 +62,6 @@ const Subreddit = () => {
   }, [threadsStatus, sortType, dispatch]);
   return (
     <>
-      {threadsStatus === "loading" && "Loading..."}
       <section className="subredditInfo">
         {subredditInfo.icon_img ? (
           <img
@@ -77,6 +77,12 @@ const Subreddit = () => {
           {subredditInfo.display_name_prefixed}
         </h2>
       </section>
+      {threadsStatus === "loading" && (
+        <>
+          <SkeletonThreadCard />
+          <SkeletonThreadCard />
+        </>
+      )}
       {threadsStatus === "succeeded" && threads}
     </>
   );

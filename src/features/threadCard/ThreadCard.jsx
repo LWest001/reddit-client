@@ -7,6 +7,8 @@ import axios from "axios";
 import { setStatus } from "../homepage/homepageSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
+import ReactPlayer from "react-player";
+import upvote from "../../assets/upvote.svg";
 
 const ThreadCard = ({
   author,
@@ -155,13 +157,13 @@ const ThreadCard = ({
           )}
 
           {threadType == "video" && (
-            <div
-              className="centered videoWrapper"
-            >
-              <video controls>
-                <source src={video.fallback} />
-              </video>
-              {/* <div dangerouslySetInnerHTML={{ __html: video }}></div> */}
+            <div className="centered videoWrapper">
+              <ReactPlayer
+                url={video.dashManifest}
+                controls={true}
+                width="100%"
+                height="80vh"
+              />
             </div>
           )}
 
@@ -208,11 +210,15 @@ const ThreadCard = ({
           )}
 
           {threadType === "richVideo" && (
-            <Embed
-              url={richVideo.url}
-              providers={[...defaultProviders, richVideo.provider]}
-              // proxy="https://cors-anywhere.herokuapp.com/"
-            />
+            <div className="videoWrapper">
+              <Embed
+                className="richVideoEmbed"
+                url={richVideo.url}
+                providers={[...defaultProviders, richVideo.provider]}
+                options={{ height: "200" }}
+                // proxy="https://cors-anywhere.herokuapp.com/"
+              />
+            </div>
           )}
         </div>
       </div>
@@ -222,7 +228,10 @@ const ThreadCard = ({
             🗨️View {commentCount} comments
           </button>
         </a>
-        <span>👍{score}</span>
+        <span>
+          <img src={upvote} alt="up arrow" className="upArrow" />
+          {score}
+        </span>
       </p>
     </div>
   );

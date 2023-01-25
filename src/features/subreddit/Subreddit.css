@@ -7,6 +7,7 @@
   grid-template-columns: auto 1fr;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .subredditInfo .subredditIcon {
@@ -28,4 +29,34 @@
   height: 64px;
   width: 64px;
   font-size: 30px;
+}
+
+@media only screen and (max-width: 700px) {
+  .subredditInfo .subredditIcon {
+    height: 64px;
+    width: 64px;
+  }
+  .subredditSubtitle {
+ font-size: .9rem;
+ letter-spacing: 1px
+}
+  .subredditInfo .subredditTitle {
+    font-size: 1.5rem;
+  }
+  .subredditInfo {
+    margin: 5px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .subredditInfo .subredditIcon {
+    height: 48px;
+    width: 48px;
+  }
+  .subredditInfo .subredditTitle {
+    font-size: 1.2rem;
+  }
+  .subredditInfo {
+    margin: 5px;
+  }
 }

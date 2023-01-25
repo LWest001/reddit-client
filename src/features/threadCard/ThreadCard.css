@@ -169,11 +169,18 @@
   display: none;
 }
 .videoWrapper {
-  /* width: 100%; */
 }
 
 video {
   max-width: 100%;
+}
+
+.__embed {
+  max-height: 80vh;
+}
+
+.__embed iframe {
+  max-height: 80vh;
 }
 
 .postFlair {
