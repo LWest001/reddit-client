@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { redirect, useLocation, useNavigate } from "react-router-dom";
+import { redirect, useNavigate, useSearchParams } from "react-router-dom";
 import { setSortType } from "./sortSelectorSlice";
 import { useParams } from "react-router-dom";
 import { setStatus } from "../features/homepage/homepageSlice";
@@ -8,13 +8,17 @@ const SortSelector = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { sortType, subredditName } = useParams();
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q");
+  const sort = searchParams.get("sort");
 
   const handleChange = ({ target }) => {
     dispatch(setSortType(target.value));
     dispatch(setStatus("idle"));
     if (subredditName) {
       navigate(`r/${subredditName}/${target.value}`);
+    } else if (query) {
+      navigate(`search?q=${query}&sort=${target.value}`);
     } else {
       navigate(`/${target.value}`);
     }

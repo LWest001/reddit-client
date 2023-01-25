@@ -1,13 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectThreadsStatus,
+  // selectThreadsStatus,
   fetchSearchResults,
-  selectAllThreads,
+  // selectAllThreads,
 } from "./searchResultsSlice";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import SearchCard from "./SearchCard/SearchCard";
 import { selectSortType } from "../../components/sortSelectorSlice";
+import {
+  fetchThreads,
+  selectAllThreads,
+  selectThreadsStatus,
+} from "../homepage/homepageSlice";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
@@ -16,6 +21,7 @@ const SearchResults = () => {
   const sortType = useSelector(selectSortType);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const sort = searchParams.get("sort");
 
   const threads = threadsData.map((thread) => {
     return (
@@ -42,7 +48,7 @@ const SearchResults = () => {
   });
   useEffect(() => {
     if (threadsStatus === "idle") {
-      dispatch(fetchSearchResults(query));
+      dispatch(fetchThreads({ query: query, sortType: sort || "best" }));
     }
   }, [threadsStatus, sortType, dispatch]);
   return (
