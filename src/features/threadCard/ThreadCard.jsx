@@ -155,8 +155,13 @@ const ThreadCard = ({
           )}
 
           {threadType == "video" && (
-            <div className="centered">
-              <div dangerouslySetInnerHTML={{ __html: video }}></div>
+            <div
+              className="centered videoWrapper"
+            >
+              <video controls>
+                <source src={video.fallback} />
+              </video>
+              {/* <div dangerouslySetInnerHTML={{ __html: video }}></div> */}
             </div>
           )}
 

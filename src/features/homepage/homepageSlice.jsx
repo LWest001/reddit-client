@@ -90,17 +90,21 @@ const homepageSlice = createSlice({
             },
             selfText: threadType === "self" && data.selftext,
             threadType: threadType,
-            video:
-              threadType === "video" &&
-              `<iframe
-  id="reddit-embed"
-  src="https://www.redditmedia.com${data.permalink}?ref_source=embed&amp;embed=true"
-  sandbox="allow-scripts allow-same-origin allow-popups"
-  style="border: none;"
-  height="638"
-  width="640"
-  scrolling="no"
-></iframe>`,
+            video: threadType === "video" && {
+              dashManifest: data.media.reddit_video.dash_url,
+              fallback: data.media.reddit_video.fallback_url,
+            },
+            //             `<iframe
+            // id="reddit-embed"
+            // class="videoIframe"
+            // src="https://www.redditmedia.com${data.permalink}?ref_source=embed&amp;embed=true"
+            // sandbox="allow-scripts allow-same-origin allow-popups"
+            // style="border: none; position:absolute; top:0; left: 0"
+            // height="100%"
+            // width="100%"
+            // frameborder="0"
+            // allowfullscreen=""
+            // scrolling="no"/>`,
           };
         });
         state.threads = loadedThreads;

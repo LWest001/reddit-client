@@ -3,11 +3,13 @@
   --border: 5px;
   border: 2px solid black;
   border-radius: calc(var(--radius) + var(--border));
-  margin: 10px 5px;
+  margin: 10px 0;
   display: flex;
   flex-direction: column;
   line-height: 1.5;
   box-shadow: 2px 2px 5px black;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .threadCardHeader {
@@ -34,6 +36,7 @@
 
 .ThreadCard .threadPreview {
   display: flex;
+
   flex-direction: column;
   font-weight: bold;
 }
@@ -48,11 +51,6 @@
   max-width: 100%;
   max-height: 50vh;
   border-radius: var(--radius);
-}
-
-video {
-  max-width: 100%;
-  max-height: 50vh;
 }
 
 .ThreadCard .vid-audio-message {
@@ -159,4 +157,11 @@ video {
 
 .subredditIcon.subreddit {
   display: none;
+}
+.videoWrapper {
+ /* width: 100%; */
+}
+
+video {
+  max-width: 100%;
 }
