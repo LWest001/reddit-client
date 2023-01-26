@@ -1,6 +1,10 @@
 .SkeletonThreadCard {
   width: 99vw;
 }
+
+.SkeletonThreadCard:first-child {
+  margin-top: 50px;
+}
 .SkeletonThreadCard .skeletonContent {
   background-color: slategray;
   padding: 3px;

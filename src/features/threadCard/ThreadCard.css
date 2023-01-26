@@ -1,6 +1,7 @@
 .ThreadCard,
 .SkeletonThreadCard,
-.ErrorPage {
+.ErrorPage,
+.subredditInfo {
   --radius: 5px;
   --border: 5px;
   border-radius: calc(var(--radius) + var(--border));
@@ -12,6 +13,10 @@
   max-width: 100%;
   overflow: hidden;
   background-color: lightgray;
+}
+
+.ThreadCard:first-child {
+  margin-top: 50px;
 }
 
 .skeleton {
@@ -28,13 +33,21 @@
   line-height: 0.8rem;
   background: radial-gradient(ellipse at top left, #ffffff, lightgray);
   padding: 5px;
-  border-radius: var(--radius);
-  margin: var(--border);
 }
 
 .threadCardHeader img {
   width: 2rem;
   height: 2rem;
+}
+
+.viewComments {
+  display: flex;
+  height: 2rem;
+  padding: 5px;
+  gap: 0.5rem;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 0.9rem;
 }
 
 .ThreadCard .subtext {
@@ -43,7 +56,6 @@
 
 .ThreadCard .threadPreview {
   display: flex;
-
   flex-direction: column;
   font-weight: bold;
 }
@@ -71,6 +83,7 @@
   float: left;
   border-radius: var(--radius);
   margin-right: 0.5rem;
+  background-color: #ffffff;
 }
 
 .ThreadCardHeaderText {
@@ -102,14 +115,37 @@
 }
 
 .ThreadCard .threadFooter {
-  border-radius: var(--radius);
-  margin: var(--border);
   display: flex;
   justify-content: space-between;
-  padding: 0 2%;
+  align-items: center;
+  padding: 0.5rem;
+  background: radial-gradient(ellipse at top left, #ffffff, lightgray);
 }
 
 .ThreadCard .threadTitle {
+  margin: 0 0.3rem;
+}
+
+.postFlairContainer {
+  float: left;
+  display: flex;
+  font-weight: normal;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.3rem;
+}
+
+.postFlair {
+  padding: 0px 0.5rem;
+  border-radius: 1rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flairAndTitle {
   margin: var(--border);
 }
 
@@ -168,12 +204,6 @@
 .subredditIcon.subreddit {
   display: none;
 }
-.videoWrapper {
-}
-
-video {
-  max-width: 100%;
-}
 
 .__embed {
   max-height: 80vh;
@@ -181,7 +211,4 @@ video {
 
 .__embed iframe {
   max-height: 80vh;
-}
-
-.postFlair {
 }

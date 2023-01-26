@@ -1,5 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 
+.button {
+  appearance: auto;
+  writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  color: buttontext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
+  cursor: default;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  margin: 0em;
+  padding: 1px 6px;
+  border-width: 3px;
+  border-style: outset;
+  border-color: buttonborder;
+  border-image: initial;
+}
+
 * {
   font-family: "Noto Sans", sans-serif;
 }
@@ -16,6 +41,7 @@ body {
 
 #root {
   margin: auto;
+  max-width: 1000px;
 }
 
 h1 {
@@ -38,4 +64,27 @@ h1 {
 .upArrow {
   height: 1rem;
   width: 1rem;
+}
+
+.icon {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+@media (hover: hover) {
+  a:hover {
+    text-decoration: underline;
+  }
+
+  select:hover,
+  .button:hover {
+    cursor: pointer;
+    background-color: darkgray;
+    text-decoration: none;
+  }
 }

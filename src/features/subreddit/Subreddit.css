@@ -1,5 +1,5 @@
 .subredditInfo {
-  margin: 10px 5px;
+  margin: 50px 5px 10px 5px;
   text-align: justify;
   padding: 5px;
   display: grid;
@@ -7,13 +7,15 @@
   grid-template-columns: auto 1fr;
   justify-content: center;
   align-items: center;
-  color: white;
+  border-radius: 5px;
 }
 
 .subredditInfo .subredditIcon {
   width: 128px;
   height: 128px;
-  border: 3px solid black;
+  /* border: 3px solid black; */
+
+  box-shadow: 2px 2px 5px black;
   grid-row: span 2;
 }
 
@@ -37,15 +39,16 @@
     width: 64px;
   }
   .subredditSubtitle {
- font-size: .9rem;
- letter-spacing: 1px
-}
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
   .subredditInfo .subredditTitle {
     font-size: 1.5rem;
   }
-  .subredditInfo {
-    margin: 5px;
-  }
+}
+
+.subredditDescription {
+  grid-column: 1/3;
 }
 
 @media only screen and (max-width: 400px) {
@@ -55,8 +58,5 @@
   }
   .subredditInfo .subredditTitle {
     font-size: 1.2rem;
-  }
-  .subredditInfo {
-    margin: 5px;
   }
 }

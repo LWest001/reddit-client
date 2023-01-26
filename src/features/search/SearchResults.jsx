@@ -8,6 +8,7 @@ import {
   selectAllThreads,
   selectThreadsStatus,
 } from "../homepage/homepageSlice";
+import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,12 @@ const SearchResults = () => {
   }, [threadsStatus, sortType, dispatch]);
   return (
     <>
-      {threadsStatus === "loading" && "Loading..."}
+      {threadsStatus === "loading" && (
+        <>
+          <SkeletonThreadCard />
+          <SkeletonThreadCard />
+        </>
+      )}
       {threadsStatus === "succeeded" && threads}
     </>
   );

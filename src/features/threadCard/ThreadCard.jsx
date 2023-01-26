@@ -9,6 +9,7 @@ import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
+import commentBubble from "../../assets/commentBubble.svg";
 
 const ThreadCard = ({
   author,
@@ -67,7 +68,7 @@ const ThreadCard = ({
 
   const bodyTextHTML = selfText && parseMarkdownText(selfText);
   const titleTextHTML = threadTitle && {
-    __html: parseMarkdownText(threadTitle),
+    __html: parseMarkdownText(`##${threadTitle}`),
   };
 
   return (
@@ -100,13 +101,22 @@ const ThreadCard = ({
       </div>
       <div className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
-          <>
-            <span className="postFlair">{postFlair?.text}</span>
-            <h2
+          <div className={`flairAndTitle ${cardType}`}>
+            <div className="postFlairContainer">
+              {postFlair?.text && (
+                <span
+                  className="postFlair"
+                  style={{ backgroundColor: postFlair?.backgroundColor }}
+                >
+                  {postFlair?.text}
+                </span>
+              )}
+            </div>
+            <div
               className="threadTitle"
               dangerouslySetInnerHTML={titleTextHTML}
             />
-          </>
+          </div>
         )}
         <div className="threadContentPreview">
           {threadType == "image" && (
@@ -134,7 +144,7 @@ const ThreadCard = ({
                     View gallery ➡️
                   </div>
                 </a>
-                <p
+                <div
                   className="galleryText"
                   dangerouslySetInnerHTML={titleTextHTML}
                 />
@@ -149,7 +159,7 @@ const ThreadCard = ({
                 alt={`Thumbnail for thread: ${threadTitle}`}
                 className="thumbnail"
               />
-              <span
+              <div
                 className="linkText"
                 dangerouslySetInnerHTML={titleTextHTML}
               />
@@ -162,7 +172,7 @@ const ThreadCard = ({
                 url={video.dashManifest}
                 controls={true}
                 width="100%"
-                height="80vh"
+                maxheight="80vh"
               />
             </div>
           )}
@@ -174,7 +184,7 @@ const ThreadCard = ({
                 alt={`Thumbnail for thread: ${threadTitle}`}
                 className="thumbnail"
               />
-              <p
+              <div
                 className="selfTitle"
                 dangerouslySetInnerHTML={titleTextHTML}
               />
@@ -201,6 +211,7 @@ const ThreadCard = ({
                     className="readMore"
                     id={`readMore${id}`}
                     onClick={handleReadMore}
+                    style={{ float: "right" }}
                   >
                     Read more
                   </button>
@@ -222,17 +233,16 @@ const ThreadCard = ({
           )}
         </div>
       </div>
-      <p className="threadFooter">
-        <a href={link}>
-          <button className="viewComments">
-            🗨️View {commentCount} comments
-          </button>
+      <div className="threadFooter">
+        <a href={link} className="viewComments button">
+          <img src={commentBubble} alt="comment bubble" className="icon" />
+          <span>View {commentCount} comments</span>
         </a>
         <span>
           <img src={upvote} alt="up arrow" className="upArrow" />
           {score}
         </span>
-      </p>
+      </div>
     </div>
   );
 };

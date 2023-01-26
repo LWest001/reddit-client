@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { setStatus as setHomepageStatus } from "../../homepage/homepageSlice";
 import { useDispatch } from "react-redux";
 import getDefaultThumbnail from "../../../functions/getDefaultThumbnail";
+import upvote from "../../../assets/upvote.svg";
 
 const SearchCard = ({
   id,
@@ -73,8 +74,11 @@ const SearchCard = ({
           </div>
         </a>
         <p className="searchCardFooter">
-          <span className="commentCount">🗨️{commentCount}</span> ▪️
-          <span>👍{score}</span>
+          <span className="commentCount">🗨️{commentCount}</span>&nbsp;&nbsp;&nbsp;&nbsp;▪️&nbsp;&nbsp;&nbsp;&nbsp;
+          <span>
+            <img className="upArrow" src={upvote} alt="" />
+            {score}
+          </span>
         </p>
       </div>
       {thumbnail && (

@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./Subreddit.css";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import parseMarkdownText from "../../functions/parseMarkdownText";
 
 const Subreddit = () => {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -76,6 +77,12 @@ const Subreddit = () => {
         <h2 className="subredditSubtitle">
           {subredditInfo.display_name_prefixed}
         </h2>
+        <p
+          className="subredditDescription"
+          dangerouslySetInnerHTML={{
+            __html: parseMarkdownText(subredditInfo.public_description),
+          }}
+        ></p>
       </section>
       {threadsStatus === "loading" && (
         <>

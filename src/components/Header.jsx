@@ -3,8 +3,13 @@ import { Link, useNavigate, createSearchParams } from "react-router-dom";
 import SortSelector from "./SortSelector";
 import { useEffect } from "react";
 import { selectSortType, setSortType } from "./sortSelectorSlice";
-import { setStatus as setHomepageStatus, setQuery, selectQuery } from "../features/homepage/homepageSlice";
+import {
+  setStatus as setHomepageStatus,
+  setQuery,
+  selectQuery,
+} from "../features/homepage/homepageSlice";
 import "./Header.css";
+import home from "../assets/home.svg";
 
 const Header = () => {
   const selectedSort = useSelector(selectSortType);
@@ -41,16 +46,18 @@ const Header = () => {
         <ul>
           <li>
             <Link to="/" onClick={handleClick}>
-              🏠
+              <button className="homeButton button">
+                <img src={home} alt="home button" className="icon" />
+              </button>
             </Link>
           </li>
           <li>
             <Link to="/">
-              <div className="burgerLines">
+              <button className="burgerLines button">
                 <div className="burgerLine"></div>
                 <div className="burgerLine"></div>
                 <div className="burgerLine"></div>
-              </div>
+              </button>
             </Link>
           </li>
           <li>
