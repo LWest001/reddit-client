@@ -21,7 +21,6 @@
 
 .SearchCard:first-child .searchCardHeader {
   border-top-left-radius: calc(var(--radius) + var(--border));
-
 }
 
 .SearchCard:last-child {
@@ -82,10 +81,19 @@
   }
 }
 
+@media only screen and (max-width: 400px) {
+  .subredditName {
+    font-size: 0.8rem;
+  }
+}
+
 /* CARD BODY */
 
 .searchCardBody {
   min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .SearchCard .threadPreview {
   width: 100%;
@@ -101,7 +109,7 @@
   font-size: small;
   border-radius: 20px;
   padding: 1px 5px;
-  margin: 0 5px;
+  margin: 5px 5px 0 5px;
 }
 
 .SearchCard .threadTitle {
@@ -126,17 +134,13 @@
 .SearchCard .searchCardFooter {
   border-radius: var(--radius);
   margin: var(--border);
+  margin-bottom: .1rem;
+  font-size: .8rem;
 }
 
 @media (hover: hover) {
   /* when hover is supported */
   .SearchCard:hover {
     cursor: pointer;
-  }
-}
-
-@media only screen and (max-width: 400px) {
-  .subredditName {
-    font-size: 0.8rem;
   }
 }
