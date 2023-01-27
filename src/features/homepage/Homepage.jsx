@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchThreads } from "./homepageSlice";
 import { useEffect } from "react";
-import { selectThreadsStatus, selectAllThreads } from "./homepageSlice";
+import {
+  fetchThreads,
+  selectThreadsStatus,
+  selectAllThreads,
+} from "./homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
@@ -24,6 +27,7 @@ const Homepage = () => {
         icon={thread.icon}
         image={thread.image}
         link={thread.link}
+        redditId={thread.redditId}
         score={thread.score}
         selfText={thread.selfText}
         richVideo={thread.richVideo}

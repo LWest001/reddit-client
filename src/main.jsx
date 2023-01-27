@@ -15,6 +15,7 @@ import Homepage from "./features/homepage/Homepage";
 import Subreddit from "./features/subreddit/Subreddit";
 import SearchResults from "./features/search/SearchResults";
 import ErrorPage from "./features/ErrorPage";
+import Thread from "./features/thread/Thread";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,11 @@ const router = createBrowserRouter(
       <Route
         path="r/:subredditName/:sortType?"
         element={<Subreddit />}
+        errorElement={<ErrorPage />}
+      ></Route>
+      <Route
+        path="r/:subredditName/comments/:redditId/:threadTitle"
+        element={<Thread />}
         errorElement={<ErrorPage />}
       />
       <Route

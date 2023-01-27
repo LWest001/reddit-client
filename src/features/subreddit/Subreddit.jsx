@@ -31,6 +31,7 @@ const Subreddit = () => {
         threadTitle={thread.threadTitle}
         score={thread.score}
         gallery={thread.gallery}
+        redditId={thread.redditId}
         icon={thread.icon}
         image={thread.image}
         link={thread.link}

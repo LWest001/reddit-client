@@ -1,0 +1,101 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { getThreadType } from "../../functions/getThreadType";
+import { getTimeStamp } from "../../functions/getTimeStamp";
+import { getRandomKey } from "../../functions/getRandomKey";
+import providers from "../../assets/providers.json";
+import { useParams } from "react-router";
+
+const initialState = {
+  permalink: "",
+  threadData: {},
+  comments: [],
+  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
+  error: null,
+};
+
+export const fetchData = createAsyncThunk("thread/fetchData", async (link) => {
+  const URL = `${link}.json`;
+  const response = await axios.get(URL);
+  const threadData = response.data[0].data.children[0].data;
+  const comments = response.data[1].data.children;
+  return { threadData, comments };
+});
+
+const threadSlice = createSlice({
+  name: "thread",
+  initialState,
+  reducers: {
+    setStatus: {
+      reducer(state, action) {
+        state.status = action.payload;
+      },
+    },
+    setPermalink: {
+      reducer(state, action) {
+        state.permalink = action.payload;
+      },
+    },
+  },
+
+  extraReducers(builder) {
+    builder
+      .addCase(fetchData.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const { threadData, comments } = action.payload;
+        const threadType = getThreadType(threadData);
+        const filteredData = {
+          keyId: getRandomKey(),
+          subredditName: threadData.subreddit,
+          author: threadData.author,
+          timestamp: getTimeStamp(threadData.created_utc),
+          threadTitle: threadData.title,
+          score: threadData.score,
+          redditId: threadData.name,
+          commentCount: threadData.num_comments,
+          gallery: threadType === "gallery" && threadData.url,
+          image: threadType === "image" && threadData.url,
+          link: "https://reddit.com" + threadData.permalink,
+          postFlair: {
+            backgroundColor: threadData.link_flair_background_color,
+            textColor: threadData.link_flair_text_color,
+            text:
+              threadData.link_flair_richtext[0]?.t ||
+              threadData.link_flair_richtext[1]?.t,
+          },
+          thumbnail: threadData.thumbnail,
+          richVideo: threadType === "richVideo" && {
+            oembed: threadData.media.oembed,
+            url: threadData.url,
+            provider: providers.find(
+              (provider) =>
+                provider.provider_name === threadData.media.oembed.provider_name
+            ),
+          },
+          selfText: threadType === "self" && threadData.selftext,
+          threadType: threadType,
+          video: threadType === "video" && {
+            dashManifest: threadData.media.reddit_video.dash_url,
+            fallback: threadData.media.reddit_video.fallback_url,
+          },
+        };
+        state.threadData = filteredData;
+        state.comments = comments;
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
+});
+
+export const selectThreadData = (state) => state.thread.threadData;
+export const selectThreadStatus = (state) => state.thread.status;
+export const selectAllComments = (state) => state.thread.comments;
+export const selectPermalink = (state) => state.thread.permalink;
+
+export const { setStatus, setPermalink } = threadSlice.actions;
+export default threadSlice.reducer;

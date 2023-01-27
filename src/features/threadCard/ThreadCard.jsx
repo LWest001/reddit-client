@@ -10,6 +10,10 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
+import {
+  setPermalink,
+  setStatus as setThreadStatus,
+} from "../thread/threadSlice";
 
 const ThreadCard = ({
   author,
@@ -21,6 +25,7 @@ const ThreadCard = ({
   image,
   link,
   postFlair,
+  redditId,
   richVideo,
   score,
   selfText,
@@ -70,6 +75,10 @@ const ThreadCard = ({
   const titleTextHTML = threadTitle && {
     __html: parseMarkdownText(`##${threadTitle}`),
   };
+  const titleTextShortened = titleTextHTML.__html.childNodes[0].id.substring(
+    0,
+    40
+  );
 
   return (
     <div className="ThreadCard" id={id}>
@@ -234,10 +243,18 @@ const ThreadCard = ({
         </div>
       </div>
       <div className="threadFooter">
-        <a href={link} className="viewComments button">
-          <img src={commentBubble} alt="comment bubble" className="icon" />
-          <span>View {commentCount} comments</span>
-        </a>
+        <Link
+          to={link.substring(19)}
+          onClick={() => {
+            dispatch(setThreadStatus("idle"));
+            dispatch(setPermalink(link));
+          }}
+        >
+          <button className="viewComments button">
+            <img src={commentBubble} alt="comment bubble" className="icon" />
+            <span>View {commentCount} comments</span>
+          </button>
+        </Link>
         <span>
           <img src={upvote} alt="up arrow" className="upArrow" />
           {score}
@@ -246,5 +263,4 @@ const ThreadCard = ({
     </div>
   );
 };
-
 export default ThreadCard;

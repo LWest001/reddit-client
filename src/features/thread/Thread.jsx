@@ -1,5 +1,67 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  fetchData,
+  selectThreadData,
+  selectThreadStatus,
+  selectAllComments,
+  selectPermalink,
+} from "./threadSlice";
+import ThreadCard from "../threadCard/ThreadCard";
+import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 const Thread = () => {
-  return <>Thread</>;
+  const dispatch = useDispatch();
+  const threadStatus = useSelector(selectThreadStatus);
+  const permalink = useSelector(selectPermalink);
+  const data = useSelector(selectThreadData);
+  const { redditId, subredditName, threadTitle } = useParams();
+
+  const thread = (
+    <ThreadCard
+      key={data.keyId}
+      id={data.keyId}
+      author={data.author}
+      cardType="homepage"
+      commentCount={data.commentCount}
+      gallery={data.gallery}
+      icon={data.icon}
+      image={data.image}
+      link={data.link}
+      score={data.score}
+      selfText={data.selfText}
+      richVideo={data.richVideo}
+      subredditName={data.subredditName}
+      threadTitle={data.threadTitle}
+      threadType={data.threadType}
+      thumbnail={data.thumbnail}
+      timestamp={data.timestamp}
+      video={data.video}
+    />
+  );
+  useEffect(() => {
+    if (threadStatus === "idle") {
+      dispatch(
+        fetchData(
+          `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`
+        )
+      );
+    }
+  }, [threadStatus, dispatch]);
+
+  return (
+    <>
+      <>
+        {threadStatus === "loading" && (
+          <>
+            <SkeletonThreadCard />
+            <SkeletonThreadCard />
+          </>
+        )}
+        {threadStatus === "succeeded" && thread}
+      </>
+    </>
+  );
 };
 
 export default Thread;

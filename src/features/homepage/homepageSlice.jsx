@@ -68,6 +68,7 @@ const homepageSlice = createSlice({
             timestamp: getTimeStamp(data.created_utc),
             threadTitle: data.title,
             score: data.score,
+            redditId: data.name,
             commentCount: data.num_comments,
             gallery: threadType === "gallery" && data.url,
             image: threadType === "image" && data.url,
