@@ -1,3 +1,4 @@
+import "./Thread.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -6,15 +7,14 @@ import {
   selectThreadData,
   selectThreadStatus,
   selectAllComments,
-  selectPermalink,
 } from "./threadSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 const Thread = () => {
   const dispatch = useDispatch();
   const threadStatus = useSelector(selectThreadStatus);
-  const permalink = useSelector(selectPermalink);
   const data = useSelector(selectThreadData);
+  const comments = useSelector(selectAllComments);
   const { redditId, subredditName, threadTitle } = useParams();
 
   const thread = (
@@ -22,7 +22,7 @@ const Thread = () => {
       key={data.keyId}
       id={data.keyId}
       author={data.author}
-      cardType="homepage"
+      cardType="thread"
       commentCount={data.commentCount}
       gallery={data.gallery}
       icon={data.icon}
@@ -50,17 +50,19 @@ const Thread = () => {
   }, [threadStatus, dispatch]);
 
   return (
-    <>
-      <>
-        {threadStatus === "loading" && (
-          <>
-            <SkeletonThreadCard />
-            <SkeletonThreadCard />
-          </>
-        )}
-        {threadStatus === "succeeded" && thread}
-      </>
-    </>
+    <div className="Thread">
+      {threadStatus === "loading" && (
+        <>
+          <SkeletonThreadCard />
+        </>
+      )}
+      {threadStatus === "succeeded" && (
+        <>
+          {thread}
+          {JSON.stringify(comments)}
+        </>
+      )}
+    </div>
   );
 };
 

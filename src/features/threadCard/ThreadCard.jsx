@@ -61,7 +61,7 @@ const ThreadCard = ({
   thumbnail = getDefaultThumbnail(thumbnail);
 
   useEffect(() => {
-    if (cardType === "homepage") {
+    if (cardType !== "subreddit") {
       async function getIcon(subredditName) {
         const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
         const response = await axios.get(URL);
@@ -84,16 +84,27 @@ const ThreadCard = ({
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
         {icon ? (
-          <img
-            src={icon}
-            alt="Subreddit avatar"
-            className={`subredditIcon ${cardType}`}
-          />
+          <Link
+            to={`/r/${subredditName}`}
+            onClick={() => dispatch(setStatus("idle"))}
+            epage
+          >
+            <img
+              src={icon}
+              alt="Subreddit avatar"
+              className={`subredditIcon ${cardType}`}
+            />
+          </Link>
         ) : (
-          <div className={`subredditIcon ${cardType}`}>r/</div>
+          <Link
+            to={`/r/${subredditName}`}
+            onClick={() => dispatch(setStatus("idle"))}
+          >
+            <div className={`subredditIcon ${cardType}`}>r/</div>
+          </Link>
         )}
         <p className="ThreadCardHeaderText">
-          {cardType === "homepage" && (
+          {cardType !== "subreddit" && (
             <span className="subredditName">
               <Link
                 to={`/r/${subredditName}`}
@@ -243,18 +254,20 @@ const ThreadCard = ({
         </div>
       </div>
       <div className="threadFooter">
-        <Link
-          to={link.substring(19)}
-          onClick={() => {
-            dispatch(setThreadStatus("idle"));
-            dispatch(setPermalink(link));
-          }}
-        >
-          <button className="viewComments button">
-            <img src={commentBubble} alt="comment bubble" className="icon" />
-            <span>View {commentCount} comments</span>
-          </button>
-        </Link>
+        {cardType !== "thread" && (
+          <Link
+            to={`/${link.substring(19)}`}
+            onClick={() => {
+              dispatch(setThreadStatus("idle"));
+              dispatch(setPermalink(link));
+            }}
+          >
+            <button className="viewComments button">
+              <img src={commentBubble} alt="comment bubble" className="icon" />
+              <span>View {commentCount} comments</span>
+            </button>
+          </Link>
+        )}
         <span>
           <img src={upvote} alt="up arrow" className="upArrow" />
           {score}

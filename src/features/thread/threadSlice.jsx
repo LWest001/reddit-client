@@ -7,7 +7,6 @@ import providers from "../../assets/providers.json";
 import { useParams } from "react-router";
 
 const initialState = {
-  permalink: "",
   threadData: {},
   comments: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
@@ -29,11 +28,6 @@ const threadSlice = createSlice({
     setStatus: {
       reducer(state, action) {
         state.status = action.payload;
-      },
-    },
-    setPermalink: {
-      reducer(state, action) {
-        state.permalink = action.payload;
       },
     },
   },
@@ -95,7 +89,6 @@ const threadSlice = createSlice({
 export const selectThreadData = (state) => state.thread.threadData;
 export const selectThreadStatus = (state) => state.thread.status;
 export const selectAllComments = (state) => state.thread.comments;
-export const selectPermalink = (state) => state.thread.permalink;
 
 export const { setStatus, setPermalink } = threadSlice.actions;
 export default threadSlice.reducer;
