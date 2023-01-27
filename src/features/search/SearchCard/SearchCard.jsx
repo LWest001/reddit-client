@@ -49,7 +49,7 @@ const SearchCard = ({
           ) : (
             <div className="subredditIcon">r/</div>
           )}
-          <p className="SearchCardHeaderText">
+          <div className="searchCardHeaderText">
             <span className="subredditName">
               <Link
                 to={`/r/${subredditName}`}
@@ -57,11 +57,10 @@ const SearchCard = ({
               >
                 r/{subredditName}
               </Link>
-            </span>{" "}
-            ▪️
-            <span className="author">u/{author}</span> ▪️
-            <span className="timestamp">{timestamp}</span>
-          </p>
+            </span>
+            <span className="author">u/{author}</span>
+          </div>
+          <span className="timestamp">{timestamp}</span>
         </div>
         <a href={link}>
           <div className="threadPreview">
@@ -74,7 +73,8 @@ const SearchCard = ({
           </div>
         </a>
         <p className="searchCardFooter">
-          <span className="commentCount">🗨️{commentCount}</span>&nbsp;&nbsp;&nbsp;&nbsp;▪️&nbsp;&nbsp;&nbsp;&nbsp;
+          <span className="commentCount">🗨️{commentCount}</span>
+          &nbsp;&nbsp;&nbsp;&nbsp;▪️&nbsp;&nbsp;&nbsp;&nbsp;
           <span>
             <img className="upArrow" src={upvote} alt="" />
             {score}

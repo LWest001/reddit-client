@@ -21,15 +21,16 @@
 }
 
 .searchCardHeader {
-  height: fit-content;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr min-content;
   width: auto;
-  justify-content: space-between;
   line-height: 0.8rem;
   background: radial-gradient(ellipse at top left, #ffffff, lightgray);
   padding: 5px;
   margin: var(--border);
+  font-size: 0.9rem;
+  align-items: flex-start;
+  justify-content: start;
 }
 
 .searchCardHeader .subredditIcon {
@@ -42,6 +43,17 @@
   justify-content: center;
   background: linear-gradient(45deg, rgba(0, 0, 255, 0.267), white);
   font-size: smaller;
+}
+.searchCardHeaderText {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin-left: 5px;
+  gap: 1rem;
+}
+
+.subredditName {
+  font-weight: bold;
 }
 
 .SearchCard .threadPreview {
@@ -58,16 +70,6 @@
   border: 1px solid black;
 }
 
-.SearchCardHeaderText {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  width: 100%;
-  margin-left: 5px;
-  gap: 0.5rem;
-}
-
 .SearchCard .searchCardFooter {
   border-radius: var(--radius);
   margin: var(--border);
@@ -75,10 +77,6 @@
 
 .SearchCard .threadTitle {
   margin: var(--border);
-}
-
-.subredditName {
-  font-weight: bold;
 }
 
 .SearchCard .threadType {
@@ -94,16 +92,28 @@
 .SearchCard a {
   color: black;
 }
+
 .thumbnailContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding: 5px;
 }
+
+.searchCardBody {
+  min-width: 100%;
+}
+
 @media (hover: hover) {
   /* when hover is supported */
   .SearchCard:hover {
     background-color: slategray;
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .searchCardHeaderText {
+    gap: 0.3rem;
   }
 }
