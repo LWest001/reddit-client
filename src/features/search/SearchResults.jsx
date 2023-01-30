@@ -19,7 +19,7 @@ const SearchResults = () => {
   const query = searchParams.get("q");
   const sort = searchParams.get("sort");
 
-  const threads = threadsData.map((thread) => {
+  const searchResults = threadsData.map((thread) => {
     return (
       <SearchCard
         key={thread.keyId}
@@ -44,7 +44,7 @@ const SearchResults = () => {
   });
   useEffect(() => {
     if (threadsStatus === "idle") {
-      dispatch(fetchThreads({ query: query, sortType: sort || "best" }));
+      dispatch(fetchThreads({ query: query, sortType: sort || "hot" }));
     }
   }, [threadsStatus, sortType, dispatch]);
   return (
@@ -55,7 +55,7 @@ const SearchResults = () => {
           <SkeletonThreadCard />
         </>
       )}
-      {threadsStatus === "succeeded" && threads}
+      {threadsStatus === "succeeded" && searchResults}
     </>
   );
 };

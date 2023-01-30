@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  sortType: "best", // 'best' | 'new' | 'top' | 'hot' | 'rising'
+  sortType: "hot", // | 'new' | 'top' | 'hot' | 'rising'
 };
 
 const sortSelectorSlice = createSlice({

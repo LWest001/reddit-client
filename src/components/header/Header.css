@@ -99,7 +99,6 @@ nav ul li a {
 }
 
 #searchInput::placeholder {
-  text-align: right;
   text-indent: 5px;
 }
 

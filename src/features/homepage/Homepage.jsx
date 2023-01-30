@@ -45,7 +45,7 @@ const Homepage = () => {
     if (threadsStatus === "idle") {
       dispatch(
         fetchThreads({
-          sortType: sortType ? sortType : "best",
+          sortType: sortType ? sortType : "hot",
         })
       );
     }

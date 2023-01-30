@@ -87,7 +87,6 @@ const ThreadCard = ({
           <Link
             to={`/r/${subredditName}`}
             onClick={() => dispatch(setStatus("idle"))}
-            epage
           >
             <img
               src={icon}

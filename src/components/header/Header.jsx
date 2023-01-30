@@ -18,13 +18,13 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (selectedSort === "best") {
+    if (selectedSort === "hot") {
       document.querySelector("select").selectedIndex = 0;
     }
   }, [selectedSort]);
 
   const handleClick = () => {
-    dispatch(setSortType("best"));
+    dispatch(setSortType("hot"));
     dispatch(setHomepageStatus("idle"));
     navigate("/");
   };

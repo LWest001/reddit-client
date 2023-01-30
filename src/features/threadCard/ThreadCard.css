@@ -1,3 +1,4 @@
+/* Global */
 .ThreadCard,
 .SkeletonThreadCard,
 .ErrorPage,
@@ -24,6 +25,7 @@
   width: 98vw;
 }
 
+/* Header */
 .threadCardHeader {
   height: fit-content;
   display: grid;
@@ -34,56 +36,26 @@
   background: radial-gradient(ellipse at top left, #ffffff, lightgray);
   padding: 5px;
 }
+.subredditName {
+  font-weight: bold;
+}
+.subredditIcon {
+  border-radius: 50%;
+  border: 2px solid black;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, rgba(0, 0, 255, 0.507), white);
+}
 
 .threadCardHeader img {
   width: 2rem;
   height: 2rem;
 }
-
-.viewComments {
-  display: flex;
-  height: 2rem;
-  padding: 5px;
-  gap: 0.5rem;
-  align-items: center;
-  border-radius: 10px;
-  font-size: 0.9rem;
-}
-
-.ThreadCard .subtext {
-  font-size: 0.8rem;
-}
-
-.ThreadCard .threadPreview {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-}
-
-.ThreadCard .timestamp {
-  align-items: center;
-  justify-content: end;
-  display: flex;
-}
-
-.previewImage {
-  max-width: 100%;
-  max-height: 50vh;
-  border-radius: var(--radius);
-}
-
-.ThreadCard .vid-audio-message {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 0.8em;
-}
-
-.ThreadCard .threadPreview .thumbnail {
-  width: 96px;
-  float: left;
-  border-radius: var(--radius);
-  margin-right: 0.5rem;
-  background-color: #ffffff;
+.subredditIcon.subreddit {
+  display: none;
 }
 
 .ThreadCardHeaderText {
@@ -95,13 +67,45 @@
   margin-left: 5px;
 }
 
-.ThreadCard .threadContentPreview {
+.ThreadCard .subtext {
+  font-size: 0.8rem;
+}
+
+.ThreadCard .timestamp {
+  align-items: center;
+  justify-content: end;
+  display: flex;
+}
+
+/* Body */
+
+.ThreadCard .threadPreview {
   display: flex;
   flex-direction: column;
-  background-color: lightgray;
-  border-radius: calc(var(--radius) + var(--border));
-  margin: var(--border);
-  padding: 5px;
+  font-weight: bold;
+}
+
+.ThreadCard .threadTitle {
+  margin: 0 0.3rem;
+}
+.previewImage {
+  max-width: 100%;
+  max-height: 50vh;
+  border-radius: var(--radius);
+}
+
+.ThreadCard .threadPreview .thumbnail {
+  width: 96px;
+  float: left;
+  border-radius: var(--radius);
+  margin-right: 0.5rem;
+  background-color: #ffffff;
+}
+
+.ThreadCard .vid-audio-message {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 0.8em;
 }
 
 .threadContentPreview .centered {
@@ -114,16 +118,12 @@
   width: fit-content;
 }
 
-.ThreadCard .threadFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  background: radial-gradient(ellipse at top left, #ffffff, lightgray);
+.__embed {
+  max-height: 80vh;
 }
 
-.ThreadCard .threadTitle {
-  margin: 0 0.3rem;
+.__embed iframe {
+  max-height: 80vh;
 }
 
 .postFlairContainer {
@@ -187,28 +187,31 @@
   grid-column: 1/3;
 }
 
-.subredditName {
-  font-weight: bold;
-}
-.subredditIcon {
-  border-radius: 50%;
-  border: 2px solid black;
-  height: 36px;
-  width: 36px;
+/* Footer */
+.viewComments {
   display: flex;
+  height: 2rem;
+  padding: 5px;
+  gap: 0.5rem;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(45deg, rgba(0, 0, 255, 0.507), white);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  width: max-content
 }
 
-.subredditIcon.subreddit {
-  display: none;
+.ThreadCard .threadContentPreview {
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+  border-radius: calc(var(--radius) + var(--border));
+  margin: var(--border);
+  padding: 5px;
 }
 
-.__embed {
-  max-height: 80vh;
-}
-
-.__embed iframe {
-  max-height: 80vh;
+.ThreadCard .threadFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: radial-gradient(ellipse at top left, #ffffff, lightgray);
 }

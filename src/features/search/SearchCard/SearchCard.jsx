@@ -7,6 +7,10 @@ import { setStatus as setHomepageStatus } from "../../homepage/homepageSlice";
 import { useDispatch } from "react-redux";
 import getDefaultThumbnail from "../../../functions/getDefaultThumbnail";
 import upvote from "../../../assets/upvote.svg";
+import {
+  setStatus as setThreadStatus,
+  setPermalink,
+} from "../../thread/threadSlice";
 
 const SearchCard = ({
   id,
@@ -64,7 +68,15 @@ const SearchCard = ({
         </div>
         <div className="threadPreview">
           <span className="threadType">{threadType}</span>
-          <a href={link}>{<h2 className="threadTitle">{threadTitle}</h2>}</a>
+          <Link
+            to={`/${link.substring(19)}`}
+            onClick={() => {
+              dispatch(setThreadStatus("idle"));
+              dispatch(setPermalink(link));
+            }}
+          >
+            {<h2 className="threadTitle">{threadTitle}</h2>}
+          </Link>
         </div>
         <p className="searchCardFooter">
           <span className="commentCount">🗨️{commentCount}</span>
@@ -76,7 +88,13 @@ const SearchCard = ({
         </p>
       </div>
       {thumbnail && (
-        <a href={link}>
+        <Link
+          to={`/${link.substring(19)}`}
+          onClick={() => {
+            dispatch(setThreadStatus("idle"));
+            dispatch(setPermalink(link));
+          }}
+        >
           <figure className="thumbnailContainer">
             <img
               className="thumbnail"
@@ -84,7 +102,7 @@ const SearchCard = ({
               alt={`Thumbnail for thread: ${threadTitle}`}
             />
           </figure>
-        </a>
+        </Link>
       )}
     </div>
   );

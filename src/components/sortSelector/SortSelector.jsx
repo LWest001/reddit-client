@@ -37,10 +37,9 @@ const SortSelector = () => {
       onChange={handleChange}
       value={sortType}
     >
-      <option value="best">👍Best</option>
       <option value="hot">🔥Hot</option>
-      <option value="new">✨New</option>
       <option value="top">⬆️Top</option>
+      <option value="new">✨New</option>
       <option value="rising">⤴️Rising</option>
     </select>
   );
