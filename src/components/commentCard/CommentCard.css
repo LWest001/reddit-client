@@ -3,7 +3,8 @@
   flex-direction: column;
   margin: 5px;
   background-color: lightgray;
-  padding: 3px
+  padding: 3px;
+  line-height: normal;
 }
 
 .CommentCard .author {
