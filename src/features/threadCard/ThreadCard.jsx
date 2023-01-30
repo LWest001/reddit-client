@@ -193,7 +193,7 @@ const ThreadCard = ({
                 width="100%"
                 maxheight="80vh"
                 playsinline={true}
-                muted
+                muted={true}
               />
             </div>
           )}
