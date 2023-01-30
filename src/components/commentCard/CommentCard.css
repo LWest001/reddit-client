@@ -1,0 +1,11 @@
+.CommentCard {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  background-color: lightgray;
+  padding: 3px
+}
+
+.CommentCard .author {
+  font-weight: bold;
+}

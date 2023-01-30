@@ -68,7 +68,7 @@ const Header = () => {
               <input
                 type="search"
                 id="searchInput"
-                placeholder="🔍"
+                placeholder="Search"
                 onChange={(e) => dispatch(setQuery(e.target.value))}
               />
             </form>

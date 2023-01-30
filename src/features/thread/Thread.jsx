@@ -9,13 +9,14 @@ import {
   selectAllComments,
 } from "./threadSlice";
 import ThreadCard from "../threadCard/ThreadCard";
+import CommentCard from "../../components/commentCard/CommentCard";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 const Thread = () => {
   const dispatch = useDispatch();
   const threadStatus = useSelector(selectThreadStatus);
   const data = useSelector(selectThreadData);
-  const comments = useSelector(selectAllComments);
-  const { redditId, subredditName, threadTitle } = useParams();
+  const commentsData = useSelector(selectAllComments);
+  const { redditId, subredditName, threadTitle, sortType } = useParams();
 
   const thread = (
     <ThreadCard
@@ -39,12 +40,41 @@ const Thread = () => {
       video={data.video}
     />
   );
+
+  const comments = commentsData.map((comment) => {
+    if (comment.type === "readMore") {
+      return (
+        <button key={comment.keyId} id={comment.keyId}>
+          Read more comments
+        </button>
+      );
+    }
+    return (
+      <CommentCard
+        key={comment.keyId}
+        id={comment.keyId}
+        author={comment.author}
+        score={comment.score}
+        body={comment.body}
+        richVideo={comment.richVideo}
+        subredditName={comment.subredditName}
+        threadTitle={comment.threadTitle}
+        threadType={comment.threadType}
+        thumbnail={comment.thumbnail}
+        timestamp={comment.timestamp}
+        video={comment.video}
+      />
+    );
+  });
+
   useEffect(() => {
     if (threadStatus === "idle") {
+      console.log(sortType);
       dispatch(
-        fetchData(
-          `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`
-        )
+        fetchData({
+          link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`,
+          sortType: sortType,
+        })
       );
     }
   }, [threadStatus, dispatch]);
@@ -59,7 +89,7 @@ const Thread = () => {
       {threadStatus === "succeeded" && (
         <>
           {thread}
-          {/* {JSON.stringify(comments)} */}
+          {comments}
         </>
       )}
     </div>

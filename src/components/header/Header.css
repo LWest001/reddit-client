@@ -1,8 +1,6 @@
 .Header {
   align-items: center;
-  background-color: lightgray;
-  box-shadow: 2px 2px 5px black;
-  border-radius: 0 0 5px 5px;
+
   position: fixed;
   width: 100%;
   max-width: 1000px;
@@ -16,7 +14,7 @@
   background-color: whitesmoke;
   height: 32px;
   color: slate;
-  border-width: 3px;
+  border-width: 1px;
   border-style: outset;
   border-color: buttonborder;
 }
@@ -41,7 +39,6 @@
   flex-direction: column;
   justify-content: space-between;
   height: 32px;
-  border-width: 3px;
   border-radius: 30%;
 }
 
@@ -60,6 +57,12 @@ nav ul {
   gap: 1rem;
   align-items: center;
   padding: 2px 0;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 2px;
+  background-color: lightgray;
+  box-shadow: 2px 2px 5px black;
+  border-radius: 0 0 5px 5px;
 }
 
 nav ul li {
@@ -74,21 +77,18 @@ nav ul li a {
   margin-left: auto;
   margin-right: 10px;
   height: 32px;
-  display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 0;
 }
 
 #searchInput {
-  font-size: 1.3rem;
+  font-size: 1rem;
   border-radius: 100px;
-  display: flex;
+  display: block;
   cursor: pointer;
   border: none;
-}
-
-#searchInput:empty {
-  width: 3rem;
+  max-width: 100%;
 }
 
 #searchInput:focus {
@@ -99,9 +99,13 @@ nav ul li a {
 }
 
 #searchInput::placeholder {
-  text-align: end;
+  text-align: right;
+  text-indent: 5px;
 }
 
+form {
+  min-width: 0;
+}
 @media (hover: hover) {
   .homeButton:hover {
     background-color: darkgray;

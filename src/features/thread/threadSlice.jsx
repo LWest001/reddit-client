@@ -13,13 +13,20 @@ const initialState = {
   error: null,
 };
 
-export const fetchData = createAsyncThunk("thread/fetchData", async (link) => {
-  const URL = `${link}.json`;
-  const response = await axios.get(URL);
-  const threadData = response.data[0].data.children[0].data;
-  const comments = response.data[1].data.children;
-  return { threadData, comments };
-});
+export const fetchData = createAsyncThunk(
+  "thread/fetchData",
+  async (options) => {
+    const { link, sortType } = options;
+    let URL = `${link}.json`;
+    if (sortType) {
+      URL = `${URL}?sort=${sortType}`;
+    }
+    const response = await axios.get(URL);
+    const threadData = response.data[0].data.children[0].data;
+    const comments = response.data[1].data.children;
+    return { threadData, comments };
+  }
+);
 
 const threadSlice = createSlice({
   name: "thread",
@@ -77,7 +84,22 @@ const threadSlice = createSlice({
           },
         };
         state.threadData = filteredData;
-        state.comments = comments;
+        const filteredComments = comments.map((comment) => {
+          const { data, kind } = comment;
+          if (kind === "more") {
+            return {
+              type: "readMore",
+              keyId: getRandomKey(),
+            };
+          }
+          return {
+            author: data.author,
+            body: data.body_html,
+            keyId: getRandomKey(),
+            timestamp: getTimeStamp(data.created_utc),
+          };
+        });
+        state.comments = filteredComments;
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.status = "failed";

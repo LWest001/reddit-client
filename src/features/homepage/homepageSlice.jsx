@@ -62,16 +62,11 @@ const homepageSlice = createSlice({
           const threadType = getThreadType(data);
 
           return {
-            keyId: getRandomKey(),
-            subredditName: data.subreddit,
             author: data.author,
-            timestamp: getTimeStamp(data.created_utc),
-            threadTitle: data.title,
-            score: data.score,
-            redditId: data.name,
             commentCount: data.num_comments,
             gallery: threadType === "gallery" && data.url,
             image: threadType === "image" && data.url,
+            keyId: getRandomKey(),
             link: "https://reddit.com" + data.permalink,
             postFlair: {
               backgroundColor: data.link_flair_background_color,
@@ -80,7 +75,7 @@ const homepageSlice = createSlice({
                 data.link_flair_richtext[0]?.t ||
                 data.link_flair_richtext[1]?.t,
             },
-            thumbnail: data.thumbnail,
+            redditId: data.name,
             richVideo: threadType === "richVideo" && {
               oembed: data.media.oembed,
               url: data.url,
@@ -89,7 +84,12 @@ const homepageSlice = createSlice({
                   provider.provider_name === data.media.oembed.provider_name
               ),
             },
+            score: data.score,
             selfText: threadType === "self" && data.selftext,
+            subredditName: data.subreddit,
+            threadTitle: data.title,
+            thumbnail: data.thumbnail,
+            timestamp: getTimeStamp(data.created_utc),
             threadType: threadType,
             video: threadType === "video" && {
               dashManifest: data.media.reddit_video.dash_url,

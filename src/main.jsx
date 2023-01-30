@@ -27,7 +27,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
       ></Route>
       <Route
-        path="r/:subredditName/comments/:redditId/:threadTitle"
+        path="r/:subredditName/comments/:redditId/:threadTitle/:sortType?"
         element={<Thread />}
         errorElement={<ErrorPage />}
       />
