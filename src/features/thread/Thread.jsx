@@ -59,7 +59,7 @@ const Thread = () => {
       {threadStatus === "succeeded" && (
         <>
           {thread}
-          {JSON.stringify(comments)}
+          {/* {JSON.stringify(comments)} */}
         </>
       )}
     </div>
