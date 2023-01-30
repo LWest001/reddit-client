@@ -192,7 +192,7 @@ const ThreadCard = ({
                 controls={true}
                 width="100%"
                 maxheight="80vh"
-                playsinline
+                playsinline="true"
               />
             </div>
           )}
