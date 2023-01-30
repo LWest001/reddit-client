@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import SearchCard from "./SearchCard/SearchCard";
-import { selectSortType } from "../../components/sortSelectorSlice";
+import { selectSortType } from "../../components/sortSelector/sortSelectorSlice";
 import {
   fetchThreads,
   selectAllThreads,

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { redirect, useNavigate, useSearchParams } from "react-router-dom";
 import { setSortType } from "./sortSelectorSlice";
 import { useParams } from "react-router-dom";
-import { setStatus } from "../features/homepage/homepageSlice";
+import { setStatus } from "../../features/homepage/homepageSlice";
 
 const SortSelector = () => {
   const dispatch = useDispatch();

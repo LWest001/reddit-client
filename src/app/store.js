@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import homepageReducer from "../features/homepage/homepageSlice";
-import sortSelectorReducer from "../components/sortSelectorSlice";
-import threadReducer from "../features/thread/threadSlice"
+import sortSelectorReducer from "../components/sortSelector/sortSelectorSlice";
+import threadReducer from "../features/thread/threadSlice";
 const store = configureStore({
   reducer: {
     homepage: homepageReducer,

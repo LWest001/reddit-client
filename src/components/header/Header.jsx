@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, createSearchParams } from "react-router-dom";
-import SortSelector from "./SortSelector";
+import SortSelector from "../sortSelector/SortSelector";
 import { useEffect } from "react";
-import { selectSortType, setSortType } from "./sortSelectorSlice";
+import { selectSortType, setSortType } from "../sortSelector/sortSelectorSlice";
 import {
   setStatus as setHomepageStatus,
   setQuery,
   selectQuery,
-} from "../features/homepage/homepageSlice";
+} from "../../features/homepage/homepageSlice";
 import "./Header.css";
-import home from "../assets/home.svg";
+import home from "../../assets/home.svg";
 
 const Header = () => {
   const selectedSort = useSelector(selectSortType);
