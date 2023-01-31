@@ -1,12 +1,32 @@
+/* GLOBAL */
+
 .CommentCard {
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
   background-color: lightgray;
-  padding: 3px;
   line-height: normal;
 }
 
+.subcomment {
+  margin:2px 0 2px 5px;
+
+}
+
+.CommentCard a {
+  text-decoration: underline;
+  color: blue;
+}
+
+/* HEADER */
+.commentHeader {
+  display: grid;
+  grid-template-columns: auto auto 1fr 4rem;
+  gap: 1rem;
+}
 .CommentCard .author {
   font-weight: bold;
+}
+
+/* BODY */
+.commentBody {
+  padding: 0.3rem;
+  padding-top: 0;
 }

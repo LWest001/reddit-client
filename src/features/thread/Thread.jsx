@@ -51,18 +51,14 @@ const Thread = () => {
     }
     return (
       <CommentCard
-        key={comment.keyId}
-        id={comment.keyId}
         author={comment.author}
-        score={comment.score}
         body={comment.body}
-        richVideo={comment.richVideo}
-        subredditName={comment.subredditName}
-        threadTitle={comment.threadTitle}
-        threadType={comment.threadType}
-        thumbnail={comment.thumbnail}
+        id={comment.keyId}
+        key={comment.keyId}
+        replies={comment.replies}
+        score={comment.score}
         timestamp={comment.timestamp}
-        video={comment.video}
+        type={"top-level-comment"}
       />
     );
   });

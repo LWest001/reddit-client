@@ -96,6 +96,8 @@ const threadSlice = createSlice({
             author: data.author,
             body: data.body_html,
             keyId: getRandomKey(),
+            replies: data?.replies?.data?.children,
+            score: data.ups,
             timestamp: getTimeStamp(data.created_utc),
           };
         });

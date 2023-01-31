@@ -1,3 +1,6 @@
-/* .Thread {
-  min-width: 100%;
-} */
+.Thread {
+display:flex;
+flex-direction: column;
+place-items: center;
+width: 100%;
+}

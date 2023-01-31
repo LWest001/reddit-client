@@ -30,21 +30,23 @@
 }
 
 body {
-  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  max-width: 100vw;
+  /* max-width: 100vw; */
+  width: 100%;
   background-color: slategray;
 }
 
 #root {
-  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   max-width: 1000px;
 }
 .App {
-  max-width: 1000px;
+  width: clamp(300px, 100%, 100vw);
   margin: auto;
 }
 
