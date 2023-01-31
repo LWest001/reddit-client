@@ -7,6 +7,7 @@ import axios from "axios";
 import { setStatus } from "../homepage/homepageSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
+import isiOS from "../../functions/isIos";
 import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
@@ -188,12 +189,14 @@ const ThreadCard = ({
           {threadType == "video" && (
             <div className="centered videoWrapper">
               <ReactPlayer
-                url={video.dashManifest}
+                url={isiOS() ? video.hls : video.dashManifest}
                 controls={true}
                 width="100%"
                 maxheight="80vh"
                 playsinline={true}
+                volume={1}
                 muted={true}
+                autoPlay={false}
               />
             </div>
           )}
