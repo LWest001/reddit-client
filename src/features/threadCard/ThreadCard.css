@@ -15,11 +15,9 @@
   max-width: 100%;
   overflow: hidden;
   background-color: lightgray;
-}
-
-.ThreadCard {
   width: 100%;
 }
+
 .ThreadCard:first-child {
   margin-top: 50px;
 }

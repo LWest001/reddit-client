@@ -65,7 +65,6 @@ const Thread = () => {
 
   useEffect(() => {
     if (threadStatus === "idle") {
-      console.log(sortType);
       dispatch(
         fetchData({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`,

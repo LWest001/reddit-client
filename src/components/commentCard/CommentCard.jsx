@@ -9,8 +9,18 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import { getRandomKey } from "../../functions/getRandomKey";
+import { getTimeStamp } from "../../functions/getTimeStamp";
 
-function CommentCard({ author, body, replies, score, timestamp, type }) {
+function CommentCard({ author, body, id, replies, score, timestamp, type }) {
+  function handleCollapse(e) {
+    const commentBody = document.getElementById(`comment-${id}`);
+    if (commentBody.style.display !== "none") {
+      commentBody.style.display = "none";
+    } else {
+      commentBody.style.display = "block";
+    }
+  }
+
   const bodyTextHTML = parseMarkdownText(body);
   let subcomments;
   if (replies) {
@@ -32,7 +42,7 @@ function CommentCard({ author, body, replies, score, timestamp, type }) {
           key={keyId}
           replies={subcomment.replies?.data?.children}
           score={subcomment.score}
-          timestamp={subcomment.timestamp}
+          timestamp={getTimeStamp(subcomment.created_utc)}
           type="subcomment"
         />
       );
@@ -41,7 +51,7 @@ function CommentCard({ author, body, replies, score, timestamp, type }) {
 
   return (
     <div className={`CommentCard ${type}`}>
-      <div className="commentHeader">
+      <div className="commentHeader" onClick={handleCollapse} id={id}>
         <div className="author">{author}</div>
         <div className="timestamp">{timestamp}</div>
         <div></div>
@@ -50,11 +60,13 @@ function CommentCard({ author, body, replies, score, timestamp, type }) {
           {score}
         </div>
       </div>
-      <div
-        className="commentBody"
-        dangerouslySetInnerHTML={{ __html: bodyTextHTML }}
-      ></div>
-      {subcomments && subcomments}
+      <div className="commentBody" id={`comment-${id}`}>
+        <div
+          className="commentBodyText"
+          dangerouslySetInnerHTML={{ __html: bodyTextHTML }}
+        ></div>
+        {subcomments && subcomments}
+      </div>
     </div>
   );
 }

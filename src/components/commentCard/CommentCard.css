@@ -3,11 +3,12 @@
 .CommentCard {
   background-color: lightgray;
   line-height: normal;
+  /* margin: 2px auto */
 }
 
 .subcomment {
   margin:2px 0 2px 5px;
-
+  width: auto
 }
 
 .CommentCard a {
@@ -25,8 +26,9 @@
   font-weight: bold;
 }
 
+
 /* BODY */
-.commentBody {
+.commentBodyText {
   padding: 0.3rem;
   padding-top: 0;
 }
