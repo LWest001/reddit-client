@@ -108,10 +108,10 @@
   font-size: 0.8em;
 }
 
-.threadContentPreview .centered {
+.centered {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  place-items: center;
 }
 
 .ThreadCard .readMore {

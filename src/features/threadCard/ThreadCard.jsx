@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import axios from "axios";
-import { setStatus } from "../homepage/homepageSlice";
+import { setStatus, setModal } from "../homepage/homepageSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
@@ -141,13 +141,21 @@ const ThreadCard = ({
         <div className="threadContentPreview">
           {threadType == "image" && (
             <div className="centered">
-              <a href={image}>
-                <img
-                  src={image}
-                  alt={`Image for thread: ${threadTitle}`}
-                  className="previewImage"
-                />
-              </a>
+              <img
+                src={image}
+                alt={`Image for thread: ${threadTitle}`}
+                className="previewImage"
+                onClick={() =>
+                  dispatch(
+                    setModal({
+                      image: image,
+                      title: threadTitle,
+                      link: link,
+                      display: true,
+                    })
+                  )
+                }
+              />
             </div>
           )}
 

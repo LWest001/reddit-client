@@ -40,8 +40,12 @@ body {
 }
 
 #root {
-  width: 100%;
+  min-width: 100%;
   max-width: 1000px;
+}
+.App {
+  max-width: 1000px;
+  margin: auto;
 }
 
 h1 {
