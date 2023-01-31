@@ -17,6 +17,7 @@ import SearchResults from "./features/search/SearchResults";
 import ErrorPage from "./features/ErrorPage";
 import Thread from "./features/thread/Thread";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/:sortType?" element={<App />} errorElement={<ErrorPage />}>

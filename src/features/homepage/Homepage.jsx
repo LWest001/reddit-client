@@ -15,6 +15,8 @@ const Homepage = () => {
   const threadsData = useSelector(selectAllThreads);
   const { sortType } = useParams();
 
+
+
   const threads = threadsData.map((thread) => {
     return (
       <ThreadCard

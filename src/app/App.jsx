@@ -6,7 +6,7 @@ import {
 } from "../features/homepage/homepageSlice";
 import ErrorPage from "../features/ErrorPage";
 import ImageModal from "../features/imageModal/ImageModal";
-import { useBottomScrollListener } from "react-bottom-scroll-listener";
+import { BottomScrollListener } from "react-bottom-scroll-listener";
 
 function App() {
   const status = useSelector(selectThreadsStatus);
@@ -14,6 +14,7 @@ function App() {
 
   return (
     <>
+      <BottomScrollListener onBottom={() => console.log("bottom")} />;
       <Layout />
       {status === "failed" && <ErrorPage />}
       {modal.display && (
