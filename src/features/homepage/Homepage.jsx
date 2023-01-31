@@ -50,6 +50,7 @@ const Homepage = () => {
       );
     }
   }, [threadsStatus, sortType, dispatch]);
+
   return (
     <>
       {threadsStatus === "loading" && (
