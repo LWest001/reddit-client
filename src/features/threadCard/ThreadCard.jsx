@@ -7,7 +7,7 @@ import axios from "axios";
 import { setStatus } from "../homepage/homepageSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
-import isiOS from "../../functions/isIos";
+import isiOS from "../../functions/isiOS";
 import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
