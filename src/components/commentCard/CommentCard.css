@@ -19,6 +19,11 @@
   color: blue;
 }
 
+/* Skeleton */
+.skeleton.CommentCard:first-child {
+  margin-top: 30px;
+}
+
 /* HEADER */
 .commentHeader {
   display: grid;

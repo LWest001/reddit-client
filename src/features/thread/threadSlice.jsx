@@ -36,6 +36,16 @@ const threadSlice = createSlice({
         state.status = action.payload;
       },
     },
+    setThreadData: {
+      reducer(state, action) {
+        state.threadData = action.payload;
+      },
+    },
+    setComments: {
+      reducer(state, action) {
+        state.comments = action.payload;
+      },
+    },
   },
 
   extraReducers(builder) {
@@ -113,5 +123,5 @@ export const selectThreadData = (state) => state.thread.threadData;
 export const selectThreadStatus = (state) => state.thread.status;
 export const selectAllComments = (state) => state.thread.comments;
 
-export const { setStatus} = threadSlice.actions;
+export const { setStatus, setThreadData, setComments } = threadSlice.actions;
 export default threadSlice.reducer;

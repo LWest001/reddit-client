@@ -11,33 +11,40 @@ import {
 import ThreadCard from "../threadCard/ThreadCard";
 import CommentCard from "../../components/commentCard/CommentCard";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
+
 const Thread = () => {
   const dispatch = useDispatch();
   const threadStatus = useSelector(selectThreadStatus);
-  const data = useSelector(selectThreadData);
+  const threadData = useSelector(selectThreadData);
   const commentsData = useSelector(selectAllComments);
-  const { redditId, subredditName, threadTitle, sortType = "hot" } = useParams();
+  const {
+    redditId,
+    subredditName,
+    threadTitle,
+    sortType = "hot",
+  } = useParams();
 
   const thread = (
     <ThreadCard
-      key={data.keyId}
-      id={data.keyId}
-      author={data.author}
+      key={threadData.keyId}
+      id={threadData.keyId}
+      author={threadData.author}
       cardType="thread"
-      commentCount={data.commentCount}
-      gallery={data.gallery}
-      icon={data.icon}
-      image={data.image}
-      link={data.link}
-      score={data.score}
-      selfText={data.selfText}
-      richVideo={data.richVideo}
-      subredditName={data.subredditName}
-      threadTitle={data.threadTitle}
-      threadType={data.threadType}
-      thumbnail={data.thumbnail}
-      timestamp={data.timestamp}
-      video={data.video}
+      commentCount={threadData.commentCount}
+      gallery={threadData.gallery}
+      icon={threadData.icon}
+      image={threadData.image}
+      link={threadData.link}
+      score={threadData.score}
+      selfText={threadData.selfText}
+      richVideo={threadData.richVideo}
+      subredditName={threadData.subredditName}
+      threadTitle={threadData.threadTitle}
+      threadType={threadData.threadType}
+      thumbnail={threadData.thumbnail}
+      timestamp={threadData.timestamp}
+      video={threadData.video}
     />
   );
 
@@ -76,17 +83,23 @@ const Thread = () => {
 
   return (
     <div className="Thread">
+      {Object.entries(threadData).length && thread}
       {threadStatus === "loading" && (
         <>
-          <SkeletonThreadCard />
+          {!Object.entries(threadData).length && <SkeletonThreadCard />}
+          {threadData && (
+            <>
+              <SkeletonCommentCard />
+              <SkeletonCommentCard />
+              <SkeletonCommentCard />
+              <SkeletonCommentCard />
+              <SkeletonCommentCard />
+              <SkeletonCommentCard />
+            </>
+          )}
         </>
       )}
-      {threadStatus === "succeeded" && (
-        <>
-          {thread}
-          {comments}
-        </>
-      )}
+      {threadStatus === "succeeded" && <>{comments}</>}
     </div>
   );
 };

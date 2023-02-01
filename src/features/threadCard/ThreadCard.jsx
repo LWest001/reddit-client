@@ -76,10 +76,7 @@ const ThreadCard = ({
   const titleTextHTML = threadTitle && {
     __html: parseMarkdownText(`##${threadTitle}`),
   };
-  const titleTextShortened = titleTextHTML.__html.childNodes[0].id.substring(
-    0,
-    40
-  );
+  
 
   return (
     <div className="ThreadCard" id={id}>
