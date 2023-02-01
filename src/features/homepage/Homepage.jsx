@@ -14,7 +14,6 @@ const Homepage = () => {
   const dispatch = useDispatch();
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
-  console.log(threadsData);
   const after = useSelector(selectAfter);
   const { sortType } = useParams();
 
