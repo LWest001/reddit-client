@@ -1,17 +1,10 @@
 // Library imports
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useSearchParams, useParams } from "react-router-dom";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 // Slice imports
 import {
-  fetchThreads,
   selectThreadsStatus,
   selectAllThreads,
-  selectAfter,
-  selectView,
-  setView,
 } from "../homepage/homepageSlice";
 
 // Component imports
@@ -21,21 +14,12 @@ import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 import SubredditInfo from "../../components/SubredditInfo";
 
 // Function imports
-import parseMarkdownText from "../../functions/parseMarkdownText";
 import useFetchThreads from "../../functions/useFetchThreads";
 
 const ThreadList = ({ view }) => {
-  //   Hooks
-  const dispatch = useDispatch();
-  const { sortType, subredditName } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("q");
-  const sort = searchParams.get("sort");
-
   //   Selectors
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
-  const after = useSelector(selectAfter);
 
   // Generate list
   let searchResults;

@@ -152,14 +152,12 @@ export const selectThreadsStatus = (state) => state.homepage.status;
 export const selectQuery = (state) => state.homepage.query;
 export const selectModal = (state) => state.homepage.modal;
 export const selectAfter = (state) => state.homepage.after;
-export const selectView = (state) => state.homepage.view;
 
 export const {
   setStatus,
   setQuery,
   setModal,
   setAfter,
-  setThreads,
-  setView,
+  setThreads
 } = homepageSlice.actions;
 export default homepageSlice.reducer;
