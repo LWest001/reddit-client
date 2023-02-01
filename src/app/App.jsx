@@ -22,7 +22,7 @@ function App() {
 
   return (
     <>
-      <BottomScrollListener onBottom={loadMoreItems} offset={1000} />;
+      <BottomScrollListener onBottom={loadMoreItems} offset={5000} />;
       <Layout />
       {status === "failed" && <ErrorPage />}
       {modal.display && (
