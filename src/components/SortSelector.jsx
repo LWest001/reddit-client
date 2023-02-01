@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setStatus } from "../features/threadList/threadListSlice";
-import { setStatus as setThreadStatus } from "../features/thread/threadSlice";
+import { setStatus as setThreadListStatus } from "../features/ThreadList/threadListSlice";
+import { setStatus as setThreadStatus } from "../features/Thread/threadSlice";
 
 const SortSelector = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const SortSelector = () => {
 
   const handleChange = ({ target }) => {
     if (!threadTitle) {
-      dispatch(setStatus("idle"));
+      dispatch(setThreadListStatus("idle"));
     }
     if (threadTitle) {
       dispatch(setThreadStatus("idle"));

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import axios from "axios";
-import { setStatus, setModal } from "../threadList/threadListSlice";
+import { setModal } from "../ThreadList/threadListSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
@@ -12,7 +12,6 @@ import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
 import {
-  setPermalink,
   setStatus as setThreadStatus,
 } from "../thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
@@ -268,7 +267,6 @@ const ThreadCard = ({
             to={`/${link.substring(19)}`}
             onClick={() => {
               dispatch(setThreadStatus("idle"));
-              dispatch(setPermalink(link));
             }}
           >
             <button className="viewComments button">

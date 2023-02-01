@@ -1,8 +1,8 @@
 import "./ImageModal.css";
-import { setModal } from "../../features/threadList/threadListSlice";
+import { setModal } from "../../features/ThreadList/threadListSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setStatus, setPermalink } from "../../features/thread/threadSlice";
+import { setStatus } from "../../features/Thread/threadSlice";
 
 function ImageModal({ image, title, link }) {
   const dispatch = useDispatch();
@@ -20,8 +20,10 @@ function ImageModal({ image, title, link }) {
       <Link
         to={`/${link.substring(19)}`}
         onClick={() => {
+          dispatch(
+            setModal({ image: "", title: "", link: "", display: false })
+          );
           dispatch(setStatus("idle"));
-          dispatch(setPermalink(link));
         }}
       >
         <div className="modalButton commentBubble"></div>

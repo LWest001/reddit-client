@@ -1,18 +1,11 @@
 import "./CommentCard.css";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import Embed, { defaultProviders } from "react-tiny-oembed";
-import axios from "axios";
-import { setStatus } from "../../features/thread/threadSlice";
 import parseMarkdownText from "../../functions/parseMarkdownText";
-import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import { getRandomKey } from "../../functions/getRandomKey";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 
 function CommentCard({ author, body, id, replies, score, timestamp, type }) {
-  function handleCollapse(e) {
+  function handleCollapse() {
     const commentBody = document.getElementById(`comment-${id}`);
     if (commentBody.style.display !== "none") {
       commentBody.style.display = "none";

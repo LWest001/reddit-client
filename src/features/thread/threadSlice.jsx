@@ -4,7 +4,6 @@ import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { getRandomKey } from "../../functions/getRandomKey";
 import providers from "../../assets/providers.json";
-import { useParams } from "react-router";
 
 const initialState = {
   threadData: {},
@@ -114,5 +113,5 @@ export const selectThreadData = (state) => state.thread.threadData;
 export const selectThreadStatus = (state) => state.thread.status;
 export const selectAllComments = (state) => state.thread.comments;
 
-export const { setStatus, setPermalink } = threadSlice.actions;
+export const { setStatus} = threadSlice.actions;
 export default threadSlice.reducer;

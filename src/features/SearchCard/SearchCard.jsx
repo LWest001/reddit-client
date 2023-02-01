@@ -1,16 +1,12 @@
 import "./SearchCard.css";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-import upvote from "../../assets/upvote.svg";
-import {
-  setStatus as setThreadStatus,
-  setPermalink,
-} from "../thread/threadSlice";
+import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
+import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
 
 const SearchCard = ({
@@ -65,7 +61,6 @@ const SearchCard = ({
             to={`/${link.substring(19)}`}
             onClick={() => {
               dispatch(setThreadStatus("idle"));
-              dispatch(setPermalink(link));
             }}
           >
             {<h2 className="threadTitle">{threadTitle}</h2>}

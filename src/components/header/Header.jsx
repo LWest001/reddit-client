@@ -5,7 +5,7 @@ import {
   setStatus as setHomepageStatus,
   setQuery,
   selectQuery,
-} from "../../features/threadList/threadListSlice";
+} from "../../features/ThreadList/threadListSlice";
 import "./Header.css";
 import home from "../../assets/home.svg";
 
