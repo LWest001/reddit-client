@@ -5,7 +5,8 @@ import {
   fetchThreads,
   selectAfter,
   selectThreadsStatus,
-} from "../features/threadList/threadListSlice";
+  setThreads,
+} from "../features/ThreadList/threadListSlice";
 
 function useFetchThreads(view) {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function useFetchThreads(view) {
       dispatch(fetchThreads(options));
     }
   }, [threadsStatus, sortType, dispatch]);
-  return;
+  return () => dispatch(setThreads([]));
 }
 
 export default useFetchThreads;

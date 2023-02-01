@@ -85,8 +85,8 @@ const ThreadList = ({ view }) => {
           <SkeletonThreadCard />
         </>
       )}
-      {searchResults && searchResults}
-      {threads && threads}
+      {searchResults && view === "searchResults" && searchResults}
+      {threads && view !== "searchResults" && threads}
     </>
   );
 };

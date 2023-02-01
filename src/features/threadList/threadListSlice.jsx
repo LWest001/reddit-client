@@ -74,7 +74,7 @@ const threadListSlice = createSlice({
     },
     setThreads: {
       reducer(state, action) {
-        state.threads = [];
+        state.threads = action.payload;
       },
     },
     setView: {
@@ -87,7 +87,12 @@ const threadListSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchThreads.pending, (state, action) => {
-        state.status = "loading";
+        console.log(action);
+        if (action.meta.arg.after) {
+          state.status === "loadMore";
+        } else {
+          state.status = "loading";
+        }
       })
       .addCase(fetchThreads.fulfilled, (state, action) => {
         state.status = "succeeded";

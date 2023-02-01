@@ -15,11 +15,13 @@ const SortSelector = () => {
   } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const searchSort = searchParams.get("sort");
 
   const handleChange = ({ target }) => {
     if (!threadTitle) {
       dispatch(setThreadListStatus("idle"));
     }
+
     if (threadTitle) {
       dispatch(setThreadStatus("idle"));
       navigate(
@@ -39,7 +41,7 @@ const SortSelector = () => {
       className="SortSelector"
       name="SortSelector"
       onChange={handleChange}
-      value={sortType}
+      value={searchSort || sortType}
     >
       <option value="hot">🔥hot</option>
       <option value="new">✨new</option>

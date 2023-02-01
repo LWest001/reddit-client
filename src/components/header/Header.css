@@ -78,34 +78,38 @@ nav ul li a {
   justify-content: center;
   align-items: center;
   min-width: 0;
+  display:flex;
+  width:100%
 }
 
 #searchInput {
   font-size: 1rem;
   border-radius: 100px;
-  display: block;
+  display: flex;
   cursor: pointer;
   border: none;
-  width:100%
+  min-width: 0;
 }
 
 #searchInput:focus {
   text-indent: 0.5rem;
   height: fit-content;
   cursor: text;
-  position: absolute;
+  position: relative;
   left: 0px;
-  top: 2px;
   height: 2rem;
   width: 99%;
 }
 
-#searchInput::placeholder {
-  text-indent: 5px;
+form {
+  width:100%;
+  display:flex;
+  justify-content: end;
 }
 
-form {
-  min-width: 0;
+
+#searchInput::placeholder {
+  text-indent: 5px;
 }
 @media (hover: hover) {
   .homeButton:hover {
