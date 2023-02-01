@@ -18,13 +18,23 @@
   width: 100%;
 }
 
-.ThreadCard:first-child {
+.ThreadCard:first-child,
+.SkeletonThreadCard:first-child {
   margin-top: 30px;
 }
 
-.skeleton {
-  /* width: 100%; */
-  width: 98vw;
+/* Skeleton */
+
+.skeletonContent {
+  background-color: slategray;
+  padding: 3px;
+  color: slategray;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+.skeletonImg {
+  height: 300px;
 }
 
 /* Header */

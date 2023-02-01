@@ -33,6 +33,29 @@
   color: black;
 }
 
+/* Skeleton */
+
+.skeleton .thumbnailContainer {
+  height: 80px;
+  width: 96px;
+  background-color: slategray;
+}
+
+.SearchCard .skeleton.threadType {
+  width: 40px;
+  color: rgba(255, 255, 255, 0);
+}
+
+.subredditAndAuthor.skeletonContent {
+  padding: 0;
+  margin: 0;
+  height: 18.8px;
+}
+
+.skeleton .searchCardFooter {
+  padding: 0;
+}
+
 /* CARD HEADER */
 
 .searchCardHeader {
@@ -141,7 +164,7 @@
 }
 
 .searchCardFooter .upArrow {
-  height: .8rem;
+  height: 0.8rem;
 }
 
 .SearchCard .viewComments {

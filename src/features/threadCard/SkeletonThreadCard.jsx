@@ -1,5 +1,4 @@
 import "./ThreadCard.css";
-import "./SkeletonThreadCard.css";
 
 const SkeletonThreadCard = () => {
   return (

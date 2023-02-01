@@ -14,6 +14,7 @@ import {
 import ErrorPage from "./features/ErrorPage";
 import Thread from "./features/thread/Thread";
 import ThreadList from "./features/threadList/ThreadList";
+import SkeletonSearchCard from "./features/SearchCard/SkeletonSearchCard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

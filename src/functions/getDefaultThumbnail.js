@@ -4,7 +4,7 @@ import nsfwThumb from "../assets/nsfwThumb.png";
 import spoilerThumb from "../assets/spoilerThumb.png";
 
 function getDefaultThumbnail(thumbnail) {
-  if (thumbnail === "default") {
+  if (thumbnail === "default" || thumbnail === "image") {
     return defaultThumb;
   }
   if (thumbnail === "spoiler") {

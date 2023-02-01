@@ -87,7 +87,6 @@ const threadListSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchThreads.pending, (state, action) => {
-        console.log(action);
         if (action.meta.arg.after) {
           state.status === "loadMore";
         } else {

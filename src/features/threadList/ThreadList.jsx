@@ -8,6 +8,7 @@ import { selectThreadsStatus, selectAllThreads } from "./threadListSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import SearchCard from "../SearchCard/SearchCard";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
 import SubredditInfo from "../../components/SubredditInfo";
 
 // Function imports
@@ -74,19 +75,41 @@ const ThreadList = ({ view }) => {
     });
   }
 
+  // Generate skeletons
+  const skeletons = () => {
+    if (view === "searchResults") {
+      return (
+        <>
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+        </>
+      );
+    }
+    return (
+      <>
+        <SkeletonThreadCard />
+        <SkeletonThreadCard />
+      </>
+    );
+  };
+
   useFetchThreads(view);
 
   return (
     <>
       {view === "subreddit" && <SubredditInfo />}
-      {threadsStatus === "loading" && (
-        <>
-          <SkeletonThreadCard />
-          <SkeletonThreadCard />
-        </>
-      )}
-      {searchResults && view === "searchResults" && searchResults}
-      {threads && view !== "searchResults" && threads}
+      {threadsStatus === "loading" && skeletons()}
+      {(threadsStatus === "succeeded" || threadsStatus === "loadMore") &&
+        searchResults &&
+        view === "searchResults" &&
+        searchResults}
+      {(threadsStatus === "succeeded" || threadsStatus === "loadMore") &&
+        threads &&
+        view !== "searchResults" &&
+        threads}
     </>
   );
 };
