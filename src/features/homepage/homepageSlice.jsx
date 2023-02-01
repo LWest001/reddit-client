@@ -8,7 +8,7 @@ import providers from "../../assets/providers.json";
 const initialState = {
   after: "",
   threads: [],
-  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
+  status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed' | 'loadMore'
   modal: {
     image: "",
     title: "",

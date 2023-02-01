@@ -57,11 +57,6 @@ const SearchResults = () => {
       }
     }, [threadsStatus, sortType, dispatch]);
 
-  // useEffect(() => {
-  //   if (threadsStatus === "idle") {
-  //     dispatch(fetchThreads({ query: query, sortType: sort || "hot" }));
-  //   }
-  // }, [threadsStatus, sortType, dispatch]);
   return (
     <>
       {threadsStatus === "loading" && (

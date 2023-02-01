@@ -17,7 +17,7 @@ function App() {
   const dispatch = useDispatch();
 
   function loadMoreItems() {
-    dispatch(setStatus("loadMore"));
+    status === "succeeded" && dispatch(setStatus("loadMore"));
   }
 
   return (
