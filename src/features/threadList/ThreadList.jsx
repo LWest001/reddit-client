@@ -2,19 +2,19 @@
 import { useSelector } from "react-redux";
 
 // Slice imports
-import {
-  selectThreadsStatus,
-  selectAllThreads,
-} from "../homepage/homepageSlice";
+import { selectThreadsStatus, selectAllThreads } from "./threadListSlice";
 
 // Component imports
 import ThreadCard from "../threadCard/ThreadCard";
-import SearchCard from "../search/SearchCard/SearchCard";
+import SearchCard from "../SearchCard/SearchCard";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 import SubredditInfo from "../../components/SubredditInfo";
 
 // Function imports
 import useFetchThreads from "../../functions/useFetchThreads";
+
+// Stylesheet imports
+import "./Subreddit.css";
 
 const ThreadList = ({ view }) => {
   //   Selectors

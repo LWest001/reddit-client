@@ -5,7 +5,7 @@ import {
   fetchThreads,
   selectAfter,
   selectThreadsStatus,
-} from "../features/homepage/homepageSlice";
+} from "../features/threadList/threadListSlice";
 
 function useFetchThreads(view) {
   const dispatch = useDispatch();

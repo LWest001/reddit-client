@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import axios from "axios";
-import { setStatus, setModal } from "../homepage/homepageSlice";
+import { setStatus, setModal } from "../threadList/threadListSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";

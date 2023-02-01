@@ -3,16 +3,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { setStatus as setHomepageStatus } from "../../homepage/homepageSlice";
 import { useDispatch } from "react-redux";
-import getDefaultThumbnail from "../../../functions/getDefaultThumbnail";
-import upvote from "../../../assets/upvote.svg";
+import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
+import upvote from "../../assets/upvote.svg";
 import {
   setStatus as setThreadStatus,
   setPermalink,
-} from "../../thread/threadSlice";
-import SubredditLink from "../../../components/SubredditLink";
-import commentBubble from "../../../assets/commentBubble.svg";
+} from "../thread/threadSlice";
+import SubredditLink from "../../components/SubredditLink";
+import commentBubble from "../../assets/commentBubble.svg";
 
 const SearchCard = ({
   id,

@@ -2,7 +2,7 @@ import "./ThreadCard.css";
 import "./SkeletonThreadCard.css";
 import { Link } from "react-router-dom";
 import Embed, { defaultProviders } from "react-tiny-oembed";
-import { setStatus } from "../homepage/homepageSlice";
+import { setStatus } from "../threadList/threadListSlice";
 
 const SkeletonThreadCard = () => {
   return (

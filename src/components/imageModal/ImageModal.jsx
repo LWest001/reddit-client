@@ -1,8 +1,8 @@
 import "./ImageModal.css";
-import { setModal } from "../homepage/homepageSlice";
+import { setModal } from "../../features/threadList/threadListSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setStatus, setPermalink } from "../thread/threadSlice";
+import { setStatus, setPermalink } from "../../features/thread/threadSlice";
 
 function ImageModal({ image, title, link }) {
   const dispatch = useDispatch();

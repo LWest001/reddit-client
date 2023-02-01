@@ -1,6 +1,6 @@
 import { Link, useRouteError } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setStatus } from "./homepage/homepageSlice";
+import { setStatus } from "./threadList/threadListSlice";
 
 const ErrorPage = () => {
   let error = useRouteError();

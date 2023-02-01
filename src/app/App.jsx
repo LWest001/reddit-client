@@ -3,13 +3,11 @@ import Layout from "../components/Layout";
 import {
   selectThreadsStatus,
   selectModal,
-} from "../features/homepage/homepageSlice";
-import { setStatus } from "../features/homepage/homepageSlice";
+} from "../features/threadList/threadListSlice";
+import { setStatus } from "../features/threadList/threadListSlice";
 import ErrorPage from "../features/ErrorPage";
-import ImageModal from "../features/imageModal/ImageModal";
+import ImageModal from "../components/imageModal/ImageModal";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
-import { useParams } from "react-router";
-import { useEffect } from "react";
 
 function App() {
   const status = useSelector(selectThreadsStatus);

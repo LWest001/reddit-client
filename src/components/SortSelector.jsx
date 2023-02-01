@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
-import { redirect, useNavigate, useSearchParams } from "react-router-dom";
-import { setSortType } from "./sortSelectorSlice";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setStatus } from "../../features/homepage/homepageSlice";
-import { setStatus as setThreadStatus } from "../../features/thread/threadSlice";
+import { setStatus } from "../features/threadList/threadListSlice";
+import { setStatus as setThreadStatus } from "../features/thread/threadSlice";
 
 const SortSelector = () => {
   const dispatch = useDispatch();
@@ -13,7 +12,6 @@ const SortSelector = () => {
   const query = searchParams.get("q");
 
   const handleChange = ({ target }) => {
-    dispatch(setSortType(target.value));
     if (!threadTitle) {
       dispatch(setStatus("idle"));
     }

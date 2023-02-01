@@ -21,7 +21,7 @@ const initialState = {
 };
 
 export const fetchThreads = createAsyncThunk(
-  "homepage/fetchThreads",
+  "threadList/fetchThreads",
   async (options) => {
     const { sortType, subredditName, query, after } = options;
     const baseURL = "https://www.reddit.com";
@@ -53,8 +53,8 @@ export const fetchThreads = createAsyncThunk(
   }
 );
 
-const homepageSlice = createSlice({
-  name: "homepage",
+const threadListSlice = createSlice({
+  name: "threadList",
   initialState,
   reducers: {
     setQuery: {
@@ -147,17 +147,17 @@ const homepageSlice = createSlice({
   },
 });
 
-export const selectAllThreads = (state) => state.homepage.threads;
-export const selectThreadsStatus = (state) => state.homepage.status;
-export const selectQuery = (state) => state.homepage.query;
-export const selectModal = (state) => state.homepage.modal;
-export const selectAfter = (state) => state.homepage.after;
+export const selectAllThreads = (state) => state.threadList.threads;
+export const selectThreadsStatus = (state) => state.threadList.status;
+export const selectQuery = (state) => state.threadList.query;
+export const selectModal = (state) => state.threadList.modal;
+export const selectAfter = (state) => state.threadList.after;
 
 export const {
   setStatus,
   setQuery,
   setModal,
   setAfter,
-  setThreads
-} = homepageSlice.actions;
-export default homepageSlice.reducer;
+  setThreads,
+} = threadListSlice.actions;
+export default threadListSlice.reducer;
