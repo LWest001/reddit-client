@@ -6,6 +6,7 @@ import { getRandomKey } from "../../functions/getRandomKey";
 import providers from "../../assets/providers.json";
 
 const initialState = {
+  after: "",
   threads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
   modal: {
@@ -21,9 +22,10 @@ const initialState = {
 export const fetchThreads = createAsyncThunk(
   "homepage/fetchThreads",
   async (options) => {
-    const { sortType, subredditName, query } = options;
+    const { sortType, subredditName, query, after } = options;
     const baseURL = "https://www.reddit.com";
     let URL;
+    let isFetchingMore = false;
     if (subredditName) {
       if (sortType) {
         URL = `/r/${subredditName}/${sortType}.json`;
@@ -35,8 +37,18 @@ export const fetchThreads = createAsyncThunk(
     } else {
       URL = `/${sortType}.json`;
     }
+
+    if (after) {
+      isFetchingMore = true;
+      URL = `${URL}?after=${after}`;
+    }
+
     const response = await axios.get(baseURL + URL);
-    return response.data.data.children;
+    return {
+      threads: response.data.data.children,
+      after: response.data.data.after,
+      isFetchingMore: isFetchingMore,
+    };
   }
 );
 
@@ -68,7 +80,9 @@ const homepageSlice = createSlice({
       })
       .addCase(fetchThreads.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const loadedThreads = action.payload.map((thread) => {
+        state.after = action.payload.after;
+        const isFetchingMore = action.payload.isFetchingMore;
+        const loadedThreads = action.payload.threads.map((thread) => {
           const data = thread.data;
           const threadType = getThreadType(data);
 
@@ -109,7 +123,11 @@ const homepageSlice = createSlice({
             },
           };
         });
-        state.threads = loadedThreads;
+        if (isFetchingMore) {
+          loadedThreads.forEach((thread) => state.threads.push(thread));
+        } else {
+          state.threads = loadedThreads;
+        }
       })
       .addCase(fetchThreads.rejected, (state, action) => {
         state.status = "failed";
@@ -122,6 +140,12 @@ export const selectAllThreads = (state) => state.homepage.threads;
 export const selectThreadsStatus = (state) => state.homepage.status;
 export const selectQuery = (state) => state.homepage.query;
 export const selectModal = (state) => state.homepage.modal;
+export const selectAfter = (state) => state.homepage.after;
 
-export const { setStatus, setQuery, setModal } = homepageSlice.actions;
+export const {
+  setStatus,
+  setQuery,
+  setModal,
+  setAfter,
+} = homepageSlice.actions;
 export default homepageSlice.reducer;

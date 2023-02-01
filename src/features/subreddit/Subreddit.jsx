@@ -11,6 +11,7 @@ import axios from "axios";
 import "./Subreddit.css";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 import parseMarkdownText from "../../functions/parseMarkdownText";
+import { selectAfter } from "../homepage/homepageSlice";
 
 const Subreddit = () => {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -18,6 +19,7 @@ const Subreddit = () => {
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
   const { sortType, subredditName } = useParams();
+  const after = useSelector(selectAfter);
 
   const threads = threadsData.map((thread) => {
     return (
@@ -58,10 +60,22 @@ const Subreddit = () => {
   useEffect(() => {
     if (threadsStatus === "idle") {
       dispatch(
-        fetchThreads({ subredditName: subredditName, sortType: sortType })
+        fetchThreads({
+          subredditName: subredditName,
+          sortType: sortType ? sortType : "hot",
+        })
+      );
+    } else if (threadsStatus === "loadMore") {
+      dispatch(
+        fetchThreads({
+          subredditName: subredditName,
+          sortType: sortType ? sortType : "hot",
+          after: after,
+        })
       );
     }
   }, [threadsStatus, sortType, dispatch]);
+
   return (
     <>
       <div className="subredditInfoContainer">
@@ -93,7 +107,7 @@ const Subreddit = () => {
           <SkeletonThreadCard />
         </>
       )}
-      {threadsStatus === "succeeded" && threads}
+      {threads && threads}
     </>
   );
 };
