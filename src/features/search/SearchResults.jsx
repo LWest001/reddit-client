@@ -7,6 +7,7 @@ import {
   fetchThreads,
   selectAllThreads,
   selectThreadsStatus,
+  selectAfter,
 } from "../homepage/homepageSlice";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 
@@ -18,6 +19,7 @@ const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
   const sort = searchParams.get("sort");
+  const after = useSelector(selectAfter);
 
   const searchResults = threadsData.map((thread) => {
     return (
@@ -42,11 +44,24 @@ const SearchResults = () => {
       />
     );
   });
+
   useEffect(() => {
-    if (threadsStatus === "idle") {
-      dispatch(fetchThreads({ query: query, sortType: sort || "hot" }));
-    }
-  }, [threadsStatus, sortType, dispatch]);
+      if (threadsStatus === "idle") {
+        dispatch(
+          fetchThreads({ query: query, sortType: sort || "hot" })
+        );
+      } else if (threadsStatus === "loadMore") {
+        dispatch(
+          fetchThreads({ query: query, sortType: sort || "hot", after: after })
+        );
+      }
+    }, [threadsStatus, sortType, dispatch]);
+
+  // useEffect(() => {
+  //   if (threadsStatus === "idle") {
+  //     dispatch(fetchThreads({ query: query, sortType: sort || "hot" }));
+  //   }
+  // }, [threadsStatus, sortType, dispatch]);
   return (
     <>
       {threadsStatus === "loading" && (
@@ -55,7 +70,7 @@ const SearchResults = () => {
           <SkeletonThreadCard />
         </>
       )}
-      {threadsStatus === "succeeded" && searchResults}
+      {searchResults && searchResults}
     </>
   );
 };

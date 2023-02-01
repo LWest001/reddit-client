@@ -4,6 +4,7 @@ import {
   selectThreadsStatus,
   selectAllThreads,
   fetchThreads,
+  selectAfter,
 } from "../homepage/homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
@@ -11,7 +12,6 @@ import axios from "axios";
 import "./Subreddit.css";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 import parseMarkdownText from "../../functions/parseMarkdownText";
-import { selectAfter } from "../homepage/homepageSlice";
 
 const Subreddit = () => {
   const [subredditInfo, setSubredditInfo] = useState({});

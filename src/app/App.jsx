@@ -8,6 +8,8 @@ import { setStatus } from "../features/homepage/homepageSlice";
 import ErrorPage from "../features/ErrorPage";
 import ImageModal from "../features/imageModal/ImageModal";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
+import { useParams } from "react-router";
+import { useEffect } from "react";
 
 function App() {
   const status = useSelector(selectThreadsStatus);
@@ -20,7 +22,7 @@ function App() {
 
   return (
     <>
-      <BottomScrollListener onBottom={loadMoreItems} offset = {5000}/>;
+      <BottomScrollListener onBottom={loadMoreItems} offset={1000} />;
       <Layout />
       {status === "failed" && <ErrorPage />}
       {modal.display && (
