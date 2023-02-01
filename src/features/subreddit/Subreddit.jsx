@@ -24,26 +24,26 @@ const Subreddit = () => {
   const threads = threadsData.map((thread) => {
     return (
       <ThreadCard
-        cardType="subreddit"
         key={thread.keyId}
         id={thread.keyId}
-        subredditName={thread.subredditName}
         author={thread.author}
-        timestamp={thread.timestamp}
-        threadTitle={thread.threadTitle}
-        score={thread.score}
+        cardType="subreddit"
+        commentCount={thread.commentCount}
         gallery={thread.gallery}
-        redditId={thread.redditId}
         icon={thread.icon}
         image={thread.image}
         link={thread.link}
-        thumbnail={thread.thumbnail}
-        richVideo={thread.richVideo}
-        selfText={thread.selfText}
-        threadType={thread.threadType}
-        video={thread.video}
-        commentCount={thread.commentCount}
         postFlair={thread.postFlair}
+        redditId={thread.redditId}
+        richVideo={thread.richVideo}
+        score={thread.score}
+        selfText={thread.selfText}
+        subredditName={thread.subredditName}
+        threadTitle={thread.threadTitle}
+        threadType={thread.threadType}
+        thumbnail={thread.thumbnail}
+        timestamp={thread.timestamp}
+        video={thread.video}
       />
     );
   });
