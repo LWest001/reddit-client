@@ -15,6 +15,8 @@ const Homepage = () => {
   const threadsData = useSelector(selectAllThreads);
   const { sortType } = useParams();
 
+
+
   const threads = threadsData.map((thread) => {
     return (
       <ThreadCard
@@ -50,6 +52,7 @@ const Homepage = () => {
       );
     }
   }, [threadsStatus, sortType, dispatch]);
+
   return (
     <>
       {threadsStatus === "loading" && (

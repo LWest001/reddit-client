@@ -29,6 +29,7 @@ const SortSelector = () => {
     } else {
       navigate(`/${target.value}`);
     }
+    window.scrollTo(0, 0);
   };
   return (
     <select
@@ -37,10 +38,10 @@ const SortSelector = () => {
       onChange={handleChange}
       value={sortType}
     >
-      <option value="hot">🔥Hot</option>
-      <option value="top">⬆️Top</option>
-      <option value="new">✨New</option>
-      <option value="rising">⤴️Rising</option>
+      <option value="hot">🔥hot</option>
+      <option value="new">✨new</option>
+      <option value="top">⬆️top</option>
+      <option value="rising">📈rising</option>
     </select>
   );
 };

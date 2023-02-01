@@ -7,8 +7,10 @@
 }
 
 .subcomment {
-  margin:2px 0 0 5px;
-  width: auto
+
+  margin:2px 0 2px 0.5rem;
+  width: auto;
+  border-left: black 1px solid;
 }
 
 .CommentCard a {
@@ -19,7 +21,7 @@
 /* HEADER */
 .commentHeader {
   display: grid;
-  grid-template-columns: auto auto 1fr 4rem;
+  grid-template-columns: auto max-content 1fr 4rem;
   gap: 1rem;
 }
 .CommentCard .author {

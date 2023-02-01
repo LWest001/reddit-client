@@ -11,6 +11,8 @@ import {
   setStatus as setThreadStatus,
   setPermalink,
 } from "../../thread/threadSlice";
+import SubredditLink from "../../../components/SubredditLink";
+import commentBubble from "../../../assets/commentBubble.svg";
 
 const SearchCard = ({
   id,
@@ -55,12 +57,10 @@ const SearchCard = ({
           )}
           <div className="subredditAndAuthor">
             <span className="subredditName">
-              <Link
-                to={`/r/${subredditName}`}
-                onClick={() => dispatch(setHomepageStatus("idle"))}
-              >
-                r/{subredditName}
-              </Link>
+              <SubredditLink
+                subredditName={subredditName}
+                display={`r/${subredditName}`}
+              />
             </span>
             <span className="author">u/{author}</span>
           </div>
@@ -79,10 +79,13 @@ const SearchCard = ({
           </Link>
         </div>
         <p className="searchCardFooter">
-          <span className="commentCount">🗨️{commentCount}</span>
+          <span className="viewComments">
+            <img src={commentBubble} alt="comment bubble" className="icon" />
+            {commentCount}
+          </span>
           &nbsp;&nbsp;&nbsp;&nbsp;▪️&nbsp;&nbsp;&nbsp;&nbsp;
           <span>
-            <img className="upArrow" src={upvote} alt="" />
+            <img className="upArrow icon" src={upvote} alt="" />
             {score}
           </span>
         </p>

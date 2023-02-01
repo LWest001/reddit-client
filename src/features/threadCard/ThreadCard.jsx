@@ -15,6 +15,7 @@ import {
   setPermalink,
   setStatus as setThreadStatus,
 } from "../thread/threadSlice";
+import SubredditLink from "../../components/SubredditLink";
 
 const ThreadCard = ({
   author,
@@ -85,33 +86,29 @@ const ThreadCard = ({
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
         {icon ? (
-          <Link
-            to={`/r/${subredditName}`}
-            onClick={() => dispatch(setStatus("idle"))}
-          >
-            <img
-              src={icon}
-              alt="Subreddit avatar"
-              className={`subredditIcon ${cardType}`}
-            />
-          </Link>
+          <SubredditLink
+            subredditName={subredditName}
+            display={
+              <img
+                src={icon}
+                alt="Subreddit avatar"
+                className={`subredditIcon ${cardType}`}
+              />
+            }
+          />
         ) : (
-          <Link
-            to={`/r/${subredditName}`}
-            onClick={() => dispatch(setStatus("idle"))}
-          >
-            <div className={`subredditIcon ${cardType}`}>r/</div>
-          </Link>
+          <SubredditLink
+            subredditName={subredditName}
+            display={<div className={`subredditIcon ${cardType}`}>r/</div>}
+          />
         )}
         <p className="ThreadCardHeaderText">
           {cardType !== "subreddit" && (
             <span className="subredditName">
-              <Link
-                to={`/r/${subredditName}`}
-                onClick={() => dispatch(setStatus("idle"))}
-              >
-                r/{subredditName}
-              </Link>
+              <SubredditLink
+                subredditName={subredditName}
+                display={`r/${subredditName}`}
+              />
             </span>
           )}
           <span className="subtext">

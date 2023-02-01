@@ -12,7 +12,6 @@
   border-radius: 5px;
   background-color: whitesmoke;
   height: 32px;
-  color: slate;
   border-width: 1px;
   border-style: outset;
   border-color: buttonborder;
@@ -59,7 +58,6 @@ nav ul {
   align-items: center;
   padding: 2px 0;
   max-width: 100%;
-  overflow: hidden;
   background-color: lightgray;
   box-shadow: 2px 2px 5px black;
   border-radius: 0 0 5px 5px;
@@ -75,7 +73,7 @@ nav ul li a {
 
 #searchLink {
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 0.5rem;
   height: 32px;
   justify-content: center;
   align-items: center;
@@ -88,14 +86,17 @@ nav ul li a {
   display: block;
   cursor: pointer;
   border: none;
-  max-width: 90%;
 }
 
 #searchInput:focus {
-  width: 100%;
   text-indent: 0.5rem;
   height: fit-content;
   cursor: text;
+  position: absolute;
+  left: 0px;
+  top: 2px;
+  height: 2rem;
+  width: 99%;
 }
 
 #searchInput::placeholder {
