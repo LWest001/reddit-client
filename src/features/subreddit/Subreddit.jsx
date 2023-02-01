@@ -11,6 +11,7 @@ import axios from "axios";
 import "./Subreddit.css";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
 import parseMarkdownText from "../../functions/parseMarkdownText";
+import { selectAfter } from "../homepage/homepageSlice";
 
 const Subreddit = () => {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -18,30 +19,31 @@ const Subreddit = () => {
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
   const { sortType, subredditName } = useParams();
+  const after = useSelector(selectAfter);
 
   const threads = threadsData.map((thread) => {
     return (
       <ThreadCard
-        cardType="subreddit"
         key={thread.keyId}
         id={thread.keyId}
-        subredditName={thread.subredditName}
         author={thread.author}
-        timestamp={thread.timestamp}
-        threadTitle={thread.threadTitle}
-        score={thread.score}
+        cardType="subreddit"
+        commentCount={thread.commentCount}
         gallery={thread.gallery}
-        redditId={thread.redditId}
         icon={thread.icon}
         image={thread.image}
         link={thread.link}
-        thumbnail={thread.thumbnail}
-        richVideo={thread.richVideo}
-        selfText={thread.selfText}
-        threadType={thread.threadType}
-        video={thread.video}
-        commentCount={thread.commentCount}
         postFlair={thread.postFlair}
+        redditId={thread.redditId}
+        richVideo={thread.richVideo}
+        score={thread.score}
+        selfText={thread.selfText}
+        subredditName={thread.subredditName}
+        threadTitle={thread.threadTitle}
+        threadType={thread.threadType}
+        thumbnail={thread.thumbnail}
+        timestamp={thread.timestamp}
+        video={thread.video}
       />
     );
   });
@@ -58,10 +60,22 @@ const Subreddit = () => {
   useEffect(() => {
     if (threadsStatus === "idle") {
       dispatch(
-        fetchThreads({ subredditName: subredditName, sortType: sortType })
+        fetchThreads({
+          subredditName: subredditName,
+          sortType: sortType ? sortType : "hot",
+        })
+      );
+    } else if (threadsStatus === "loadMore") {
+      dispatch(
+        fetchThreads({
+          subredditName: subredditName,
+          sortType: sortType ? sortType : "hot",
+          after: after,
+        })
       );
     }
   }, [threadsStatus, sortType, dispatch]);
+
   return (
     <>
       <div className="subredditInfoContainer">
@@ -93,7 +107,7 @@ const Subreddit = () => {
           <SkeletonThreadCard />
         </>
       )}
-      {threadsStatus === "succeeded" && threads}
+      {threads && threads}
     </>
   );
 };

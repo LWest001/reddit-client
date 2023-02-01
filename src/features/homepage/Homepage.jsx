@@ -4,6 +4,7 @@ import {
   fetchThreads,
   selectThreadsStatus,
   selectAllThreads,
+  selectAfter,
 } from "./homepageSlice";
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
@@ -13,9 +14,9 @@ const Homepage = () => {
   const dispatch = useDispatch();
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
+  console.log(threadsData);
+  const after = useSelector(selectAfter);
   const { sortType } = useParams();
-
-
 
   const threads = threadsData.map((thread) => {
     return (
@@ -50,6 +51,13 @@ const Homepage = () => {
           sortType: sortType ? sortType : "hot",
         })
       );
+    } else if (threadsStatus === "loadMore") {
+      dispatch(
+        fetchThreads({
+          sortType: sortType ? sortType : "hot",
+          after: after,
+        })
+      );
     }
   }, [threadsStatus, sortType, dispatch]);
 
@@ -61,7 +69,7 @@ const Homepage = () => {
           <SkeletonThreadCard />
         </>
       )}
-      {threadsStatus === "succeeded" && threads}
+      {threads && threads}
     </>
   );
 };
