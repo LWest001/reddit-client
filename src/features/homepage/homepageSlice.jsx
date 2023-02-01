@@ -71,6 +71,11 @@ const homepageSlice = createSlice({
         state.modal = action.payload;
       },
     },
+    setThreads: {
+      reducer(state, action) {
+        state.threads = [];
+      },
+    },
   },
 
   extraReducers(builder) {
@@ -147,5 +152,6 @@ export const {
   setQuery,
   setModal,
   setAfter,
+  setThreads,
 } = homepageSlice.actions;
 export default homepageSlice.reducer;

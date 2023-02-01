@@ -27,7 +27,7 @@ const Header = () => {
     dispatch(setSortType("hot"));
     dispatch(setHomepageStatus("idle"));
     navigate("/");
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   };
 
   function handleSubmit(e) {
@@ -38,6 +38,8 @@ const Header = () => {
       pathname: "/search",
       search: `?${createSearchParams(params)}`,
     });
+    window.scrollTo(0, 0);
+    document.querySelector("#searchInput").blur();
     e.target[0].value = "";
   }
 
