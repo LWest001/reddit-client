@@ -15,7 +15,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    dispatch(setSortType("hot"));
     dispatch(setHomepageStatus("idle"));
     navigate("/");
     window.scrollTo(0, 0);
@@ -31,6 +30,7 @@ const Header = () => {
     });
     window.scrollTo(0, 0);
     document.querySelector("#searchInput").blur();
+    
     e.target[0].value = "";
   }
 

@@ -16,7 +16,7 @@ const Thread = () => {
   const threadStatus = useSelector(selectThreadStatus);
   const data = useSelector(selectThreadData);
   const commentsData = useSelector(selectAllComments);
-  const { redditId, subredditName, threadTitle, sortType } = useParams();
+  const { redditId, subredditName, threadTitle, sortType = "hot" } = useParams();
 
   const thread = (
     <ThreadCard

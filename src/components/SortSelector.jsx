@@ -7,7 +7,12 @@ import { setStatus as setThreadStatus } from "../features/Thread/threadSlice";
 const SortSelector = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { sortType, subredditName, threadTitle, redditId } = useParams();
+  const {
+    sortType = "hot",
+    subredditName,
+    threadTitle,
+    redditId,
+  } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
 
