@@ -7,6 +7,7 @@ import {
   setStatus as setHomepageStatus,
   setQuery,
   selectQuery,
+  setView,
 } from "../../features/homepage/homepageSlice";
 import "./Header.css";
 import home from "../../assets/home.svg";
@@ -25,6 +26,7 @@ const Header = () => {
 
   const handleClick = () => {
     dispatch(setSortType("hot"));
+    dispatch(setView("homepage"));
     dispatch(setHomepageStatus("idle"));
     navigate("/");
     window.scrollTo(0, 0);
@@ -32,6 +34,7 @@ const Header = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(setView("searchResults"));
     dispatch(setHomepageStatus("idle"));
     const params = { q: query };
     navigate({

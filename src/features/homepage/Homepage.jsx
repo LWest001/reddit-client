@@ -9,6 +9,7 @@ import {
 import ThreadCard from "../threadCard/ThreadCard";
 import { useParams } from "react-router-dom";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import useFetchThreads from "../../functions/useFetchThreads";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -30,9 +31,9 @@ const Homepage = () => {
         image={thread.image}
         link={thread.link}
         redditId={thread.redditId}
+        richVideo={thread.richVideo}
         score={thread.score}
         selfText={thread.selfText}
-        richVideo={thread.richVideo}
         subredditName={thread.subredditName}
         threadTitle={thread.threadTitle}
         threadType={thread.threadType}
@@ -43,22 +44,24 @@ const Homepage = () => {
     );
   });
 
-  useEffect(() => {
-    if (threadsStatus === "idle") {
-      dispatch(
-        fetchThreads({
-          sortType: sortType ? sortType : "hot",
-        })
-      );
-    } else if (threadsStatus === "loadMore") {
-      dispatch(
-        fetchThreads({
-          sortType: sortType ? sortType : "hot",
-          after: after,
-        })
-      );
-    }
-  }, [threadsStatus, sortType, dispatch]);
+  useFetchThreads()
+
+  // useEffect(() => {
+  //   if (threadsStatus === "idle") {
+  //     dispatch(
+  //       fetchThreads({
+  //         sortType: sortType ? sortType : "hot",
+  //       })
+  //     );
+  //   } else if (threadsStatus === "loadMore") {
+  //     dispatch(
+  //       fetchThreads({
+  //         sortType: sortType ? sortType : "hot",
+  //         after: after,
+  //       })
+  //     );
+  //   }
+  // }, [threadsStatus, sortType, dispatch]);
 
   return (
     <>

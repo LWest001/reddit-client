@@ -21,15 +21,9 @@ const SearchCard = ({
   timestamp,
   threadTitle,
   score,
-  awards,
-  gallery,
-  image,
   link,
-  richVideo,
-  selfText,
   threadType,
   thumbnail,
-  video,
   commentCount,
 }) => {
   const [icon, setIcon] = useState("");

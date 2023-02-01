@@ -16,6 +16,7 @@ const initialState = {
     display: "",
   },
   query: "",
+  view: "homepage", // 'homepage' | 'searchResults' | 'subreddit'
   error: null,
 };
 
@@ -74,6 +75,11 @@ const homepageSlice = createSlice({
     setThreads: {
       reducer(state, action) {
         state.threads = [];
+      },
+    },
+    setView: {
+      reducer(state, action) {
+        state.view = action.payload;
       },
     },
   },
@@ -146,6 +152,7 @@ export const selectThreadsStatus = (state) => state.homepage.status;
 export const selectQuery = (state) => state.homepage.query;
 export const selectModal = (state) => state.homepage.modal;
 export const selectAfter = (state) => state.homepage.after;
+export const selectView = (state) => state.homepage.view;
 
 export const {
   setStatus,
@@ -153,5 +160,6 @@ export const {
   setModal,
   setAfter,
   setThreads,
+  setView,
 } = homepageSlice.actions;
 export default homepageSlice.reducer;
