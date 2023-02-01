@@ -12,22 +12,22 @@ import {
   selectAfter,
   selectView,
   setView,
-} from "./homepageSlice";
+} from "../homepage/homepageSlice";
 
 // Component imports
 import ThreadCard from "../threadCard/ThreadCard";
-import SearchCard from "./SearchCard/SearchCard";
+import SearchCard from "../search/SearchCard/SearchCard";
 import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import SubredditInfo from "../../components/SubredditInfo";
 
 // Function imports
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import useFetchThreads from "../../functions/useFetchThreads";
 
-const ThreadList = () => {
+const ThreadList = ({ view }) => {
   //   Hooks
   const dispatch = useDispatch();
   const { sortType, subredditName } = useParams();
-  const [subredditInfo, setSubredditInfo] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
   const sort = searchParams.get("sort");
@@ -36,17 +36,18 @@ const ThreadList = () => {
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
   const after = useSelector(selectAfter);
-  const view = useSelector(selectView);
 
   // Generate list
+  let searchResults;
+  let threads;
   if (view !== "searchResults") {
-    const threads = threadsData.map((thread) => {
+    threads = threadsData.map((thread) => {
       return (
         <ThreadCard
           key={thread.keyId}
           id={thread.keyId}
           author={thread.author}
-          cardType="subreddit"
+          cardType={view}
           commentCount={thread.commentCount}
           gallery={thread.gallery}
           icon={thread.icon}
@@ -69,7 +70,7 @@ const ThreadList = () => {
   }
 
   if (view === "searchResults") {
-    const searchResults = threadsData.map((thread) => {
+    searchResults = threadsData.map((thread) => {
       return (
         <SearchCard
           key={thread.keyId}
@@ -89,7 +90,21 @@ const ThreadList = () => {
     });
   }
 
-  useFetchThreads(view)
+  useFetchThreads(view);
 
-  return <></>;
+  return (
+    <>
+      {view === "subreddit" && <SubredditInfo />}
+      {threadsStatus === "loading" && (
+        <>
+          <SkeletonThreadCard />
+          <SkeletonThreadCard />
+        </>
+      )}
+      {searchResults && searchResults}
+      {threads && threads}
+    </>
+  );
 };
+
+export default ThreadList;

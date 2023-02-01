@@ -16,15 +16,19 @@ import Subreddit from "./features/subreddit/Subreddit";
 import SearchResults from "./features/search/SearchResults";
 import ErrorPage from "./features/ErrorPage";
 import Thread from "./features/thread/Thread";
-
+import ThreadList from "./features/threadList/ThreadList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/:sortType?" element={<App />} errorElement={<ErrorPage />}>
-      <Route index element={<Homepage />} errorElement={<ErrorPage />} />
+      <Route
+        index
+        element={<ThreadList view="homepage" />}
+        errorElement={<ErrorPage />}
+      />
       <Route
         path="r/:subredditName/:sortType?"
-        element={<Subreddit />}
+        element={<ThreadList view="subreddit" />}
         errorElement={<ErrorPage />}
       ></Route>
       <Route
@@ -34,7 +38,7 @@ const router = createBrowserRouter(
       />
       <Route
         path="search/:sortType?"
-        element={<SearchResults />}
+        element={<ThreadList view="searchResults" />}
         errorElement={<ErrorPage />}
       />
     </Route>
