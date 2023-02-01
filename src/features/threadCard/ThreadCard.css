@@ -2,7 +2,7 @@
 .ThreadCard,
 .SkeletonThreadCard,
 .ErrorPage,
-.subredditInfo,
+.subredditInfoContainer,
 .CommentCard {
   --radius: 5px;
   --border: 5px;
@@ -19,7 +19,7 @@
 }
 
 .ThreadCard:first-child {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .skeleton {
