@@ -15,7 +15,7 @@
 .SearchCard:first-child {
   border-top-left-radius: calc(var(--radius) + var(--border));
   border-top-right-radius: calc(var(--radius) + var(--border));
-  margin-top: 30px;
+  margin-top: 3rem;
 }
 
 .SearchCard:first-child .searchCardHeader {

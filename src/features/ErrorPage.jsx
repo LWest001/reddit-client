@@ -11,7 +11,7 @@ const ErrorPage = () => {
       <h2 className="errorText">Oops! We have encountered an error.</h2>
       <br />
       <Link to="/" onClick={() => dispatch(setStatus("idle"))}>
-        Return home.
+        <button>Return home</button>
       </Link>
     </div>
   );

@@ -56,16 +56,19 @@ h1 {
 
 .ErrorPage {
   font-family: "Noto Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-top: 50%;
-  padding: 3%;
+  height: 100%;
+  margin-top: 3rem !important;
+  padding: 4rem 0;
+}
+.ErrorPage button {
+  font-size: 1.5rem;
 }
 
 .errorText {
   text-align: center;
 }
+
 
 .upArrow {
   height: 1rem;

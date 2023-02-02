@@ -20,7 +20,7 @@
 
 .ThreadCard:first-child,
 .SkeletonThreadCard:first-child {
-  margin-top: 30px;
+  margin-top: 3rem;
 }
 
 /* Skeleton */
