@@ -1,19 +1,30 @@
-import "./ThreadCard.css";
+// Library imports
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Embed, { defaultProviders } from "react-tiny-oembed";
 import axios from "axios";
+
+// Slice imports
 import { setModal } from "../ThreadList/threadListSlice";
+import { setStatus as setThreadStatus } from "../Thread/threadSlice";
+
+// Component imports
+import Embed, { defaultProviders } from "react-tiny-oembed";
+import ReactPlayer from "react-player";
+import SubredditLink from "../../components/SubredditLink";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+// Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
-import ReactPlayer from "react-player";
+
+// Media imports
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
-import { setStatus as setThreadStatus } from "../Thread/threadSlice";
-import SubredditLink from "../../components/SubredditLink";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+
+// Stylesheet
+import "./ThreadCard.css";
 
 const ThreadCard = ({
   author,

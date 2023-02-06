@@ -4,7 +4,7 @@ function selectImagePreview(resolutions) {
   if (Array.isArray(resolutions)) {
     placeholder = { url: resolutions[0].url.replace(/&amp;/g, "&") };
     for (const resolution of resolutions) {
-      if (resolution.height >= 460) {
+      if (resolution.height >= 360) {
         preview = {
           url: resolution.url.replace(/&amp;/g, "&"),
           width: resolution.width,
