@@ -37,10 +37,12 @@ const ThreadList = ({ view }) => {
           commentCount={thread.commentCount}
           gallery={thread.gallery}
           icon={thread.icon}
-          image={{
-            fullSizeImage: thread.image,
-            previewSizeImage: selectImagePreview(thread.imagePreview),
-          }}
+          image={
+            thread.threadType === "image" && {
+              fullSizeImage: thread.image,
+              previewSizeImage: selectImagePreview(thread.imagePreview),
+            }
+          }
           link={thread.link}
           postFlair={thread.postFlair}
           redditId={thread.redditId}
