@@ -9,9 +9,9 @@ import {
   selectAllComments,
 } from "./threadSlice";
 import ThreadCard from "../ThreadCard/ThreadCard";
-import CommentCard from "../../components/commentCard/CommentCard";
+import CommentCard from "../../components/CommentCar/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
-import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
+import SkeletonCommentCard from "../../components/CommentCar/SkeletonCommentCard";
 
 const Thread = () => {
   const dispatch = useDispatch();
