@@ -106,7 +106,8 @@ const threadListSlice = createSlice({
             commentCount: data.num_comments,
             gallery: threadType === "gallery" && data.url,
             image: threadType === "image" && data.url,
-            imagePreview: data.preview,
+            imagePreview:
+              threadType === "image" && data.preview.images[0].resolutions,
             keyId: getRandomKey(),
             link: "https://reddit.com" + data.permalink,
             postFlair: {

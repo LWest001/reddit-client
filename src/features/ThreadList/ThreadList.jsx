@@ -13,6 +13,7 @@ import SubredditInfo from "../../components/SubredditInfo";
 
 // Function imports
 import useFetchThreads from "../../functions/useFetchThreads";
+import selectImagePreview from "../../functions/selectImagePreview";
 
 // Stylesheet imports
 import "./Subreddit.css";
@@ -36,8 +37,10 @@ const ThreadList = ({ view }) => {
           commentCount={thread.commentCount}
           gallery={thread.gallery}
           icon={thread.icon}
-          image={thread.image}
-          imagePreview={thread.imagePreview}
+          image={{
+            fullSizeImage: thread.image,
+            previewSizeImage: selectImagePreview(thread.imagePreview),
+          }}
           link={thread.link}
           postFlair={thread.postFlair}
           redditId={thread.redditId}

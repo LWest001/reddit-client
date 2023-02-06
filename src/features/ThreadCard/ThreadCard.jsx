@@ -22,7 +22,6 @@ const ThreadCard = ({
   gallery,
   id,
   image,
-  imagePreview,
   link,
   postFlair,
   redditId,
@@ -133,13 +132,13 @@ const ThreadCard = ({
           {threadType == "image" && (
             <div className="centered">
               <img
-                src={image}
+                src={image.previewSizeImage}
                 alt={`Image for thread: ${threadTitle}`}
                 className="previewImage"
                 onClick={() =>
                   dispatch(
                     setModal({
-                      image: image,
+                      image: image.fullSizeImage,
                       title: threadTitle,
                       link: link,
                       display: true,
