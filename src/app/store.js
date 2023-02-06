@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import threadListReducer from "../features/threadList/threadListSlice";
-import threadReducer from "../features/thread/threadSlice";
+import threadListReducer from "../features/ThreadList/threadListSlice";
+import threadReducer from "../features/Thread/threadSlice";
 const store = configureStore({
   reducer: {
     threadList: threadListReducer,

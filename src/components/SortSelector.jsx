@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setStatus as setThreadListStatus } from "../features/ThreadLis/threadListSlice";
-import { setStatus as setThreadStatus } from "../features/Threa/threadSlice";
+import { setStatus as setThreadListStatus } from "../features/ThreadList/threadListSlice";
+import { setStatus as setThreadStatus } from "../features/Thread/threadSlice";
 
 const SortSelector = () => {
   const dispatch = useDispatch();

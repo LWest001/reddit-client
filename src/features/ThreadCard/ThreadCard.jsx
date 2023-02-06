@@ -11,9 +11,7 @@ import isiOS from "../../functions/isiOS";
 import ReactPlayer from "react-player";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
-import {
-  setStatus as setThreadStatus,
-} from "../thread/threadSlice";
+import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
 
 const ThreadCard = ({
@@ -76,7 +74,6 @@ const ThreadCard = ({
   const titleTextHTML = threadTitle && {
     __html: parseMarkdownText(`##${threadTitle}`),
   };
-  
 
   return (
     <div className="ThreadCard" id={id}>

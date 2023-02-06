@@ -8,9 +8,9 @@ import {
   selectThreadStatus,
   selectAllComments,
 } from "./threadSlice";
-import ThreadCard from "../threadCard/ThreadCard";
+import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/commentCard/CommentCard";
-import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
 
 const Thread = () => {

@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import { selectThreadsStatus, selectAllThreads } from "./threadListSlice";
 
 // Component imports
-import ThreadCard from "../threadCard/ThreadCard";
+import ThreadCard from "../ThreadCard/ThreadCard";
 import SearchCard from "../SearchCard/SearchCard";
-import SkeletonThreadCard from "../threadCard/SkeletonThreadCard";
+import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
 import SubredditInfo from "../../components/SubredditInfo";
 
