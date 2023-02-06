@@ -5,7 +5,7 @@ import {
   setStatus as setHomepageStatus,
   setQuery,
   selectQuery,
-} from "../../features/ThreadList/threadListSlice";
+} from "../../features/ThreadLis/threadListSlice";
 import "./Header.css";
 import home from "../../assets/home.svg";
 
@@ -30,7 +30,7 @@ const Header = () => {
     });
     window.scrollTo(0, 0);
     document.querySelector("#searchInput").blur();
-    
+
     e.target[0].value = "";
   }
 

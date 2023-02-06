@@ -12,8 +12,8 @@ import {
   Route,
 } from "react-router-dom";
 import ErrorPage from "./features/ErrorPage";
-import Thread from "./features/thread/Thread";
-import ThreadList from "./features/threadList/ThreadList";
+import Thread from "./features/Threa/Thread";
+import ThreadList from "./features/ThreadLis/ThreadList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
