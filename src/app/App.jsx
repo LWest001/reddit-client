@@ -6,7 +6,7 @@ import {
   setStatus,
 } from "../features/ThreadList/threadListSlice";
 import ErrorPage from "../features/ErrorPage";
-import ImageModal from "../components/ImageModa/ImageModal";
+import ImageModal from "../components/ImageModal/ImageModal";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 
 function App() {
