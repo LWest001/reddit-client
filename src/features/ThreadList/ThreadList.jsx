@@ -37,6 +37,7 @@ const ThreadList = ({ view }) => {
           gallery={thread.gallery}
           icon={thread.icon}
           image={thread.image}
+          imagePreview={thread.imagePreview}
           link={thread.link}
           postFlair={thread.postFlair}
           redditId={thread.redditId}

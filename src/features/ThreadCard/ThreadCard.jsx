@@ -22,6 +22,7 @@ const ThreadCard = ({
   gallery,
   id,
   image,
+  imagePreview,
   link,
   postFlair,
   redditId,
