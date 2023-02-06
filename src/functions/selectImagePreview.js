@@ -1,19 +1,27 @@
 function selectImagePreview(resolutions) {
-  let parsedUrl;
+  let preview;
+  let placeholder;
   if (Array.isArray(resolutions)) {
+    placeholder = { url: resolutions[0].url.replace(/&amp;/g, "&") };
     for (const resolution of resolutions) {
       if (resolution.height >= 460) {
-        parsedUrl = resolution.url.replace(/&amp;/g, "&");
+        preview = {
+          url: resolution.url.replace(/&amp;/g, "&"),
+          width: resolution.width,
+          height: resolution.height,
+        };
         break;
       } else {
-        parsedUrl = resolutions[resolutions.length - 1].url.replace(
-          /&amp;/g,
-          "&"
-        );
+        const defaultResolution = resolutions[resolutions.length - 1];
+        preview = {
+          url: defaultResolution.url.replace(/&amp;/g, "&"),
+          width: defaultResolution.width,
+          height: defaultResolution.height,
+        };
       }
     }
   }
-  return parsedUrl;
+  return { preview: preview, placeholder: placeholder };
 }
 
 export default selectImagePreview;

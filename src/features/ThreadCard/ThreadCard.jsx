@@ -13,6 +13,7 @@ import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ThreadCard = ({
   author,
@@ -131,8 +132,12 @@ const ThreadCard = ({
         <div className="threadContentPreview">
           {threadType == "image" && (
             <div className="centered">
-              <img
-                src={image.previewSizeImage}
+              <LazyLoadImage
+                src={image.previewSizeImage.url}
+                height={image.previewSizeImage.height}
+                width={image.previewSizeImage.width}
+                placeholderSrc={image.placeholderImage.url}
+                effect="blur"
                 alt={`Image for thread: ${threadTitle}`}
                 className="previewImage"
                 onClick={() =>
