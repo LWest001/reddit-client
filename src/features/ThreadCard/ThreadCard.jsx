@@ -8,7 +8,7 @@ import { setModal } from "../ThreadList/threadListSlice";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
