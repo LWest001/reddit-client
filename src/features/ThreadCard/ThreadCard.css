@@ -126,7 +126,10 @@
   place-items: center;
 }
 
-
+.react-player__preview {
+  background-size: contain !important;
+  background-repeat: no-repeat;
+}
 .ThreadCard .readMore {
   width: fit-content;
 }
