@@ -38,7 +38,7 @@ const ThreadList = ({ view }) => {
           gallery={thread.gallery}
           icon={thread.icon}
           image={
-            thread.threadType === "image" && {
+            ["image", "video"].includes(thread.threadType) && {
               fullSizeImage: thread.image,
               previewSizeImage: selectImagePreview(thread.imagePreview).preview,
               placeholderImage: selectImagePreview(thread.imagePreview)

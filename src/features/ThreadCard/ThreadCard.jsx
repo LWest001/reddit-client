@@ -211,6 +211,7 @@ const ThreadCard = ({
                 volume={1}
                 muted={true}
                 autoPlay={false}
+                light={image.previewSizeImage.url}
                 fallback={
                   <video>
                     <source src={video.fallback} type="video/mp4" />
