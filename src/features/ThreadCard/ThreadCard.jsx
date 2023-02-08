@@ -145,8 +145,8 @@ const ThreadCard = ({
             <div className="centered">
               <LazyLoadImage
                 src={image.previewSizeImage.url}
-                height={image.previewSizeImage.height}
-                width={image.previewSizeImage.width}
+                // height={image.previewSizeImage.height}
+                // width={image.previewSizeImage.width}
                 placeholderSrc={image.placeholderImage.url}
                 effect="blur"
                 alt={`Image for thread: ${threadTitle}`}
