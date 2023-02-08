@@ -13,7 +13,6 @@ import Embed, { defaultProviders } from "react-tiny-oembed";
 import ReactPlayer from "react-player";
 import SubredditLink from "../../components/SubredditLink";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { LazyLoadComponent } from "react-lazy-load-image-component";
 
 // Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
@@ -267,15 +266,13 @@ const ThreadCard = ({
 
           {threadType === "richVideo" && (
             <div className="videoWrapper">
-              <LazyLoadComponent>
-                <Embed
-                  className="richVideoEmbed"
-                  url={richVideo.url}
-                  providers={[...defaultProviders, richVideo.provider]}
-                  options={{ height: "200" }}
-                  // proxy="https://cors-anywhere.herokuapp.com/"
-                />
-              </LazyLoadComponent>
+              <Embed
+                className="richVideoEmbed"
+                url={richVideo.url}
+                providers={[...defaultProviders, richVideo.provider]}
+                options={{ height: "200" }}
+                // proxy="https://cors-anywhere.herokuapp.com/"
+              />
             </div>
           )}
         </div>
