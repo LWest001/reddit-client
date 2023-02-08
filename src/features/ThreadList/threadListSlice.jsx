@@ -134,7 +134,7 @@ const threadListSlice = createSlice({
             timestamp: getTimeStamp(data.created_utc),
             threadType: threadType,
             video: threadType === "video" && {
-              dashManifest: data.media.reddit_video.dash_url,
+              dashManifest: data.media.reddit_video.dash_url.substring(0, 48),
               fallback: data.media.reddit_video.fallback_url,
               hls: data.media.reddit_video.hls_url,
             },

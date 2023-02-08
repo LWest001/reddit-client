@@ -90,7 +90,7 @@ const SearchCard = ({
             <img
               className="thumbnail"
               src={thumbnail}
-              alt={`Thumbnail for thread: ${threadTitle}`}
+              alt="Thumbnail"
             />
           </figure>
         </Link>

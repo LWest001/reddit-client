@@ -1,34 +1,34 @@
 .ImageModal {
   --dark-transparent: rgba(0, 0, 0, 0.842);
-  width: 100%;
+  width:100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   position: fixed;
   top: 0;
   z-index: 2;
   justify-content: center;
+  align-items: flex-end;
   height: 100%;
   background-color: var(--dark-transparent);
   font-family: "Noto Sans", sans-serif;
 }
 
 .modalButton {
-  position: fixed;
   background-color: var(--dark-transparent);
   border-radius: 100%;
   cursor: pointer;
-  height:3rem;
-  width:3rem;
+  height: 3rem;
+  width: 3rem;
   text-align: center;
   color: white;
   font-weight: bold;
   font-size: 4rem;
+  margin: 1rem;
 }
 
 .xButton {
   padding: 0.5rem;
-  top: 1rem;
-  right: 1rem;
   line-height: 3rem;
 }
 
@@ -39,8 +39,6 @@
   background-position: center;
   height: 4rem;
   width: 4rem;
-  bottom: 1rem;
-  right: 1rem;
 }
 
 .modalImage {

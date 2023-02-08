@@ -1,18 +1,31 @@
-import "./ThreadCard.css";
+// Library imports
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Embed, { defaultProviders } from "react-tiny-oembed";
 import axios from "axios";
+
+// Slice imports
 import { setModal } from "../ThreadList/threadListSlice";
+import { setStatus as setThreadStatus } from "../Thread/threadSlice";
+
+// Component imports
+import Embed, { defaultProviders } from "react-tiny-oembed";
+import ReactPlayer from "react-player";
+import SubredditLink from "../../components/SubredditLink";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+// Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
 import ReactPlayer from "react-player/lazy";
+
+// Media imports
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
-import { setStatus as setThreadStatus } from "../Thread/threadSlice";
-import SubredditLink from "../../components/SubredditLink";
+
+// Stylesheet
+import "./ThreadCard.css";
 
 const ThreadCard = ({
   author,
@@ -131,8 +144,12 @@ const ThreadCard = ({
         <div className="threadContentPreview">
           {threadType == "image" && (
             <div className="centered">
-              <img
-                src={image.previewSizeImage}
+              <LazyLoadImage
+                src={image.previewSizeImage.url}
+                height={image.previewSizeImage.height}
+                width={image.previewSizeImage.width}
+                placeholderSrc={image.placeholderImage.url}
+                effect="blur"
                 alt={`Image for thread: ${threadTitle}`}
                 className="previewImage"
                 onClick={() =>
@@ -195,6 +212,11 @@ const ThreadCard = ({
                 volume={1}
                 muted={true}
                 autoPlay={false}
+                fallback={
+                  <video>
+                    <source src={video.fallback} type="video/mp4" />
+                  </video>
+                }
               />
             </div>
           )}

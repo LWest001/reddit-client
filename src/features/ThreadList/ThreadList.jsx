@@ -40,7 +40,9 @@ const ThreadList = ({ view }) => {
           image={
             thread.threadType === "image" && {
               fullSizeImage: thread.image,
-              previewSizeImage: selectImagePreview(thread.imagePreview),
+              previewSizeImage: selectImagePreview(thread.imagePreview).preview,
+              placeholderImage: selectImagePreview(thread.imagePreview)
+                .placeholder,
             }
           }
           link={thread.link}
