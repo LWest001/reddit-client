@@ -12,6 +12,7 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
+import selectImagePreview from "../../functions/selectImagePreview";
 
 const Thread = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,14 @@ const Thread = () => {
       commentCount={threadData.commentCount}
       gallery={threadData.gallery}
       icon={threadData.icon}
-      image={threadData.image}
+      image={
+        ["image", "video"].includes(threadData.threadType) && {
+          fullSizeImage: threadData.image,
+          previewSizeImage: selectImagePreview(threadData.imagePreview).preview,
+          placeholderImage: selectImagePreview(threadData.imagePreview)
+            .placeholder,
+        }
+      }
       link={threadData.link}
       score={threadData.score}
       selfText={threadData.selfText}

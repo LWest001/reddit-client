@@ -68,6 +68,9 @@ const threadSlice = createSlice({
           commentCount: threadData.num_comments,
           gallery: threadType === "gallery" && threadData.url,
           image: threadType === "image" && threadData.url,
+            imagePreview:
+              ["image", "video"].includes(threadType) && threadData.preview.images[0].resolutions,
+          
           link: "https://reddit.com" + threadData.permalink,
           postFlair: {
             backgroundColor: threadData.link_flair_background_color,
