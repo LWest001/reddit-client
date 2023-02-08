@@ -10,7 +10,7 @@ import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 
 // Component imports
 import Embed, { defaultProviders } from "react-tiny-oembed";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 import SubredditLink from "../../components/SubredditLink";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
@@ -18,7 +18,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
-import ReactPlayer from "react-player/lazy";
 
 // Media imports
 import upvote from "../../assets/upvote.svg";
