@@ -104,7 +104,6 @@
 }
 .previewImage {
   max-width: 100%;
-  border-radius: var(--radius);
 }
 
 .ThreadCard .threadPreview .thumbnail {
@@ -217,9 +216,6 @@
   display: flex;
   flex-direction: column;
   background-color: lightgray;
-  border-radius: calc(var(--radius) + var(--border));
-  margin: var(--border);
-  padding: 5px;
 }
 
 .ThreadCard .threadFooter {
