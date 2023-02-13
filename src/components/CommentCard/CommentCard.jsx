@@ -1,8 +1,8 @@
 import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import upvote from "../../assets/upvote.svg";
-import { getRandomKey } from "../../functions/getRandomKey";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import { fetchData } from "../../features/Thread/threadSlice";
 
 function CommentCard({ author, body, id, replies, score, timestamp, type }) {
   function handleCollapse() {
@@ -12,6 +12,10 @@ function CommentCard({ author, body, id, replies, score, timestamp, type }) {
     } else {
       commentBody.style.display = "block";
     }
+  }
+
+  function handleReadMore(subcommentIdArray) {
+
   }
 
   const bodyTextHTML = parseMarkdownText(body);
@@ -26,7 +30,7 @@ function CommentCard({ author, body, id, replies, score, timestamp, type }) {
         );
       }
       subcomment = subcomment.data;
-      const keyId = getRandomKey();
+      const keyId = subcomment.id;
       return (
         <CommentCard
           author={subcomment.author}

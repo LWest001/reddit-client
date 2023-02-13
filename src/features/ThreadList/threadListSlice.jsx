@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { getRandomKey } from "../../functions/getRandomKey";
 import providers from "../../assets/providers.json";
 
 const initialState = {
@@ -108,7 +107,7 @@ const threadListSlice = createSlice({
             image: threadType === "image" && data.url,
             imagePreview:
               ["image", "video"].includes(threadType) && data.preview.images[0].resolutions,
-            keyId: getRandomKey(),
+            keyId: data.id,
             link: "https://reddit.com" + data.permalink,
             postFlair: {
               backgroundColor: data.link_flair_background_color,

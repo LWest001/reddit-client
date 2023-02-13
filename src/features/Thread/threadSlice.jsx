@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { getRandomKey } from "../../functions/getRandomKey";
 import providers from "../../assets/providers.json";
 
 const initialState = {
@@ -58,7 +57,7 @@ const threadSlice = createSlice({
         const { threadData, comments } = action.payload;
         const threadType = getThreadType(threadData);
         const filteredData = {
-          keyId: getRandomKey(),
+          keyId: threadData.id,
           subredditName: threadData.subreddit,
           author: threadData.author,
           timestamp: getTimeStamp(threadData.created_utc),
@@ -68,9 +67,10 @@ const threadSlice = createSlice({
           commentCount: threadData.num_comments,
           gallery: threadType === "gallery" && threadData.url,
           image: threadType === "image" && threadData.url,
-            imagePreview:
-              ["image", "video"].includes(threadType) && threadData.preview.images[0].resolutions,
-          
+          imagePreview:
+            ["image", "video"].includes(threadType) &&
+            threadData.preview.images[0].resolutions,
+
           link: "https://reddit.com" + threadData.permalink,
           postFlair: {
             backgroundColor: threadData.link_flair_background_color,
@@ -101,13 +101,13 @@ const threadSlice = createSlice({
           if (kind === "more") {
             return {
               type: "readMore",
-              keyId: getRandomKey(),
+              keyId: data.id,
             };
           }
           return {
             author: data.author,
             body: data.body_html,
-            keyId: getRandomKey(),
+            keyId: data.id,
             replies: data?.replies?.data?.children,
             score: data.ups,
             timestamp: getTimeStamp(data.created_utc),
