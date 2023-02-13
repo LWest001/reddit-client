@@ -1,6 +1,6 @@
 # Reddit Client
 
-**Live production build here: https://reddit-lw.app/**
+**Live production build here: https://reddit-lw.netlify.app/**
 
 This app is a light and minimal front-end Reddit client that displays the default view of Reddit (as if you were signed out) from the [Reddit JSON API](https://github.com/reddit-archive/reddit/wiki/JSON).
 
