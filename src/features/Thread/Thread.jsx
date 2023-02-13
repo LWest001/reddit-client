@@ -70,6 +70,7 @@ const Thread = () => {
         body={comment.body}
         id={comment.keyId}
         key={comment.keyId}
+        permalink={comment.permalink}
         replies={comment.replies}
         score={comment.score}
         timestamp={comment.timestamp}

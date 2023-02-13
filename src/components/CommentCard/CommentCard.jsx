@@ -3,8 +3,19 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import upvote from "../../assets/upvote.svg";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { fetchData } from "../../features/Thread/threadSlice";
+import { useDispatch } from "react-redux";
 
-function CommentCard({ author, body, id, replies, score, timestamp, type }) {
+function CommentCard({
+  author,
+  body,
+  id,
+  permalink,
+  replies,
+  score,
+  timestamp,
+  type,
+}) {
+  const dispatch = useDispatch();
   function handleCollapse() {
     const commentBody = document.getElementById(`comment-${id}`);
     if (commentBody.style.display !== "none") {
@@ -14,8 +25,15 @@ function CommentCard({ author, body, id, replies, score, timestamp, type }) {
     }
   }
 
-  function handleReadMore(subcommentIdArray) {
-
+  function handleReadMore() {
+    dispatch(
+      fetchData({
+        link:
+          "https://www.reddit.com" +
+          permalink.substring(0, permalink.length - 1),
+        requestType: "subreplies",
+      })
+    );
   }
 
   const bodyTextHTML = parseMarkdownText(body);
@@ -24,7 +42,11 @@ function CommentCard({ author, body, id, replies, score, timestamp, type }) {
     subcomments = replies.map((subcomment) => {
       if (subcomment.kind === "more") {
         return (
-          <button key={subcomment.keyId} id={subcomment.keyId}>
+          <button
+            key={subcomment.keyId}
+            id={subcomment.keyId}
+            onClick={handleReadMore}
+          >
             {subcomment.data.children.length} more replies
           </button>
         );
@@ -37,6 +59,7 @@ function CommentCard({ author, body, id, replies, score, timestamp, type }) {
           body={subcomment.body}
           id={keyId}
           key={keyId}
+          permalink={subcomment.permalink}
           replies={subcomment.replies?.data?.children}
           score={subcomment.score}
           timestamp={getTimeStamp(subcomment.created_utc)}
