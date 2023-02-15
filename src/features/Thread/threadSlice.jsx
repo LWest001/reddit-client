@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
@@ -7,6 +7,7 @@ import providers from "../../assets/providers.json";
 const initialState = {
   threadData: {},
   comments: [],
+  subreplies: { id: "", replies: [] },
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
 };
@@ -14,15 +15,24 @@ const initialState = {
 export const fetchData = createAsyncThunk(
   "thread/fetchData",
   async (options) => {
-    const { link, sortType = "hot", requestType = "thread" } = options;
+    const {
+      link,
+      sortType = "hot",
+      requestType = "thread",
+      indexTree,
+      idTree,
+    } = options;
+    let comments;
     let URL = `${link}.json`;
     if (sortType) {
       URL = `${URL}?sort=${sortType}`;
     }
     const response = await axios.get(URL);
     const threadData = response.data[0].data.children[0].data;
-    const comments = response.data[1].data.children;
-    return { threadData, comments, requestType };
+
+    comments = response.data[1].data.children;
+
+    return { threadData, comments, requestType, indexTree, idTree };
   }
 );
 
@@ -45,16 +55,45 @@ const threadSlice = createSlice({
         state.comments = action.payload;
       },
     },
+    setSpecificComment: {
+      reducer(state, action) {
+        const { indices, replies } = action.payload;
+        let comment = state.comments[indices[0]];
+        indices.shift();
+        indices.forEach((i) => {
+          if (comment.replies.data) {
+            comment = comment.replies.data.children[i].data;
+          } else {
+            comment = comment.replies[i].data;
+          }
+        });
+        comment.replies.data.children.push(replies);
+      },
+    },
+    setSubreplies: {
+      reducer(state, action) {
+        state.subreplies = action.payload;
+      },
+    },
   },
 
   extraReducers(builder) {
     builder
       .addCase(fetchData.pending, (state, action) => {
-        state.status = "loading";
+        if (action.meta.arg.requestType === "thread") {
+          state.status = "loading";
+        }
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const { threadData, comments, requestType } = action.payload;
+        let {
+          threadData,
+          comments,
+          requestType,
+          indexTree,
+          idTree,
+        } = action.payload;
+        let subreplyId = comments[0].data.id;
         const threadType = getThreadType(threadData);
         let filteredData;
         if (requestType === "thread") {
@@ -100,25 +139,54 @@ const threadSlice = createSlice({
           };
           state.threadData = filteredData;
         }
-        const filteredComments = comments.map((comment) => {
-          const { data, kind } = comment;
-          if (kind === "more") {
-            return {
-              type: "readMore",
-              keyId: data.id,
-            };
+        function filterComments() {
+          if (requestType === "subreplies") {
+            comments = comments[0].data.replies.data.children;
           }
-          return {
-            author: data.author,
-            body: data.body_html,
-            keyId: data.id,
-            permalink: data.permalink,
-            replies: data?.replies?.data?.children,
-            score: data.ups,
-            timestamp: getTimeStamp(data.created_utc),
+          return comments.map((comment, index) => {
+            const { data, kind } = comment;
+            if (kind === "more") {
+              return {
+                ...comment,
+              };
+            }
+            return {
+              ...comment,
+              data: {
+                ...data,
+                index,
+                parentId: data.parent_id.substring(3),
+              },
+            };
+          });
+        }
+        const filteredComments = filterComments();
+        if (requestType === "thread") {
+          state.comments = filteredComments;
+        }
+        if (requestType === "subreplies") {
+          state.subreplies = {
+            id: subreplyId,
+            replies: filteredComments,
           };
-        });
-        state.comments = filteredComments;
+          let firstComment = state.comments[indexTree[0]];
+          let commentsArr = [[0, firstComment]];
+          indexTree.shift();
+          let index;
+          while (indexTree.length) {
+            index = indexTree[0];
+            commentsArr.push([
+              index,
+              commentsArr[commentsArr.length - 1][1].data.replies.data.children[
+                index
+              ],
+            ]);
+            indexTree.shift();
+          }
+          commentsArr[commentsArr.length - 1][1].data.replies.data.children =
+            state.subreplies.replies;
+          console.log(commentsArr);
+        }
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.status = "failed";
@@ -130,6 +198,13 @@ const threadSlice = createSlice({
 export const selectThreadData = (state) => state.thread.threadData;
 export const selectThreadStatus = (state) => state.thread.status;
 export const selectAllComments = (state) => state.thread.comments;
+export const selectSubreplies = (state) => state.thread.subreplies;
 
-export const { setStatus, setThreadData, setComments } = threadSlice.actions;
+export const {
+  setStatus,
+  setThreadData,
+  setComments,
+  setSpecificComment,
+  setSubreplies,
+} = threadSlice.actions;
 export default threadSlice.reducer;

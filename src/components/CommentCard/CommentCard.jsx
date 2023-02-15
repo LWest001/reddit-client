@@ -2,13 +2,23 @@ import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import upvote from "../../assets/upvote.svg";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { fetchData } from "../../features/Thread/threadSlice";
-import { useDispatch } from "react-redux";
+import {
+  fetchData,
+  selectSubreplies,
+  selectAllComments,
+  setComments,
+  setSpecificComment,
+  setSubreplies,
+} from "../../features/Thread/threadSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function CommentCard({
   author,
   body,
   id,
+  idTree,
+  indexTree,
   permalink,
   replies,
   score,
@@ -16,6 +26,8 @@ function CommentCard({
   type,
 }) {
   const dispatch = useDispatch();
+  const subreplies = useSelector(selectSubreplies);
+  const comments = useSelector(selectAllComments);
   function handleCollapse() {
     const commentBody = document.getElementById(`comment-${id}`);
     if (commentBody.style.display !== "none") {
@@ -25,48 +37,52 @@ function CommentCard({
     }
   }
 
-  function handleReadMore() {
+  const bodyTextHTML = parseMarkdownText(body);
+  let subcomments;
+
+  async function handleReadMore() {
     dispatch(
       fetchData({
         link:
           "https://www.reddit.com" +
           permalink.substring(0, permalink.length - 1),
         requestType: "subreplies",
+        indexTree: indexTree,
+        idTree: idTree,
       })
     );
   }
 
-  const bodyTextHTML = parseMarkdownText(body);
-  let subcomments;
-  if (replies) {
-    subcomments = replies.map((subcomment) => {
-      if (subcomment.kind === "more") {
+  function generateSubcomments() {
+    subcomments = replies?.data?.children?.map((subcomment, subIndex) => {
+      const { data, kind } = subcomment;
+      if (kind === "more") {
         return (
-          <button
-            key={subcomment.keyId}
-            id={subcomment.keyId}
-            onClick={handleReadMore}
-          >
-            {subcomment.data.children.length} more replies
+          <button key={data.id} id={data.id} onClick={handleReadMore}>
+            {data.children.length} more replies
           </button>
         );
       }
-      subcomment = subcomment.data;
-      const keyId = subcomment.id;
       return (
         <CommentCard
-          author={subcomment.author}
-          body={subcomment.body}
-          id={keyId}
-          key={keyId}
-          permalink={subcomment.permalink}
-          replies={subcomment.replies?.data?.children}
-          score={subcomment.score}
-          timestamp={getTimeStamp(subcomment.created_utc)}
+          author={data.author}
+          body={data.body_html}
+          id={data.id}
+          idTree={[...idTree, data.id]}
+          indexTree={[...indexTree, subIndex]}
+          key={data.id}
+          permalink={data.permalink}
+          replies={data.replies}
+          score={data.ups}
+          timestamp={getTimeStamp(data.created_utc)}
           type="subcomment"
         />
       );
     });
+  }
+
+  if (replies) {
+    generateSubcomments();
   }
 
   return (

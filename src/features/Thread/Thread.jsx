@@ -13,6 +13,7 @@ import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
 import selectImagePreview from "../../functions/selectImagePreview";
+import { getTimeStamp } from "../../functions/getTimeStamp";
 
 const Thread = () => {
   const dispatch = useDispatch();
@@ -64,16 +65,19 @@ const Thread = () => {
         </button>
       );
     }
+    const {data} = comment
     return (
       <CommentCard
-        author={comment.author}
-        body={comment.body}
-        id={comment.keyId}
-        key={comment.keyId}
-        permalink={comment.permalink}
-        replies={comment.replies}
-        score={comment.score}
-        timestamp={comment.timestamp}
+        author={data.author}
+        body={data.body_html}
+        id={data.id}
+        indexTree={[data.index]}
+        idTree={[data.id]}
+        key={data.id}
+        permalink={data.permalink}
+        replies={data.replies}
+        score={data.ups}
+        timestamp={getTimeStamp(data.created_utc)}
         type={"top-level-comment"}
       />
     );
@@ -85,6 +89,7 @@ const Thread = () => {
         fetchData({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`,
           sortType: sortType,
+          requestType: "thread",
         })
       );
     }
