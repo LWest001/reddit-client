@@ -2,32 +2,23 @@ import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import upvote from "../../assets/upvote.svg";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import {
-  fetchData,
-  selectSubreplies,
-  selectAllComments,
-  setComments,
-  setSpecificComment,
-  setSubreplies,
-} from "../../features/Thread/threadSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { fetchData } from "../../features/Thread/threadSlice";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function CommentCard({
   author,
   body,
   id,
-  idTree,
   indexTree,
-  permalink,
   replies,
   score,
   timestamp,
   type,
 }) {
   const dispatch = useDispatch();
-  const subreplies = useSelector(selectSubreplies);
-  const comments = useSelector(selectAllComments);
+  const { subredditName, redditId, threadTitle } = useParams();
+
   function handleCollapse() {
     const commentBody = document.getElementById(`comment-${id}`);
     if (commentBody.style.display !== "none") {
@@ -39,18 +30,16 @@ function CommentCard({
 
   const bodyTextHTML = parseMarkdownText(body);
   let subcomments;
-
-  async function handleReadMore() {
-    dispatch(
-      fetchData({
-        link:
-          "https://www.reddit.com" +
-          permalink.substring(0, permalink.length - 1),
-        requestType: "subreplies",
-        indexTree: indexTree,
-        idTree: idTree,
-      })
-    );
+  async function handleReadMore(children) {
+    children.forEach((child) => {
+      dispatch(
+        fetchData({
+          link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}/${child}`,
+          requestType: "subreplies",
+          indexTree: indexTree,
+        })
+      );
+    });
   }
 
   function generateSubcomments() {
@@ -58,7 +47,12 @@ function CommentCard({
       const { data, kind } = subcomment;
       if (kind === "more") {
         return (
-          <button key={data.id} id={data.id} onClick={handleReadMore}>
+          <button
+            key={data.id}
+            id={data.id}
+            onClick={() => handleReadMore(data.children)}
+            type="readMore"
+          >
             {data.children.length} more replies
           </button>
         );
@@ -68,10 +62,8 @@ function CommentCard({
           author={data.author}
           body={data.body_html}
           id={data.id}
-          idTree={[...idTree, data.id]}
           indexTree={[...indexTree, subIndex]}
           key={data.id}
-          permalink={data.permalink}
           replies={data.replies}
           score={data.ups}
           timestamp={getTimeStamp(data.created_utc)}

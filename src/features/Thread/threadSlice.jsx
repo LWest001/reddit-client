@@ -31,7 +31,6 @@ export const fetchData = createAsyncThunk(
     const threadData = response.data[0].data.children[0].data;
 
     comments = response.data[1].data.children;
-
     return { threadData, comments, requestType, indexTree, idTree };
   }
 );
@@ -53,26 +52,6 @@ const threadSlice = createSlice({
     setComments: {
       reducer(state, action) {
         state.comments = action.payload;
-      },
-    },
-    setSpecificComment: {
-      reducer(state, action) {
-        const { indices, replies } = action.payload;
-        let comment = state.comments[indices[0]];
-        indices.shift();
-        indices.forEach((i) => {
-          if (comment.replies.data) {
-            comment = comment.replies.data.children[i].data;
-          } else {
-            comment = comment.replies[i].data;
-          }
-        });
-        comment.replies.data.children.push(replies);
-      },
-    },
-    setSubreplies: {
-      reducer(state, action) {
-        state.subreplies = action.payload;
       },
     },
   },
@@ -140,9 +119,6 @@ const threadSlice = createSlice({
           state.threadData = filteredData;
         }
         function filterComments() {
-          if (requestType === "subreplies") {
-            comments = comments[0].data.replies.data.children;
-          }
           return comments.map((comment, index) => {
             const { data, kind } = comment;
             if (kind === "more") {
@@ -170,22 +146,22 @@ const threadSlice = createSlice({
             replies: filteredComments,
           };
           let firstComment = state.comments[indexTree[0]];
-          let commentsArr = [[0, firstComment]];
-          indexTree.shift();
-          let index;
-          while (indexTree.length) {
-            index = indexTree[0];
-            commentsArr.push([
-              index,
-              commentsArr[commentsArr.length - 1][1].data.replies.data.children[
-                index
-              ],
-            ]);
-            indexTree.shift();
+          let commentsArr = [firstComment];
+          let index = 1;
+          while (index < indexTree.length) {
+            commentsArr.push(
+              commentsArr.at(-1).data.replies.data.children[indexTree[index]]
+            );
+            index++;
           }
-          commentsArr[commentsArr.length - 1][1].data.replies.data.children =
-            state.subreplies.replies;
-          console.log(commentsArr);
+          commentsArr.at(-1).data.replies.data.children = [
+            ...commentsArr
+              .at(-1)
+              .data.replies.data.children.filter(
+                (comment) => comment.data.id !== state.subreplies.id
+              ),
+            ...state.subreplies.replies,
+          ];
         }
       })
       .addCase(fetchData.rejected, (state, action) => {
@@ -198,13 +174,12 @@ const threadSlice = createSlice({
 export const selectThreadData = (state) => state.thread.threadData;
 export const selectThreadStatus = (state) => state.thread.status;
 export const selectAllComments = (state) => state.thread.comments;
-export const selectSubreplies = (state) => state.thread.subreplies;
 
 export const {
   setStatus,
   setThreadData,
   setComments,
   setSpecificComment,
-  setSubreplies,
+
 } = threadSlice.actions;
 export default threadSlice.reducer;

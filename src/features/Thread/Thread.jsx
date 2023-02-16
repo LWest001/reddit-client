@@ -58,23 +58,21 @@ const Thread = () => {
   );
 
   const comments = commentsData.map((comment) => {
-    if (comment.type === "readMore") {
+    if (comment.kind === "more") {
       return (
-        <button key={comment.keyId} id={comment.keyId}>
+        <button key={comment.data.id} id={comment.data.id}>
           Read more comments
         </button>
       );
     }
-    const {data} = comment
+    const { data } = comment;
     return (
       <CommentCard
         author={data.author}
         body={data.body_html}
         id={data.id}
         indexTree={[data.index]}
-        idTree={[data.id]}
         key={data.id}
-        permalink={data.permalink}
         replies={data.replies}
         score={data.ups}
         timestamp={getTimeStamp(data.created_utc)}
