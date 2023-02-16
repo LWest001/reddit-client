@@ -30,7 +30,8 @@ function CommentCard({
 
   const bodyTextHTML = parseMarkdownText(body);
   let subcomments;
-  async function handleReadMore(children) {
+  async function handleReadMore(children, e) {
+    e.target.style.display = "none";
     children.forEach((child) => {
       dispatch(
         fetchData({
@@ -50,7 +51,7 @@ function CommentCard({
           <button
             key={data.id}
             id={data.id}
-            onClick={() => handleReadMore(data.children)}
+            onClick={(e) => handleReadMore(data.children, e)}
             type="readMore"
           >
             {data.children.length} more replies

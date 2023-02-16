@@ -65,13 +65,7 @@ const threadSlice = createSlice({
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        let {
-          threadData,
-          comments,
-          requestType,
-          indexTree,
-          idTree,
-        } = action.payload;
+        let { threadData, comments, requestType, indexTree } = action.payload;
         let subreplyId = comments[0].data.id;
         const threadType = getThreadType(threadData);
         let filteredData;
@@ -155,11 +149,8 @@ const threadSlice = createSlice({
             index++;
           }
           commentsArr.at(-1).data.replies.data.children = [
-            ...commentsArr
-              .at(-1)
-              .data.replies.data.children.filter(
-                (comment) => comment.data.id !== state.subreplies.id
-              ),
+            ...commentsArr.at(-1).data.replies.data.children,
+            // .filter((comment) => comment.data.id !== state.subreplies.id)
             ...state.subreplies.replies,
           ];
         }
@@ -180,6 +171,5 @@ export const {
   setThreadData,
   setComments,
   setSpecificComment,
-
 } = threadSlice.actions;
 export default threadSlice.reducer;
