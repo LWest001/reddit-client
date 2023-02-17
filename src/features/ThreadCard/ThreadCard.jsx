@@ -25,6 +25,7 @@ import commentBubble from "../../assets/commentBubble.svg";
 
 // Stylesheet
 import "./ThreadCard.css";
+import { Button } from "@mui/material";
 
 const ThreadCard = ({
   author,
@@ -86,6 +87,11 @@ const ThreadCard = ({
     __html: parseMarkdownText(`##${threadTitle}`),
   };
 
+  function selectTextColor(color) {
+    if (color === "light") return "#fff";
+    if (color === "dark") return "#000";
+  }
+
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
@@ -127,7 +133,10 @@ const ThreadCard = ({
               {postFlair?.text && (
                 <span
                   className="postFlair"
-                  style={{ backgroundColor: postFlair?.backgroundColor }}
+                  style={{
+                    backgroundColor: postFlair?.backgroundColor,
+                    color: selectTextColor(postFlair.textColor),
+                  }}
                 >
                   {postFlair?.text}
                 </span>
@@ -252,14 +261,14 @@ const ThreadCard = ({
                       __html: bodyTextHTML,
                     }}
                   ></p>
-                  <button
+                  <Button
                     className="readMore"
                     id={`readMore${id}`}
                     onClick={handleReadMore}
-                    style={{ float: "right" }}
+                    sx={{ float: "right" }}
                   >
                     Read more
-                  </button>
+                  </Button>
                 </>
               )}
             </div>
@@ -285,11 +294,10 @@ const ThreadCard = ({
             onClick={() => {
               dispatch(setThreadStatus("idle"));
             }}
+            className="viewComments button"
           >
-            <button className="viewComments button">
-              <img src={commentBubble} alt="comment bubble" className="icon" />
-              <span>View {commentCount} comments</span>
-            </button>
+            <img src={commentBubble} alt="comment bubble" className="icon" />
+            <span>View {commentCount} comments</span>
           </Link>
         )}
         <span>

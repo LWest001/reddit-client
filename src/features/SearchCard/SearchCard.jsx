@@ -73,7 +73,7 @@ const SearchCard = ({
           </span>
           &nbsp;&nbsp;&nbsp;&nbsp;▪️&nbsp;&nbsp;&nbsp;&nbsp;
           <span>
-            <img className="upArrow icon" src={upvote} alt="" />
+            <img className="upArrow icon" src={upvote} alt="upvotes" />
             {score}
           </span>
         </p>
