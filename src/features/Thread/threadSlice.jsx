@@ -78,9 +78,8 @@ const threadSlice = createSlice({
             imagePreview:
               ["image", "video"].includes(threadType) &&
               threadData.preview.images[0].resolutions,
-
-            link: "https://reddit.com" + threadData.permalink,
             keyId: threadData.id,
+            link: "https://reddit.com" + threadData.permalink,
             postFlair: {
               backgroundColor: threadData.link_flair_background_color,
               textColor: threadData.link_flair_text_color,
@@ -98,16 +97,21 @@ const threadSlice = createSlice({
                   threadData.media.oembed.provider_name
               ),
             },
-            selfText: threadType === "self" && threadData.selftext,
             score: threadData.score,
+            selfText: threadType === "self" && threadData.selftext,
             subredditName: threadData.subreddit,
             threadTitle: threadData.title,
             threadType: threadType,
-            timestamp: getTimeStamp(threadData.created_utc),
             thumbnail: threadData.thumbnail,
+            timestamp: getTimeStamp(threadData.created_utc),
+            url: threadData.url,
             video: threadType === "video" && {
-              dashManifest: threadData.media.reddit_video.dash_url,
+              dashManifest: threadData.media.reddit_video.dash_url.substring(
+                0,
+                48
+              ),
               fallback: threadData.media.reddit_video.fallback_url,
+              hls: threadData.media.reddit_video.hls_url,
             },
           };
           state.threadData = filteredData;

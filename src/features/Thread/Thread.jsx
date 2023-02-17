@@ -46,14 +46,17 @@ const Thread = () => {
         }
       }
       link={threadData.link}
+      postFlair={threadData.postFlair}
+      redditId={threadData.redditId}
+      richVideo={threadData.richVideo}
       score={threadData.score}
       selfText={threadData.selfText}
-      richVideo={threadData.richVideo}
       subredditName={threadData.subredditName}
       threadTitle={threadData.threadTitle}
       threadType={threadData.threadType}
       thumbnail={threadData.thumbnail}
       timestamp={threadData.timestamp}
+      url={threadData.url}
       video={threadData.video}
     />
   );

@@ -101,7 +101,6 @@ const threadListSlice = createSlice({
           const threadType = getThreadType(data);
 
           return {
-            url: data.url,
             author: data.author,
             commentCount: data.num_comments,
             gallery: threadType === "gallery" && data.url,
@@ -131,9 +130,10 @@ const threadListSlice = createSlice({
             selfText: threadType === "self" && data.selftext,
             subredditName: data.subreddit,
             threadTitle: data.title,
+            threadType: threadType,
             thumbnail: data.thumbnail,
             timestamp: getTimeStamp(data.created_utc),
-            threadType: threadType,
+            url: data.url,
             video: threadType === "video" && {
               dashManifest: data.media.reddit_video.dash_url.substring(0, 48),
               fallback: data.media.reddit_video.fallback_url,
