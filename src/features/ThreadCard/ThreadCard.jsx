@@ -28,7 +28,6 @@ import "./ThreadCard.css";
 
 const ThreadCard = ({
   author,
-  awards,
   cardType,
   commentCount,
   gallery,
@@ -36,7 +35,6 @@ const ThreadCard = ({
   image,
   link,
   postFlair,
-  redditId,
   richVideo,
   score,
   selfText,

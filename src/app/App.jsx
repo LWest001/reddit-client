@@ -8,6 +8,7 @@ import {
 import ErrorPage from "../features/ErrorPage";
 import ImageModal from "../components/ImageModal/ImageModal";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
+import { ScrollRestoration } from "react-router-dom";
 
 function App() {
   const status = useSelector(selectThreadsStatus);
@@ -26,6 +27,7 @@ function App() {
       {modal.display && (
         <ImageModal image={modal.image} title={modal.title} link={modal.link} />
       )}
+      <ScrollRestoration />
     </>
   );
 }
