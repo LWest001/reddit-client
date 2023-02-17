@@ -1,7 +1,8 @@
 .Header {
   align-items: center;
-  position: fixed;
-  min-width: 100%;
+  position: sticky;
+  top:0;
+  /* min-width: 100%; */
   width: 100%;
   z-index: 1;
 }
@@ -95,7 +96,7 @@ nav ul li a {
   text-indent: 0.5rem;
   height: fit-content;
   cursor: text;
-  position: relative;
+  /* position: relative; */
   left: 0px;
   height: 2rem;
   width: 99%;
