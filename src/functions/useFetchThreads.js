@@ -6,7 +6,6 @@ import {
   selectAfter,
   selectThreadsStatus,
 } from "../features/ThreadList/threadListSlice";
-import { setThreadData, setComments } from "../features/Thread/threadSlice";
 
 function useFetchThreads(view) {
   const dispatch = useDispatch();
@@ -20,8 +19,6 @@ function useFetchThreads(view) {
   }
 
   useEffect(() => {
-    dispatch(setThreadData({}));
-    dispatch(setComments([]));
     const options = {
       sortType: sortType ? sortType : "hot",
       subredditName: subredditName,

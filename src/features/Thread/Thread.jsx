@@ -7,6 +7,7 @@ import {
   selectThreadData,
   selectThreadStatus,
   selectAllComments,
+  setThreadData,
 } from "./threadSlice";
 import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/CommentCard/CommentCard";
@@ -83,6 +84,7 @@ const Thread = () => {
 
   useEffect(() => {
     if (threadStatus === "idle") {
+      dispatch(setThreadData(""));
       dispatch(
         fetchData({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`,

@@ -32,7 +32,7 @@ function CommentCard({
   let subcomments;
   async function handleReadMore(children, e) {
     e.target.style.display = "none";
-    children.forEach((child) => {
+    children.forEach(async (child) => {
       dispatch(
         fetchData({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}/${child}`,

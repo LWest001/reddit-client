@@ -283,6 +283,7 @@ const ThreadCard = ({
             to={`/${link.substring(19)}`}
             onClick={() => {
               dispatch(setThreadStatus("idle"));
+              
             }}
           >
             <button className="viewComments button">
