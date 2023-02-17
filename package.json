@@ -10,6 +10,9 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.9",
     "@reduxjs/toolkit": "^1.9.1",
     "eslint": "^8.33.0",
     "localforage": "^1.10.0",
