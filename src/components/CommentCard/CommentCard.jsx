@@ -5,6 +5,7 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function CommentCard({
   author,
@@ -50,14 +51,14 @@ function CommentCard({
       const { data, kind } = subcomment;
       if (kind === "more") {
         return (
-          <button
+          <Button
             key={`btn_${data.id}`}
             id={`btn_${data.id}`}
             onClick={(e) => handleReadMore(data.children, e)}
             type="readMore"
           >
             {data.children.length} more replies
-          </button>
+          </Button>
         );
       }
       return (
