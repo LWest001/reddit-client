@@ -9,11 +9,12 @@ import ErrorPage from "../features/ErrorPage";
 import ImageModal from "../components/ImageModal/ImageModal";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import { ScrollRestoration } from "react-router-dom";
-import { Container } from "@mui/material";
+import { Container, ThemeProvider } from "@mui/material";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import theme from "../assets/theme";
 
 function App() {
   const status = useSelector(selectThreadsStatus);
@@ -25,6 +26,8 @@ function App() {
   }
 
   return (
+    <ThemeProvider theme={theme}>
+
     <Container>
       <BottomScrollListener onBottom={loadMoreItems} offset={5000} />
       <Layout />
@@ -34,6 +37,7 @@ function App() {
       )}
       <ScrollRestoration />
     </Container>
+    </ThemeProvider>
   );
 }
 
