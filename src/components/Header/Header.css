@@ -48,9 +48,7 @@
 .burgerLines :last-child {
   margin-bottom: 2px;
 }
-nav {
-  max-width: 1000px;
-}
+
 nav ul {
   display: flex;
   flex-direction: row;
