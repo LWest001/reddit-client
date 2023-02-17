@@ -101,12 +101,14 @@ const threadListSlice = createSlice({
           const threadType = getThreadType(data);
 
           return {
+            url: data.url,
             author: data.author,
             commentCount: data.num_comments,
             gallery: threadType === "gallery" && data.url,
             image: threadType === "image" && data.url,
             imagePreview:
-              ["image", "video"].includes(threadType) && data.preview.images[0].resolutions,
+              ["image", "video"].includes(threadType) &&
+              data.preview.images[0].resolutions,
             keyId: data.id,
             link: "https://reddit.com" + data.permalink,
             postFlair: {

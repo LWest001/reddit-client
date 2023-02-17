@@ -56,6 +56,7 @@ const ThreadList = ({ view }) => {
           threadType={thread.threadType}
           thumbnail={thread.thumbnail}
           timestamp={thread.timestamp}
+          url={thread.url}
           video={thread.video}
         />
       );

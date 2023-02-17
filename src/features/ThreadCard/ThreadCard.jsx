@@ -45,6 +45,7 @@ const ThreadCard = ({
   threadTitle,
   threadType,
   thumbnail,
+  url,
   video,
 }) => {
   const [readMore, setReadMore] = useState("hide");
@@ -188,15 +189,17 @@ const ThreadCard = ({
 
           {threadType === "link" && (
             <div className="linkPreview">
-              <img
-                src={thumbnail}
-                alt={`Thumbnail for thread: ${threadTitle}`}
-                className="thumbnail"
-              />
-              <div
-                className="linkText"
-                dangerouslySetInnerHTML={titleTextHTML}
-              />
+              <a href={url}>
+                <img
+                  src={thumbnail}
+                  alt={`Thumbnail for thread: ${threadTitle}`}
+                  className="thumbnail"
+                />
+                <div
+                  className="linkText"
+                  dangerouslySetInnerHTML={titleTextHTML}
+                />
+              </a>
             </div>
           )}
 
@@ -283,7 +286,6 @@ const ThreadCard = ({
             to={`/${link.substring(19)}`}
             onClick={() => {
               dispatch(setThreadStatus("idle"));
-              
             }}
           >
             <button className="viewComments button">
