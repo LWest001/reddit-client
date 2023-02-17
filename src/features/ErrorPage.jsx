@@ -8,7 +8,7 @@ const ErrorPage = () => {
   const dispatch = useDispatch();
   return (
     <div className="ErrorPage">
-      <h2 className="errorText">Oops! We have encountered an error.</h2>
+      <p className="errorText">Oops! We have encountered an error.</p>
       <br />
       <Link to="/" onClick={() => dispatch(setStatus("idle"))}>
         <button>Return home</button>

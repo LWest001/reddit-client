@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import parseMarkdownText from "../functions/parseMarkdownText";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Typography } from "@mui/material";
 
 function SubredditInfo() {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -26,10 +27,12 @@ function SubredditInfo() {
         ) : (
           <div className="subredditIcon placeholder">r/</div>
         )}
-        <h1 className="subredditTitle">{subredditInfo.title}</h1>
-        <h2 className="subredditSubtitle">
+        <Typography variant="h1" className="subredditTitle">
+          {subredditInfo.title}
+        </Typography>
+        <Typography variant="h2" className="subredditSubtitle">
           {subredditInfo.display_name_prefixed}
-        </h2>
+        </Typography>
         <p
           className="subredditDescription"
           dangerouslySetInnerHTML={{

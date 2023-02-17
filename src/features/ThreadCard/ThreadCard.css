@@ -18,11 +18,6 @@
   width: 100%;
 }
 
-.ThreadCard:first-child,
-.SkeletonThreadCard:first-child {
-  margin-top: 3rem;
-}
-
 /* Skeleton */
 
 .skeletonContent {
