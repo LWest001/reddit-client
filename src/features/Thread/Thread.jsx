@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
-  fetchData,
+  fetchThread,
   selectThreadData,
   selectThreadStatus,
   selectAllComments,
@@ -89,7 +89,7 @@ const Thread = () => {
     if (threadStatus === "idle") {
       dispatch(setThreadData(""));
       dispatch(
-        fetchData({
+        fetchThread({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`,
           sortType: sortType,
           requestType: "thread",

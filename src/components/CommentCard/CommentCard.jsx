@@ -2,7 +2,7 @@ import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import upvote from "../../assets/upvote.svg";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { fetchData } from "../../features/Thread/threadSlice";
+import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -36,7 +36,7 @@ function CommentCard({
     e.target.remove();
     children.forEach(async (child) => {
       dispatch(
-        fetchData({
+        fetchThread({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}/${child}`,
           requestType: "subreplies",
           indexTree: indexTree,

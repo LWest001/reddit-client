@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import {
-  fetchThreads,
+  fetchThreadsList,
   selectAfter,
   selectThreadsStatus,
 } from "../features/ThreadList/threadListSlice";
@@ -12,7 +12,7 @@ function useFetchThreads(view) {
   let { sortType, subredditName } = useParams();
   const threadsStatus = useSelector(selectThreadsStatus);
   const after = useSelector(selectAfter);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   if (view === "searchResults") {
     sortType = searchParams.get("sort");
@@ -29,7 +29,7 @@ function useFetchThreads(view) {
     }
 
     if (["idle", "loadMore"].includes(threadsStatus)) {
-      dispatch(fetchThreads(options));
+      dispatch(fetchThreadsList(options));
     }
   }, [threadsStatus, sortType, dispatch]);
 }
