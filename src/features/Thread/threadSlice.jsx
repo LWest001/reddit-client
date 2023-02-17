@@ -78,7 +78,7 @@ const threadSlice = createSlice({
             imagePreview:
               ["image", "video"].includes(threadType) &&
               threadData.preview.images[0].resolutions,
-            keyId: threadData.id,
+            id: threadData.id,
             link: "https://reddit.com" + threadData.permalink,
             postFlair: {
               backgroundColor: threadData.link_flair_background_color,

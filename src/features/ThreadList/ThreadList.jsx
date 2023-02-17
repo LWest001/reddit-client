@@ -30,8 +30,8 @@ const ThreadList = ({ view }) => {
     threads = threadsData.map((thread) => {
       return (
         <ThreadCard
-          key={thread.keyId}
-          id={thread.keyId}
+          key={thread.id}
+          id={thread.id}
           author={thread.author}
           cardType={view}
           commentCount={thread.commentCount}
@@ -67,8 +67,8 @@ const ThreadList = ({ view }) => {
     searchResults = threadsData.map((thread) => {
       return (
         <SearchCard
-          key={thread.keyId}
-          id={thread.keyId}
+          key={thread.id}
+          id={thread.id}
           author={thread.author}
           commentCount={thread.commentCount}
           icon={thread.icon}

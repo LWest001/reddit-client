@@ -30,8 +30,8 @@ const Thread = () => {
 
   const thread = (
     <ThreadCard
-      key={threadData.keyId}
-      id={threadData.keyId}
+      key={threadData.id}
+      id={threadData.id}
       author={threadData.author}
       cardType="thread"
       commentCount={threadData.commentCount}
@@ -104,7 +104,7 @@ const Thread = () => {
       {threadStatus === "loading" && (
         <>
           {!Object.entries(threadData).length && <SkeletonThreadCard />}
-          {threadData && (
+          {!threadData && (
             <>
               <SkeletonCommentCard />
               <SkeletonCommentCard />
