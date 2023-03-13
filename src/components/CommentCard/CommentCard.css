@@ -51,6 +51,6 @@
 @media (hover: hover) {
   .CommentCard button:hover {
     text-decoration: none;
-    background-color: white;
+    /* background-color: white; */
   }
 }

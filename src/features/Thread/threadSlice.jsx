@@ -19,7 +19,7 @@ export const fetchThread = createAsyncThunk(
       sortType = "hot",
       requestType = "thread",
       indexTree,
-      idTree,
+
     } = options;
     let comments;
     let URL = `${link}.json`;
@@ -30,7 +30,7 @@ export const fetchThread = createAsyncThunk(
     const threadData = response.data[0].data.children[0].data;
 
     comments = response.data[1].data.children;
-    return { threadData, comments, requestType, indexTree, idTree };
+    return { threadData, comments, requestType, indexTree};
   }
 );
 
@@ -60,11 +60,18 @@ const threadSlice = createSlice({
       .addCase(fetchThread.pending, (state, action) => {
         if (action.meta.arg.requestType === "thread") {
           state.status = "loading";
+        } else if (action.meta.arg.requestType === "subreplies") {
+          state.status = `loading-subreplies`;
         }
       })
       .addCase(fetchThread.fulfilled, (state, action) => {
         state.status = "succeeded";
-        let { threadData, comments, requestType, indexTree } = action.payload;
+        let {
+          threadData,
+          comments,
+          requestType,
+          indexTree,
+        } = action.payload;
         let subreplyId = comments[0].data.id;
         const threadType = getThreadType(threadData);
 
@@ -109,7 +116,6 @@ const threadSlice = createSlice({
           }
           commentsArr.at(-1).data.replies.data.children = [
             ...commentsArr.at(-1).data.replies.data.children,
-            // .filter((comment) => comment.data.id !== state.subreplies.id)
             ...state.subreplies.replies,
           ];
         }

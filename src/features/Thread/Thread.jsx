@@ -116,7 +116,8 @@ const Thread = () => {
           )}
         </>
       )}
-      {threadStatus === "succeeded" && <>{comments}</>}
+      {(threadStatus === "succeeded" ||
+        threadStatus === "loading-subreplies") && <>{comments}</>}
     </div>
   );
 };

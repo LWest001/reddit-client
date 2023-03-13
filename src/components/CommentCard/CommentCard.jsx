@@ -5,6 +5,7 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import ReadMoreButton from "../ReadMoreButton";
 
 function CommentCard({
   author,
@@ -32,14 +33,17 @@ function CommentCard({
   let subcomments;
 
   function handleReadMore(children, e) {
-    // e.target.style.display = "none";
-    e.target.remove();
-    children.forEach(async (child) => {
+    setTimeout(() => e.target.remove(), 500);
+    e.target.disabled = true;
+    e.target.style.textDecoration = "none"
+    e.target.style.cursor = "wait"
+    children.forEach((child) => {
       dispatch(
         fetchThread({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}/${child}`,
           requestType: "subreplies",
           indexTree: indexTree,
+
         })
       );
     });
@@ -48,18 +52,20 @@ function CommentCard({
   function generateSubcomments() {
     subcomments = replies?.data?.children?.map((subcomment, subIndex) => {
       const { data, kind } = subcomment;
+      if (data.count === 0) return;
       if (kind === "more") {
         return (
-          <button
+          <ReadMoreButton
             key={`btn_${data.id}`}
-            id={`btn_${data.id}`}
+            data={data}
             onClick={(e) => handleReadMore(data.children, e)}
-            type="readMore"
+            id={`readMore-${data.id}`}
           >
             {data.children.length} more replies
-          </button>
+          </ReadMoreButton>
         );
       }
+
       return (
         <CommentCard
           author={data.author}
@@ -81,8 +87,8 @@ function CommentCard({
   }
 
   return (
-    <div className={`CommentCard ${type}`}>
-      <div className="commentHeader" onClick={handleCollapse} id={id}>
+    <div className={`CommentCard ${type}`} id={`cc-${id}`}>
+      <div className="commentHeader" onClick={handleCollapse}>
         <div className="author">{author}</div>
         <div className="timestamp">{timestamp}</div>
         <div></div>
