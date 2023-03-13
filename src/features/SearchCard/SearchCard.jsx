@@ -8,6 +8,7 @@ import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
+import DefaultIcon from "../../assets/favicon.svg";
 
 const SearchCard = ({
   id,
@@ -39,11 +40,11 @@ const SearchCard = ({
     <div className="SearchCard" id={id}>
       <div className="searchCardBody">
         <div className="searchCardHeader">
-          {icon ? (
-            <img src={icon} alt="Subreddit avatar" className="subredditIcon" />
-          ) : (
-            <div className="subredditIcon">r/</div>
-          )}
+          <img
+            src={icon || DefaultIcon}
+            alt="Subreddit avatar"
+            className="subredditIcon"
+          />
           <div className="subredditAndAuthor">
             <span className="subredditName">
               <SubredditLink
@@ -87,11 +88,7 @@ const SearchCard = ({
           }}
         >
           <figure className="thumbnailContainer">
-            <img
-              className="thumbnail"
-              src={thumbnail}
-              alt="Thumbnail"
-            />
+            <img className="thumbnail" src={thumbnail} alt="Thumbnail" />
           </figure>
         </Link>
       )}
