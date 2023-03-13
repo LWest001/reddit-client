@@ -3,6 +3,7 @@ import { setModal } from "../../features/ThreadList/threadListSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setStatus } from "../../features/Thread/threadSlice";
+import { Modal } from "@mui/material";
 
 function ImageModal({ image, title, link }) {
   const dispatch = useDispatch();

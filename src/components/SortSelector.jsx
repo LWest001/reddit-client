@@ -3,6 +3,13 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { setStatus as setThreadListStatus } from "../features/ThreadList/threadListSlice";
 import { setStatus as setThreadStatus } from "../features/Thread/threadSlice";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 
 const SortSelector = () => {
   const dispatch = useDispatch();
@@ -37,17 +44,29 @@ const SortSelector = () => {
     window.scrollTo(0, 0);
   };
   return (
-    <select
-      className="SortSelector"
-      name="SortSelector"
-      onChange={handleChange}
-      value={searchSort || sortType}
-    >
-      <option value="hot">🔥hot</option>
-      <option value="new">✨new</option>
-      <option value="top">⬆️top</option>
-      <option value="rising">📈rising</option>
-    </select>
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+      <Select
+        className="SortSelector"
+        name="SortSelector"
+        onChange={handleChange}
+        value={searchSort || sortType}
+        label="Sort"
+      >
+        <MenuItem value="hot">
+          <Typography>🔥hot</Typography>
+        </MenuItem>
+        <MenuItem value="new">
+          <Typography>✨new</Typography>
+        </MenuItem>
+        <MenuItem value="top">
+          <Typography>⬆️top</Typography>
+        </MenuItem>
+        <MenuItem value="rising">
+          <Typography>📈rising</Typography>
+        </MenuItem>
+      </Select>
+    </FormControl>
   );
 };
 

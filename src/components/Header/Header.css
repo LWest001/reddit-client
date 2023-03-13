@@ -1,20 +1,18 @@
 .Header {
-  align-items: center;
-  position: fixed;
-  min-width: 100%;
-  width: 100%;
-  z-index: 1;
+  /* align-items: center; */
+  /* position: fixed; */
+  /* min-width: 100%; */
+  /* width: 100%; */
+  /* z-index: 1; */
 }
 
 .SortSelector {
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: whitesmoke;
+  /* border-radius: 5px; */
+  /* background-color: whitesmoke; */
   height: 32px;
-  border-width: 1px;
-  border-style: outset;
-  border-color: buttonborder;
+  /* border-width: 1px; */
+  /* border-style: outset; */
+  /* border-color: buttonborder; */
 }
 
 .Header .homeButton {

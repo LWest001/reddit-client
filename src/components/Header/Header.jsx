@@ -7,13 +7,14 @@ import {
 import SortSelector from "../SortSelector";
 import {
   setStatus as setHomepageStatus,
-  setQuery,
   selectQuery,
 } from "../../features/ThreadList/threadListSlice";
 import "./Header.css";
-import home from "../../assets/home.svg";
-import { IconButton, Link } from "@mui/material";
+import SearchBar from "../SearchBar/SearchBar";
+
+import { AppBar, IconButton, Toolbar } from "@mui/material";
 import { Home } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
   const query = useSelector(selectQuery);
@@ -41,42 +42,33 @@ const Header = () => {
   }
 
   return (
-    <header className="Header">
-      <nav>
-        <ul>
-          <li>
-            {/* <Link component={RouterLink} to="/" onClick={handleClick}> */}
-              <IconButton component={RouterLink} to="/" onClick={handleClick} className="homeButton button">
-                {/* <img src={home} alt="home button" className="icon" /> */}
-                <Home />
-              </IconButton>
-            {/* </Link> */}
-          </li>
-          <li>
-            <Link to="/">
-              <button className="burgerLines button">
-                <div className="burgerLine"></div>
-                <div className="burgerLine"></div>
-                <div className="burgerLine"></div>
-              </button>
-            </Link>
-          </li>
-          <li>
-            <SortSelector />
-          </li>
-          <li id="searchLink">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="search"
-                id="searchInput"
-                placeholder="Search"
-                onChange={(e) => dispatch(setQuery(e.target.value))}
-              />
-            </form>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <AppBar className="Header">
+      <Toolbar>
+        <IconButton
+          size="large"
+          component={RouterLink}
+          to="/"
+          onClick={handleClick}
+        >
+          <Home />
+        </IconButton>
+        <IconButton size="large">
+          <MenuIcon />
+        </IconButton>
+        <SortSelector />
+        <SearchBar handleSubmit={handleSubmit} />
+        {/* <MenuItem id="searchLink">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search"
+              onChange={(e) => dispatch(setQuery(e.target.value))}
+            />
+          </form>
+        </MenuItem> */}
+      </Toolbar>
+    </AppBar>
   );
 };
 

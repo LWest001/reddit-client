@@ -27,6 +27,7 @@
 
 * {
   font-family: "Noto Sans", sans-serif;
+  --appbar-height: 64px;
 }
 
 body {
@@ -68,7 +69,6 @@ h1 {
 .errorText {
   text-align: center;
 }
-
 
 .upArrow {
   height: 1rem;

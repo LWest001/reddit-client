@@ -21,7 +21,7 @@
 
 /* Skeleton */
 .skeleton.CommentCard:first-child {
-  margin-top: 3rem;
+  margin-top: calc(var(--appbar-height) + 0.5rem);
 }
 
 /* HEADER */

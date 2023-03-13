@@ -10,6 +10,7 @@ function ReadMoreButton({ data, id, onClick }) {
       id={id}
       type="readMore"
       style={{ transition: "2s" }}
+      variant="outlined"
     >
       {data.children.length} more replies
     </Button>
