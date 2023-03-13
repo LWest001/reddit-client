@@ -5,23 +5,29 @@ function SkeletonSearchCard() {
     <div className="SearchCard skeleton">
       <div className="searchCardBody">
         <div className="searchCardHeader">
-          <div className="subredditIcon"></div>
-          <div className="subredditAndAuthor skeletonContent"></div>
+          <Skeleton variant="circular" width={20} height={20}></Skeleton>
+          <Skeleton className="subredditAndAuthor skeletonContent"></Skeleton>
         </div>
         <div className="threadPreview">
-          <span className="skeleton threadType">.</span>
-          <h2 className="threadTitle skeletonContent">
-            ..................................................................................
-          </h2>
+          <Skeleton
+            variant="rectangular"
+            height={30}
+            className="threadTitle skeletonContent"
+          />
         </div>
-        <p className="searchCardFooter skeletonContent">
-          <span className="viewComments"></span>
-
-          <span></span>
-        </p>
+        <Skeleton
+          variant="rectangular"
+          height={15}
+          sx={{ fontSize: "10rem" }}
+          className="searchCardFooter skeletonContent"
+        />
       </div>
 
-      <figure className="thumbnailContainer"></figure>
+      <Skeleton
+        variant="rectangular"
+        sx={{ height: "80px", width: "96px" }}
+        // className="thumbnailContainer"
+      ></Skeleton>
     </div>
   );
 }

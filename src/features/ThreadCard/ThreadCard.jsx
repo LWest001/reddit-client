@@ -22,6 +22,7 @@ import isiOS from "../../functions/isiOS";
 // Media imports
 import upvote from "../../assets/upvote.svg";
 import commentBubble from "../../assets/commentBubble.svg";
+import DefaultIcon from "../../assets/favicon.svg";
 
 // Stylesheet
 import "./ThreadCard.css";
@@ -89,23 +90,16 @@ const ThreadCard = ({
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
-        {icon ? (
-          <SubredditLink
-            subredditName={subredditName}
-            display={
-              <img
-                src={icon}
-                alt="Subreddit avatar"
-                className={`subredditIcon ${cardType}`}
-              />
-            }
-          />
-        ) : (
-          <SubredditLink
-            subredditName={subredditName}
-            display={<div className={`subredditIcon ${cardType}`}>r/</div>}
-          />
-        )}
+        <SubredditLink
+          subredditName={subredditName}
+          display={
+            <img
+              src={icon || DefaultIcon}
+              alt="Subreddit avatar"
+              className={`subredditIcon ${cardType}`}
+            />
+          }
+        />
         <p className="ThreadCardHeaderText">
           {cardType !== "subreddit" && (
             <span className="subredditName">
