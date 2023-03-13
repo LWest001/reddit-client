@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, createSearchParams } from "react-router-dom";
+import {
+  Link as RouterLink,
+  useNavigate,
+  createSearchParams,
+} from "react-router-dom";
 import SortSelector from "../SortSelector";
 import {
   setStatus as setHomepageStatus,
@@ -8,6 +12,8 @@ import {
 } from "../../features/ThreadList/threadListSlice";
 import "./Header.css";
 import home from "../../assets/home.svg";
+import { IconButton, Link } from "@mui/material";
+import { Home } from "@mui/icons-material";
 
 const Header = () => {
   const query = useSelector(selectQuery);
@@ -39,11 +45,12 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/" onClick={handleClick}>
-              <button className="homeButton button">
-                <img src={home} alt="home button" className="icon" />
-              </button>
-            </Link>
+            {/* <Link component={RouterLink} to="/" onClick={handleClick}> */}
+              <IconButton component={RouterLink} to="/" onClick={handleClick} className="homeButton button">
+                {/* <img src={home} alt="home button" className="icon" /> */}
+                <Home />
+              </IconButton>
+            {/* </Link> */}
           </li>
           <li>
             <Link to="/">

@@ -26,6 +26,7 @@ import DefaultIcon from "../../assets/favicon.svg";
 
 // Stylesheet
 import "./ThreadCard.css";
+import { Button } from "@mui/material";
 
 const ThreadCard = ({
   author,
@@ -246,14 +247,14 @@ const ThreadCard = ({
                       __html: bodyTextHTML,
                     }}
                   ></p>
-                  <button
+                  <Button
                     className="readMore"
                     id={`readMore${id}`}
                     onClick={handleReadMore}
                     style={{ float: "right" }}
                   >
                     Read more
-                  </button>
+                  </Button>
                 </>
               )}
             </div>
