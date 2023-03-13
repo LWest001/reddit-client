@@ -1,21 +1,35 @@
 import "./ThreadCard.css";
+import { Skeleton } from "@mui/material";
 
 const SkeletonThreadCard = () => {
   return (
     <div className="SkeletonThreadCard">
       <div className="threadCardHeader">
-        <div className="subredditIcon"></div>
+        <Skeleton variant="circular" width={50} height={50}></Skeleton>
         <div className="ThreadCardHeaderText">
-          <p className="skeletonContent">...................................</p>
-          <p className="skeletonContent">...............</p>
+          <Skeleton
+            variant="text"
+            width={200}
+            className="skeletonContent"
+          ></Skeleton>
+          <Skeleton
+            variant="text"
+            width={100}
+            className="skeletonContent"
+          ></Skeleton>
         </div>
       </div>
       <div className="threadPreview">
-        <h2 className="threadTitle skeletonContent">
-          ...................................
-        </h2>
+        <Skeleton
+          variant="text"
+          className="threadTitle skeletonContent"
+        ></Skeleton>
         <div className="threadContentPreview">
-          <div className="skeletonImg skeletonContent"></div>
+          <Skeleton
+            variant="rectangular"
+            height={400}
+            className="skeletonImg skeletonContent"
+          ></Skeleton>
         </div>
       </div>
     </div>

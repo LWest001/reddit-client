@@ -1,3 +1,5 @@
+import { Skeleton } from "@mui/material";
+
 function SkeletonSearchCard() {
   return (
     <div className="SearchCard skeleton">
