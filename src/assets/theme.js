@@ -65,7 +65,7 @@ theme = createTheme(theme, {
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          color: theme.palette.secondary.contrastText,
+          color: theme.palette.primary.contrastText,
         },
       },
     },
@@ -81,6 +81,11 @@ theme = createTheme(theme, {
         root: {
           justifyContent: "space-between",
         },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        color: theme.palette.primary.contrastText,
       },
     },
   },

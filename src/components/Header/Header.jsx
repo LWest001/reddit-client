@@ -4,7 +4,7 @@ import {
   useNavigate,
   createSearchParams,
 } from "react-router-dom";
-import SortSelector from "../SortSelector";
+import SortSelector from "../SortSelector/SortSelector";
 import {
   setStatus as setHomepageStatus,
   selectQuery,

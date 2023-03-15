@@ -1,15 +1,25 @@
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setStatus as setThreadListStatus } from "../features/ThreadList/threadListSlice";
-import { setStatus as setThreadStatus } from "../features/Thread/threadSlice";
+import { setStatus as setThreadListStatus } from "../../features/ThreadList/threadListSlice";
+import { setStatus as setThreadStatus } from "../../features/Thread/threadSlice";
 import {
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   Typography,
+  Box,
 } from "@mui/material";
+
+import {
+  ArrowDropDown,
+  LocalFireDepartment as HotIcon,
+  ArrowUpward as TopIcon,
+  AutoAwesome as NewIcon,
+  TrendingUp as RisingIcon,
+} from "@mui/icons-material";
+import SortSelectorMenuItem from "./SortSelectorMenuItem";
 
 const SortSelector = () => {
   const dispatch = useDispatch();
@@ -43,28 +53,46 @@ const SortSelector = () => {
     }
     window.scrollTo(0, 0);
   };
+
+  function ArrowIcon() {
+    return <ArrowDropDown sx={{ color: "white" }} />;
+  }
+
   return (
     <FormControl>
-      <InputLabel id="demo-simple-select-label">Sort</InputLabel>
       <Select
         className="SortSelector"
         name="SortSelector"
         onChange={handleChange}
         value={searchSort || sortType}
-        label="Sort"
-        sx={{ height: 32 }}
+        // label="SORT"
+        variant="outlined"
+        IconComponent={ArrowIcon}
+        sx={{ height: 32, color: "primary.contrastText" }}
       >
         <MenuItem value="hot">
-          <Typography>🔥hot</Typography>
+          <SortSelectorMenuItem
+            text="hot"
+            icon={<HotIcon sx={{ color: "orange" }} />}
+          />
         </MenuItem>
         <MenuItem value="new">
-          <Typography>✨new</Typography>
+          <SortSelectorMenuItem
+            text="new"
+            icon={<NewIcon sx={{ color: "gold" }} />}
+          />
         </MenuItem>
         <MenuItem value="top">
-          <Typography>⬆️top</Typography>
+          <SortSelectorMenuItem
+            text="top"
+            icon={<TopIcon sx={{ color: "lightblue" }} />}
+          />
         </MenuItem>
         <MenuItem value="rising">
-          <Typography>📈rising</Typography>
+          <SortSelectorMenuItem
+            text="rising"
+            icon={<RisingIcon sx={{ color: "springgreen" }} />}
+          />
         </MenuItem>
       </Select>
     </FormControl>
