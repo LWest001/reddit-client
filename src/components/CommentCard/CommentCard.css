@@ -1,18 +1,5 @@
 /* GLOBAL */
 
-.CommentCard {
-  background-color: lightgray;
-  line-height: normal;
-}
-
-.subcomment {
-  margin: 2px 0 0 0.5rem;
-  width: auto;
-  /* border-left: black 1px solid; */
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
 .CommentCard a {
   text-decoration: underline;
   color: blue;
@@ -21,35 +8,4 @@
 /* Skeleton */
 .skeleton.CommentCard:first-child {
   margin-top: calc(var(--appbar-height) + 0.5rem);
-}
-
-/* HEADER */
-.commentHeader {
-  display: grid;
-  grid-template-columns: auto max-content 1fr 4rem;
-  gap: 1rem;
-}
-.CommentCard .author {
-  font-weight: bold;
-}
-
-/* BODY */
-.commentBodyText {
-  padding: 0.3rem;
-  padding-top: 0;
-}
-
-.CommentCard button {
-  border: none;
-  background-color: transparent;
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-@media (hover: hover) {
-  .CommentCard button:hover {
-    text-decoration: none;
-    /* background-color: white; */
-  }
 }

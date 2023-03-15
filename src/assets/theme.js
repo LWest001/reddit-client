@@ -39,6 +39,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           paddingRight: 0,
+          paddingTop: "0.2rem",
           ":last-child": {
             paddingBottom: "inherit",
           },
