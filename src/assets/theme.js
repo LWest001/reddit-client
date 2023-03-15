@@ -1,11 +1,12 @@
 import { createTheme } from "@mui/material";
 import { purple, green, grey, blue } from "@mui/material/colors";
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     type: "light",
     primary: {
       main: "#006064",
+      contrastText: "#ffffff",
     },
     secondary: {
       main: "#f50057",
@@ -14,6 +15,10 @@ const theme = createTheme({
       default: "#d3d3d3",
     },
   },
+});
+
+// MuiCard*
+theme = createTheme(theme, {
   components: {
     MuiCardHeader: {
       styleOverrides: {
@@ -48,6 +53,33 @@ const theme = createTheme({
           ":last-child": {
             paddingBottom: "inherit",
           },
+        },
+      },
+    },
+  },
+});
+
+// MuiSvgIcon
+theme = createTheme(theme, {
+  components: {
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.secondary.contrastText,
+        },
+      },
+    },
+  },
+});
+
+// MuiToolbar
+
+theme = createTheme(theme, {
+  components: {
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          justifyContent: "space-between",
         },
       },
     },

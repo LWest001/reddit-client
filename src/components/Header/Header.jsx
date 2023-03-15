@@ -9,12 +9,10 @@ import {
   setStatus as setHomepageStatus,
   selectQuery,
 } from "../../features/ThreadList/threadListSlice";
-import "./Header.css";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../SearchBar";
 
-import { AppBar, IconButton, Toolbar } from "@mui/material";
-import { Home } from "@mui/icons-material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, IconButton, Toolbar, Box } from "@mui/material";
+import { Home, Menu } from "@mui/icons-material";
 
 const Header = () => {
   const query = useSelector(selectQuery);
@@ -44,18 +42,23 @@ const Header = () => {
   return (
     <AppBar className="Header">
       <Toolbar>
-        <IconButton
-          size="large"
-          component={RouterLink}
-          to="/"
-          onClick={handleClick}
+        <Box
+          className="AppBar-Main"
+          sx={{ display: "flex", alignItems: "center" }}
         >
-          <Home />
-        </IconButton>
-        <IconButton size="large">
-          <MenuIcon />
-        </IconButton>
-        <SortSelector />
+          <IconButton
+            size="large"
+            component={RouterLink}
+            to="/"
+            onClick={handleClick}
+          >
+            <Home />
+          </IconButton>
+          <IconButton size="large">
+            <Menu />
+          </IconButton>
+          <SortSelector />
+        </Box>
         <SearchBar handleSubmit={handleSubmit} />
         {/* <MenuItem id="searchLink">
           <form onSubmit={handleSubmit}>

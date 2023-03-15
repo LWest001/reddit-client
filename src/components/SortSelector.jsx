@@ -44,7 +44,7 @@ const SortSelector = () => {
     window.scrollTo(0, 0);
   };
   return (
-    <FormControl fullWidth>
+    <FormControl>
       <InputLabel id="demo-simple-select-label">Sort</InputLabel>
       <Select
         className="SortSelector"
@@ -52,6 +52,7 @@ const SortSelector = () => {
         onChange={handleChange}
         value={searchSort || sortType}
         label="Sort"
+        sx={{ height: 32 }}
       >
         <MenuItem value="hot">
           <Typography>🔥hot</Typography>
