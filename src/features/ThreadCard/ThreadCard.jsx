@@ -19,7 +19,7 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
 
 // Media imports
-import DefaultIcon from "../../assets/favicon.svg";
+import DefaultIcon from "/logoTransparent.png";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 

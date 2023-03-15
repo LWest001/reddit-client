@@ -11,9 +11,20 @@ import {
 } from "../../features/ThreadList/threadListSlice";
 import SearchBar from "../SearchBar";
 
-import { AppBar, IconButton, Toolbar, Box } from "@mui/material";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Box,
+  SvgIcon,
+  Icon,
+  Button,
+  Typography,
+  Stack,
+} from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
+import Logo from "/logoTransparent.png";
 
 const Header = () => {
   const query = useSelector(selectQuery);
@@ -43,25 +54,29 @@ const Header = () => {
   return (
     <AppBar className="Header">
       <Toolbar>
-        <Box
-          className="AppBar-Main"
-          sx={{ display: "flex", alignItems: "center" }}
-        >
-          <IconButton
-            size="large"
+        <Stack className="AppBar-Main" direction="row">
+          <Button
             component={RouterLink}
             to="/"
             onClick={handleClick}
+            sx={{ color: "primary.contrastText" }}
+            variant="outlined"
           >
-            <HomeIcon variant="headerIcon" />
-          </IconButton>
+            <Stack direction="row" gap={0.5}>
+              {/* <HomeIcon variant="headerIcon" /> */}
+              <Icon component="img" src={Logo} fontSize="small" />
+              <Typography color="primary.contrastText" fontWeight="700">
+                RLITE
+              </Typography>
+            </Stack>
+          </Button>
           {/*
             <IconButton size="large">
               <MenuIcon variant="headerIcon"/>
             </IconButton>
           */}
           <SortSelector />
-        </Box>
+        </Stack>
         <SearchBar handleSubmit={handleSubmit} />
       </Toolbar>
     </AppBar>
