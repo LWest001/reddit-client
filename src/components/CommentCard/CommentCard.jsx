@@ -8,16 +8,15 @@ import { useParams } from "react-router-dom";
 import ReadMoreButton from "../ReadMoreButton";
 import {
   Avatar,
-  Box,
+
   Card,
   CardContent,
   CardHeader,
-  Paper,
-  Stack,
+
   Typography,
 } from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
-import { ThumbUp } from "@mui/icons-material";
+
 import CommentHeaderText from "./CommentHeaderText";
 
 function CommentCard({

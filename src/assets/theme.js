@@ -45,6 +45,7 @@ theme = createTheme(theme, {
         root: {
           paddingRight: 0,
           paddingTop: "0.2rem",
+          wordBreak: "break-word",
           ":last-child": {
             paddingBottom: "inherit",
           },

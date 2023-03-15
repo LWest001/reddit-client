@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Modal, Box, Typography, Stack, Button } from "@mui/material";
-import { CommentOutlined } from "@mui/icons-material";
+import { CommentOutlined, Share } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { selectThreadStatus } from "../../features/Thread/threadSlice";
 
@@ -44,7 +44,7 @@ function ImageModal({ open, handleClose, title, link, image }) {
             <CommentOutlined />
           </Button>
           <Button variant="outlined" disabled>
-            Share
+            <Share/>
           </Button>
         </Stack>
       </Box>

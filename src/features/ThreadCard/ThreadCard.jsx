@@ -289,7 +289,7 @@ const ThreadCard = ({
             <Typography>View {commentCount} comments</Typography>
           </Button>
         )}
-        <Stack direction="row">
+        <Stack direction="row" gap={1}>
           <ThumbUpOutlined />
           {score}
         </Stack>

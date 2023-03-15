@@ -1,4 +1,4 @@
-import { ThumbUp } from "@mui/icons-material";
+import { ThumbUpOutlined } from "@mui/icons-material";
 import { Box, Stack } from "@mui/material";
 
 function CommentHeaderText({ timestamp, score }) {
@@ -6,7 +6,7 @@ function CommentHeaderText({ timestamp, score }) {
     <Stack direction="row" justifyContent="space-between">
       {timestamp}
       <Stack direction="row" gap={1}>
-        <ThumbUp color="secondary" />
+        <ThumbUpOutlined/>
         {score}
       </Stack>
     </Stack>
