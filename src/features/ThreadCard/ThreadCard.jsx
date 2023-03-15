@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 
 // Slice imports
-import { setModal } from "../ThreadList/threadListSlice";
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 
 // Component imports
@@ -27,6 +26,7 @@ import DefaultIcon from "../../assets/favicon.svg";
 // Stylesheet
 import "./ThreadCard.css";
 import { Button } from "@mui/material";
+import ImageModal from "../../components/ImageModal/ImageModal";
 
 const ThreadCard = ({
   author,
@@ -88,6 +88,10 @@ const ThreadCard = ({
     __html: parseMarkdownText(`##${threadTitle}`),
   };
 
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <div className="ThreadCard" id={id}>
       <div className="threadCardHeader">
@@ -145,16 +149,13 @@ const ThreadCard = ({
                 effect="blur"
                 alt={`Image for thread: ${threadTitle}`}
                 className="previewImage"
-                onClick={() =>
-                  dispatch(
-                    setModal({
-                      image: image.fullSizeImage,
-                      title: threadTitle,
-                      link: link,
-                      display: true,
-                    })
-                  )
-                }
+                onClick={handleOpenModal}
+              />
+              <ImageModal
+                open={openModal}
+                image={image.previewSizeImage.url}
+                handleClose={handleCloseModal}
+                title={threadTitle}
               />
             </div>
           )}
