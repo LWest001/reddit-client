@@ -20,7 +20,8 @@ import isiOS from "../../functions/isiOS";
 
 // Media imports
 import DefaultIcon from "../../assets/favicon.svg";
-import { CommentOutlined, ThumbUpOutlined } from "@mui/icons-material";
+import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
@@ -284,13 +285,12 @@ const ThreadCard = ({
             }}
             className="viewComments button"
           >
-            
-            <CommentOutlined />
+            <CommentOutlinedIcon />
             <Typography>View {commentCount} comments</Typography>
           </Button>
         )}
         <Stack direction="row" gap={1}>
-          <ThumbUpOutlined />
+          <ThumbUpOutlinedIcon />
           {score}
         </Stack>
       </div>

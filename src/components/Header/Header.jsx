@@ -12,7 +12,8 @@ import {
 import SearchBar from "../SearchBar";
 
 import { AppBar, IconButton, Toolbar, Box } from "@mui/material";
-import { Home, Menu } from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/Home";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
   const query = useSelector(selectQuery);
@@ -52,11 +53,11 @@ const Header = () => {
             to="/"
             onClick={handleClick}
           >
-            <Home variant="headerIcon" />
+            <HomeIcon variant="headerIcon" />
           </IconButton>
           {/*
             <IconButton size="large">
-              <Menu variant="headerIcon"/>
+              <MenuIcon variant="headerIcon"/>
             </IconButton>
           */}
           <SortSelector />

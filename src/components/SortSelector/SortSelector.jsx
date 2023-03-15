@@ -5,19 +5,13 @@ import { setStatus as setThreadListStatus } from "../../features/ThreadList/thre
 import { setStatus as setThreadStatus } from "../../features/Thread/threadSlice";
 import {
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
-  Typography,
-  Box,
 } from "@mui/material";
-
-import {
-  LocalFireDepartment as HotIcon,
-  ArrowUpward as TopIcon,
-  AutoAwesome as NewIcon,
-  TrendingUp as RisingIcon,
-} from "@mui/icons-material";
+import HotIcon from "@mui/icons-material/LocalFireDepartment";
+import TopIcon from "@mui/icons-material/ArrowUpward";
+import NewIcon from "@mui/icons-material/AutoAwesome";
+import RisingIcon from "@mui/icons-material/TrendingUp";
 
 import SortSelectorMenuItem from "./SortSelectorMenuItem";
 
@@ -55,7 +49,7 @@ const SortSelector = () => {
   };
 
   return (
-    <FormControl size="small" >
+    <FormControl size="small">
       <Select
         className="SortSelector"
         name="SortSelector"
