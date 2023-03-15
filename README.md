@@ -2,7 +2,7 @@
 
 **Live production build here: https://reddit-lw.netlify.app/**
 
-This app is a light and minimal front-end Reddit client that displays the default view of Reddit (as if you were signed out) from the [Reddit JSON API](https://github.com/reddit-archive/reddit/wiki/JSON).
+This app is a light and minimal front-end Reddit client that displays the default view of Reddit (as if you were signed out) from the [Reddit JSON API](https://github.com/reddit-archive/reddit/wiki/JSON). Material UI library is used for visual components.
 
 It is built using [React](https://reactjs.org/) with [Redux](https://redux.js.org/) and [React Router](https://reactrouter.com/en/main).
 
