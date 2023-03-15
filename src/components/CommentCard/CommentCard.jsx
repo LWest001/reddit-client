@@ -13,6 +13,7 @@ import {
   CardContent,
   CardHeader,
   Paper,
+  Stack,
   Typography,
 } from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
@@ -113,7 +114,7 @@ function CommentCard({
           />
         }
         className="commentHeader"
-        title={<CommentHeaderText timestamp={timestamp} score={score}/>}
+        title={<CommentHeaderText timestamp={timestamp} score={score} />}
         onClick={handleCollapse}
       ></CardHeader>
       <CardContent className="commentBody" id={`comment-${id}`}>

@@ -19,13 +19,12 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
 
 // Media imports
-import upvote from "../../assets/upvote.svg";
-import commentBubble from "../../assets/commentBubble.svg";
 import DefaultIcon from "../../assets/favicon.svg";
+import { CommentOutlined, ThumbUpOutlined } from "@mui/icons-material";
 
 // Stylesheet
 import "./ThreadCard.css";
-import { Button } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import ImageModal from "../../components/ImageModal/ImageModal";
 
 const ThreadCard = ({
@@ -153,7 +152,7 @@ const ThreadCard = ({
               />
               <ImageModal
                 open={openModal}
-                image={image.previewSizeImage.url}
+                image={image.fullSizeImage}
                 handleClose={handleCloseModal}
                 title={threadTitle}
               />
@@ -276,22 +275,23 @@ const ThreadCard = ({
       </div>
       <div className="threadFooter">
         {cardType !== "thread" && (
-          <Link
+          <Button
+            component={Link}
             to={`/${link.substring(19)}`}
             onClick={() => {
               dispatch(setThreadStatus("idle"));
             }}
+            className="viewComments button"
           >
-            <button className="viewComments button">
-              <img src={commentBubble} alt="comment bubble" className="icon" />
-              <span>View {commentCount} comments</span>
-            </button>
-          </Link>
+            
+            <CommentOutlined />
+            <Typography>View {commentCount} comments</Typography>
+          </Button>
         )}
-        <span>
-          <img src={upvote} alt="up arrow" className="upArrow" />
+        <Stack direction="row">
+          <ThumbUpOutlined />
           {score}
-        </span>
+        </Stack>
       </div>
     </div>
   );

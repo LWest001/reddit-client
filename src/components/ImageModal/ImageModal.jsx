@@ -1,19 +1,16 @@
-import "./ImageModal.css";
-import { setModal } from "../../features/ThreadList/threadListSlice";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { setStatus } from "../../features/Thread/threadSlice";
-import { Modal, Box, Typography } from "@mui/material";
+import { Modal, Box, Typography, Stack, Button  } from "@mui/material";
+import { CommentOutlined  } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
+  maxHeight: "100%",
   p: 4,
 };
 
@@ -23,44 +20,22 @@ function ImageModal(
 ) {
   const dispatch = useDispatch();
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      // aria-labelledby={title}
-      // aria-describedby={description}
-    >
+    <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {title}
         </Typography>
-        <img src={image} alt={title} className="modalImage" />
-        <Typography id={description} sx={{ mt: 2 }}>
-          {description}
-        </Typography>
+        <img style={{maxHeight:"85vh", maxWidth: "100%"}} src={image} alt={title} className="modalImage" />
+        <Stack direction="row" justifyContent="space-between">
+          <Button component="a" variant="contained">
+            <CommentOutlined/>
+          </Button>
+          <Button variant="outlined" disabled>
+            Share
+          </Button>
+        </Stack>
       </Box>
     </Modal>
-    // <Modal className="ImageModal">
-    //   <div
-    //     className="modalButton xButton"
-    //     onClick={() =>
-    //       dispatch(setModal({ image: "", title: "", link: "", display: false }))
-    //     }
-    //   >
-    //     ×
-    //   </div>
-    //   <img src={image} alt={title} className="modalImage" />
-    //   <Link
-    //     to={`/${link.substring(19)}`}
-    //     onClick={() => {
-    //       dispatch(
-    //         setModal({ image: "", title: "", link: "", display: false })
-    //       );
-    //       dispatch(setStatus("idle"));
-    //     }}
-    //   >
-    //     <div className="modalButton commentBubble"></div>
-    //   </Link>
-    // </Modal>
   );
 }
 

@@ -7,12 +7,6 @@ const initialState = {
   after: "",
   threads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed' | 'loadMore'
-  modal: {
-    image: "",
-    title: "",
-    link: "",
-    display: "",
-  },
   query: "",
   view: "homepage", // 'homepage' | 'searchResults' | 'subreddit'
   error: null,
@@ -65,11 +59,7 @@ const threadListSlice = createSlice({
         state.status = action.payload;
       },
     },
-    setModal: {
-      reducer(state, action) {
-        state.modal = action.payload;
-      },
-    },
+
     setThreads: {
       reducer(state, action) {
         state.threads = action.payload;
@@ -116,13 +106,13 @@ const threadListSlice = createSlice({
 export const selectAllThreads = (state) => state.threadList.threads;
 export const selectThreadsStatus = (state) => state.threadList.status;
 export const selectQuery = (state) => state.threadList.query;
-export const selectModal = (state) => state.threadList.modal;
+
 export const selectAfter = (state) => state.threadList.after;
 
 export const {
   setStatus,
   setQuery,
-  setModal,
+
   setAfter,
   setThreads,
 } = threadListSlice.actions;

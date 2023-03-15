@@ -1,22 +1,15 @@
 import { ThumbUp } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 function CommentHeaderText({ timestamp, score }) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "flex-end",
-        gap: "1rem",
-        alignItems: "center",
-      }}
-    >
-      <Box>{timestamp}</Box>
-      <Box>
-        <ThumbUp />
+    <Stack direction="row" justifyContent="space-between">
+      {timestamp}
+      <Stack direction="row" gap={1}>
+        <ThumbUp color="secondary" />
         {score}
-      </Box>
-    </Box>
+      </Stack>
+    </Stack>
   );
 }
 
