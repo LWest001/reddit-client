@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
-import { Modal, Box, Typography, Stack, Button  } from "@mui/material";
-import { CommentOutlined  } from "@mui/icons-material";
+import { Modal, Box, Typography, Stack, Button } from "@mui/material";
+import { CommentOutlined } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { selectThreadStatus } from "../../features/Thread/threadSlice";
 
 const style = {
   position: "absolute",
@@ -11,13 +13,12 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   maxHeight: "100%",
+  width: "max-content",
+  maxWidth: "100%",
   p: 4,
 };
 
-function ImageModal(
-  // { image, title, link }
-  { open, handleClose, title, description, image }
-) {
+function ImageModal({ open, handleClose, title, link, image }) {
   const dispatch = useDispatch();
   return (
     <Modal open={open} onClose={handleClose}>
@@ -25,10 +26,22 @@ function ImageModal(
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {title}
         </Typography>
-        <img style={{maxHeight:"85vh", maxWidth: "100%"}} src={image} alt={title} className="modalImage" />
+        <img
+          style={{ maxHeight: "85vh", maxWidth: "100%" }}
+          src={image}
+          alt={title}
+          className="modalImage"
+        />
         <Stack direction="row" justifyContent="space-between">
-          <Button component="a" variant="contained">
-            <CommentOutlined/>
+          <Button
+            component={Link}
+            variant="contained"
+            to={`/${link.substring(19)}`}
+            onClick={() => {
+              dispatch(selectThreadStatus("idle"));
+            }}
+          >
+            <CommentOutlined />
           </Button>
           <Button variant="outlined" disabled>
             Share
@@ -38,5 +51,19 @@ function ImageModal(
     </Modal>
   );
 }
+
+/*
+<Link
+        to={`/${link.substring(19)}`}
+        onClick={() => {
+          dispatch(
+            setModal({ image: "", title: "", link: "", display: false })
+          );
+          dispatch(setStatus("idle"));
+        }}
+      >
+        <div className="modalButton commentBubble"></div>
+      </Link>
+*/
 
 export default ImageModal;

@@ -155,6 +155,7 @@ const ThreadCard = ({
                 image={image.fullSizeImage}
                 handleClose={handleCloseModal}
                 title={threadTitle}
+                link={link}
               />
             </div>
           )}
