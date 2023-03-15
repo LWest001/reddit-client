@@ -54,7 +54,7 @@ const Header = () => {
   return (
     <AppBar className="Header">
       <Toolbar>
-        <Stack className="AppBar-Main" direction="row">
+        <Stack className="AppBar-Main" direction="row" sx={{alignItems:"center", justifyContent:"center"}}>
           <Button
             component={RouterLink}
             to="/"
@@ -62,11 +62,16 @@ const Header = () => {
             sx={{ color: "primary.contrastText" }}
             variant="outlined"
           >
-            <Stack direction="row" gap={0.5}>
+            <Stack direction="row" gap={0.5} sx={{alignItems:"center", justifyContent:"center"}}>
               {/* <HomeIcon variant="headerIcon" /> */}
-              <Icon component="img" src={Logo} fontSize="small" />
-              <Typography color="primary.contrastText" fontWeight="700">
-                RLITE
+              <Icon component="img" src={Logo} fontSize="medium"/>
+              <Typography
+                color="primary.contrastText"
+                fontWeight="700"
+                fontSize="1.5rem"
+                sx={{ fontFamily: "Caveat", textTransform: "none" }}
+              >
+                rLite
               </Typography>
             </Stack>
           </Button>

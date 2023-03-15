@@ -1,29 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
-
-/* .button {
-  appearance: auto;
-  writing-mode: horizontal-tb !important;
-  text-rendering: auto;
-  color: buttontext;
-  letter-spacing: normal;
-  word-spacing: normal;
-  line-height: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-  text-align: center;
-  align-items: flex-start;
-  cursor: default;
-  box-sizing: border-box;
-  background-color: whitesmoke;
-  margin: 0em;
-  padding: 1px 6px;
-  border-width: 1px;
-  border-style: outset;
-  border-color: buttonborder;
-  border-image: initial;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Noto+Sans&family=Robotodisplay=swap");
 
 * {
   font-family: "Noto Sans", sans-serif;
