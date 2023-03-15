@@ -15,6 +15,7 @@ import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
 import selectImagePreview from "../../functions/selectImagePreview";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import { Box } from "@mui/material";
 
 const Thread = () => {
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ const Thread = () => {
   }, [threadStatus, dispatch]);
 
   return (
-    <div className="Thread">
+    <Box className="Thread">
       {Object.entries(threadData).length && thread}
       {threadStatus === "loading" && (
         <>
@@ -118,7 +119,7 @@ const Thread = () => {
       )}
       {(threadStatus === "succeeded" ||
         threadStatus === "loading-subreplies") && <>{comments}</>}
-    </div>
+    </Box>
   );
 };
 

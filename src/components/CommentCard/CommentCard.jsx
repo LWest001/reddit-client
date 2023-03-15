@@ -6,6 +6,16 @@ import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReadMoreButton from "../ReadMoreButton";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  Paper,
+  Typography,
+} from "@mui/material";
+import stringAvatar from "../../functions/stringAvatar";
+import { ThumbUp } from "@mui/icons-material";
 
 function CommentCard({
   author,
@@ -35,15 +45,14 @@ function CommentCard({
   function handleReadMore(children, e) {
     setTimeout(() => e.target.remove(), 500);
     e.target.disabled = true;
-    e.target.style.textDecoration = "none"
-    e.target.style.cursor = "wait"
+    e.target.style.textDecoration = "none";
+    e.target.style.cursor = "wait";
     children.forEach((child) => {
       dispatch(
         fetchThread({
           link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}/${child}`,
           requestType: "subreplies",
           indexTree: indexTree,
-
         })
       );
     });
@@ -87,24 +96,38 @@ function CommentCard({
   }
 
   return (
-    <div className={`CommentCard ${type}`} id={`cc-${id}`}>
-      <div className="commentHeader" onClick={handleCollapse}>
-        <div className="author">{author}</div>
-        <div className="timestamp">{timestamp}</div>
-        <div></div>
-        <div className="score">
-          <img src={upvote} alt="upvote arrow" className="upArrow" />
-          {score}
-        </div>
-      </div>
-      <div className="commentBody" id={`comment-${id}`}>
-        <div
+    <Card raised={true} className={`CommentCard ${type}`} id={`cc-${id}`}>
+      <CardHeader
+        avatar={
+          <Avatar
+            {...stringAvatar(author)}
+            onMouseEnter={(e) => {
+              e.target.innerHTML = author;
+            }}
+            onMouseLeave={(e) => {
+              e.target.innerHTML = author.substring(0, 1);
+            }}
+          />
+        }
+        className="commentHeader"
+        title={timestamp}
+        subheader={
+          <>
+            <ThumbUp />
+            {score}
+          </>
+        }
+        onClick={handleCollapse}
+      ></CardHeader>
+      <CardContent className="commentBody" id={`comment-${id}`}>
+        <Typography
+          variant="body2"
           className="commentBodyText"
           dangerouslySetInnerHTML={{ __html: bodyTextHTML }}
-        ></div>
+        ></Typography>
         {subcomments && subcomments}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 

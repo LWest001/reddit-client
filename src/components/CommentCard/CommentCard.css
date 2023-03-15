@@ -3,13 +3,12 @@
 .CommentCard {
   background-color: lightgray;
   line-height: normal;
-  /* margin: 2px auto */
 }
 
 .subcomment {
   margin: 2px 0 0 0.5rem;
   width: auto;
-  border-left: black 1px solid;
+  /* border-left: black 1px solid; */
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
