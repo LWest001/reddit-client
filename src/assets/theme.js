@@ -35,6 +35,11 @@ const theme = createTheme({
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: { borderRadius: 8 },
+      },
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {
