@@ -21,24 +21,19 @@ let theme = createTheme({
 theme = createTheme(theme, {
   components: {
     MuiCardHeader: {
-      styleOverrides: {
-        root: {
-          padding: "0.2rem 1rem",
+      variants: [
+        {
+          props: { variant: "commentCard" },
+          style: {
+            padding: "0.2rem 1rem",
+            fontSize: 14,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+          },
         },
-        title: {
-          fontSize: 14,
-        },
-        content: {
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        },
-        subheader: {
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-        },
-      },
+      ],
+      styleOverrides: {},
     },
     MuiCard: {
       styleOverrides: {

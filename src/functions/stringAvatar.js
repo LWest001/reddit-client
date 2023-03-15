@@ -31,7 +31,7 @@ function stringAvatar(name) {
       borderRadius: 1,
       ":hover": {
         width: "100%",
-        paddingLeft: ".2rem",
+        padding: ".2rem",
         transition: ".25s",
       },
     },

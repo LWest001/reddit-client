@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import ReadMoreButton from "../ReadMoreButton";
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   CardHeader,
@@ -16,6 +17,7 @@ import {
 } from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
 import { ThumbUp } from "@mui/icons-material";
+import CommentHeaderText from "./CommentHeaderText";
 
 function CommentCard({
   author,
@@ -98,6 +100,7 @@ function CommentCard({
   return (
     <Card raised={true} className={`CommentCard ${type}`} id={`cc-${id}`}>
       <CardHeader
+        variant="commentCard"
         avatar={
           <Avatar
             {...stringAvatar(author)}
@@ -110,13 +113,7 @@ function CommentCard({
           />
         }
         className="commentHeader"
-        title={timestamp}
-        subheader={
-          <>
-            <ThumbUp />
-            {score}
-          </>
-        }
+        title={<CommentHeaderText timestamp={timestamp} score={score}/>}
         onClick={handleCollapse}
       ></CardHeader>
       <CardContent className="commentBody" id={`comment-${id}`}>
@@ -124,7 +121,7 @@ function CommentCard({
           variant="body2"
           className="commentBodyText"
           dangerouslySetInnerHTML={{ __html: bodyTextHTML }}
-          sx={{padding: "0.3rem"}}
+          sx={{ padding: "0.3rem" }}
         ></Typography>
         {subcomments && subcomments}
       </CardContent>
