@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 
-.button {
+/* .button {
   appearance: auto;
   writing-mode: horizontal-tb !important;
   text-rendering: auto;
@@ -23,7 +23,7 @@
   border-style: outset;
   border-color: buttonborder;
   border-image: initial;
-}
+} */
 
 * {
   font-family: "Noto Sans", sans-serif;
@@ -35,7 +35,6 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* max-width: 100vw; */
   width: 100%;
   background-color: slategray;
 }

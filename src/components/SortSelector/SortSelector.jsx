@@ -13,12 +13,12 @@ import {
 } from "@mui/material";
 
 import {
-  ArrowDropDown,
   LocalFireDepartment as HotIcon,
   ArrowUpward as TopIcon,
   AutoAwesome as NewIcon,
   TrendingUp as RisingIcon,
 } from "@mui/icons-material";
+
 import SortSelectorMenuItem from "./SortSelectorMenuItem";
 
 const SortSelector = () => {
@@ -54,21 +54,30 @@ const SortSelector = () => {
     window.scrollTo(0, 0);
   };
 
-  function ArrowIcon() {
-    return <ArrowDropDown sx={{ color: "white" }} />;
-  }
-
   return (
-    <FormControl>
+    <FormControl size="small" >
       <Select
         className="SortSelector"
         name="SortSelector"
         onChange={handleChange}
+        notched={false}
         value={searchSort || sortType}
         // label="SORT"
-        variant="outlined"
-        IconComponent={ArrowIcon}
-        sx={{ height: 32, color: "primary.contrastText" }}
+        sx={{
+          color: "primary.contrastText",
+          ".MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(228, 219, 233, 0.25)",
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(228, 219, 233, 0.25)",
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(228, 219, 233, 0.25)",
+          },
+          ".MuiSvgIcon-root ": {
+            fill: "white !important",
+          },
+        }}
       >
         <MenuItem value="hot">
           <SortSelectorMenuItem

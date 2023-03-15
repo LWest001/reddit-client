@@ -9,6 +9,7 @@ import ErrorPage from "../features/ErrorPage";
 import ImageModal from "../components/ImageModal/ImageModal";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import { ScrollRestoration } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   const status = useSelector(selectThreadsStatus);
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <>
+      <CssBaseline />
       <BottomScrollListener onBottom={loadMoreItems} offset={5000} />
       <Layout />
       {status === "failed" && <ErrorPage />}

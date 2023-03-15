@@ -52,24 +52,16 @@ const Header = () => {
             to="/"
             onClick={handleClick}
           >
-            <Home />
+            <Home variant="headerIcon" />
           </IconButton>
-          <IconButton size="large">
-            <Menu />
-          </IconButton>
+          {/*
+            <IconButton size="large">
+              <Menu variant="headerIcon"/>
+            </IconButton>
+          */}
           <SortSelector />
         </Box>
         <SearchBar handleSubmit={handleSubmit} />
-        {/* <MenuItem id="searchLink">
-          <form onSubmit={handleSubmit}>
-            <input
-              type="search"
-              id="searchInput"
-              placeholder="Search"
-              onChange={(e) => dispatch(setQuery(e.target.value))}
-            />
-          </form>
-        </MenuItem> */}
       </Toolbar>
     </AppBar>
   );

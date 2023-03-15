@@ -17,6 +17,7 @@ import selectImagePreview from "../../functions/selectImagePreview";
 
 // Stylesheet imports
 import "./Subreddit.css";
+import { Box } from "@mui/material";
 
 const ThreadList = ({ view }) => {
   //   Selectors
@@ -88,27 +89,27 @@ const ThreadList = ({ view }) => {
   const skeletons = () => {
     if (view === "searchResults") {
       return (
-        <>
+        <Box>
           <SkeletonSearchCard />
           <SkeletonSearchCard />
           <SkeletonSearchCard />
           <SkeletonSearchCard />
           <SkeletonSearchCard />
-        </>
+        </Box>
       );
     }
     return (
-      <>
+      <Box>
         <SkeletonThreadCard />
         <SkeletonThreadCard />
-      </>
+      </Box>
     );
   };
 
   useFetchThreads(view);
 
   return (
-    <>
+    <Box>
       {view === "subreddit" && <SubredditInfo />}
       {threadsStatus === "loading" && skeletons()}
       {(threadsStatus === "succeeded" || threadsStatus === "loadMore") &&
@@ -119,7 +120,7 @@ const ThreadList = ({ view }) => {
         threads &&
         view !== "searchResults" &&
         threads}
-    </>
+    </Box>
   );
 };
 

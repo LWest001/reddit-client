@@ -63,11 +63,14 @@ theme = createTheme(theme, {
 theme = createTheme(theme, {
   components: {
     MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          color: theme.palette.primary.contrastText,
+      variants: [
+        {
+          props: { variant: "headerIcon" },
+          style: {
+            color: theme.palette.primary.contrastText,
+          },
         },
-      },
+      ],
     },
   },
 });
@@ -85,7 +88,23 @@ theme = createTheme(theme, {
     },
     MuiSelect: {
       styleOverrides: {
-        color: theme.palette.primary.contrastText,
+        select: {
+          "&:before": {
+            borderColor: "white",
+          },
+          "&:after": {
+            borderColor: "white",
+          },
+          "&:not(.Mui-disabled):hover::before": {
+            borderColor: "white",
+          },
+        },
+        icon: {
+          fill: "white",
+        },
+        root: {
+          color: "white",
+        },
       },
     },
   },
