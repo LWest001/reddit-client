@@ -8,11 +8,9 @@ import { useParams } from "react-router-dom";
 import ReadMoreButton from "../ReadMoreButton";
 import {
   Avatar,
-
   Card,
   CardContent,
   CardHeader,
-
   Typography,
 } from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
@@ -113,8 +111,13 @@ function CommentCard({
           />
         }
         className="commentHeader"
-        title={<CommentHeaderText timestamp={timestamp} score={score} />}
-        onClick={handleCollapse}
+        title={
+          <CommentHeaderText
+            timestamp={timestamp}
+            score={score}
+            handleCollapse={handleCollapse}
+          />
+        }
       ></CardHeader>
       <CardContent className="commentBody" id={`comment-${id}`}>
         <Typography

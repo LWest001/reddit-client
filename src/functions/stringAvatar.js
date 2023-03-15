@@ -22,7 +22,7 @@ function stringAvatar(name) {
   return {
     sx: {
       bgcolor: stringToColor(name),
-      transition: ".25s",
+      transition: "width .25s",
       height: "1.4rem",
       width: "1.4rem",
       color: "white",
@@ -32,7 +32,7 @@ function stringAvatar(name) {
       ":hover": {
         width: "100%",
         padding: ".2rem",
-        transition: ".25s",
+        transition: "width .25s",
       },
     },
     children: `${name.split("")[0]}`,
