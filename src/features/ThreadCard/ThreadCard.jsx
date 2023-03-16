@@ -25,7 +25,7 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Card, Stack, Typography } from "@mui/material";
 import ImageModal from "../../components/ImageModal/ImageModal";
 
 const ThreadCard = ({
@@ -93,7 +93,7 @@ const ThreadCard = ({
   const handleCloseModal = () => setOpenModal(false);
 
   return (
-    <div className="ThreadCard" id={id}>
+    <Card className="ThreadCard" id={id}>
       <div className="threadCardHeader">
         <SubredditLink
           subredditName={subredditName}
@@ -294,7 +294,7 @@ const ThreadCard = ({
           {score}
         </Stack>
       </div>
-    </div>
+    </Card>
   );
 };
 export default ThreadCard;
