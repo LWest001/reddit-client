@@ -19,7 +19,8 @@
 }
 
 .ThreadCard:first-child,
-.SkeletonThreadCard:first-child {
+.SkeletonThreadCard:first-child,
+.subredditInfoContainer {
   margin-top: calc(var(--appbar-height) + 0.5rem);
 }
 

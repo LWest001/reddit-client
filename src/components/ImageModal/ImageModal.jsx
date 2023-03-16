@@ -14,10 +14,10 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  maxHeight: "100%",
   width: "max-content",
   maxWidth: "100%",
   p: 4,
+  maxHeight: "100%",
 };
 
 function ImageModal({ open, handleClose, title, link, image }) {
@@ -28,13 +28,21 @@ function ImageModal({ open, handleClose, title, link, image }) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {title}
         </Typography>
-        <img
-          style={{ maxHeight: "85vh", maxWidth: "100%" }}
-          src={image}
-          alt={title}
-          className="modalImage"
-        />
-        <Stack direction="row" justifyContent="space-between">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            style={{ maxWidth: "100%", maxHeight: "80vh" }}
+            src={image}
+            alt={title}
+            className="modalImage"
+          />
+        </Box>
+        <Stack direction="row" justifyContent="space-between" mt={1}>
           <Button
             component={Link}
             variant="contained"
@@ -51,7 +59,6 @@ function ImageModal({ open, handleClose, title, link, image }) {
           <Button variant="contained" onClick={handleClose} color="warning">
             <CloseIcon />
           </Button>
-
         </Stack>
       </Box>
     </Modal>

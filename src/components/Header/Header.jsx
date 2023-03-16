@@ -27,7 +27,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "/logoTransparent.png";
 
 const Header = () => {
-  const query = useSelector(selectQuery);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,6 +38,7 @@ const Header = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const query = e.target.children[1].children[0].value;
     dispatch(setHomepageStatus("idle"));
     const params = { q: query };
     navigate({
@@ -46,7 +46,7 @@ const Header = () => {
       search: `?${createSearchParams(params)}`,
     });
     window.scrollTo(0, 0);
-    document.querySelector("#searchInput").blur();
+    // document.querySelector("#searchInput").blur();
 
     e.target[0].value = "";
   }
@@ -54,7 +54,11 @@ const Header = () => {
   return (
     <AppBar className="Header">
       <Toolbar>
-        <Stack className="AppBar-Main" direction="row" sx={{alignItems:"center", justifyContent:"center"}}>
+        <Stack
+          className="AppBar-Main"
+          direction="row"
+          sx={{ alignItems: "center", justifyContent: "center" }}
+        >
           <Button
             component={RouterLink}
             to="/"
@@ -62,9 +66,13 @@ const Header = () => {
             sx={{ color: "primary.contrastText" }}
             variant="outlined"
           >
-            <Stack direction="row" gap={0.5} sx={{alignItems:"center", justifyContent:"center"}}>
+            <Stack
+              direction="row"
+              gap={0.5}
+              sx={{ alignItems: "center", justifyContent: "center" }}
+            >
               {/* <HomeIcon variant="headerIcon" /> */}
-              <Icon component="img" src={Logo} fontSize="medium"/>
+              <Icon component="img" src={Logo} fontSize="medium" />
               <Typography
                 color="primary.contrastText"
                 fontWeight="700"

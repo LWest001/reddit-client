@@ -8,6 +8,9 @@ import DefaultIcon from "../assets/favicon.svg";
 function SubredditInfo() {
   const [subredditInfo, setSubredditInfo] = useState({});
   const { subredditName } = useParams();
+
+  document.title = `rLite | r/${subredditName}`;
+
   useEffect(() => {
     async function getIcon(subredditName) {
       const URL = `https://www.reddit.com/r/${subredditName}/about.json`;

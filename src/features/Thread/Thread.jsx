@@ -29,6 +29,8 @@ const Thread = () => {
     sortType = "hot",
   } = useParams();
 
+  document.title = `rLite | ${threadData.threadTitle}`;
+
   const thread = (
     <ThreadCard
       key={threadData.id}
@@ -101,24 +103,22 @@ const Thread = () => {
 
   return (
     <Box className="Thread">
-      {Object.entries(threadData).length && thread}
-      {threadStatus === "loading" && (
+      {threadStatus === "succeeded" || threadStatus === "loading-subreplies" ? (
         <>
-          {!Object.entries(threadData).length && <SkeletonThreadCard />}
-          {!threadData && (
-            <>
-              <SkeletonCommentCard />
-              <SkeletonCommentCard />
-              <SkeletonCommentCard />
-              <SkeletonCommentCard />
-              <SkeletonCommentCard />
-              <SkeletonCommentCard />
-            </>
-          )}
+          {thread}
+          {comments}
+        </>
+      ) : (
+        <>
+          <SkeletonThreadCard />
+          <SkeletonCommentCard />
+          <SkeletonCommentCard />
+          <SkeletonCommentCard />
+          <SkeletonCommentCard />
+          <SkeletonCommentCard />
+          <SkeletonCommentCard />
         </>
       )}
-      {(threadStatus === "succeeded" ||
-        threadStatus === "loading-subreplies") && <>{comments}</>}
     </Box>
   );
 };

@@ -42,7 +42,7 @@ function SearchBar({ handleSubmit }) {
   }));
 
   return (
-    <Search onSubmit={handleSubmit}>
+    <Search onSubmit={(e) => handleSubmit(e)}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>

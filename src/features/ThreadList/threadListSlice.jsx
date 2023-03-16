@@ -16,6 +16,7 @@ export const fetchThreadsList = createAsyncThunk(
   "threadList/fetchThreadsList",
   async (options) => {
     const { sortType, subredditName, query, after } = options;
+    // console.log(query);
     const baseURL = "https://www.reddit.com";
     let URL;
     let isFetchingMore = false;
@@ -41,6 +42,7 @@ export const fetchThreadsList = createAsyncThunk(
       threads: response.data.data.children,
       after: response.data.data.after,
       isFetchingMore: isFetchingMore,
+      query,
     };
   }
 );
@@ -84,6 +86,7 @@ const threadListSlice = createSlice({
       .addCase(fetchThreadsList.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.after = action.payload.after;
+        state.query = action.payload.query;
         const isFetchingMore = action.payload.isFetchingMore;
         const loadedThreads = action.payload.threads.map((thread) => {
           const data = thread.data;

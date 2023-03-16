@@ -2,7 +2,11 @@
 import { useSelector } from "react-redux";
 
 // Slice imports
-import { selectThreadsStatus, selectAllThreads } from "./threadListSlice";
+import {
+  selectThreadsStatus,
+  selectAllThreads,
+  selectQuery,
+} from "./threadListSlice";
 
 // Component imports
 import ThreadCard from "../ThreadCard/ThreadCard";
@@ -23,7 +27,14 @@ const ThreadList = ({ view }) => {
   //   Selectors
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
+  const query = useSelector(selectQuery);
 
+  // Set title
+  if (view === "homepage") {
+    document.title = `rLite | Home `;
+  } else if (view === "searchResults") {
+    document.title = `rLite | Search results: ${query}`;
+  } 
   // Generate list
   let searchResults;
   let threads;
