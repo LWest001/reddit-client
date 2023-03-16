@@ -25,7 +25,7 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
-import { Button, Card, Stack, Typography } from "@mui/material";
+import { Button, Card, CardHeader, Stack, Typography } from "@mui/material";
 import ImageModal from "../../components/ImageModal/ImageModal";
 
 const ThreadCard = ({
@@ -94,7 +94,7 @@ const ThreadCard = ({
 
   return (
     <Card className="ThreadCard" id={id}>
-      <div className="threadCardHeader">
+      <CardHeader className="threadCardHeader">
         <SubredditLink
           subredditName={subredditName}
           display={
@@ -118,7 +118,7 @@ const ThreadCard = ({
             Posted by <span className="author">u/{author}</span> ▪️ {timestamp}
           </span>
         </p>
-      </div>
+      </CardHeader>
       <div className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
           <div className={`flairAndTitle ${cardType}`}>
