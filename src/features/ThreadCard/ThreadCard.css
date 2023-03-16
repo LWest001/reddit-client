@@ -53,21 +53,7 @@
 .subredditName {
   font-weight: bold;
 }
-.subredditIcon {
-  border-radius: 50%;
-  border: 2px solid black;
-  height: 36px;
-  width: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(45deg, rgba(0, 0, 255, 0.507), white);
-}
 
-.threadCardHeader img {
-  width: 2rem;
-  height: 2rem;
-}
 .subredditIcon.subreddit {
   display: none;
 }

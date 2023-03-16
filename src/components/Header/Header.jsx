@@ -77,7 +77,7 @@ const Header = () => {
                 color="primary.contrastText"
                 fontWeight="700"
                 fontSize="1.5rem"
-                sx={{ fontFamily: "Caveat", textTransform: "none" }}
+                sx={{ fontFamily: "Caveat, cursive", textTransform: "none" }}
               >
                 rLite
               </Typography>

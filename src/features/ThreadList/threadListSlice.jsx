@@ -8,6 +8,7 @@ const initialState = {
   threads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed' | 'loadMore'
   query: "",
+  icons: {},
   view: "homepage", // 'homepage' | 'searchResults' | 'subreddit'
   error: null,
 };
@@ -47,6 +48,21 @@ export const fetchThreadsList = createAsyncThunk(
   }
 );
 
+export const fetchIcon = createAsyncThunk(
+  "threadList/fetchIcon",
+  async (subredditName, state) => {
+    let icon;
+    const icons = state.getState().threadList.icons;
+    const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
+    const response = await axios.get(URL);
+    icon = response.data.data.icon_img || response.data.data.header_img;
+    return {
+      subredditName: subredditName,
+      icon: icon,
+    };
+  }
+);
+
 const threadListSlice = createSlice({
   name: "threadList",
   initialState,
@@ -70,6 +86,14 @@ const threadListSlice = createSlice({
     setView: {
       reducer(state, action) {
         state.view = action.payload;
+      },
+    },
+    setIcons: {
+      reducer(state, action) {
+        const { subredditName } = action.payload;
+        if (!Object.hasOwn(state.icons, subredditName)) {
+          state.icons[subredditName] = action.payload.icon;
+        }
       },
     },
   },
@@ -102,6 +126,15 @@ const threadListSlice = createSlice({
       .addCase(fetchThreadsList.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchIcon.pending, (state, action) => {})
+      .addCase(fetchIcon.fulfilled, (state, action) => {
+        const { subredditName, icon } = action.payload;
+        state.icons[subredditName] = icon;
+      })
+      .addCase(fetchIcon.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
@@ -109,13 +142,13 @@ const threadListSlice = createSlice({
 export const selectAllThreads = (state) => state.threadList.threads;
 export const selectThreadsStatus = (state) => state.threadList.status;
 export const selectQuery = (state) => state.threadList.query;
-
+export const selectIcons = (state) => state.threadList.icons;
 export const selectAfter = (state) => state.threadList.after;
 
 export const {
   setStatus,
   setQuery,
-
+  setIcons,
   setAfter,
   setThreads,
 } = threadListSlice.actions;

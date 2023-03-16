@@ -1,11 +1,11 @@
 // Library imports
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 // Slice imports
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
+import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
 
 // Component imports
 import Embed, { defaultProviders } from "react-tiny-oembed";
@@ -19,7 +19,7 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
 
 // Media imports
-import DefaultIcon from "/logoTransparent.png";
+
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
@@ -49,7 +49,6 @@ const ThreadCard = ({
   video,
 }) => {
   const [readMore, setReadMore] = useState("hide");
-  const [icon, setIcon] = useState("");
   const dispatch = useDispatch();
   const handleReadMore = () => {
     const previewText = document.getElementById(`previewText${id}`);
@@ -72,14 +71,11 @@ const ThreadCard = ({
 
   thumbnail = getDefaultThumbnail(thumbnail);
 
+  const icons = useSelector(selectIcons);
+
   useEffect(() => {
-    if (cardType !== "subreddit") {
-      async function getIcon(subredditName) {
-        const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
-        const response = await axios.get(URL);
-        setIcon(response.data.data.icon_img);
-      }
-      getIcon(subredditName);
+    if (!Object.hasOwn(icons, subredditName)) {
+      dispatch(fetchIcon(subredditName));
     }
   }, []);
 
@@ -94,8 +90,19 @@ const ThreadCard = ({
 
   return (
     <Card className="ThreadCard" id={id}>
-      <CardHeader className="threadCardHeader">
-        <SubredditLink
+      <CardHeader
+        className="threadCardHeader"
+        avatar={
+          <SubredditLink
+            subredditName={subredditName}
+            type="avatar"
+            alt="Subreddit avatar"
+            cardType={cardType}
+          />
+        }
+        title={threadTitle}
+      />
+      {/* <SubredditLink
           subredditName={subredditName}
           display={
             <img
@@ -117,8 +124,7 @@ const ThreadCard = ({
           <span className="subtext">
             Posted by <span className="author">u/{author}</span> ▪️ {timestamp}
           </span>
-        </p>
-      </CardHeader>
+        </p> */}
       <div className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
           <div className={`flairAndTitle ${cardType}`}>

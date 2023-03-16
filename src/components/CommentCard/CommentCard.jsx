@@ -98,6 +98,7 @@ function CommentCard({
   return (
     <Card raised={true} className={`CommentCard ${type}`} id={`cc-${id}`}>
       <CardHeader
+        className="commentHeader"
         variant="commentCard"
         avatar={
           <Avatar
@@ -110,7 +111,6 @@ function CommentCard({
             }}
           />
         }
-        className="commentHeader"
         title={
           <CommentHeaderText
             timestamp={timestamp}
