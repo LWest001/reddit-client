@@ -50,6 +50,7 @@
   background: radial-gradient(ellipse at top left, #ffffff, lightgray);
   padding: 0.3rem;
 }
+
 .subredditName {
   font-weight: bold;
 }

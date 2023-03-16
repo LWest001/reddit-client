@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Avatar } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIcons } from "../features/ThreadList/threadListSlice";
 import DefaultIcon from "/logoTransparent.png";
@@ -23,6 +23,17 @@ function SubredditLink({ subredditName, type, cardType }) {
         onClick={handleClick}
         className={`subredditIcon ${cardType}`}
       />
+    );
+  }
+  if (type === "text") {
+    return (
+      <Typography
+        component={Link}
+        to={`/r/${subredditName}`}
+        onClick={handleClick}
+      >
+        r/{subredditName}
+      </Typography>
     );
   }
 }

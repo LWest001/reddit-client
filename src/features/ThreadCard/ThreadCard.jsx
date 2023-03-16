@@ -25,8 +25,16 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
-import { Button, Card, CardHeader, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ImageModal from "../../components/ImageModal/ImageModal";
+import ThreadCardSubheader from "./ThreadCardSubheader";
 
 const ThreadCard = ({
   author,
@@ -100,32 +108,17 @@ const ThreadCard = ({
             cardType={cardType}
           />
         }
-        title={threadTitle}
+        title={
+          cardType !== "subreddit" && (
+            <SubredditLink subredditName={subredditName} type="text" />
+          )
+        }
+        subheader={
+          <ThreadCardSubheader author={author} timestamp={timestamp} />
+        }
       />
-      {/* <SubredditLink
-          subredditName={subredditName}
-          display={
-            <img
-              src={icon || DefaultIcon}
-              alt="Subreddit avatar"
-              className={`subredditIcon ${cardType}`}
-            />
-          }
-        />
-        <p className="ThreadCardHeaderText">
-          {cardType !== "subreddit" && (
-            <span className="subredditName">
-              <SubredditLink
-                subredditName={subredditName}
-                display={`r/${subredditName}`}
-              />
-            </span>
-          )}
-          <span className="subtext">
-            Posted by <span className="author">u/{author}</span> ▪️ {timestamp}
-          </span>
-        </p> */}
-      <div className="threadPreview">
+
+      <CardContent className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
           <div className={`flairAndTitle ${cardType}`}>
             <div className="postFlairContainer">
@@ -280,7 +273,7 @@ const ThreadCard = ({
             </div>
           )}
         </div>
-      </div>
+      </CardContent>
       <div className="threadFooter">
         {cardType !== "thread" && (
           <Button
