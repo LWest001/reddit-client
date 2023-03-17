@@ -35,11 +35,11 @@
 }
 
 /* Header */
-.threadCardHeader,
+.ThreadCardHeader,
 .commentHeader {
-  background: radial-gradient(ellipse at top left, #ffffff, lightgray);
+  /* background: radial-gradient(ellipse at top left, #ffffff, lightgray);
   border-top-left-radius: calc(var(--radius) + var(--border));
-  border-top-right-radius: calc(var(--radius) + var(--border));
+  border-top-right-radius: calc(var(--radius) + var(--border)); */
 }
 
 .subredditName {

@@ -77,7 +77,7 @@ const ThreadCard = ({
   return (
     <Card className="ThreadCard" id={id}>
       <CardHeader
-        className="threadCardHeader"
+        className="ThreadCardHeader"
         avatar={
           <SubredditLink
             subredditName={subredditName}
@@ -101,7 +101,7 @@ const ThreadCard = ({
           <ThreadTitle title={threadTitle} flair={postFlair} />
         )}
 
-        <div className="threadContentPreview">
+        <Box className="threadContentPreview">
           {threadType == "image" && (
             <ImageWrapper image={image} threadTitle={threadTitle} link={link} />
           )}
@@ -130,19 +130,17 @@ const ThreadCard = ({
           )}
 
           {threadType === "self" && (
-            <div>
-              <SelfPostWrapper
-                flair={postFlair}
-                title={threadTitle}
-                text={selfText}
-              />
-            </div>
+            <SelfPostWrapper
+              flair={postFlair}
+              title={threadTitle}
+              text={selfText}
+            />
           )}
 
           {threadType === "richVideo" && (
             <RichVideoWrapper richVideo={richVideo} thumbnail={thumbnail} />
           )}
-        </div>
+        </Box>
       </CardContent>
       <Box className="threadFooter">
         {cardType !== "thread" && (

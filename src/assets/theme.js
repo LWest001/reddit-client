@@ -33,7 +33,14 @@ theme = createTheme(theme, {
           },
         },
       ],
-      styleOverrides: {},
+      styleOverrides: {
+        root: {
+          background:
+            "radial-gradient(ellipse at top left, #ffffff, lightgray)",
+          borderTopLeftRadius: "calc(var(--radius) + var(--border))",
+          borderTopRightRadius: "calc(var(--radius) + var(--border))",
+        },
+      },
     },
     MuiCard: {
       styleOverrides: {
