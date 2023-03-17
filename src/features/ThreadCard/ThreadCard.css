@@ -95,13 +95,13 @@
   width: fit-content;
 }
 
-.__embed {
+/* .__embed {
   max-height: 80vh;
 }
 
 .__embed iframe {
   max-height: 80vh;
-}
+} */
 
 .postFlairContainer {
   float: left;

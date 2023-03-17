@@ -69,7 +69,7 @@ const ThreadCard = ({
   const icons = useSelector(selectIcons);
 
   useEffect(() => {
-    if (!Object.hasOwn(icons, subredditName)) {
+    if (!Object.hasOwn(icons, subredditName) && cardType !== "subreddit") {
       dispatch(fetchIcon(subredditName));
     }
   }, []);
@@ -140,7 +140,7 @@ const ThreadCard = ({
           )}
 
           {threadType === "richVideo" && (
-            <RichVideoWrapper richVideo={richVideo} />
+            <RichVideoWrapper richVideo={richVideo} thumbnail={thumbnail} />
           )}
         </div>
       </CardContent>
