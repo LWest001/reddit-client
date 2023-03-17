@@ -43,12 +43,9 @@ function SubredditInfo() {
           {subredditInfo.display_name_prefixed || <Skeleton />}
         </h2>
         {subredditInfo.public_description ? (
-          <p
-            className="subredditDescription"
-            dangerouslySetInnerHTML={{
-              __html: parseMarkdownText(subredditInfo.public_description),
-            }}
-          ></p>
+          <p className="subredditDescription">
+            {parseMarkdownText(subredditInfo.public_description)}
+          </p>
         ) : (
           <Skeleton variant="text" className="subredditDescription" />
         )}

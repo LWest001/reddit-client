@@ -123,9 +123,8 @@ function CommentCard({
         <Typography
           variant="body2"
           className="commentBodyText"
-          dangerouslySetInnerHTML={{ __html: bodyTextHTML }}
           sx={{ padding: "0.3rem" }}
-        ></Typography>
+        >{bodyTextHTML}</Typography>
         {subcomments && subcomments}
       </CardContent>
     </Card>

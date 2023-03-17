@@ -119,10 +119,8 @@ const ThreadCard = ({
 
       <CardContent className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
-          <Box className={`flairAndTitle ${cardType}`}>
-            {postFlair?.text && <FlairBox flair={postFlair} />}
-
-            <ThreadTitle title={threadTitle} />
+          <Box>
+            <ThreadTitle title={threadTitle} flair={postFlair} />
           </Box>
         )}
         <div className="threadContentPreview">
