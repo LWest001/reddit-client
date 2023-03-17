@@ -20,17 +20,17 @@ function SelfPost({ text, title, flair }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <ThreadTitle
-            flair={flair?.text ? flair : defaultFlair}
-            title={title}
-          />
+          {<FlairBox flair={flair?.text ? flair : defaultFlair} />}
+          {title}
         </AccordionSummary>
 
         <AccordionDetails>{bodyTextHTML}</AccordionDetails>
       </Accordion>
     );
   } else {
-    return <ThreadTitle flair={flair?.text ? flair : defaultFlair} title={title} />;
+    return (
+      <ThreadTitle flair={flair?.text ? flair : defaultFlair} title={title} />
+    );
   }
 }
 export default SelfPost;
