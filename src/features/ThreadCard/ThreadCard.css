@@ -72,27 +72,10 @@
   background-color: #ffffff;
 }
 
-.ThreadCard .vid-audio-message {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 0.8em;
-}
-
 .react-player__preview {
   background-size: contain !important;
   background-repeat: no-repeat;
 }
-.ThreadCard .readMore {
-  width: fit-content;
-}
-
-/* .__embed {
-  max-height: 80vh;
-}
-
-.__embed iframe {
-  max-height: 80vh;
-} */
 
 .postFlairContainer {
   float: left;
@@ -156,21 +139,8 @@
 }
 
 /* Footer */
-.viewComments {
-  display: flex;
-  height: 2rem;
-  padding: 5px;
-  gap: 0.5rem;
-  align-items: center;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  width: max-content;
-}
 
 .ThreadCard .threadFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
+
   background: radial-gradient(ellipse at top left, #ffffff, lightgray);
 }

@@ -14,6 +14,9 @@ let theme = createTheme({
     background: {
       default: "#d3d3d3",
     },
+    headerGradient: {
+      default: "radial-gradient(ellipse at top left, #ffffff, lightgray)",
+    },
   },
 });
 
@@ -36,7 +39,7 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           background:
-            "radial-gradient(ellipse at top left, #ffffff, lightgray)",
+            theme.palette.headerGradient.default,
           borderTopLeftRadius: "calc(var(--radius) + var(--border))",
           borderTopRightRadius: "calc(var(--radius) + var(--border))",
         },

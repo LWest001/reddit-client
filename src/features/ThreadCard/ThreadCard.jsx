@@ -44,6 +44,8 @@ import DashVideoWrapper from "./ContentWrappers/DashVideoWrapper";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
 import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 
+import theme from "../../assets/theme";
+
 const ThreadCard = ({
   author,
   cardType,
@@ -142,7 +144,16 @@ const ThreadCard = ({
           )}
         </Box>
       </CardContent>
-      <Box className="threadFooter">
+      <Stack
+        className="threadFooter"
+        direction="row"
+        sx={{
+          px: 1,
+          justifyContent: "space-between",
+          alignItems: "center",
+          bgcolor: theme.palette.headerGradient.default,
+        }}
+      >
         {cardType !== "thread" && (
           <Button
             component={Link}
@@ -151,6 +162,7 @@ const ThreadCard = ({
               dispatch(setThreadStatus("idle"));
             }}
             className="viewComments button"
+            sx={{ gap: 1 }}
           >
             <CommentOutlinedIcon />
             <Typography>View {commentCount} comments</Typography>
@@ -160,7 +172,7 @@ const ThreadCard = ({
           <ThumbUpOutlinedIcon />
           {score}
         </Stack>
-      </Box>
+      </Stack>
     </Card>
   );
 };
