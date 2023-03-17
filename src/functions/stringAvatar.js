@@ -22,20 +22,21 @@ function stringAvatar(name) {
   return {
     sx: {
       bgcolor: stringToColor(name),
-      transition: "width .25s",
+      transition: "width .25s ease-in",
       height: "1.4rem",
       width: "1.4rem",
       color: "white",
+      justifyContent: "start",
+      padding:".3rem",
       textShadow:
         "-1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;",
-      borderRadius: 1,
+      wordBreak: "keep-all",
+      cursor:"pointer",
       ":hover": {
-        width: "100%",
-        padding: ".2rem",
-        transition: "width .25s",
+        transition: "width .25s ease-out",
       },
     },
-    children: `${name.split("")[0]}`,
+    children: `${name.split("")[0].toUpperCase()}`,
   };
 }
 

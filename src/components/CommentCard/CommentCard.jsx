@@ -1,6 +1,5 @@
 import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
-import upvote from "../../assets/upvote.svg";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
@@ -16,6 +15,8 @@ import {
 import stringAvatar from "../../functions/stringAvatar";
 
 import CommentHeaderText from "./CommentHeaderText";
+
+import { isMobile } from "react-device-detect";
 
 function CommentCard({
   author,
@@ -99,15 +100,22 @@ function CommentCard({
     <Card raised={true} className={`CommentCard ${type}`} id={`cc-${id}`}>
       <CardHeader
         className="commentHeader"
-        variant="commentCard"
+        // variant="commentCard"
         avatar={
           <Avatar
             {...stringAvatar(author)}
+            variant="rounded"
             onMouseEnter={(e) => {
-              e.target.innerHTML = author;
+              if (!isMobile) {
+                e.target.innerHTML = author;
+                e.target.style.width = "100%";
+              }
             }}
             onMouseLeave={(e) => {
-              e.target.innerHTML = author.substring(0, 1);
+              if (!isMobile) {
+                e.target.innerHTML = author.substring(0, 1).toUpperCase();
+                e.target.style.width = "1.4rem";
+              }
             }}
           />
         }
@@ -119,12 +127,18 @@ function CommentCard({
           />
         }
       ></CardHeader>
-      <CardContent className="commentBody" id={`comment-${id}`}>
+      <CardContent
+        className="commentBody"
+        id={`comment-${id}`}
+        sx={{ paddingRight: 0, paddingTop: "0.2rem" }}
+      >
         <Typography
           variant="body2"
           className="commentBodyText"
           sx={{ padding: "0.3rem" }}
-        >{bodyTextHTML}</Typography>
+        >
+          {bodyTextHTML}
+        </Typography>
         {subcomments && subcomments}
       </CardContent>
     </Card>

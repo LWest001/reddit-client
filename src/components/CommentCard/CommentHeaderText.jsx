@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 
 function CommentHeaderText({ timestamp, score, handleCollapse }) {
   return (
-    <Stack direction="row" justifyContent="space-between" onClick={handleCollapse}>
+    <Stack direction="row" justifyContent="space-between" onClick={handleCollapse} >
       {timestamp}
       <Stack direction="row" gap={1}>
         <ThumbUpOutlinedIcon />
