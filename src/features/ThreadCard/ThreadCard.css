@@ -2,7 +2,7 @@
 .ThreadCard,
 .SkeletonThreadCard,
 .ErrorPage,
-.subredditInfoContainer,
+.SubredditInfoContainer,
 .CommentCard {
   --radius: 5px;
   --border: 5px;
@@ -17,7 +17,7 @@
 .ThreadList .LazyLoad:first-child,
 .Thread .ThreadCard,
 .SkeletonThreadCard:first-child,
-.subredditInfoContainer {
+.SubredditInfoContainer {
   margin-top: calc(var(--appbar-height) + 0.5rem);
 }
 

@@ -14,16 +14,12 @@ import SearchCard from "../SearchCard/SearchCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
 import SubredditInfo from "../../components/SubredditInfo";
+import { Box } from "@mui/material";
+import LazyLoad from "react-lazy-load";
 
 // Function imports
 import useFetchThreads from "../../functions/useFetchThreads";
 import selectImagePreview from "../../functions/selectImagePreview";
-
-// Stylesheet imports
-import "./Subreddit.css";
-import { Box } from "@mui/material";
-import { LazyLoadComponent } from "react-lazy-load-image-component";
-import LazyLoad from "react-lazy-load";
 
 const ThreadList = ({ view }) => {
   //   Selectors

@@ -1,5 +1,5 @@
 function replaceEntities(str) {
-  return str.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+  return str.replace(/&amp;/g, "&");
 }
 
-export default replaceEntities
+export default replaceEntities;

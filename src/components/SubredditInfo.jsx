@@ -2,8 +2,18 @@ import { useEffect, useState } from "react";
 import parseMarkdownText from "../functions/parseMarkdownText";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Box, Skeleton, Typography } from "@mui/material";
-import DefaultIcon from "../assets/favicon.svg";
+import {
+  Box,
+  Skeleton,
+  Typography,
+  Card,
+  Stack,
+  CardHeader,
+  CardContent,
+  Avatar,
+} from "@mui/material";
+import DefaultIcon from "/logoTransparent.png";
+import replaceEntities from "../functions/replaceEntities";
 
 function SubredditInfo() {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -20,33 +30,63 @@ function SubredditInfo() {
     getIcon(subredditName);
   }, [window.URL]);
   return (
-    <div className="subredditInfoContainer">
-      <section className="subredditInfo">
-        {subredditInfo ? (
-          <img
-            src={subredditInfo.icon_img || DefaultIcon}
-            alt="Subreddit icon"
-            className="subredditIcon"
-          />
-        ) : (
-          <Skeleton
-            variant="circular"
-            width="128px"
-            height="128px"
-            className="subredditIcon placeholder"
-            animation="wave"
-          />
-        )}
-        <h1 className="subredditTitle">
-          {subredditInfo.title || <Skeleton animation="wave" />}
-        </h1>
-        <h2 className="subredditSubtitle">
-          {subredditInfo.display_name_prefixed || <Skeleton animation="wave" />}
-        </h2>
+    <Card
+      className="SubredditInfoContainer"
+      sx={{
+        background:
+          subredditInfo.banner_background_image &&
+          `url(${replaceEntities(subredditInfo.banner_background_image)})`,
+        backgroundSize: "cover",
+        height: subredditInfo.banner_background_image && "15rem",
+        justifyContent: "space-between",
+      }}
+    >
+      <CardHeader
+        sx={{
+          background: "none",
+          bgcolor: "rgba(0, 0, 0, 0.6)",
+        }}
+        avatar={
+          subredditInfo ? (
+            <Avatar
+              src={subredditInfo.icon_img || DefaultIcon}
+              sx={{ bgcolor: "white" }}
+            />
+          ) : (
+            <Skeleton
+              variant="circular"
+              width="128px"
+              height="128px"
+              className="subredditIcon placeholder"
+              animation="wave"
+            />
+          )
+        }
+        title={subredditInfo.title || <Skeleton animation="wave" />}
+        titleTypographyProps={{
+          sx: { fontWeight: "bold", color: "white", fontSize: 24 },
+          variant: "h1",
+        }}
+        subheaderTypographyProps={{
+          sx: { fontWeight: "bold", color: "white" },
+        }}
+        subheader={
+          subredditInfo.display_name_prefixed || <Skeleton animation="wave" />
+        }
+      />
+      <CardContent
+        sx={{
+          px: 2,
+          py: 0.5,
+          display: "flex",
+          justifyContent: "center",
+          bgcolor: "rgba(0, 0, 0, 0.6)",
+        }}
+      >
         {subredditInfo.public_description ? (
-          <p className="subredditDescription">
+          <Typography className="subredditDescription" sx={{ color: "white" }}>
             {parseMarkdownText(subredditInfo.public_description)}
-          </p>
+          </Typography>
         ) : (
           <Skeleton
             variant="text"
@@ -54,8 +94,8 @@ function SubredditInfo() {
             animation="wave"
           />
         )}
-      </section>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 
