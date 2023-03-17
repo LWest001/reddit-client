@@ -22,6 +22,7 @@ import selectImagePreview from "../../functions/selectImagePreview";
 // Stylesheet imports
 import "./Subreddit.css";
 import { Box } from "@mui/material";
+import { LazyLoadComponent } from "react-lazy-load-image-component";
 
 const ThreadList = ({ view }) => {
   //   Selectors
@@ -41,36 +42,43 @@ const ThreadList = ({ view }) => {
   if (view !== "searchResults") {
     threads = threadsData.map((thread) => {
       return (
-        <ThreadCard
-          key={thread.id}
-          id={thread.id}
-          author={thread.author}
-          cardType={view}
-          commentCount={thread.commentCount}
-          gallery={thread.gallery}
-          icon={thread.icon}
-          image={
-            ["image", "video"].includes(thread.threadType) && {
-              fullSizeImage: thread.image,
-              previewSizeImage: selectImagePreview(thread.imagePreview).preview,
-              placeholderImage: selectImagePreview(thread.imagePreview)
-                .placeholder,
+        <LazyLoadComponent
+          placeholder={<SkeletonThreadCard />}
+          wrapperClassName="SkeletonThreadCard"
+          threshold={window.innerHeight * 3}
+        >
+          <ThreadCard
+            key={thread.id}
+            id={thread.id}
+            author={thread.author}
+            cardType={view}
+            commentCount={thread.commentCount}
+            gallery={thread.gallery}
+            icon={thread.icon}
+            image={
+              ["image", "video"].includes(thread.threadType) && {
+                fullSizeImage: thread.image,
+                previewSizeImage: selectImagePreview(thread.imagePreview)
+                  .preview,
+                placeholderImage: selectImagePreview(thread.imagePreview)
+                  .placeholder,
+              }
             }
-          }
-          link={thread.link}
-          postFlair={thread.postFlair}
-          redditId={thread.redditId}
-          richVideo={thread.richVideo}
-          score={thread.score}
-          selfText={thread.selfText}
-          subredditName={thread.subredditName}
-          threadTitle={thread.threadTitle}
-          threadType={thread.threadType}
-          thumbnail={thread.thumbnail}
-          timestamp={thread.timestamp}
-          url={thread.url}
-          video={thread.video}
-        />
+            link={thread.link}
+            postFlair={thread.postFlair}
+            redditId={thread.redditId}
+            richVideo={thread.richVideo}
+            score={thread.score}
+            selfText={thread.selfText}
+            subredditName={thread.subredditName}
+            threadTitle={thread.threadTitle}
+            threadType={thread.threadType}
+            thumbnail={thread.thumbnail}
+            timestamp={thread.timestamp}
+            url={thread.url}
+            video={thread.video}
+          />
+        </LazyLoadComponent>
       );
     });
   }

@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import VideoPlaceholder from "./VideoPlaceholder";
+import replaceEntities from "../../../functions/replaceEntities";
 
 function RichVideoWrapper({ richVideo, thumbnail }) {
   const screenWidth = window.innerWidth;
@@ -17,24 +18,12 @@ function RichVideoWrapper({ richVideo, thumbnail }) {
       >
         <Embed
           className="richVideoEmbed"
-          url={richVideo.url}
+          url={replaceEntities(richVideo.url)}
           providers={[...defaultProviders, richVideo.provider]}
           LoadingFallbackElement={
-            <VideoPlaceholder
-              thumbnail={{
-                thumbnail_width: screenWidth - 32,
-                thumbnail_height: screenWidth * 0.75 - 32,
-              }}
-            />
+            <VideoPlaceholder thumbnail={richVideo.oembed} />
           }
-          FallbackElement={
-            <VideoPlaceholder
-              thumbnail={{
-                thumbnail_width: screenWidth - 32,
-                thumbnail_height: screenWidth * 0.75 - 32,
-              }}
-            />
-          }
+          FallbackElement={<VideoPlaceholder thumbnail={richVideo.oembed} />}
           // proxy="https://cors-anywhere.herokuapp.com/"
         />
       </LazyLoadComponent>
