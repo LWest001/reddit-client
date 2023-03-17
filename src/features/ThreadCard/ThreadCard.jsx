@@ -9,12 +9,12 @@ import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
 
 // Component imports
 import Embed, { defaultProviders } from "react-tiny-oembed";
-import ReactPlayer from "react-player";
 import SubredditLink from "../../components/SubredditLink";
+import ThreadCardSubheader from "./ThreadCardSubheader";
+import ThreadTitle from "./ThreadTitle";
 
 // Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-import isiOS from "../../functions/isiOS";
 
 // Media imports
 
@@ -23,6 +23,8 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
+
+// MUI imports
 import {
   Box,
   Button,
@@ -32,12 +34,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import ThreadCardSubheader from "./ThreadCardSubheader";
-import ThreadTitle from "./ThreadTitle";
+
+// Content Wrapper imports
 import ImageWrapper from "./ContentWrappers/ImageWrapper";
 import LinkPostWrapper from "./ContentWrappers/LinkPostWrapper";
 import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
 import GalleryWrapper from "./ContentWrappers/GalleryWrapper";
+import DashVideoWrapper from "./ContentWrappers/DashVideoWrapper";
 
 const ThreadCard = ({
   author,
@@ -92,9 +95,10 @@ const ThreadCard = ({
       />
 
       <CardContent className="threadPreview">
-        {!["link", "gallery", "self"].includes(threadType) && (
+        {["image", "video", "richVideo"].includes(threadType) && (
           <ThreadTitle title={threadTitle} flair={postFlair} />
         )}
+
         <div className="threadContentPreview">
           {threadType == "image" && (
             <ImageWrapper image={image} threadTitle={threadTitle} link={link} />
@@ -117,24 +121,10 @@ const ThreadCard = ({
           )}
 
           {threadType == "video" && (
-            <div className="centered videoWrapper">
-              <ReactPlayer
-                url={isiOS() ? video.hls : video.dashManifest}
-                controls={true}
-                width="100%"
-                maxheight="80vh"
-                playsinline={true}
-                volume={1}
-                muted={true}
-                autoPlay={false}
-                light={image.previewSizeImage.url}
-                fallback={
-                  <video>
-                    <source src={video.fallback} type="video/mp4" />
-                  </video>
-                }
-              />
-            </div>
+            <DashVideoWrapper
+              video={video}
+              previewUrl={image.previewSizeImage.url}
+            />
           )}
 
           {threadType === "self" && (

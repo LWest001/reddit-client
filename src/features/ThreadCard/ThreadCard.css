@@ -87,12 +87,6 @@
   font-size: 0.8em;
 }
 
-.centered {
-  display: flex;
-  flex-direction: column;
-  place-items: center;
-}
-
 .react-player__preview {
   background-size: contain !important;
   background-repeat: no-repeat;
