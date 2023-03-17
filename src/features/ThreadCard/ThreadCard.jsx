@@ -34,8 +34,9 @@ import {
 } from "@mui/material";
 import ThreadCardSubheader from "./ThreadCardSubheader";
 import ThreadTitle from "./ThreadTitle";
-import SelfPost from "./SelfPost";
-import ImageWrapper from "./ImageWrapper";
+import ImageWrapper from "./ContentWrappers/ImageWrapper";
+import LinkPostWrapper from "./ContentWrappers/LinkPostWrapper";
+import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
 
 const ThreadCard = ({
   author,
@@ -119,16 +120,11 @@ const ThreadCard = ({
           )}
 
           {threadType === "link" && (
-            <div className="linkPreview">
-              <a href={url}>
-                <img
-                  src={thumbnail}
-                  alt={`Thumbnail for thread: ${threadTitle}`}
-                  className="thumbnail"
-                />
-                <ThreadTitle title={threadTitle} />
-              </a>
-            </div>
+            <LinkPostWrapper
+              url={url}
+              thumbnail={thumbnail}
+              threadTitle={threadTitle}
+            />
           )}
 
           {threadType == "video" && (
@@ -154,7 +150,11 @@ const ThreadCard = ({
 
           {threadType === "self" && (
             <div>
-              <SelfPost flair={postFlair} title={threadTitle} text={selfText} />
+              <SelfPostWrapper
+                flair={postFlair}
+                title={threadTitle}
+                text={selfText}
+              />
             </div>
           )}
 

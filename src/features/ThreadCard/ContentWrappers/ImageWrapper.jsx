@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import ImageModal from "../../components/ImageModal/ImageModal";
+import ImageModal from "../../../components/ImageModal/ImageModal";
 
 function ImageWrapper({ image, threadTitle, link }) {
   const [openModal, setOpenModal] = useState(false);

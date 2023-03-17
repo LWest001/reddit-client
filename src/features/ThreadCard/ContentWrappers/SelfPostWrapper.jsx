@@ -1,11 +1,11 @@
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import parseMarkdownText from "../../functions/parseMarkdownText";
+import parseMarkdownText from "../../../functions/parseMarkdownText";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FlairBox from "./FlairBox";
-import theme from "../../assets/theme";
-import ThreadTitle from "./ThreadTitle";
+import FlairBox from "../FlairBox";
+import theme from "../../../assets/theme";
+import ThreadTitle from "../ThreadTitle";
 
-function SelfPost({ text, title, flair }) {
+function SelfPostWrapper({ text, title, flair }) {
   const bodyTextHTML = parseMarkdownText(text);
   const defaultFlair = {
     text: "Text post",
@@ -33,4 +33,4 @@ function SelfPost({ text, title, flair }) {
     );
   }
 }
-export default SelfPost;
+export default SelfPostWrapper;
