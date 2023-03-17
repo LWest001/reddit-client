@@ -15,6 +15,7 @@
 }
 
 .ThreadList .LazyLoad:first-child,
+.Thread .ThreadCard,
 .SkeletonThreadCard:first-child,
 .subredditInfoContainer {
   margin-top: calc(var(--appbar-height) + 0.5rem);
@@ -35,12 +36,6 @@
 }
 
 /* Header */
-.ThreadCardHeader,
-.commentHeader {
-  /* background: radial-gradient(ellipse at top left, #ffffff, lightgray);
-  border-top-left-radius: calc(var(--radius) + var(--border));
-  border-top-right-radius: calc(var(--radius) + var(--border)); */
-}
 
 .subredditName {
   font-weight: bold;
