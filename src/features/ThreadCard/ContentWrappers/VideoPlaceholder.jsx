@@ -1,7 +1,10 @@
-import { PlayCircleFilledRounded as PlayArrow } from "@mui/icons-material";
+import {
+  PlayCircleFilledRounded as PlayArrow,
+  PlayDisabledRounded as PlayDisabled,
+} from "@mui/icons-material";
 import { Box, Icon, Skeleton } from "@mui/material";
 
-function VideoPlaceholder({ thumbnail }) {
+function VideoPlaceholder({ thumbnail, disabled = false }) {
   const { thumbnail_width, thumbnail_height } = thumbnail;
   return (
     <Box
@@ -16,14 +19,18 @@ function VideoPlaceholder({ thumbnail }) {
         fontSize="large"
         sx={{ position: "relative", top: thumbnail_height / 2 + 14 }}
       >
-        <PlayArrow fontSize="large" />
+        {disabled ? (
+          <PlayDisabled fontSize="large" />
+        ) : (
+          <PlayArrow fontSize="large" />
+        )}
       </Icon>
       <Skeleton
         variant="rounded"
         width={thumbnail_width}
         height={thumbnail_height}
         alt="Loading rich video content..."
-        animation="wave"
+        animation={disabled ? "none" : "wave"}
         sx={{ maxWidth: "100%" }}
       ></Skeleton>
     </Box>

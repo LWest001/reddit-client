@@ -23,6 +23,7 @@ import selectImagePreview from "../../functions/selectImagePreview";
 import "./Subreddit.css";
 import { Box } from "@mui/material";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
+import LazyLoad from "react-lazy-load";
 
 const ThreadList = ({ view }) => {
   //   Selectors
@@ -42,10 +43,9 @@ const ThreadList = ({ view }) => {
   if (view !== "searchResults") {
     threads = threadsData.map((thread) => {
       return (
-        <LazyLoadComponent
-          placeholder={<SkeletonThreadCard />}
-          wrapperClassName="SkeletonThreadCard"
-          threshold={window.innerHeight * 3}
+        <LazyLoad
+        
+          offset={window.innerHeight * 3}
         >
           <ThreadCard
             key={thread.id}
@@ -78,7 +78,7 @@ const ThreadList = ({ view }) => {
             url={thread.url}
             video={thread.video}
           />
-        </LazyLoadComponent>
+        </LazyLoad>
       );
     });
   }

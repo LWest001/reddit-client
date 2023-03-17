@@ -12,16 +12,16 @@ function ImageWrapper({ image, threadTitle, link }) {
       className="ImageWrapper"
       sx={{ display: "flex", flexDirection: "column", placeItems: "center" }}
     >
-      <LazyLoadImage
+      <img
         src={image.previewSizeImage.url}
         height={image.previewSizeImage.height}
         width={image.previewSizeImage.width}
-        placeholderSrc={image.placeholderImage.url}
-        effect="blur"
+        // placeholderSrc={image.placeholderImage.url}
+        // effect="blur"
         alt={`Image for thread: ${threadTitle}`}
         className="previewImage"
         onClick={handleOpenModal}
-        threshold={2000}
+        // threshold={2000}
       />
       <ImageModal
         open={openModal}
