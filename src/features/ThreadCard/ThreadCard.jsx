@@ -37,6 +37,7 @@ import ThreadTitle from "./ThreadTitle";
 import ImageWrapper from "./ContentWrappers/ImageWrapper";
 import LinkPostWrapper from "./ContentWrappers/LinkPostWrapper";
 import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
+import GalleryWrapper from "./ContentWrappers/GalleryWrapper";
 
 const ThreadCard = ({
   author,
@@ -92,9 +93,7 @@ const ThreadCard = ({
 
       <CardContent className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
-          <Box>
-            <ThreadTitle title={threadTitle} flair={postFlair} />
-          </Box>
+          <ThreadTitle title={threadTitle} flair={postFlair} />
         )}
         <div className="threadContentPreview">
           {threadType == "image" && (
@@ -102,21 +101,11 @@ const ThreadCard = ({
           )}
 
           {threadType == "gallery" && (
-            <>
-              <div className="galleryPreview">
-                <a href={gallery} target="_blank">
-                  <div className="galleryThumbnailBox">
-                    <img
-                      className="thumbnail"
-                      src={thumbnail}
-                      alt={`Thumbnail for thread: ${threadTitle}`}
-                    />
-                    View gallery ➡️
-                  </div>
-                </a>
-                <ThreadTitle title={threadTitle} />
-              </div>
-            </>
+            <GalleryWrapper
+              gallery={gallery}
+              threadTitle={threadTitle}
+              thumbnail={thumbnail}
+            />
           )}
 
           {threadType === "link" && (

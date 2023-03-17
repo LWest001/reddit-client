@@ -14,7 +14,7 @@ function SelfPostWrapper({ text, title, flair }) {
   };
   if (text) {
     return (
-      <Accordion>
+      <Accordion className="SelfPostWrapper">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -29,7 +29,11 @@ function SelfPostWrapper({ text, title, flair }) {
     );
   } else {
     return (
-      <ThreadTitle flair={flair?.text ? flair : defaultFlair} title={title} />
+      <ThreadTitle
+        className="SelfPostWrapper"
+        flair={flair?.text ? flair : defaultFlair}
+        title={title}
+      />
     );
   }
 }
