@@ -4,6 +4,7 @@ import { Avatar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectIcons } from "../features/ThreadList/threadListSlice";
 import DefaultIcon from "/logoTransparent.png";
+import { setStatus } from "../features/Thread/threadSlice";
 
 function SubredditLink({ subredditName, type, cardType }) {
   const dispatch = useDispatch();

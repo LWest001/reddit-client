@@ -26,6 +26,7 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 // Stylesheet
 import "./ThreadCard.css";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -35,6 +36,7 @@ import {
 } from "@mui/material";
 import ImageModal from "../../components/ImageModal/ImageModal";
 import ThreadCardSubheader from "./ThreadCardSubheader";
+import FlairBox from "./FlairBox";
 
 const ThreadCard = ({
   author,
@@ -120,22 +122,14 @@ const ThreadCard = ({
 
       <CardContent className="threadPreview">
         {!["link", "gallery", "self"].includes(threadType) && (
-          <div className={`flairAndTitle ${cardType}`}>
-            <div className="postFlairContainer">
-              {postFlair?.text && (
-                <span
-                  className="postFlair"
-                  style={{ backgroundColor: postFlair?.backgroundColor }}
-                >
-                  {postFlair?.text}
-                </span>
-              )}
-            </div>
+          <Box className={`flairAndTitle ${cardType}`}>
+            {postFlair?.text && <FlairBox flair={postFlair} />}
+
             <div
               className="threadTitle"
               dangerouslySetInnerHTML={titleTextHTML}
             />
-          </div>
+          </Box>
         )}
         <div className="threadContentPreview">
           {threadType == "image" && (
@@ -274,7 +268,7 @@ const ThreadCard = ({
           )}
         </div>
       </CardContent>
-      <div className="threadFooter">
+      <Box className="threadFooter">
         {cardType !== "thread" && (
           <Button
             component={Link}
@@ -292,7 +286,7 @@ const ThreadCard = ({
           <ThumbUpOutlinedIcon />
           {score}
         </Stack>
-      </div>
+      </Box>
     </Card>
   );
 };
