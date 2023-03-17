@@ -1,28 +1,38 @@
-import { Box, Skeleton } from "@mui/material";
+import { Box, Skeleton, Stack } from "@mui/material";
 
 function SkeletonCommentCard() {
   return (
     <div className={`skeleton CommentCard`}>
       <div className="commentHeader">
-        <Skeleton
-          variant="text"
-          width={100}
-          className="author skeletonContent"
-        ></Skeleton>
-        <Skeleton
-          variant="text"
-          width={100}
-          className="timestamp skeletonContent"
-        ></Skeleton>
-        <div></div>
-        <Skeleton className="score skeletonContent"></Skeleton>
+        <Stack direction="row" gap={2}>
+          <Skeleton
+            animation="wave"
+            variant="text"
+            width={20}
+            className="author skeletonContent"
+          />
+          <Skeleton
+            animation="wave"
+            variant="text"
+            width={100}
+            className="timestamp skeletonContent"
+          />
+          <Box sx={{ width: "100%" }} />
+          <Skeleton
+            animation="wave"
+            variant="text"
+            width={100}
+            className="timestamp skeletonContent"
+          />
+        </Stack>
       </div>
       <Box className="commentBody">
         <Skeleton
+          animation="wave"
           variant="text"
           sx={{ width: "100%", mx: 1 }}
           className="commentBodyText skeletonContent"
-        ></Skeleton>
+        />
       </Box>
     </div>
   );

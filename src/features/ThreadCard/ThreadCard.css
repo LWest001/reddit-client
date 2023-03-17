@@ -42,6 +42,7 @@
 .threadCardHeader,
 .commentHeader {
   background: radial-gradient(ellipse at top left, #ffffff, lightgray);
+  border-radius: calc(var(--radius) + var(--border));
 }
 
 .subredditName {

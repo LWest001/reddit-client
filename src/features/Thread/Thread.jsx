@@ -110,13 +110,12 @@ const Thread = () => {
         </>
       ) : (
         <>
-          <SkeletonThreadCard />
-          <SkeletonCommentCard />
-          <SkeletonCommentCard />
-          <SkeletonCommentCard />
-          <SkeletonCommentCard />
-          <SkeletonCommentCard />
-          <SkeletonCommentCard />
+          <SkeletonThreadCard animation="wave" />
+          <SkeletonCommentCard animation="wave" />
+          <SkeletonCommentCard animation="wave" />
+          <SkeletonCommentCard animation="wave" />
+          <SkeletonCommentCard animation="wave" />
+          <SkeletonCommentCard animation="wave" />
         </>
       )}
     </Box>

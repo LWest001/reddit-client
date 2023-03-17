@@ -34,20 +34,25 @@ function SubredditInfo() {
             width="128px"
             height="128px"
             className="subredditIcon placeholder"
+            animation="wave"
           />
         )}
         <h1 className="subredditTitle">
-          {subredditInfo.title || <Skeleton />}
+          {subredditInfo.title || <Skeleton animation="wave" />}
         </h1>
         <h2 className="subredditSubtitle">
-          {subredditInfo.display_name_prefixed || <Skeleton />}
+          {subredditInfo.display_name_prefixed || <Skeleton animation="wave" />}
         </h2>
         {subredditInfo.public_description ? (
           <p className="subredditDescription">
             {parseMarkdownText(subredditInfo.public_description)}
           </p>
         ) : (
-          <Skeleton variant="text" className="subredditDescription" />
+          <Skeleton
+            variant="text"
+            className="subredditDescription"
+            animation="wave"
+          />
         )}
       </section>
     </div>

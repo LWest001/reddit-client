@@ -34,7 +34,7 @@ const ThreadList = ({ view }) => {
     document.title = `rLite | Home `;
   } else if (view === "searchResults") {
     document.title = `rLite | Search results: ${query}`;
-  } 
+  }
   // Generate list
   let searchResults;
   let threads;
@@ -101,18 +101,18 @@ const ThreadList = ({ view }) => {
     if (view === "searchResults") {
       return (
         <Box>
-          <SkeletonSearchCard />
-          <SkeletonSearchCard />
-          <SkeletonSearchCard />
-          <SkeletonSearchCard />
-          <SkeletonSearchCard />
+          <SkeletonSearchCard animation="wave" />
+          <SkeletonSearchCard animation="wave" />
+          <SkeletonSearchCard animation="wave" />
+          <SkeletonSearchCard animation="wave" />
+          <SkeletonSearchCard animation="wave" />
         </Box>
       );
     }
     return (
       <Box>
-        <SkeletonThreadCard />
-        <SkeletonThreadCard />
+        <SkeletonThreadCard animation="wave" />
+        <SkeletonThreadCard animation="wave" />
       </Box>
     );
   };
