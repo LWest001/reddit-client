@@ -100,7 +100,7 @@ function CommentCard({
     <Card raised={true} className={`CommentCard ${type}`} id={`cc-${id}`}>
       <CardHeader
         className="commentHeader"
-        // variant="commentCard"
+        variant="commentCard"
         avatar={
           <Avatar
             {...stringAvatar(author)}

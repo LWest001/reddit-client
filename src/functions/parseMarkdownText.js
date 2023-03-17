@@ -1,4 +1,4 @@
-import parse from "html-react-parser";
+import parse, { domToReact } from "html-react-parser";
 import showdown from "showdown";
 
 function parseMarkdownText(markdown) {
@@ -10,7 +10,7 @@ function parseMarkdownText(markdown) {
 
   // parse html to DOM object
   const selfText = parse(html);
-
+  console.log(html);
   return selfText;
 }
 

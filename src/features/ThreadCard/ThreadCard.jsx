@@ -1,5 +1,5 @@
 // Library imports
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,11 +11,9 @@ import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import ReactPlayer from "react-player";
 import SubredditLink from "../../components/SubredditLink";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-import parseMarkdownText from "../../functions/parseMarkdownText";
 import isiOS from "../../functions/isiOS";
 
 // Media imports
@@ -34,11 +32,10 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import ImageModal from "../../components/ImageModal/ImageModal";
 import ThreadCardSubheader from "./ThreadCardSubheader";
-import FlairBox from "./FlairBox";
 import ThreadTitle from "./ThreadTitle";
 import SelfPost from "./SelfPost";
+import ImageWrapper from "./ImageWrapper";
 
 const ThreadCard = ({
   author,
@@ -60,29 +57,8 @@ const ThreadCard = ({
   url,
   video,
 }) => {
-  const [readMore, setReadMore] = useState("hide");
   const dispatch = useDispatch();
-  const handleReadMore = () => {
-    const previewText = document.getElementById(`previewText${id}`);
-    const fullText = document.getElementById(`fullText${id}`);
-    const button = document.getElementById(`readMore${id}`);
-
-    if (readMore === "hide") {
-      previewText.style.display = "none";
-      fullText.style.display = "block";
-      button.textContent = "Hide full text";
-      setReadMore("readMore");
-    }
-    if (readMore === "readMore") {
-      previewText.style.display = "block";
-      fullText.style.display = "none";
-      button.textContent = "Read more";
-      setReadMore("hide");
-    }
-  };
-
   thumbnail = getDefaultThumbnail(thumbnail);
-
   const icons = useSelector(selectIcons);
 
   useEffect(() => {
@@ -90,10 +66,6 @@ const ThreadCard = ({
       dispatch(fetchIcon(subredditName));
     }
   }, []);
-
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
 
   return (
     <Card className="ThreadCard" id={id}>
@@ -125,25 +97,7 @@ const ThreadCard = ({
         )}
         <div className="threadContentPreview">
           {threadType == "image" && (
-            <div className="centered">
-              <LazyLoadImage
-                src={image.previewSizeImage.url}
-                // height={image.previewSizeImage.height}
-                // width={image.previewSizeImage.width}
-                placeholderSrc={image.placeholderImage.url}
-                effect="blur"
-                alt={`Image for thread: ${threadTitle}`}
-                className="previewImage"
-                onClick={handleOpenModal}
-              />
-              <ImageModal
-                open={openModal}
-                image={image.fullSizeImage}
-                handleClose={handleCloseModal}
-                title={threadTitle}
-                link={link}
-              />
-            </div>
+            <ImageWrapper image={image} threadTitle={threadTitle} link={link} />
           )}
 
           {threadType == "gallery" && (

@@ -29,7 +29,7 @@ const Thread = () => {
     sortType = "hot",
   } = useParams();
 
-  document.title = `rLite | ${threadData.threadTitle}`;
+  document.title = `rLite | ${threadData.threadTitle || ""}`;
 
   const thread = (
     <ThreadCard
