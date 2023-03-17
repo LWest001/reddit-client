@@ -17,7 +17,6 @@ export const fetchThreadsList = createAsyncThunk(
   "threadList/fetchThreadsList",
   async (options) => {
     const { sortType, subredditName, query, after } = options;
-    // console.log(query);
     const baseURL = "https://www.reddit.com";
     let URL;
     let isFetchingMore = false;

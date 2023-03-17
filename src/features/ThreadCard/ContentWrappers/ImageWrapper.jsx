@@ -21,6 +21,7 @@ function ImageWrapper({ image, threadTitle, link }) {
         alt={`Image for thread: ${threadTitle}`}
         className="previewImage"
         onClick={handleOpenModal}
+        threshold={2000}
       />
       <ImageModal
         open={openModal}

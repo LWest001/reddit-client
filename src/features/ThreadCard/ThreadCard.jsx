@@ -41,6 +41,8 @@ import LinkPostWrapper from "./ContentWrappers/LinkPostWrapper";
 import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
 import GalleryWrapper from "./ContentWrappers/GalleryWrapper";
 import DashVideoWrapper from "./ContentWrappers/DashVideoWrapper";
+import { LazyLoadComponent } from "react-lazy-load-image-component";
+import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 
 const ThreadCard = ({
   author,
@@ -138,15 +140,7 @@ const ThreadCard = ({
           )}
 
           {threadType === "richVideo" && (
-            <div className="videoWrapper">
-              <Embed
-                className="richVideoEmbed"
-                url={richVideo.url}
-                providers={[...defaultProviders, richVideo.provider]}
-                options={{ height: "200" }}
-                // proxy="https://cors-anywhere.herokuapp.com/"
-              />
-            </div>
+            <RichVideoWrapper richVideo={richVideo} />
           )}
         </div>
       </CardContent>
