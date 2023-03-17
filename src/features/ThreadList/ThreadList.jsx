@@ -43,10 +43,7 @@ const ThreadList = ({ view }) => {
   if (view !== "searchResults") {
     threads = threadsData.map((thread) => {
       return (
-        <LazyLoad
-        
-          offset={window.innerHeight * 3}
-        >
+        <LazyLoad offset={window.innerHeight * 3}>
           <ThreadCard
             key={thread.id}
             id={thread.id}
@@ -128,7 +125,7 @@ const ThreadList = ({ view }) => {
   useFetchThreads(view);
 
   return (
-    <Box>
+    <Box className="ThreadList">
       {view === "subreddit" && <SubredditInfo />}
       {threadsStatus === "loading" && skeletons()}
       {(threadsStatus === "succeeded" || threadsStatus === "loadMore") &&
