@@ -37,6 +37,8 @@ import {
 import ImageModal from "../../components/ImageModal/ImageModal";
 import ThreadCardSubheader from "./ThreadCardSubheader";
 import FlairBox from "./FlairBox";
+import ThreadTitle from "./ThreadTitle";
+import SelfPost from "./SelfPost";
 
 const ThreadCard = ({
   author,
@@ -53,7 +55,7 @@ const ThreadCard = ({
   subredditName,
   timestamp,
   threadTitle,
-  threadType,
+  threadType, // gallery | link | self | video | richVideo | image
   thumbnail,
   url,
   video,
@@ -89,11 +91,6 @@ const ThreadCard = ({
     }
   }, []);
 
-  const bodyTextHTML = selfText && parseMarkdownText(selfText);
-  const titleTextHTML = threadTitle && {
-    __html: parseMarkdownText(`##${threadTitle}`),
-  };
-
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -125,10 +122,7 @@ const ThreadCard = ({
           <Box className={`flairAndTitle ${cardType}`}>
             {postFlair?.text && <FlairBox flair={postFlair} />}
 
-            <div
-              className="threadTitle"
-              dangerouslySetInnerHTML={titleTextHTML}
-            />
+            <ThreadTitle title={threadTitle} />
           </Box>
         )}
         <div className="threadContentPreview">
@@ -167,10 +161,7 @@ const ThreadCard = ({
                     View gallery ➡️
                   </div>
                 </a>
-                <div
-                  className="galleryText"
-                  dangerouslySetInnerHTML={titleTextHTML}
-                />
+                <ThreadTitle title={threadTitle} />
               </div>
             </>
           )}
@@ -183,10 +174,7 @@ const ThreadCard = ({
                   alt={`Thumbnail for thread: ${threadTitle}`}
                   className="thumbnail"
                 />
-                <div
-                  className="linkText"
-                  dangerouslySetInnerHTML={titleTextHTML}
-                />
+                <ThreadTitle title={threadTitle} />
               </a>
             </div>
           )}
@@ -213,45 +201,8 @@ const ThreadCard = ({
           )}
 
           {threadType === "self" && (
-            <div className="selfPreview">
-              <img
-                src={thumbnail}
-                alt={`Thumbnail for thread: ${threadTitle}`}
-                className="thumbnail"
-              />
-              <div
-                className="selfTitle"
-                dangerouslySetInnerHTML={titleTextHTML}
-              />
-              {selfText && (
-                <>
-                  <p
-                    className={`selfText previewText`}
-                    id={`previewText${id}`}
-                    dangerouslySetInnerHTML={{
-                      __html: `${bodyTextHTML.textContent.substring(
-                        0,
-                        150
-                      )}...`,
-                    }}
-                  ></p>
-                  <p
-                    className={`selfText fullText`}
-                    id={`fullText${id}`}
-                    dangerouslySetInnerHTML={{
-                      __html: bodyTextHTML,
-                    }}
-                  ></p>
-                  <Button
-                    className="readMore"
-                    id={`readMore${id}`}
-                    onClick={handleReadMore}
-                    style={{ float: "right" }}
-                  >
-                    Read more
-                  </Button>
-                </>
-              )}
+            <div>
+              <SelfPost flair={postFlair} title={threadTitle} text={selfText} />
             </div>
           )}
 
