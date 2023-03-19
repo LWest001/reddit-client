@@ -31,11 +31,12 @@ h1 {
   font-family: "Noto Sans", sans-serif;
   align-items: center;
   height: 100%;
-  margin-top: 3rem !important;
-  padding: 4rem 0;
+  margin-top: calc(var(--appbar-height) + 0.5rem) !important;
+  /* padding: 4rem 0; */
+  max-width:30rem !important;
 }
-.ErrorPage button {
-  font-size: 1.5rem;
+.ErrorPage a {
+  margin-bottom: 1rem
 }
 
 .errorText {
