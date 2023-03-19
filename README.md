@@ -1,4 +1,4 @@
-# Reddit Client
+# rLite Reddit Client
 
 **Live production build here: https://reddit-lw.netlify.app/**
 
