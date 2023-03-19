@@ -1,7 +1,10 @@
 import { Box } from "@mui/material";
+import { useContext } from "react";
+import { ThreadTitleContext } from "../ThreadCard";
 import ThreadTitle from "../ThreadTitle";
 
-function GalleryWrapper({gallery, threadTitle, thumbnail}) {
+function GalleryWrapper({ gallery, thumbnail }) {
+  const threadTitle = useContext(ThreadTitleContext)
   return (
     <Box className="GalleryWrapper">
       <a href={gallery} target="_blank">
@@ -14,7 +17,7 @@ function GalleryWrapper({gallery, threadTitle, thumbnail}) {
           View gallery ➡️
         </Box>
       </a>
-      <ThreadTitle title={threadTitle} />
+      <ThreadTitle />
     </Box>
   );
 }

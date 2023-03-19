@@ -1,12 +1,16 @@
 import { Box } from "@mui/material";
+import { useContext } from "react";
 import { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImageModal from "../../../components/ImageModal/ImageModal";
+import { ThreadTitleContext } from "../ThreadCard";
 
-function ImageWrapper({ image, threadTitle, link }) {
+function ImageWrapper({ image, link }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+
+  const threadTitle=useContext(ThreadTitleContext)
   return (
     <Box
       className="ImageWrapper"
@@ -27,7 +31,6 @@ function ImageWrapper({ image, threadTitle, link }) {
         open={openModal}
         image={image.fullSizeImage}
         handleClose={handleCloseModal}
-        title={threadTitle}
         link={link}
       />
     </Box>

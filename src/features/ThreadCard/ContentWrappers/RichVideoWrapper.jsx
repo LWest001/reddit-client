@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
-import { LazyLoadComponent } from "react-lazy-load-image-component";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import VideoPlaceholder from "./VideoPlaceholder";
 import replaceEntities from "../../../functions/replaceEntities";
 import LazyLoad from "react-lazy-load";
 
-function RichVideoWrapper({ richVideo, thumbnail }) {
+function RichVideoWrapper({ richVideo}) {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   return (

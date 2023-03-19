@@ -4,8 +4,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FlairBox from "../FlairBox";
 import theme from "../../../assets/theme";
 import ThreadTitle from "../ThreadTitle";
+import { useContext } from "react";
+import { ThreadTitleContext } from "../ThreadCard";
 
-function SelfPostWrapper({ text, title, flair }) {
+function SelfPostWrapper({ text, flair }) {
+const title = useContext(ThreadTitleContext)
+
   const bodyTextHTML = parseMarkdownText(text);
   const defaultFlair = {
     text: "Text post",
@@ -34,7 +38,6 @@ function SelfPostWrapper({ text, title, flair }) {
       <ThreadTitle
         className="SelfPostWrapper"
         flair={flair?.text ? flair : defaultFlair}
-        title={title}
       />
     );
   }

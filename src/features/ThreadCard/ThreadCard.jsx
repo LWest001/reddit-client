@@ -1,5 +1,5 @@
 // Library imports
-import { useEffect } from "react";
+import { createContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,6 @@ import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
 
 // Component imports
-import Embed, { defaultProviders } from "react-tiny-oembed";
 import SubredditLink from "../../components/SubredditLink";
 import ThreadCardSubheader from "./ThreadCardSubheader";
 import ThreadTitle from "./ThreadTitle";
@@ -41,11 +40,12 @@ import LinkPostWrapper from "./ContentWrappers/LinkPostWrapper";
 import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
 import GalleryWrapper from "./ContentWrappers/GalleryWrapper";
 import DashVideoWrapper from "./ContentWrappers/DashVideoWrapper";
-import { LazyLoadComponent } from "react-lazy-load-image-component";
 import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 
 import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
+
+export const ThreadTitleContext = createContext("threadTitle");
 
 const ThreadCard = ({
   author,
@@ -105,53 +105,52 @@ const ThreadCard = ({
           />
         }
       />
-
-      <CardContent className="threadPreview">
-        {["image", "video", "richVideo"].includes(threadType) && (
-          <ThreadTitle title={threadTitle} flair={postFlair} />
-        )}
-
-        <Box className="threadContentPreview">
-          {threadType == "image" && (
-            <ImageWrapper image={image} threadTitle={threadTitle} link={link} />
+      <ThreadTitleContext.Provider value={threadTitle}>
+        <CardContent className="threadPreview">
+          {["image", "video", "richVideo"].includes(threadType) && (
+            <ThreadTitle flair={postFlair} />
           )}
 
-          {threadType == "gallery" && (
-            <GalleryWrapper
-              gallery={gallery}
-              threadTitle={threadTitle}
-              thumbnail={thumbnail}
-            />
-          )}
+          <Box className="threadContentPreview">
+            {threadType == "image" && (
+              <ImageWrapper image={image} link={link} />
+            )}
 
-          {threadType === "link" && (
-            <LinkPostWrapper
-              url={url}
-              thumbnail={thumbnail}
-              threadTitle={threadTitle}
-            />
-          )}
+            {threadType == "gallery" && (
+              <GalleryWrapper
+                gallery={gallery}
+                thumbnail={thumbnail}
+              />
+            )}
 
-          {threadType == "video" && (
-            <DashVideoWrapper
-              video={video}
-              previewUrl={image.previewSizeImage.url}
-            />
-          )}
+            {threadType === "link" && (
+              <LinkPostWrapper
+                url={url}
+                thumbnail={thumbnail}
+              />
+            )}
 
-          {threadType === "self" && (
-            <SelfPostWrapper
-              flair={postFlair}
-              title={threadTitle}
-              text={selfText}
-            />
-          )}
+            {threadType == "video" && (
+              <DashVideoWrapper
+                video={video}
+                previewUrl={image.previewSizeImage.url}
+              />
+            )}
 
-          {threadType === "richVideo" && (
-            <RichVideoWrapper richVideo={richVideo} thumbnail={thumbnail} />
-          )}
-        </Box>
-      </CardContent>
+            {threadType === "self" && (
+              <SelfPostWrapper
+                flair={postFlair}
+                
+                text={selfText}
+              />
+            )}
+
+            {threadType === "richVideo" && (
+              <RichVideoWrapper richVideo={richVideo} />
+            )}
+          </Box>
+        </CardContent>
+      </ThreadTitleContext.Provider>
       <Stack
         className="threadFooter"
         direction="row"

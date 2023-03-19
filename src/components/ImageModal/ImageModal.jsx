@@ -5,6 +5,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { selectThreadStatus } from "../../features/Thread/threadSlice";
+import { useContext } from "react";
+import { ThreadTitleContext } from "../../features/ThreadCard/ThreadCard";
 
 const style = {
   position: "absolute",
@@ -20,8 +22,9 @@ const style = {
   maxHeight: "100%",
 };
 
-function ImageModal({ open, handleClose, title, link, image }) {
+function ImageModal({ open, handleClose, link, image }) {
   const dispatch = useDispatch();
+  const title = useContext(ThreadTitleContext);
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -64,19 +67,5 @@ function ImageModal({ open, handleClose, title, link, image }) {
     </Modal>
   );
 }
-
-/*
-<Link
-        to={`/${link.substring(19)}`}
-        onClick={() => {
-          dispatch(
-            setModal({ image: "", title: "", link: "", display: false })
-          );
-          dispatch(setStatus("idle"));
-        }}
-      >
-        <div className="modalButton commentBubble"></div>
-      </Link>
-*/
 
 export default ImageModal;
