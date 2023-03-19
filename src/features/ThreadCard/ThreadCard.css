@@ -66,7 +66,6 @@
 }
 
 .ThreadCard .threadPreview .thumbnail {
-  width: 96px;
   float: left;
   border-radius: var(--radius);
   margin-right: 0.5rem;
