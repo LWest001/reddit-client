@@ -45,6 +45,7 @@ import { LazyLoadComponent } from "react-lazy-load-image-component";
 import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 
 import theme from "../../assets/theme";
+import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 
 const ThreadCard = ({
   author,
@@ -90,11 +91,18 @@ const ThreadCard = ({
         }
         title={
           cardType !== "subreddit" && (
-            <SubredditLink subredditName={subredditName} type="text" />
+            <ThreadCardHeaderTitle
+              subredditName={subredditName}
+              timestamp={timestamp}
+            />
           )
         }
         subheader={
-          <ThreadCardSubheader author={author} timestamp={timestamp} />
+          <ThreadCardSubheader
+            author={author}
+            timestamp={timestamp}
+            cardType={cardType}
+          />
         }
       />
 

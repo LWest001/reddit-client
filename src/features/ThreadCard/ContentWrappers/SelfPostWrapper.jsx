@@ -20,8 +20,10 @@ function SelfPostWrapper({ text, title, flair }) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          {<FlairBox flair={flair?.text ? flair : defaultFlair} />}
-          {title}
+          <div>
+            {<FlairBox flair={flair?.text ? flair : defaultFlair} />}
+            <span className="threadTitle">{title}</span>
+          </div>
         </AccordionSummary>
 
         <AccordionDetails>{bodyTextHTML}</AccordionDetails>

@@ -1,11 +1,10 @@
-import {Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
-function ThreadCardSubheader({ author, timestamp }) {
+function ThreadCardSubheader({ author, timestamp, cardType }) {
   return (
     <Stack direction="row" sx={{ justifyContent: "space-between" }}>
       <Typography>Posted by u/{author}</Typography>
-      
-      <Typography>{timestamp}</Typography>
+      {(cardType === "subreddit" && <Typography>{timestamp}</Typography>)}
     </Stack>
   );
 }

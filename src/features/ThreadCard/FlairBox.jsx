@@ -1,4 +1,5 @@
 import { Avatar, Box } from "@mui/material";
+import replaceEntities from "../../functions/replaceEntities";
 
 function FlairBox({ flair }) {
   const textColor = flair.textColor === "light" ? "white" : "black";
@@ -8,7 +9,7 @@ function FlairBox({ flair }) {
         className="postFlair"
         style={{ backgroundColor: flair?.backgroundColor, color: textColor }}
       >
-        {flair?.text}
+        {replaceEntities(flair?.text)}
       </span>
     </Box>
   );
