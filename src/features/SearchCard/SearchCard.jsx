@@ -1,4 +1,3 @@
-import "./SearchCard.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,6 @@ import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import theme from "../../assets/theme";
 
 import {
   Box,
@@ -116,7 +114,13 @@ const SearchCard = ({
               <Typography>{threadTitle}</Typography>
             </Box>
 
-            <img className="thumbnail" src={thumbnail} alt="Thumbnail" />
+            <img
+              className="thumbnail"
+              src={thumbnail}
+              alt="Thumbnail"
+              width="96px"
+              height="auto"
+            />
           </Stack>
         </Link>
       </CardContent>

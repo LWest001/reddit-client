@@ -151,6 +151,7 @@ const ThreadCard = ({
           justifyContent: "space-between",
           alignItems: "center",
           background: theme.palette.headerGradient.default,
+          width: "100%",
         }}
       >
         {cardType !== "thread" && (

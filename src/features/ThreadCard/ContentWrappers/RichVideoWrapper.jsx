@@ -5,7 +5,6 @@ import replaceEntities from "../../../functions/replaceEntities";
 import LazyLoad from "react-lazy-load";
 
 function RichVideoWrapper({ richVideo}) {
-  const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   return (
     <Box

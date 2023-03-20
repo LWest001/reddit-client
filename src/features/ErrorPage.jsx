@@ -21,20 +21,25 @@ const ErrorPage = () => {
       className="ErrorPage"
       sx={{ background: theme.palette.headerGradient.default }}
     >
-      <CardContent>
-        <Stack direction="row" sx={{ alignItems: "center", gap: 1, m: 2 }}>
+      <CardContent
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <Stack direction="row" sx={{ alignItems: "center", gap: 2, m: 2 }}>
           <img src={errorLogo} width="100px" />
-          <Typography className="errorText" fontSize="2rem" textAlign="start">
+          <Typography className="errorText" fontSize="1.5rem" textAlign="start">
             Oops! We have encountered an error.
           </Typography>
         </Stack>
+        <Button
+          variant="contained"
+          component={Link}
+          to="/"
+          onClick={() => dispatch(setStatus("idle"))}
+          sx={{ width: "fit-content" }}
+        >
+          Return home
+        </Button>
       </CardContent>
-      <Button
-      variant="contained"
-        component={Link}
-        to="/"
-        onClick={() => dispatch(setStatus("idle"))}
-      >Return home</Button>
     </Card>
   );
 };

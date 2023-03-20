@@ -1,4 +1,3 @@
-import { Avatar, Box } from "@mui/material";
 import { useContext } from "react";
 import theme from "../../assets/theme";
 import replaceEntities from "../../functions/replaceEntities";

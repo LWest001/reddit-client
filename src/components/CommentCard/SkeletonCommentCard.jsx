@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardContent,
 } from "@mui/material";
-import CommentHeaderText from "./CommentHeaderText";
 function SkeletonCommentCard() {
   return (
     <Card raised={true} className={`skeleton CommentCard`}>

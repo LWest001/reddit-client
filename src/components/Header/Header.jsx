@@ -7,7 +7,6 @@ import {
 import SortSelector from "../SortSelector/SortSelector";
 import {
   setStatus as setHomepageStatus,
-  selectQuery,
 } from "../../features/ThreadList/threadListSlice";
 import SearchBar from "../SearchBar";
 
@@ -79,11 +78,6 @@ const Header = () => {
               </Typography>
             </Stack>
           </Button>
-          {/*
-            <IconButton size="large">
-              <MenuIcon variant="headerIcon"/>
-            </IconButton>
-          */}
           <SortSelector />
         </Stack>
         <SearchBar handleSubmit={handleSubmit} />

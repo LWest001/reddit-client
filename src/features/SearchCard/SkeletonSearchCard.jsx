@@ -4,7 +4,6 @@ import {
   Stack,
   CardHeader,
   CardContent,
-  Box,
 } from "@mui/material";
 
 function SkeletonSearchCard() {
@@ -41,43 +40,7 @@ function SkeletonSearchCard() {
             <Skeleton animation="wave" variant="text" width={80} />
           </Stack>
         }
-        subheader={
-          <Stack
-            className="SearchStats"
-            direction="row"
-            gap={1}
-            sx={{
-              alignItems: "center",
-            }}
-          >
-            <Stack direction="row" gap={1} sx={{alignItems:"center"}}>
-              <Skeleton
-                variant="rounded"
-                width="20px"
-                height="20px"
-                animation="wave"
-              />{" "}
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width={50}
-                height="30px"
-              />
-              <Skeleton
-                variant="rounded"
-                width="20px"
-                height="20px"
-                animation="wave"
-              />{" "}
-              <Skeleton
-                animation="wave"
-                variant="text"
-                width={50}
-                height="30px"
-              />
-            </Stack>
-          </Stack>
-        }
+        subheader={<Skeleton variant="text" width={200} animation="wave" />}
         sx={{
           borderRadius: 0,
           p: 0.5,

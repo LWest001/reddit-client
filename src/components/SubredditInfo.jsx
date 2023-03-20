@@ -2,16 +2,7 @@ import { useEffect, useState } from "react";
 import parseMarkdownText from "../functions/parseMarkdownText";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import {
-  Box,
-  Skeleton,
-  Typography,
-  Card,
-  Stack,
-  CardHeader,
-  CardContent,
-  Avatar,
-} from "@mui/material";
+import { Skeleton, Card, CardHeader, CardContent, Avatar } from "@mui/material";
 import DefaultIcon from "/logoTransparent.png";
 import replaceEntities from "../functions/replaceEntities";
 
@@ -42,7 +33,7 @@ function SubredditInfo() {
         justifyContent: "space-between",
         mt: "calc(var(--appbar-height) + 0.5rem)",
         minHeight: "min-content",
-        color:"white"
+        color: "white",
       }}
     >
       <CardHeader
@@ -53,7 +44,11 @@ function SubredditInfo() {
         avatar={
           subredditInfo ? (
             <Avatar
-              src={subredditInfo.icon_img || DefaultIcon}
+              src={
+                subredditInfo.icon_img ||
+                subredditInfo.header_img ||
+                DefaultIcon
+              }
               sx={{ bgcolor: "white" }}
             />
           ) : (

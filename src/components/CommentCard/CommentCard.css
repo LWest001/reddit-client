@@ -4,8 +4,3 @@
   text-decoration: underline;
   color: blue;
 }
-
-/* Skeleton */
-.skeleton.CommentCard:first-child {
-  margin-top: calc(var(--appbar-height) + 0.5rem);
-}

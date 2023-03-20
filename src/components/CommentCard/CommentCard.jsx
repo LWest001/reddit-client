@@ -10,7 +10,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Typography,
 } from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
 

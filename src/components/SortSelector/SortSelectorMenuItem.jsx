@@ -1,4 +1,4 @@
-import { MenuItem, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 function SortSelectorMenuItem({ icon, text }) {
   return (

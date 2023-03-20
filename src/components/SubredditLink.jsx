@@ -23,6 +23,9 @@ function SubredditLink({ subredditName, type, cardType }) {
         to={`/r/${subredditName}`}
         onClick={handleClick}
         className={`subredditIcon ${cardType}`}
+        sx={{
+          background: "linear-gradient(45deg, rgba(0, 0, 255, 0.267), white)",
+        }}
       />
     );
   }

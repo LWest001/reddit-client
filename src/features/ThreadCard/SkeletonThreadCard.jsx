@@ -2,7 +2,6 @@ import "./ThreadCard.css";
 import {
   Skeleton,
   Card,
-  Box,
   CardHeader,
   CardContent,
   Stack,
