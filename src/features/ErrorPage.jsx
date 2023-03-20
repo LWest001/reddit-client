@@ -1,14 +1,7 @@
 import { Link, useRouteError } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setStatus } from "./ThreadList/threadListSlice";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
 import errorLogo from "/errorLogo.svg";
 import theme from "../assets/theme";
 

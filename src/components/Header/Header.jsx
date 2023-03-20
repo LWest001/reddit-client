@@ -1,13 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Link as RouterLink,
   useNavigate,
   createSearchParams,
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
-import {
-  setStatus as setHomepageStatus,
-} from "../../features/ThreadList/threadListSlice";
+import { setStatus as setHomepageStatus } from "../../features/ThreadList/threadListSlice";
 import SearchBar from "../SearchBar";
 
 import {

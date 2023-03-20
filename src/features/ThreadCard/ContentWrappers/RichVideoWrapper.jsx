@@ -4,7 +4,7 @@ import VideoPlaceholder from "./VideoPlaceholder";
 import replaceEntities from "../../../functions/replaceEntities";
 import LazyLoad from "react-lazy-load";
 
-function RichVideoWrapper({ richVideo}) {
+function RichVideoWrapper({ richVideo }) {
   const screenHeight = window.innerHeight;
   return (
     <Box

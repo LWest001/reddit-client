@@ -176,4 +176,5 @@ const ThreadCard = ({
     </Card>
   );
 };
+
 export default ThreadCard;

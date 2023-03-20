@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import SubredditLink from "../../components/SubredditLink";
 
-function SearchCardHeaderTitle({ subredditName, author, timestamp }) {
+function SearchCardHeaderTitle({ subredditName, timestamp }) {
   return (
     <Stack direction="row" sx={{ justifyContent: "space-between" }}>
       <SubredditLink subredditName={subredditName} type="text" />

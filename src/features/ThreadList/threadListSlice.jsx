@@ -49,9 +49,8 @@ export const fetchThreadsList = createAsyncThunk(
 
 export const fetchIcon = createAsyncThunk(
   "threadList/fetchIcon",
-  async (subredditName, state) => {
+  async (subredditName) => {
     let icon;
-    const icons = state.getState().threadList.icons;
     const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
     const response = await axios.get(URL, {
       headers: "Access-Control-Allow-Origin",

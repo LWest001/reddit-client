@@ -105,7 +105,6 @@ const SearchCard = ({
           to={`/${link.substring(19)}`}
           onClick={() => {
             dispatch(setThreadStatus("idle"));
-            dispatch(setPermalink(link));
           }}
         >
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>

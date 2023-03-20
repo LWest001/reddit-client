@@ -1,5 +1,5 @@
 const isiOS = () => {
-  if (typeof window === `undefined` || typeof navigator === `undefined`)
+  if (typeof window === "undefined" || typeof navigator === "undefined")
     return false;
 
   return /iPhone|iPad|iPod/i.test(navigator.userAgent);

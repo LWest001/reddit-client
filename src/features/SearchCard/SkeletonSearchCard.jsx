@@ -1,10 +1,4 @@
-import {
-  Skeleton,
-  Card,
-  Stack,
-  CardHeader,
-  CardContent,
-} from "@mui/material";
+import { Skeleton, Card, Stack, CardHeader, CardContent } from "@mui/material";
 
 function SkeletonSearchCard() {
   return (

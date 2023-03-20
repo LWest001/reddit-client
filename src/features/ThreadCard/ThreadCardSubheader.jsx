@@ -4,7 +4,7 @@ function ThreadCardSubheader({ author, timestamp, cardType }) {
   return (
     <Stack direction="row" sx={{ justifyContent: "space-between" }}>
       <Typography>Posted by u/{author}</Typography>
-      {(cardType === "subreddit" && <Typography>{timestamp}</Typography>)}
+      {cardType === "subreddit" && <Typography>{timestamp}</Typography>}
     </Stack>
   );
 }

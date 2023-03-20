@@ -15,7 +15,7 @@ function SearchFlair({ threadType }) {
   } else if (threadType === "self") {
     settings.text = "Text";
     settings.bgcolor = "plum";
-  } else if (threadType === "link") {
+  } else if (threadType === "gallery") {
     settings.text = "Gallery";
     settings.bgcolor = "palegreen";
   } else if (threadType === "video") {
@@ -25,7 +25,7 @@ function SearchFlair({ threadType }) {
 
   return (
     <Typography
-      sx={{ bgcolor: settings.bgcolor, mr: 1, fontWeight: "bold"}}
+      sx={{ bgcolor: settings.bgcolor, mr: 1, fontWeight: "bold" }}
       className="postFlair"
     >
       {settings.text}

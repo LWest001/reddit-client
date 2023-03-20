@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Layout from "../components/Layout";
 import {
   selectThreadsStatus,
-
   setStatus,
 } from "../features/ThreadList/threadListSlice";
 import ErrorPage from "../features/ErrorPage";
@@ -25,7 +24,7 @@ function App() {
       <BottomScrollListener onBottom={loadMoreItems} offset={5000} />
       <Layout />
       {status === "failed" && <ErrorPage />}
-      
+
       <ScrollRestoration />
     </>
   );

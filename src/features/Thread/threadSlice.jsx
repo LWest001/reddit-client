@@ -55,7 +55,7 @@ const threadSlice = createSlice({
         if (action.meta.arg.requestType === "thread") {
           state.status = "loading";
         } else if (action.meta.arg.requestType === "subreplies") {
-          state.status = `loading-subreplies`;
+          state.status = "loading-subreplies";
         }
       })
       .addCase(fetchThread.fulfilled, (state, action) => {

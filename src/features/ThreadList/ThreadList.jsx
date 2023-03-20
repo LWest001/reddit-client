@@ -22,7 +22,6 @@ import useFetchThreads from "../../functions/useFetchThreads";
 import selectImagePreview from "../../functions/selectImagePreview";
 
 const ThreadList = ({ view }) => {
-
   //   Selectors
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
@@ -30,7 +29,7 @@ const ThreadList = ({ view }) => {
 
   // Set title
   if (view === "homepage") {
-    document.title = `rLite | Home `;
+    document.title = "rLite | Home ";
   } else if (view === "searchResults") {
     document.title = `rLite | Search results: ${query}`;
   }

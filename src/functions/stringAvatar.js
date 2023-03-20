@@ -27,11 +27,11 @@ function stringAvatar(name) {
       width: "1.4rem",
       color: "white",
       justifyContent: "start",
-      padding:".3rem",
+      padding: ".3rem",
       textShadow:
         "-1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;",
       wordBreak: "keep-all",
-      cursor:"pointer",
+      cursor: "pointer",
       ":hover": {
         transition: "width .25s ease-out",
       },

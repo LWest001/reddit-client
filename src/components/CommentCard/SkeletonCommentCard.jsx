@@ -1,14 +1,7 @@
-import {
-  Box,
-  Card,
-  Skeleton,
-  Stack,
-  CardHeader,
-  CardContent,
-} from "@mui/material";
+import { Card, Skeleton, Stack, CardHeader, CardContent } from "@mui/material";
 function SkeletonCommentCard() {
   return (
-    <Card raised={true} className={`skeleton CommentCard`}>
+    <Card raised={true} className={"skeleton CommentCard"}>
       <CardHeader
         className="commentHeader"
         variant="commentCard"
@@ -21,7 +14,11 @@ function SkeletonCommentCard() {
           />
         }
         title={
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Skeleton
               animation="wave"
               variant="text"
@@ -38,12 +35,8 @@ function SkeletonCommentCard() {
         }
       />
 
-      <CardContent sx={{p:"0.5rem !important"}}>
-        <Skeleton
-          animation="wave"
-          variant="text"
-          height="3rem"
-        />
+      <CardContent sx={{ p: "0.5rem !important" }}>
+        <Skeleton animation="wave" variant="text" height="3rem" />
       </CardContent>
     </Card>
   );

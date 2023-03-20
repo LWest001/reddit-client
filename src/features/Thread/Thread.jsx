@@ -15,7 +15,6 @@ import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCar
 import selectImagePreview from "../../functions/selectImagePreview";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { Box, Card, Typography } from "@mui/material";
-import { flexbox } from "@mui/system";
 
 const Thread = () => {
   const dispatch = useDispatch();
@@ -91,7 +90,7 @@ const Thread = () => {
     });
   } else {
     comments = (
-      <Card sx={{ display: "flex", alignItems: "center", p: 4, }}>
+      <Card sx={{ display: "flex", alignItems: "center", p: 4 }}>
         <Typography>No comments yet!</Typography>
       </Card>
     );

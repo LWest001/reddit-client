@@ -41,7 +41,7 @@ function CommentCard({
   let subcomments;
 
   function handleReadMore(children, e) {
-    setTimeout(() => e.target.remove(), 500);
+    e.target.remove();
     e.target.disabled = true;
     e.target.style.textDecoration = "none";
     e.target.style.cursor = "wait";

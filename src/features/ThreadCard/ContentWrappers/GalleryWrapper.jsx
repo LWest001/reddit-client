@@ -7,7 +7,7 @@ function GalleryWrapper({ gallery, thumbnail }) {
   const { threadTitle } = useContext(ThreadContentContext);
   return (
     <Box className="GalleryWrapper">
-      <a href={gallery} target="_blank">
+      <a href={gallery} target="_blank" rel="noreferrer">
         <Box className="galleryThumbnailBox">
           <img
             className="thumbnail"
