@@ -23,6 +23,7 @@ function FlairBox() {
           backgroundColor:
             flair?.backgroundColor || theme.palette.primary.light,
           color: flair?.backgroundColor ? textColor : "white",
+          
         }}
       >
         {replaceEntities(flair?.text)}

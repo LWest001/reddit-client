@@ -20,12 +20,9 @@ function ImageWrapper({ image, link }) {
         src={image.previewSizeImage.url}
         height={image.previewSizeImage.height}
         width={image.previewSizeImage.width}
-        // placeholderSrc={image.placeholderImage.url}
-        // effect="blur"
         alt={`Image for thread: ${threadTitle}`}
         className="previewImage"
         onClick={handleOpenModal}
-        // threshold={2000}
       />
       <ImageModal
         open={openModal}

@@ -150,7 +150,7 @@ const ThreadCard = ({
           px: 1,
           justifyContent: "space-between",
           alignItems: "center",
-          bgcolor: theme.palette.headerGradient.default,
+          background: theme.palette.headerGradient.default,
         }}
       >
         {cardType !== "thread" && (

@@ -8,6 +8,8 @@ import {
   Stack,
 } from "@mui/material";
 
+import theme from "../../assets/theme";
+
 const SkeletonThreadCard = () => {
   return (
     <Card className="SkeletonThreadCard">
@@ -49,6 +51,7 @@ const SkeletonThreadCard = () => {
           p: 1,
           justifyContent: "space-between",
           alignItems: "center",
+          background: theme.palette.headerGradient.default
         }}
       >
         <Skeleton

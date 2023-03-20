@@ -22,29 +22,28 @@ function SkeletonCommentCard() {
           />
         }
         title={
-          <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Skeleton
               animation="wave"
               variant="text"
               width={100}
-              className="timestamp skeletonContent"
+              height="30px"
             />
             <Skeleton
               animation="wave"
               variant="text"
               width={100}
-              className="timestamp skeletonContent"
+              height="30px"
             />
           </Stack>
         }
       />
 
-      <CardContent>
+      <CardContent sx={{p:"0.5rem !important"}}>
         <Skeleton
           animation="wave"
           variant="text"
-          // sx={{ width: "100%", mx: 1 }}
-          className="commentBodyText skeletonContent"
+          height="3rem"
         />
       </CardContent>
     </Card>
