@@ -68,33 +68,9 @@ const threadListSlice = createSlice({
   name: "threadList",
   initialState,
   reducers: {
-    setQuery: {
-      reducer(state, action) {
-        state.query = action.payload;
-      },
-    },
     setStatus: {
       reducer(state, action) {
         state.status = action.payload;
-      },
-    },
-
-    setThreads: {
-      reducer(state, action) {
-        state.threads = action.payload;
-      },
-    },
-    setView: {
-      reducer(state, action) {
-        state.view = action.payload;
-      },
-    },
-    setIcons: {
-      reducer(state, action) {
-        const { subredditName } = action.payload;
-        if (!Object.hasOwn(state.icons, subredditName)) {
-          state.icons[subredditName] = action.payload.icon;
-        }
       },
     },
   },
@@ -129,6 +105,8 @@ const threadListSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(fetchIcon.pending, (state, action) => {
+        const subredditName = action.meta.arg;
+        state.icons[subredditName] = "loading";
       })
       .addCase(fetchIcon.fulfilled, (state, action) => {
         const { subredditName, icon } = action.payload;
@@ -147,11 +125,5 @@ export const selectQuery = (state) => state.threadList.query;
 export const selectIcons = (state) => state.threadList.icons;
 export const selectAfter = (state) => state.threadList.after;
 
-export const {
-  setStatus,
-  setQuery,
-  setIcons,
-  setAfter,
-  setThreads,
-} = threadListSlice.actions;
+export const { setStatus } = threadListSlice.actions;
 export default threadListSlice.reducer;

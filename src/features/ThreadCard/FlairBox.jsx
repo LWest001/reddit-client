@@ -1,5 +1,6 @@
+import { Typography } from "@mui/material";
 import { useContext } from "react";
-import theme from "../../assets/theme";
+
 import replaceEntities from "../../functions/replaceEntities";
 import { ThreadContentContext } from "./ThreadCard";
 
@@ -8,26 +9,23 @@ function FlairBox() {
   if (!flair?.text) {
     flair = {
       text: "Text post",
-      backgroundColor: theme.palette.primary.main,
+      bgcolor: "primary.main",
       textColor: "light",
     };
   }
 
   const textColor = flair.textColor === "light" ? "white" : "black";
   return (
-    
-      <span
-        className="postFlair"
-        style={{
-          backgroundColor:
-            flair?.backgroundColor || theme.palette.primary.light,
-          color: flair?.backgroundColor ? textColor : "white",
-          
-        }}
-      >
-        {replaceEntities(flair?.text)}
-      </span>
-
+    <Typography
+      className="postFlair"
+      sx={{
+        bgcolor: flair?.backgroundColor || "primary.light",
+        color: flair?.backgroundColor ? textColor : "white",
+        mr: 1,
+      }}
+    >
+      {replaceEntities(flair?.text)}
+    </Typography>
   );
 }
 

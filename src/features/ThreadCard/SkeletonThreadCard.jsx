@@ -1,11 +1,5 @@
 import "./ThreadCard.css";
-import {
-  Skeleton,
-  Card,
-  CardHeader,
-  CardContent,
-  Stack,
-} from "@mui/material";
+import { Skeleton, Card, CardHeader, CardContent, Stack } from "@mui/material";
 
 import theme from "../../assets/theme";
 
@@ -17,8 +11,8 @@ const SkeletonThreadCard = () => {
         avatar={
           <Skeleton
             variant="circular"
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             animation="wave"
           />
         }
@@ -50,7 +44,7 @@ const SkeletonThreadCard = () => {
           p: 1,
           justifyContent: "space-between",
           alignItems: "center",
-          background: theme.palette.headerGradient.default
+          background: theme.palette.headerGradient.default,
         }}
       >
         <Skeleton
@@ -60,9 +54,14 @@ const SkeletonThreadCard = () => {
           width="220px"
         />
 
-        <Stack direction="row" gap={1} sx={{alignItems:"center"}}>
-          <Skeleton animation="wave" variant="rounded" width={20} height="1rem" />
-          <Skeleton animation="wave" variant="text" width={100}/>
+        <Stack direction="row" gap={1} sx={{ alignItems: "center" }}>
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width={20}
+            height="1rem"
+          />
+          <Skeleton animation="wave" variant="text" width={100} />
         </Stack>
       </Stack>
     </Card>

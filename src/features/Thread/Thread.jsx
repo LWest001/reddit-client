@@ -14,7 +14,8 @@ import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
 import selectImagePreview from "../../functions/selectImagePreview";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { Box } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
+import { flexbox } from "@mui/system";
 
 const Thread = () => {
   const dispatch = useDispatch();
@@ -62,30 +63,39 @@ const Thread = () => {
       video={threadData.video}
     />
   );
+  let comments;
 
-  const comments = commentsData.map((comment) => {
-    if (comment.kind === "more") {
+  if (commentsData.length) {
+    comments = commentsData.map((comment) => {
+      if (comment.kind === "more") {
+        return (
+          <button key={comment.data.id} id={comment.data.id}>
+            Read more comments
+          </button>
+        );
+      }
+      const { data } = comment;
       return (
-        <button key={comment.data.id} id={comment.data.id}>
-          Read more comments
-        </button>
+        <CommentCard
+          author={data.author}
+          body={data.body_html}
+          id={data.id}
+          indexTree={[data.index]}
+          key={data.id}
+          replies={data.replies}
+          score={data.ups}
+          timestamp={getTimeStamp(data.created_utc)}
+          type={"top-level-comment"}
+        />
       );
-    }
-    const { data } = comment;
-    return (
-      <CommentCard
-        author={data.author}
-        body={data.body_html}
-        id={data.id}
-        indexTree={[data.index]}
-        key={data.id}
-        replies={data.replies}
-        score={data.ups}
-        timestamp={getTimeStamp(data.created_utc)}
-        type={"top-level-comment"}
-      />
+    });
+  } else {
+    comments = (
+      <Card sx={{ display: "flex", alignItems: "center", p: 4, }}>
+        <Typography>No comments yet!</Typography>
+      </Card>
     );
-  });
+  }
 
   useEffect(() => {
     if (threadStatus === "idle") {

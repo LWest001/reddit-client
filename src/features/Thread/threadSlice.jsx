@@ -19,7 +19,6 @@ export const fetchThread = createAsyncThunk(
       sortType = "hot",
       requestType = "thread",
       indexTree,
-
     } = options;
     let comments;
     let URL = `${link}.json`;
@@ -30,7 +29,7 @@ export const fetchThread = createAsyncThunk(
     const threadData = response.data[0].data.children[0].data;
 
     comments = response.data[1].data.children;
-    return { threadData, comments, requestType, indexTree};
+    return { threadData, comments, requestType, indexTree };
   }
 );
 
@@ -48,11 +47,6 @@ const threadSlice = createSlice({
         state.threadData = action.payload;
       },
     },
-    setComments: {
-      reducer(state, action) {
-        state.comments = action.payload;
-      },
-    },
   },
 
   extraReducers(builder) {
@@ -66,13 +60,11 @@ const threadSlice = createSlice({
       })
       .addCase(fetchThread.fulfilled, (state, action) => {
         state.status = "succeeded";
-        let {
-          threadData,
-          comments,
-          requestType,
-          indexTree,
-        } = action.payload;
-        let subreplyId = comments[0].data.id;
+        let { threadData, comments, requestType, indexTree } = action.payload;
+        let subreplyId;
+        if (comments.length) {
+          subreplyId = comments[0].data.id;
+        }
         const threadType = getThreadType(threadData);
 
         if (requestType === "thread") {
@@ -131,10 +123,5 @@ export const selectThreadData = (state) => state.thread.threadData;
 export const selectThreadStatus = (state) => state.thread.status;
 export const selectAllComments = (state) => state.thread.comments;
 
-export const {
-  setStatus,
-  setThreadData,
-  setComments,
-  setSpecificComment,
-} = threadSlice.actions;
+export const { setStatus, setThreadData } = threadSlice.actions;
 export default threadSlice.reducer;

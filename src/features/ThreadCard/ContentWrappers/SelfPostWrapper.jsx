@@ -2,7 +2,6 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import parseMarkdownText from "../../../functions/parseMarkdownText";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FlairBox from "../FlairBox";
-import theme from "../../../assets/theme";
 import ThreadTitle from "../ThreadTitle";
 import { useContext } from "react";
 import { ThreadContentContext } from "../ThreadCard";
@@ -15,7 +14,7 @@ function SelfPostWrapper({ text }) {
   if (!flair) {
     flair = {
       text: "Text post",
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: "primary.main",
       textColor: "light",
     };
   }
