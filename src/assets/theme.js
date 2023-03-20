@@ -48,7 +48,7 @@ theme = createTheme(theme, {
         root: {
           borderRadius: "calc(var(--radius) + var(--border));",
           margin: "5px auto",
-          width: "100%"
+          width: "100%",
         },
       },
     },

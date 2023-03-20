@@ -1,8 +1,8 @@
 /* Global */
 
-.ThreadList .LazyLoad:first-child,
+.ThreadList .LazyLoad:first-of-type,
 .Thread .ThreadCard,
-.Thread .SkeletonThreadCard {
+.SkeletonThreadCard:first-of-type {
   margin-top: calc(var(--appbar-height) + 0.5rem) !important;
 }
 

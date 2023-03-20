@@ -22,6 +22,7 @@ import useFetchThreads from "../../functions/useFetchThreads";
 import selectImagePreview from "../../functions/selectImagePreview";
 
 const ThreadList = ({ view }) => {
+
   //   Selectors
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
@@ -101,18 +102,18 @@ const ThreadList = ({ view }) => {
     if (view === "searchResults") {
       return (
         <Box>
-          <SkeletonSearchCard animation="wave" />
-          <SkeletonSearchCard animation="wave" />
-          <SkeletonSearchCard animation="wave" />
-          <SkeletonSearchCard animation="wave" />
-          <SkeletonSearchCard animation="wave" />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
+          <SkeletonSearchCard />
         </Box>
       );
     }
     return (
       <Box>
-        <SkeletonThreadCard animation="wave" />
-        <SkeletonThreadCard animation="wave" />
+        <SkeletonThreadCard />
+        <SkeletonThreadCard />
       </Box>
     );
   };

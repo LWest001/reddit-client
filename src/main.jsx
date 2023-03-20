@@ -36,7 +36,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
       />
       <Route
-        path="search/:sortType?"
+        path="search"
         element={<ThreadList view="searchResults" />}
         errorElement={<ErrorPage />}
       />

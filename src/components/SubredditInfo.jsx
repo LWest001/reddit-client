@@ -87,9 +87,7 @@ function SubredditInfo() {
         }}
       >
         {subredditInfo.public_description ? (
-          <Typography className="subredditDescription" sx={{ color: "white" }}>
-            {parseMarkdownText(subredditInfo.public_description)}
-          </Typography>
+          parseMarkdownText(subredditInfo.public_description)
         ) : (
           <Skeleton
             variant="text"

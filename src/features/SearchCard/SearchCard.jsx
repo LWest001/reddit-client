@@ -58,7 +58,6 @@ const SearchCard = ({
         ":last-of-type": {
           borderBottomLeftRadius: "calc(var(--radius) + var(--border))",
           borderBottomRightRadius: "calc(var(--radius) + var(--border))",
-          marginTop: "calc(var(--appbar-height) + 0.5rem)",
         },
       }}
     >

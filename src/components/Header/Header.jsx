@@ -13,17 +13,12 @@ import SearchBar from "../SearchBar";
 
 import {
   AppBar,
-  IconButton,
   Toolbar,
-  Box,
-  SvgIcon,
   Icon,
   Button,
   Typography,
   Stack,
 } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "/logoTransparent.png";
 
 const Header = () => {
@@ -46,8 +41,6 @@ const Header = () => {
       search: `?${createSearchParams(params)}`,
     });
     window.scrollTo(0, 0);
-    // document.querySelector("#searchInput").blur();
-
     e.target[0].value = "";
   }
 
