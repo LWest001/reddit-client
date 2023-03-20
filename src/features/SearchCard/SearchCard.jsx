@@ -88,7 +88,7 @@ const SearchCard = ({
             }}
           >
             <Stack direction="row" gap={1}>
-              <CommentOutlinedIcon fontSize="small"/> {commentCount}
+              <CommentOutlinedIcon fontSize="small" /> {commentCount}
             </Stack>
             <Stack direction="row" gap={1}>
               <ThumbUpOutlinedIcon fontSize="small" />
@@ -116,15 +116,8 @@ const SearchCard = ({
               <SearchFlair threadType={threadType}>{threadType}</SearchFlair>
               <Typography>{threadTitle}</Typography>
             </Box>
-            <Link
-              to={`/${link.substring(19)}`}
-              onClick={() => {
-                dispatch(setThreadStatus("idle"));
-                dispatch(setPermalink(link));
-              }}
-            >
-              <img className="thumbnail" src={thumbnail} alt="Thumbnail" />
-            </Link>
+
+            <img className="thumbnail" src={thumbnail} alt="Thumbnail" />
           </Stack>
         </Link>
       </CardContent>
