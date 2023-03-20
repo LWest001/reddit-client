@@ -42,6 +42,7 @@ function SubredditInfo() {
         justifyContent: "space-between",
         mt: "calc(var(--appbar-height) + 0.5rem)",
         minHeight: "min-content",
+        color:"white"
       }}
     >
       <CardHeader
