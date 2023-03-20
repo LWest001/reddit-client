@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { useContext } from "react";
 import { useState } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImageModal from "../../../components/ImageModal/ImageModal";
 import { ThreadContentContext } from "../ThreadCard";
 

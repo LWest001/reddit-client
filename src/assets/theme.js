@@ -1,5 +1,8 @@
 import { createTheme } from "@mui/material";
-import { purple, green, grey, blue } from "@mui/material/colors";
+
+const radius = "5px";
+const border = "5px";
+const appbarHeight = "64px";
 
 let theme = createTheme({
   palette: {
@@ -38,8 +41,7 @@ theme = createTheme(theme, {
       ],
       styleOverrides: {
         root: {
-          background:
-            theme.palette.headerGradient.default,
+          background: theme.palette.headerGradient.default,
           borderTopLeftRadius: "calc(var(--radius) + var(--border))",
           borderTopRightRadius: "calc(var(--radius) + var(--border))",
         },

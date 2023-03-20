@@ -53,7 +53,9 @@ export const fetchIcon = createAsyncThunk(
     let icon;
     const icons = state.getState().threadList.icons;
     const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
-    const response = await axios.get(URL);
+    const response = await axios.get(URL, {
+      headers: "Access-Control-Allow-Origin",
+    });
     icon = response.data.data.icon_img || response.data.data.header_img;
     return {
       subredditName: subredditName,

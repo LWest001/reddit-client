@@ -6,7 +6,7 @@ import { ThreadContentContext } from "./ThreadCard";
 
 function FlairBox() {
   let { flair } = useContext(ThreadContentContext);
-  if (!flair.text) {
+  if (!flair?.text) {
     flair = {
       text: "Text post",
       backgroundColor: theme.palette.primary.main,
