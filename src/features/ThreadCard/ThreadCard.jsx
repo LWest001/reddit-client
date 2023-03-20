@@ -45,7 +45,10 @@ import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 
-export const ThreadContentContext = createContext(null);
+export const ThreadContentContext = createContext({
+  threadTitle: null,
+  flair: null,
+});
 
 const ThreadCard = ({
   author,
@@ -106,9 +109,7 @@ const ThreadCard = ({
         }
       />
 
-      <ThreadContentContext.Provider
-        value={{ threadTitle, flair: flair || null }}
-      >
+      <ThreadContentContext.Provider value={{ threadTitle, flair }}>
         <CardContent className="threadPreview">
           {["image", "video", "richVideo"].includes(threadType) && (
             <ThreadTitle />

@@ -39,9 +39,8 @@ const ThreadList = ({ view }) => {
   if (view !== "searchResults") {
     threads = threadsData.map((thread) => {
       return (
-        <LazyLoad offset={window.innerHeight * 3}>
+        <LazyLoad offset={window.innerHeight * 3} key={thread.id}>
           <ThreadCard
-            key={thread.id}
             id={thread.id}
             author={thread.author}
             cardType={view}

@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useContext } from "react";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import FlairBox from "./FlairBox";
@@ -9,10 +9,10 @@ function ThreadTitle() {
   const titleTextHTML = parseMarkdownText(`${threadTitle}`);
 
   return (
-    <Typography className="ThreadTitle" sx={{ py: 1 }}>
+    <Box className="ThreadTitle" sx={{ py: 1 }}>
       {flair?.text && <FlairBox />}
       {titleTextHTML}
-    </Typography>
+    </Box>
   );
 }
 

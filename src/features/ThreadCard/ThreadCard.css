@@ -77,18 +77,10 @@
   background-repeat: no-repeat;
 }
 
-.postFlairContainer {
-  float: left;
-  display: flex;
-  font-weight: normal;
-  min-width: max-content;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0.3rem;
-  margin-left: -0rem;
-}
-
 .postFlair {
+  margin: 0 0.3rem;
+  float: left;
+  min-width: max-content;
   padding: 0px 0.5rem;
   border-radius: 1rem;
   height: 1.5rem;

@@ -16,7 +16,7 @@ function FlairBox() {
 
   const textColor = flair.textColor === "light" ? "white" : "black";
   return (
-    <Box className="postFlairContainer">
+    
       <span
         className="postFlair"
         style={{
@@ -27,7 +27,7 @@ function FlairBox() {
       >
         {replaceEntities(flair?.text)}
       </span>
-    </Box>
+
   );
 }
 
