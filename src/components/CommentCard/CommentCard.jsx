@@ -5,17 +5,13 @@ import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReadMoreButton from "../ReadMoreButton";
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-} from "@mui/material";
+import { Avatar, Card, CardContent, CardHeader } from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
 
 import CommentHeaderText from "./CommentHeaderText";
 
 import { isMobile } from "react-device-detect";
+import { useState } from "react";
 
 function CommentCard({
   author,
@@ -29,6 +25,8 @@ function CommentCard({
 }) {
   const dispatch = useDispatch();
   const { subredditName, redditId, threadTitle } = useParams();
+
+  const [clicked, setClicked] = useState(false);
 
   function handleCollapse() {
     const commentBody = document.getElementById(`comment-${id}`);
@@ -111,9 +109,28 @@ function CommentCard({
               }
             }}
             onMouseLeave={(e) => {
-              if (!isMobile) {
+              if (!isMobile && !clicked) {
                 e.target.innerHTML = author.substring(0, 1).toUpperCase();
                 e.target.style.width = "1.4rem";
+              }
+            }}
+            onClick={(e) => {
+              const text = document.querySelector(`#CommentHeaderText-${id}`);
+              console.log(text.style);
+              if (!clicked) {
+                setClicked(true);
+                e.target.innerHTML = author;
+                e.target.style.width = "100%";
+                if (isMobile) {
+                  text.style.display = "none";
+                }
+              } else {
+                setClicked(false);
+                e.target.innerHTML = author.substring(0, 1).toUpperCase();
+                e.target.style.width = "1.4rem";
+                if (isMobile) {
+                  text.style.display = "flex";
+                }
               }
             }}
           />
@@ -123,6 +140,7 @@ function CommentCard({
             timestamp={timestamp}
             score={score}
             handleCollapse={handleCollapse}
+            id={id}
           />
         }
       />
