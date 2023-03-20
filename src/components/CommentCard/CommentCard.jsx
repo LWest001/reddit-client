@@ -126,19 +126,14 @@ function CommentCard({
             handleCollapse={handleCollapse}
           />
         }
-      ></CardHeader>
+      />
       <CardContent
         className="commentBody"
         id={`comment-${id}`}
         sx={{ paddingRight: 0, paddingTop: "0.2rem" }}
       >
-        <Typography
-          variant="body2"
-          className="commentBodyText"
-          sx={{ padding: "0.3rem" }}
-        >
-          {bodyTextHTML}
-        </Typography>
+        {bodyTextHTML}
+
         {subcomments && subcomments}
       </CardContent>
     </Card>

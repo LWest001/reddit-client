@@ -1,47 +1,69 @@
 import "./ThreadCard.css";
-import { Skeleton } from "@mui/material";
+import {
+  Skeleton,
+  Card,
+  Box,
+  CardHeader,
+  CardContent,
+  Stack,
+} from "@mui/material";
 
 const SkeletonThreadCard = () => {
   return (
-    <div className="SkeletonThreadCard">
-      <div className="threadCardHeader">
-        <Skeleton
-          variant="circular"
-          width={50}
-          height={50}
-          animation="wave"
-        ></Skeleton>
-        <div className="ThreadCardHeaderText">
+    <Card className="SkeletonThreadCard">
+      <CardHeader
+        className="ThreadCardHeader"
+        avatar={
+          <Skeleton
+            variant="circular"
+            width={50}
+            height={50}
+            animation="wave"
+          />
+        }
+        title={
           <Skeleton
             animation="wave"
             variant="text"
             width={200}
             className="skeletonContent"
-          ></Skeleton>
+          />
+        }
+        subheader={
           <Skeleton
             animation="wave"
             variant="text"
             width={100}
             className="skeletonContent"
-          ></Skeleton>
-        </div>
-      </div>
-      <div className="threadPreview">
+          />
+        }
+      />
+
+      <CardContent>
+        <Skeleton animation="wave" variant="text" />
+        <Skeleton animation="wave" variant="rounded" height={400} />
+      </CardContent>
+      <Stack
+        direction="row"
+        sx={{
+          p: 1,
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Skeleton
+          variant="rounded"
           animation="wave"
-          variant="text"
-          className="threadTitle skeletonContent"
-        ></Skeleton>
-        <div className="threadContentPreview">
-          <Skeleton
-            animation="wave"
-            variant="rectangular"
-            height={400}
-            className="skeletonImg skeletonContent"
-          ></Skeleton>
-        </div>
-      </div>
-    </div>
+          height="36px"
+          width="220px"
+        />
+
+        <Stack direction="row" gap={1} sx={{alignItems:"center"}}>
+          <Skeleton animation="wave" variant="rounded" width={20} height="1rem" />
+          <Skeleton animation="wave" variant="text" width={100}/>
+        </Stack>
+      </Stack>
+    </Card>
   );
 };
 

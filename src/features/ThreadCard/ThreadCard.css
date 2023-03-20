@@ -1,24 +1,9 @@
 /* Global */
-.ThreadCard,
-.SkeletonThreadCard,
-.ErrorPage,
-.SubredditInfoContainer,
-.CommentCard {
-  --radius: 5px;
-  --border: 5px;
-  border-radius: calc(var(--radius) + var(--border));
-  display: flex;
-  flex-direction: column;
-  margin: 5px auto;
-  box-shadow: 2px 2px 5px black;
-  width: 100%;
-}
 
 .ThreadList .LazyLoad:first-child,
 .Thread .ThreadCard,
-.SkeletonThreadCard:first-child,
-.SubredditInfoContainer {
-  margin-top: calc(var(--appbar-height) + 0.5rem);
+.Thread .SkeletonThreadCard {
+  margin-top: calc(var(--appbar-height) + 0.5rem) !important;
 }
 
 /* Skeleton */

@@ -17,6 +17,8 @@ body {
   flex-direction: column;
   width: 100%;
   max-width: 1000px;
+  --radius: 5px;
+  --border: 5px;
 }
 .App {
   width: clamp(300px, 100%, 100vw);
@@ -33,10 +35,10 @@ h1 {
   height: 100%;
   margin-top: calc(var(--appbar-height) + 0.5rem) !important;
   /* padding: 4rem 0; */
-  max-width:30rem !important;
+  max-width: 30rem !important;
 }
 .ErrorPage a {
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
 }
 
 .errorText {

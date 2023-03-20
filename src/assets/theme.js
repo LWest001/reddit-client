@@ -1,9 +1,5 @@
 import { createTheme } from "@mui/material";
 
-const radius = "5px";
-const border = "5px";
-const appbarHeight = "64px";
-
 let theme = createTheme({
   palette: {
     type: "light",
@@ -49,7 +45,11 @@ theme = createTheme(theme, {
     },
     MuiCard: {
       styleOverrides: {
-        root: { borderRadius: 8 },
+        root: {
+          borderRadius: "calc(var(--radius) + var(--border));",
+          margin: "5px auto",
+          width: "100%"
+        },
       },
     },
     MuiCardContent: {

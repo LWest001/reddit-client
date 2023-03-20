@@ -39,6 +39,7 @@ function SubredditInfo() {
         backgroundSize: "cover",
         height: subredditInfo.banner_background_image && "15rem",
         justifyContent: "space-between",
+        mt: "calc(var(--appbar-height) + 0.5rem)",
       }}
     >
       <CardHeader
