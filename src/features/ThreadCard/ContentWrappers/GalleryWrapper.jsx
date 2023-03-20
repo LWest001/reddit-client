@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import { useContext } from "react";
-import { ThreadTitleContext } from "../ThreadCard";
+import { ThreadContentContext } from "../ThreadCard";
 import ThreadTitle from "../ThreadTitle";
 
 function GalleryWrapper({ gallery, thumbnail }) {
-  const threadTitle = useContext(ThreadTitleContext)
+  const { threadTitle } = useContext(ThreadContentContext);
   return (
     <Box className="GalleryWrapper">
       <a href={gallery} target="_blank">

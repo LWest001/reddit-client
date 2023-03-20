@@ -2,15 +2,15 @@ import { Typography } from "@mui/material";
 import { useContext } from "react";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import FlairBox from "./FlairBox";
-import { ThreadTitleContext } from "./ThreadCard";
+import { ThreadContentContext } from "./ThreadCard";
 
-function ThreadTitle({ flair }) {
-  const title = useContext(ThreadTitleContext);
-  const titleTextHTML = parseMarkdownText(`${title}`);
+function ThreadTitle() {
+  const { threadTitle, flair } = useContext(ThreadContentContext);
+  const titleTextHTML = parseMarkdownText(`${threadTitle}`);
 
   return (
     <Typography className="ThreadTitle" sx={{ py: 1 }}>
-      {flair?.text && <FlairBox flair={flair} />}
+      {flair?.text && <FlairBox />}
       {titleTextHTML}
     </Typography>
   );

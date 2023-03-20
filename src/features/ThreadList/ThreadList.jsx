@@ -58,7 +58,7 @@ const ThreadList = ({ view }) => {
               }
             }
             link={thread.link}
-            postFlair={thread.postFlair}
+            flair={thread.postFlair}
             redditId={thread.redditId}
             richVideo={thread.richVideo}
             score={thread.score}

@@ -5,17 +5,20 @@ import FlairBox from "../FlairBox";
 import theme from "../../../assets/theme";
 import ThreadTitle from "../ThreadTitle";
 import { useContext } from "react";
-import { ThreadTitleContext } from "../ThreadCard";
+import { ThreadContentContext } from "../ThreadCard";
 
-function SelfPostWrapper({ text, flair }) {
-const title = useContext(ThreadTitleContext)
+function SelfPostWrapper({ text }) {
+  const { threadTitle } = useContext(ThreadContentContext);
 
+  let { flair } = useContext(ThreadContentContext);
   const bodyTextHTML = parseMarkdownText(text);
-  const defaultFlair = {
-    text: "Text post",
-    backgroundColor: theme.palette.primary.main,
-    textColor: "light",
-  };
+  if (!flair) {
+    flair = {
+      text: "Text post",
+      backgroundColor: theme.palette.primary.main,
+      textColor: "light",
+    };
+  }
   if (text) {
     return (
       <Accordion className="SelfPostWrapper">
@@ -25,8 +28,8 @@ const title = useContext(ThreadTitleContext)
           id="panel1a-header"
         >
           <div>
-            {<FlairBox flair={flair?.text ? flair : defaultFlair} />}
-            <span className="threadTitle">{title}</span>
+            <FlairBox />
+            <span className="threadTitle">{threadTitle}</span>
           </div>
         </AccordionSummary>
 
@@ -34,12 +37,7 @@ const title = useContext(ThreadTitleContext)
       </Accordion>
     );
   } else {
-    return (
-      <ThreadTitle
-        className="SelfPostWrapper"
-        flair={flair?.text ? flair : defaultFlair}
-      />
-    );
+    return <ThreadTitle className="SelfPostWrapper" />;
   }
 }
 export default SelfPostWrapper;

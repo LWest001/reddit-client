@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { selectThreadStatus } from "../../features/Thread/threadSlice";
 import { useContext } from "react";
-import { ThreadTitleContext } from "../../features/ThreadCard/ThreadCard";
+import { ThreadContentContext } from "../../features/ThreadCard/ThreadCard";
 
 const style = {
   position: "absolute",
@@ -24,12 +24,12 @@ const style = {
 
 function ImageModal({ open, handleClose, link, image }) {
   const dispatch = useDispatch();
-  const title = useContext(ThreadTitleContext);
+  const { threadTitle } = useContext(ThreadContentContext);
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          {title}
+          {threadTitle}
         </Typography>
         <Box
           sx={{
@@ -41,7 +41,7 @@ function ImageModal({ open, handleClose, link, image }) {
           <img
             style={{ maxWidth: "100%", maxHeight: "80vh" }}
             src={image}
-            alt={title}
+            alt={threadTitle}
             className="modalImage"
           />
         </Box>

@@ -49,7 +49,7 @@ const Thread = () => {
         }
       }
       link={threadData.link}
-      postFlair={threadData.postFlair}
+      flair={threadData.postFlair}
       redditId={threadData.redditId}
       richVideo={threadData.richVideo}
       score={threadData.score}

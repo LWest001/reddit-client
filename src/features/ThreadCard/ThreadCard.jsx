@@ -45,7 +45,7 @@ import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 
-export const ThreadTitleContext = createContext("threadTitle");
+export const ThreadContentContext = createContext(null);
 
 const ThreadCard = ({
   author,
@@ -55,7 +55,7 @@ const ThreadCard = ({
   id,
   image,
   link,
-  postFlair,
+  flair,
   richVideo,
   score,
   selfText,
@@ -105,10 +105,13 @@ const ThreadCard = ({
           />
         }
       />
-      <ThreadTitleContext.Provider value={threadTitle}>
+
+      <ThreadContentContext.Provider
+        value={{ threadTitle, flair: flair || null }}
+      >
         <CardContent className="threadPreview">
           {["image", "video", "richVideo"].includes(threadType) && (
-            <ThreadTitle flair={postFlair} />
+            <ThreadTitle />
           )}
 
           <Box className="threadContentPreview">
@@ -117,17 +120,11 @@ const ThreadCard = ({
             )}
 
             {threadType == "gallery" && (
-              <GalleryWrapper
-                gallery={gallery}
-                thumbnail={thumbnail}
-              />
+              <GalleryWrapper gallery={gallery} thumbnail={thumbnail} />
             )}
 
             {threadType === "link" && (
-              <LinkPostWrapper
-                url={url}
-                thumbnail={thumbnail}
-              />
+              <LinkPostWrapper url={url} thumbnail={thumbnail} />
             )}
 
             {threadType == "video" && (
@@ -137,20 +134,14 @@ const ThreadCard = ({
               />
             )}
 
-            {threadType === "self" && (
-              <SelfPostWrapper
-                flair={postFlair}
-                
-                text={selfText}
-              />
-            )}
+            {threadType === "self" && <SelfPostWrapper text={selfText} />}
 
             {threadType === "richVideo" && (
               <RichVideoWrapper richVideo={richVideo} />
             )}
           </Box>
         </CardContent>
-      </ThreadTitleContext.Provider>
+      </ThreadContentContext.Provider>
       <Stack
         className="threadFooter"
         direction="row"

@@ -3,14 +3,15 @@ import { useContext } from "react";
 import { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ImageModal from "../../../components/ImageModal/ImageModal";
-import { ThreadTitleContext } from "../ThreadCard";
+import { ThreadContentContext } from "../ThreadCard";
 
 function ImageWrapper({ image, link }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
-  const threadTitle=useContext(ThreadTitleContext)
+  const { threadTitle } = useContext(ThreadContentContext);
+
   return (
     <Box
       className="ImageWrapper"
