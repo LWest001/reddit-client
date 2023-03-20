@@ -35,11 +35,13 @@ function SubredditInfo() {
       sx={{
         background:
           subredditInfo.banner_background_image &&
-          `url(${replaceEntities(subredditInfo.banner_background_image)})`,
+          `url(${replaceEntities(
+            subredditInfo.banner_background_image
+          )}) no-repeat center`,
         backgroundSize: "cover",
-        height: subredditInfo.banner_background_image && "15rem",
         justifyContent: "space-between",
         mt: "calc(var(--appbar-height) + 0.5rem)",
+        minHeight: "min-content",
       }}
     >
       <CardHeader

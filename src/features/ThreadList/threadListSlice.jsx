@@ -128,7 +128,8 @@ const threadListSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(fetchIcon.pending, (state, action) => {})
+      .addCase(fetchIcon.pending, (state, action) => {
+      })
       .addCase(fetchIcon.fulfilled, (state, action) => {
         const { subredditName, icon } = action.payload;
         state.icons[subredditName] = icon;

@@ -1,14 +1,25 @@
 import "./SearchCard.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import SubredditLink from "../../components/SubredditLink";
-import upvote from "../../assets/upvote.svg";
-import commentBubble from "../../assets/commentBubble.svg";
-import DefaultIcon from "../../assets/favicon.svg";
+import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import theme from "../../assets/theme";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
+import SearchCardHeaderTitle from "./SearchCardHeaderTitle";
+import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
+import SearchFlair from "./SearchFlair";
 
 const SearchCard = ({
   id,
@@ -22,64 +33,77 @@ const SearchCard = ({
   thumbnail,
   commentCount,
 }) => {
-  const [icon, setIcon] = useState("");
   const dispatch = useDispatch();
-
   thumbnail = getDefaultThumbnail(thumbnail);
+  const icons = useSelector(selectIcons);
 
   useEffect(() => {
-    async function getIcon(subredditName) {
-      const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
-      const response = await axios.get(URL);
-      setIcon(response.data.data.icon_img);
+    if (!Object.hasOwn(icons, subredditName)) {
+      dispatch(fetchIcon(subredditName));
     }
-    getIcon(subredditName);
-  }, [window.URL]);
+  }, []);
 
   return (
-    <div className="SearchCard" id={id}>
-      <div className="searchCardBody">
-        <div className="searchCardHeader">
-          <img
-            src={icon || DefaultIcon}
-            alt="Subreddit avatar"
-            className="subredditIcon"
+    <Card
+      className="SearchCard"
+      id={id}
+      sx={{
+        borderRadius: 0,
+        my: 0,
+        ":first-of-type": {
+          borderTopLeftRadius: "calc(var(--radius) + var(--border))",
+          borderTopRightRadius: "calc(var(--radius) + var(--border))",
+          marginTop: "calc(var(--appbar-height) + 0.5rem)",
+        },
+        ":last-of-type": {
+          borderBottomLeftRadius: "calc(var(--radius) + var(--border))",
+          borderBottomRightRadius: "calc(var(--radius) + var(--border))",
+          marginTop: "calc(var(--appbar-height) + 0.5rem)",
+        },
+      }}
+    >
+      <CardHeader
+        className="searchCardHeader"
+        avatar={
+          <SubredditLink
+            subredditName={subredditName}
+            display={`r/${subredditName}`}
+            type="avatar"
           />
-          <div className="subredditAndAuthor">
-            <span className="subredditName">
-              <SubredditLink
-                subredditName={subredditName}
-                display={`r/${subredditName}`}
-              />
-            </span>
-            <span className="author">u/{author}</span>
-          </div>
-          <span className="timestamp">{timestamp}</span>
-        </div>
-        <div className="threadPreview">
-          <span className="threadType">{threadType}</span>
-          <Link
-            to={`/${link.substring(19)}`}
-            onClick={() => {
-              dispatch(setThreadStatus("idle"));
+        }
+        title={
+          <SearchCardHeaderTitle
+            subredditName={subredditName}
+            author={author}
+            timestamp={timestamp}
+          />
+        }
+        subheader={
+          <Stack
+            className="SearchStats"
+            direction="row"
+            gap={1}
+            sx={{
+              alignItems: "center",
             }}
           >
-            {<h2 className="threadTitle">{threadTitle}</h2>}
-          </Link>
-        </div>
-        <p className="searchCardFooter">
-          <span className="viewComments">
-            <img src={commentBubble} alt="comment bubble" className="icon" />
-            {commentCount}
-          </span>
-          &nbsp;&nbsp;&nbsp;&nbsp;▪️&nbsp;&nbsp;&nbsp;&nbsp;
-          <span>
-            <img className="upArrow icon" src={upvote} alt="" />
-            {score}
-          </span>
-        </p>
-      </div>
-      {thumbnail && (
+            <Stack direction="row" gap={1}>
+              <CommentOutlinedIcon fontSize="small"/> {commentCount}
+            </Stack>
+            <Stack direction="row" gap={1}>
+              <ThumbUpOutlinedIcon fontSize="small" />
+              {score}
+            </Stack>
+          </Stack>
+        }
+        sx={{
+          borderRadius: 0,
+          p: 0.5,
+          background:
+            "radial-gradient(ellipse at top left, #ffffff, lightgray)",
+        }}
+      />
+      <CardContent className="threadPreview" sx={{ p: 0 }}>
         <Link
           to={`/${link.substring(19)}`}
           onClick={() => {
@@ -87,12 +111,24 @@ const SearchCard = ({
             dispatch(setPermalink(link));
           }}
         >
-          <figure className="thumbnailContainer">
-            <img className="thumbnail" src={thumbnail} alt="Thumbnail" />
-          </figure>
+          <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+            <Box width="100%" sx={{ m: 1 }}>
+              <SearchFlair threadType={threadType}>{threadType}</SearchFlair>
+              <Typography>{threadTitle}</Typography>
+            </Box>
+            <Link
+              to={`/${link.substring(19)}`}
+              onClick={() => {
+                dispatch(setThreadStatus("idle"));
+                dispatch(setPermalink(link));
+              }}
+            >
+              <img className="thumbnail" src={thumbnail} alt="Thumbnail" />
+            </Link>
+          </Stack>
         </Link>
-      )}
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
