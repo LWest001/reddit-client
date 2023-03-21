@@ -2,18 +2,23 @@ import {
   Box,
   Button,
   MobileStepper,
-  Paper,
   Typography,
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import generateImgSrcset from "../../../functions/generateSrcset";
 import ThreadTitle from "../ThreadTitle";
+import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
+import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
+import ImageModal from "../../../components/ImageModal/ImageModal";
 
 function GalleryWrapper({ galleryData, galleryCaptions }) {
   const theme = useTheme();
 
   const steps = [];
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   for (let image in galleryData) {
     steps.push(generateImgSrcset(galleryData[image].p, "gallery"));
@@ -57,6 +62,7 @@ function GalleryWrapper({ galleryData, galleryCaptions }) {
           component="figure"
         >
           <img
+            onClick={handleOpenModal}
             srcSet={steps[activeStep].srcset}
             sizes={steps[activeStep].sizes}
             src={steps[activeStep].src}
@@ -85,7 +91,11 @@ function GalleryWrapper({ galleryData, galleryCaptions }) {
               disabled={activeStep === maxSteps - 1}
             >
               Next
-              {theme.direction === "rtl" ? "<" : ">"}
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowLeftRoundedIcon />
+              ) : (
+                <KeyboardArrowRightRoundedIcon />
+              )}
             </Button>
           }
           backButton={
@@ -94,12 +104,22 @@ function GalleryWrapper({ galleryData, galleryCaptions }) {
               onClick={handleBack}
               disabled={activeStep === 0}
             >
-              {theme.direction === "rtl" ? "> " : "<"}
+              {theme.direction === "rtl" ? (
+                <KeyboardArrowRightRoundedIcon />
+              ) : (
+                <KeyboardArrowLeftRoundedIcon />
+              )}
               Back
             </Button>
           }
         />
       </Box>
+      <ImageModal
+        open={openModal}
+        image={steps[activeStep].src}
+        handleClose={handleCloseModal}
+        caption={steps[activeStep]?.caption}
+      />
     </Box>
   );
 }

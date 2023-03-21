@@ -116,7 +116,6 @@ function CommentCard({
             }}
             onClick={(e) => {
               const text = document.querySelector(`#CommentHeaderText-${id}`);
-              console.log(text.style);
               if (!clicked) {
                 setClicked(true);
                 e.target.innerHTML = author;

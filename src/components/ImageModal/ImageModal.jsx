@@ -18,18 +18,24 @@ const style = {
   boxShadow: 24,
   width: "max-content",
   maxWidth: "100%",
-  p: 4,
+  px: 1,
+  py: 2,
   maxHeight: "100%",
 };
 
-function ImageModal({ open, handleClose, link, image }) {
+function ImageModal({ open, handleClose, link, image, caption }) {
   const dispatch = useDispatch();
   const { threadTitle } = useContext(ThreadContentContext);
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          {threadTitle}
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          textAlign="center"
+        >
+          {caption || threadTitle}
         </Typography>
         <Box
           sx={{
@@ -46,16 +52,18 @@ function ImageModal({ open, handleClose, link, image }) {
           />
         </Box>
         <Stack direction="row" justifyContent="space-between" mt={1}>
-          <Button
-            component={Link}
-            variant="contained"
-            to={`/${link.substring(19)}`}
-            onClick={() => {
-              dispatch(selectThreadStatus("idle"));
-            }}
-          >
-            <CommentOutlinedIcon />
-          </Button>
+          {link && (
+            <Button
+              component={Link}
+              variant="contained"
+              to={`/${link.substring(19)}`}
+              onClick={() => {
+                dispatch(selectThreadStatus("idle"));
+              }}
+            >
+              <CommentOutlinedIcon />
+            </Button>
+          )}
           <Button variant="contained" disabled>
             <ShareIcon />
           </Button>
