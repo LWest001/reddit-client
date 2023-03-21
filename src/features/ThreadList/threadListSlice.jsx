@@ -7,6 +7,7 @@ const initialState = {
   after: "",
   threads: [],
   subredditThreads: [],
+  searchThreads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed' | 'loadMore'
   query: "",
   icons: {},
@@ -86,10 +87,11 @@ const threadListSlice = createSlice({
         }
       })
       .addCase(fetchThreadsList.fulfilled, (state, action) => {
+        console.log(action.payload);
+        const { isFetchingMore, subredditName, query, after } = action.payload;
         state.status = "succeeded";
-        state.after = action.payload.after;
-        state.query = action.payload.query;
-        const { isFetchingMore, subredditName } = action.payload;
+        state.after = after;
+        state.query = query;
         const loadedThreads = action.payload.threads.map((thread) => {
           const data = thread.data;
           const threadType = getThreadType(data);
@@ -100,6 +102,8 @@ const threadListSlice = createSlice({
         } else {
           if (subredditName) {
             state.subredditThreads = loadedThreads;
+          } else if (query) {
+            state.searchThreads = loadedThreads;
           } else {
             state.threads = loadedThreads;
           }
@@ -127,6 +131,7 @@ const threadListSlice = createSlice({
 export const selectAllThreads = (state) => state.threadList.threads;
 export const selectSubredditThreads = (state) =>
   state.threadList.subredditThreads;
+export const selectSearchThreads = (state) => state.threadList.searchThreads;
 export const selectThreadsStatus = (state) => state.threadList.status;
 export const selectQuery = (state) => state.threadList.query;
 export const selectIcons = (state) => state.threadList.icons;

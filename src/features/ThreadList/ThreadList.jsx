@@ -7,6 +7,7 @@ import {
   selectAllThreads,
   selectQuery,
   selectSubredditThreads,
+  selectSearchThreads,
 } from "./threadListSlice";
 
 // Component imports
@@ -26,6 +27,7 @@ const ThreadList = ({ view }) => {
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
   const subredditThreadsData = useSelector(selectSubredditThreads);
+  const searchThreadsData = useSelector(selectSearchThreads);
   const query = useSelector(selectQuery);
 
   // Set title
@@ -76,7 +78,7 @@ const ThreadList = ({ view }) => {
   }
 
   if (view === "searchResults") {
-    searchResults = threadsData.map((thread) => {
+    searchResults = searchThreadsData.map((thread) => {
       return (
         <SearchCard
           key={thread.id}
