@@ -66,7 +66,7 @@ function GalleryWrapper({ galleryData, galleryCaptions }) {
             srcSet={steps[activeStep].srcset}
             sizes={steps[activeStep].sizes}
             src={steps[activeStep].src}
-            style={{ maxHeight: "60vh" }}
+            style={{ maxHeight: "60vh", maxWidth:"100%" }}
             alt={`Image ${activeStep + 1}: "${steps[activeStep]?.caption}"`}
           />
           <Box
