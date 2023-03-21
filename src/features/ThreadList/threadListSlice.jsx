@@ -6,6 +6,7 @@ import filterThreadData from "../../functions/filterThreadData";
 const initialState = {
   after: "",
   threads: [],
+  subredditThreads: [],
   status: "idle", //'idle' | 'loading' | 'succeeded' | 'failed' | 'loadMore'
   query: "",
   icons: {},
@@ -41,8 +42,9 @@ export const fetchThreadsList = createAsyncThunk(
     return {
       threads: response.data.data.children,
       after: response.data.data.after,
-      isFetchingMore: isFetchingMore,
+      isFetchingMore,
       query,
+      subredditName,
     };
   }
 );
@@ -87,7 +89,7 @@ const threadListSlice = createSlice({
         state.status = "succeeded";
         state.after = action.payload.after;
         state.query = action.payload.query;
-        const isFetchingMore = action.payload.isFetchingMore;
+        const { isFetchingMore, subredditName } = action.payload;
         const loadedThreads = action.payload.threads.map((thread) => {
           const data = thread.data;
           const threadType = getThreadType(data);
@@ -96,7 +98,11 @@ const threadListSlice = createSlice({
         if (isFetchingMore) {
           loadedThreads.forEach((thread) => state.threads.push(thread));
         } else {
-          state.threads = loadedThreads;
+          if (subredditName) {
+            state.subredditThreads = loadedThreads;
+          } else {
+            state.threads = loadedThreads;
+          }
         }
       })
       .addCase(fetchThreadsList.rejected, (state, action) => {
@@ -119,6 +125,8 @@ const threadListSlice = createSlice({
 });
 
 export const selectAllThreads = (state) => state.threadList.threads;
+export const selectSubredditThreads = (state) =>
+  state.threadList.subredditThreads;
 export const selectThreadsStatus = (state) => state.threadList.status;
 export const selectQuery = (state) => state.threadList.query;
 export const selectIcons = (state) => state.threadList.icons;

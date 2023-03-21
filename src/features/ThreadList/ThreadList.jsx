@@ -6,6 +6,7 @@ import {
   selectThreadsStatus,
   selectAllThreads,
   selectQuery,
+  selectSubredditThreads,
 } from "./threadListSlice";
 
 // Component imports
@@ -24,6 +25,7 @@ const ThreadList = ({ view }) => {
   //   Selectors
   const threadsStatus = useSelector(selectThreadsStatus);
   const threadsData = useSelector(selectAllThreads);
+  const subredditThreadsData = useSelector(selectSubredditThreads);
   const query = useSelector(selectQuery);
 
   // Set title
@@ -36,7 +38,8 @@ const ThreadList = ({ view }) => {
   let searchResults;
   let threads;
   if (view !== "searchResults") {
-    threads = threadsData.map((thread) => {
+    const viewData = view === "subreddit" ? subredditThreadsData : threadsData;
+    threads = viewData.map((thread) => {
       return (
         <LazyLoad offset={window.innerHeight * 3} key={thread.id}>
           <ThreadCard
@@ -51,7 +54,6 @@ const ThreadList = ({ view }) => {
               ["image", "video"].includes(thread.threadType) && {
                 fullSizeImage: thread.image,
                 previewSizeImage: thread.imagePreview,
-  
               }
             }
             link={thread.link}
