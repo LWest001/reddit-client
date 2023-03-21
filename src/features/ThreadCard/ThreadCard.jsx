@@ -54,7 +54,8 @@ const ThreadCard = ({
   author,
   cardType,
   commentCount,
-  gallery,
+  galleryCaptions,
+  galleryData,
   id,
   image,
   link,
@@ -121,7 +122,10 @@ const ThreadCard = ({
             )}
 
             {threadType == "gallery" && (
-              <GalleryWrapper gallery={gallery} thumbnail={thumbnail} />
+              <GalleryWrapper
+                galleryData={galleryData}
+                galleryCaptions={galleryCaptions}
+              />
             )}
 
             {threadType === "link" && (

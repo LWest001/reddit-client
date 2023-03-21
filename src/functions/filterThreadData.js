@@ -5,7 +5,8 @@ function filterThreadData(data, threadType) {
   return {
     author: data.author,
     commentCount: data.num_comments,
-    gallery: threadType === "gallery" && data.url,
+    galleryCaptions: threadType === "gallery" && data.gallery_data.items,
+    galleryData: threadType === "gallery" && data.media_metadata,
     image: threadType === "image" && data.url,
     imagePreview:
       ["image", "video"].includes(threadType) &&

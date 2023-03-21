@@ -46,6 +46,8 @@ const ThreadList = ({ view }) => {
             cardType={view}
             commentCount={thread.commentCount}
             gallery={thread.gallery}
+            galleryCaptions={thread.galleryCaptions}
+            galleryData={thread.galleryData}
             icon={thread.icon}
             image={
               ["image", "video"].includes(thread.threadType) && {

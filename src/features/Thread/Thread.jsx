@@ -38,6 +38,10 @@ const Thread = () => {
       cardType="thread"
       commentCount={threadData.commentCount}
       gallery={threadData.gallery}
+      galleryCaptions={threadData.galleryCaptions}
+      galleryData={
+        threadData.galleryData
+      }
       icon={threadData.icon}
       image={
         ["image", "video"].includes(threadData.threadType) && {
