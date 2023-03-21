@@ -44,6 +44,7 @@ import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 
 import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
+import replaceEntities from "../../functions/replaceEntities";
 
 export const ThreadContentContext = createContext({
   threadTitle: null,
@@ -135,7 +136,9 @@ const ThreadCard = ({
             {threadType == "video" && (
               <DashVideoWrapper
                 video={video}
-                previewUrl={image.previewSizeImage.url}
+                previewUrl={replaceEntities(
+                  image.previewSizeImage[image.previewSizeImage.length - 1].url
+                )}
               />
             )}
 

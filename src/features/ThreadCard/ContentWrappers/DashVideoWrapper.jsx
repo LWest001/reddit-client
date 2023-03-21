@@ -3,6 +3,7 @@ import ReactPlayer from "react-player";
 import isiOS from "../../../functions/isiOS";
 
 function DashVideoWrapper({ video, previewUrl }) {
+  console.log(previewUrl);
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", placeItems: "center" }}
