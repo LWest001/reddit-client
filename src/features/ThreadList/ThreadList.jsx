@@ -19,7 +19,6 @@ import LazyLoad from "react-lazy-load";
 
 // Function imports
 import useFetchThreads from "../../functions/useFetchThreads";
-import selectImagePreview from "../../functions/selectImagePreview";
 
 const ThreadList = ({ view }) => {
   //   Selectors
@@ -52,8 +51,7 @@ const ThreadList = ({ view }) => {
               ["image", "video"].includes(thread.threadType) && {
                 fullSizeImage: thread.image,
                 previewSizeImage: thread.imagePreview,
-                placeholderImage: selectImagePreview(thread.imagePreview)
-                  .placeholder,
+  
               }
             }
             link={thread.link}

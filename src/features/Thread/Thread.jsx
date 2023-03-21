@@ -12,7 +12,6 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
-import selectImagePreview from "../../functions/selectImagePreview";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { Box, Card, Typography } from "@mui/material";
 
@@ -46,8 +45,7 @@ const Thread = () => {
         ["image", "video"].includes(threadData.threadType) && {
           fullSizeImage: threadData.image,
           previewSizeImage: threadData.imagePreview,
-          placeholderImage: selectImagePreview(threadData.imagePreview)
-            .placeholder,
+    
         }
       }
       link={threadData.link}

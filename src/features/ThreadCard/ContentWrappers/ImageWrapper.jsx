@@ -13,7 +13,6 @@ function ImageWrapper({ image, link }) {
   const { threadTitle } = useContext(ThreadContentContext);
   const imageSource = generateImgSrcset(image.previewSizeImage);
   const { srcset, src, sizes } = imageSource;
-  console.log(image);
   return (
     <Box
       className="ImageWrapper"
