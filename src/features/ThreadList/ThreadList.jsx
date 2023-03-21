@@ -45,7 +45,6 @@ const ThreadList = ({ view }) => {
             author={thread.author}
             cardType={view}
             commentCount={thread.commentCount}
-            gallery={thread.gallery}
             galleryCaptions={thread.galleryCaptions}
             galleryData={thread.galleryData}
             icon={thread.icon}

@@ -13,6 +13,7 @@ function ImageWrapper({ image, link }) {
   const { threadTitle } = useContext(ThreadContentContext);
   const imageSource = generateImgSrcset(image.previewSizeImage);
   const { srcset, src, sizes } = imageSource;
+  console.log(image);
   return (
     <Box
       className="ImageWrapper"
@@ -28,7 +29,9 @@ function ImageWrapper({ image, link }) {
       />
       <ImageModal
         open={openModal}
-        image={image.fullSizeImage}
+        srcSet={srcset}
+        sizes={sizes}
+        src={image.fullSizeImage}
         handleClose={handleCloseModal}
         link={link}
       />

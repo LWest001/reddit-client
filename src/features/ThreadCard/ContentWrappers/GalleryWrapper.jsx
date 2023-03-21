@@ -116,7 +116,9 @@ function GalleryWrapper({ galleryData, galleryCaptions }) {
       </Box>
       <ImageModal
         open={openModal}
-        image={steps[activeStep].src}
+        srcSet={steps[activeStep].srcset}
+        sizes={steps[activeStep].sizes}
+        src={steps[activeStep].src}
         handleClose={handleCloseModal}
         caption={steps[activeStep]?.caption}
       />

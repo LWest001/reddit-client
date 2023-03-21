@@ -37,7 +37,6 @@ const Thread = () => {
       author={threadData.author}
       cardType="thread"
       commentCount={threadData.commentCount}
-      gallery={threadData.gallery}
       galleryCaptions={threadData.galleryCaptions}
       galleryData={
         threadData.galleryData
