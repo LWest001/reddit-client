@@ -50,8 +50,7 @@ const ThreadList = ({ view }) => {
             image={
               ["image", "video"].includes(thread.threadType) && {
                 fullSizeImage: thread.image,
-                previewSizeImage: selectImagePreview(thread.imagePreview)
-                  .preview,
+                previewSizeImage: thread.imagePreview,
                 placeholderImage: selectImagePreview(thread.imagePreview)
                   .placeholder,
               }

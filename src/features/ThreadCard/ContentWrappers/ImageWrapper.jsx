@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useContext } from "react";
 import { useState } from "react";
 import ImageModal from "../../../components/ImageModal/ImageModal";
+import generateImgSrcset from "../../../functions/generateSrcset";
 import { ThreadContentContext } from "../ThreadCard";
 
 function ImageWrapper({ image, link }) {
@@ -10,16 +11,17 @@ function ImageWrapper({ image, link }) {
   const handleCloseModal = () => setOpenModal(false);
 
   const { threadTitle } = useContext(ThreadContentContext);
-
+  const imageSource = generateImgSrcset(image.previewSizeImage);
+  const { srcset, src, sizes } = imageSource;
   return (
     <Box
       className="ImageWrapper"
       sx={{ display: "flex", flexDirection: "column", placeItems: "center" }}
     >
       <img
-        src={image.previewSizeImage.url}
-        height={image.previewSizeImage.height}
-        width={image.previewSizeImage.width}
+        srcSet={srcset}
+        sizes={sizes}
+        src={src}
         alt={`Image for thread: ${threadTitle}`}
         className="previewImage"
         onClick={handleOpenModal}

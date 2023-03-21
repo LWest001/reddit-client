@@ -42,7 +42,7 @@ const Thread = () => {
       image={
         ["image", "video"].includes(threadData.threadType) && {
           fullSizeImage: threadData.image,
-          previewSizeImage: selectImagePreview(threadData.imagePreview).preview,
+          previewSizeImage: threadData.imagePreview,
           placeholderImage: selectImagePreview(threadData.imagePreview)
             .placeholder,
         }
