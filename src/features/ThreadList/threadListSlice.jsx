@@ -87,7 +87,7 @@ const threadListSlice = createSlice({
         }
       })
       .addCase(fetchThreadsList.fulfilled, (state, action) => {
-        console.log(action.payload);
+        
         const { isFetchingMore, subredditName, query, after } = action.payload;
         state.status = "succeeded";
         state.after = after;
