@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Avatar, Skeleton, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectIcons } from "../features/ThreadList/threadListSlice";
+import {
+  selectIconBySubreddit,
+} from "../features/ThreadList/threadListSlice";
 import DefaultIcon from "/logoTransparent.png";
 import { setStatus } from "../features/ThreadList/threadListSlice";
 
@@ -13,7 +15,9 @@ function SubredditLink({ subredditName, type, cardType }) {
     dispatch(setStatus("idle"));
   }
 
-  const icon = useSelector(selectIcons)[subredditName];
+  const icon = useSelector((state) =>
+    selectIconBySubreddit(state, subredditName)
+  );
   if (type === "avatar") {
     if (icon === "loading" || icon === undefined) {
       return (
