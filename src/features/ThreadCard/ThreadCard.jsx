@@ -1,17 +1,12 @@
 // Library imports
-import { createContext, useEffect } from "react";
+import { createContext } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Slice imports
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
-import {
-  fetchIcon,
-  selectIconBySubreddit,
-} from "../ThreadList/threadListSlice";
 
 // Component imports
-import SubredditLink from "../../components/SubredditLink";
 import ThreadCardSubheader from "./ThreadCardSubheader";
 import ThreadTitle from "./ThreadTitle";
 
@@ -48,6 +43,7 @@ import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
 import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 import replaceEntities from "../../functions/replaceEntities";
+import SubredditAvatar from "../../components/SubredditAvatar";
 
 export const ThreadContentContext = createContext({
   threadTitle: null,
@@ -77,27 +73,20 @@ const ThreadCard = ({
 }) => {
   const dispatch = useDispatch();
   thumbnail = getDefaultThumbnail(thumbnail);
-  const icon = useSelector((state) =>
-    selectIconBySubreddit(state, subredditName)
-  );
-
-  useEffect(() => {
-    if (icon === "loading" || !icon) {
-      dispatch(fetchIcon(subredditName));
-    }
-  }, []);
 
   return (
     <Card className="ThreadCard" id={id}>
       <CardHeader
         className="ThreadCardHeader"
         avatar={
-          <SubredditLink
-            subredditName={subredditName}
-            type="avatar"
-            alt="Subreddit avatar"
-            cardType={cardType}
-          />
+          cardType !== "subreddit" && (
+            <SubredditAvatar
+              subredditName={subredditName}
+              type="avatar"
+              alt="Subreddit avatar"
+              cardType={cardType}
+            />
+          )
         }
         title={
           cardType !== "subreddit" && (
@@ -110,8 +99,7 @@ const ThreadCard = ({
         subheader={
           <ThreadCardSubheader
             author={author}
-            timestamp={timestamp}
-            cardType={cardType}
+            timestamp={cardType === "subreddit" && timestamp}
           />
         }
       />
