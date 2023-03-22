@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Slice imports
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
-import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
+import {
+  fetchIcon,
+  selectIconBySubreddit,
+} from "../ThreadList/threadListSlice";
 
 // Component imports
 import SubredditLink from "../../components/SubredditLink";
@@ -74,10 +77,12 @@ const ThreadCard = ({
 }) => {
   const dispatch = useDispatch();
   thumbnail = getDefaultThumbnail(thumbnail);
-  const icons = useSelector(selectIcons);
+  const icon = useSelector((state) =>
+    selectIconBySubreddit(state, subredditName)
+  );
 
   useEffect(() => {
-    if (!Object.hasOwn(icons, subredditName) && cardType !== "subreddit") {
+    if (icon === "loading" || !icon) {
       dispatch(fetchIcon(subredditName));
     }
   }, []);

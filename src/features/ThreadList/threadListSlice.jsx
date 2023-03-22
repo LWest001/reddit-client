@@ -142,6 +142,8 @@ export const selectSearchThreads = (state) => state.threadList.searchThreads;
 export const selectThreadsStatus = (state) => state.threadList.status;
 export const selectQuery = (state) => state.threadList.query;
 export const selectIcons = (state) => state.threadList.icons;
+export const selectIconBySubreddit = (state, subredditName) =>
+  state.threadList.icons[subredditName];
 export const selectAfter = (state) => state.threadList.after;
 
 export const { setStatus } = threadListSlice.actions;
