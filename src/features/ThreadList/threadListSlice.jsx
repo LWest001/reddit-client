@@ -87,7 +87,6 @@ const threadListSlice = createSlice({
         }
       })
       .addCase(fetchThreadsList.fulfilled, (state, action) => {
-        
         const { isFetchingMore, subredditName, query, after } = action.payload;
         state.status = "succeeded";
         state.after = after;
@@ -98,7 +97,15 @@ const threadListSlice = createSlice({
           return filterThreadData(data, threadType);
         });
         if (isFetchingMore) {
-          loadedThreads.forEach((thread) => state.threads.push(thread));
+          if (subredditName) {
+            loadedThreads.forEach((thread) =>
+              state.subredditThreads.push(thread)
+            );
+          } else if (query) {
+            loadedThreads.forEach((thread) => state.searchThreads.push(thread));
+          } else {
+            loadedThreads.forEach((thread) => state.threads.push(thread));
+          }
         } else {
           if (subredditName) {
             state.subredditThreads = loadedThreads;
