@@ -19,9 +19,8 @@ function SubredditAvatar({ subredditName }) {
   const icon = useSelector((state) =>
     selectIconBySubreddit(state, subredditName)
   );
-
   useEffect(() => {
-    if (!icon) {
+    if (icon === undefined) {
       dispatch(fetchIcon(subredditName));
     }
   }, []);

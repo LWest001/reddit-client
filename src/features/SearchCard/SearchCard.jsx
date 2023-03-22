@@ -1,9 +1,7 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 import { setStatus as setThreadStatus } from "../Thread/threadSlice";
-import SubredditLink from "../../components/SubredditLink";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
@@ -16,8 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import SearchCardHeaderTitle from "./SearchCardHeaderTitle";
-import { fetchIcon, selectIcons } from "../ThreadList/threadListSlice";
 import SearchFlair from "./SearchFlair";
+import SubredditAvatar from "../../components/SubredditAvatar";
 
 const SearchCard = ({
   id,
@@ -33,13 +31,6 @@ const SearchCard = ({
 }) => {
   const dispatch = useDispatch();
   thumbnail = getDefaultThumbnail(thumbnail);
-  const icons = useSelector(selectIcons);
-
-  useEffect(() => {
-    if (!Object.hasOwn(icons, subredditName)) {
-      dispatch(fetchIcon(subredditName));
-    }
-  }, []);
 
   return (
     <Card
@@ -61,13 +52,7 @@ const SearchCard = ({
     >
       <CardHeader
         className="searchCardHeader"
-        avatar={
-          <SubredditLink
-            subredditName={subredditName}
-            display={`r/${subredditName}`}
-            type="avatar"
-          />
-        }
+        avatar={<SubredditAvatar subredditName={subredditName} />}
         title={
           <SearchCardHeaderTitle
             subredditName={subredditName}
@@ -109,7 +94,7 @@ const SearchCard = ({
         >
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Box width="100%" sx={{ m: 1 }}>
-              <SearchFlair threadType={threadType}>{threadType}</SearchFlair>
+              <SearchFlair threadType={threadType} />
               <Typography>{threadTitle}</Typography>
             </Box>
 

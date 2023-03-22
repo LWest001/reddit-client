@@ -36,7 +36,11 @@ export const fetchThreadsList = createAsyncThunk(
 
     if (after) {
       isFetchingMore = true;
-      URL = `${URL}?after=${after}`;
+      if (query) {
+        URL = `${URL}&after=${after}`;
+      } else {
+        URL = `${URL}?after=${after}`;
+      }
     }
 
     const response = await axios.get(baseURL + URL);
