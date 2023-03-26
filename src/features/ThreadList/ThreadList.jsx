@@ -8,6 +8,7 @@ import {
   selectQuery,
   selectSubredditThreads,
   selectSearchThreads,
+  selectIcons,
 } from "./threadListSlice";
 
 // Component imports
@@ -120,6 +121,8 @@ const ThreadList = ({ view }) => {
   };
 
   useFetchThreads(view);
+
+
 
   return (
     <Box className="ThreadList">

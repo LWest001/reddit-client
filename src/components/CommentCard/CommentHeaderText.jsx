@@ -1,7 +1,7 @@
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { Stack } from "@mui/material";
 
-function CommentHeaderText({ timestamp, score, handleCollapse, id, isOp }) {
+function CommentHeaderText({ timestamp, score, handleCollapse, id }) {
   return (
     <Stack
       direction="row"

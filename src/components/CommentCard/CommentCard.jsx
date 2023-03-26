@@ -172,7 +172,6 @@ function CommentCard({
             score={score}
             handleCollapse={handleCollapse}
             id={id}
-            isOp={isOp}
           />
         }
       />

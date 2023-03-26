@@ -57,12 +57,21 @@ export const fetchThreadsList = createAsyncThunk(
 export const fetchIcon = createAsyncThunk(
   "threadList/fetchIcon",
   async (subredditName) => {
+    const localIcon = localStorage.getItem(subredditName);
+    console.log(localIcon);
+    if (localIcon) {
+      return {
+        subredditName: subredditName,
+        icon: localIcon,
+      };
+    }
     let icon;
     const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
     const response = await axios.get(URL, {
       headers: "Access-Control-Allow-Origin",
     });
     icon = response.data.data.icon_img || response.data.data.header_img;
+    localStorage.setItem(subredditName, icon);
     return {
       subredditName: subredditName,
       icon: icon,
@@ -146,8 +155,9 @@ export const selectSearchThreads = (state) => state.threadList.searchThreads;
 export const selectThreadsStatus = (state) => state.threadList.status;
 export const selectQuery = (state) => state.threadList.query;
 export const selectIcons = (state) => state.threadList.icons;
-export const selectIconBySubreddit = (state, subredditName) =>
-  state.threadList.icons[subredditName];
+export const selectIconBySubreddit = (state, subredditName) => {
+  return state.threadList.icons[subredditName];
+};
 export const selectAfter = (state) => state.threadList.after;
 
 export const { setStatus } = threadListSlice.actions;
