@@ -48,6 +48,7 @@ import SubredditAvatar from "../../components/SubredditAvatar";
 export const ThreadContentContext = createContext({
   threadTitle: null,
   flair: null,
+  id: null,
 });
 
 const ThreadCard = ({
@@ -104,7 +105,7 @@ const ThreadCard = ({
         }
       />
 
-      <ThreadContentContext.Provider value={{ threadTitle, flair }}>
+      <ThreadContentContext.Provider value={{ threadTitle, flair, id }}>
         <CardContent className="threadPreview">
           {["image", "video", "richVideo"].includes(threadType) && (
             <ThreadTitle />

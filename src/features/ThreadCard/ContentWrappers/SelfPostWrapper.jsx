@@ -9,7 +9,7 @@ import { ThreadContentContext } from "../ThreadCard";
 function SelfPostWrapper({ text }) {
   const { threadTitle } = useContext(ThreadContentContext);
 
-  let { flair } = useContext(ThreadContentContext);
+  let { flair, id } = useContext(ThreadContentContext);
   const bodyTextHTML = parseMarkdownText(text);
   if (!flair) {
     flair = {
@@ -23,8 +23,8 @@ function SelfPostWrapper({ text }) {
       <Accordion className="SelfPostWrapper">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+          aria-controls={`${id}-content`}
+          id={`${id}-header`}
         >
           <div>
             <FlairBox />
@@ -32,7 +32,7 @@ function SelfPostWrapper({ text }) {
           </div>
         </AccordionSummary>
 
-        <AccordionDetails>{bodyTextHTML}</AccordionDetails>
+        <AccordionDetails id={`${id}-content`}>{bodyTextHTML}</AccordionDetails>
       </Accordion>
     );
   } else {

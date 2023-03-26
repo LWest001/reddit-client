@@ -49,7 +49,7 @@ function SubredditAvatar({ subredditName }) {
         background: "linear-gradient(45deg, rgba(0, 0, 255, 0.267), white)",
       }}
     >
-      <img src={DefaultIcon} />
+      <img src={DefaultIcon} alt={`Avatar for subreddit r/${subredditName}`} />
     </Avatar>
   );
 }
