@@ -21,7 +21,7 @@ function SubredditAvatar({ subredditName }) {
   );
 
   useEffect(() => {
-    if (icon === undefined) {
+    if (icon === undefined || icon === null) {
       dispatch(fetchIcon(subredditName));
     }
   }, []);

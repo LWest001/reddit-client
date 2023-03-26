@@ -116,4 +116,18 @@ theme = createTheme(theme, {
   },
 });
 
+// MuiAccordion
+
+theme = createTheme(theme, {
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        content: {
+          flexDirection: "column",
+        },
+      },
+    },
+  },
+});
+
 export default theme;

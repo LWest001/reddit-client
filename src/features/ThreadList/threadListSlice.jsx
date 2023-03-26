@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getThreadType } from "../../functions/getThreadType";
 import filterThreadData from "../../functions/filterThreadData";
+import replaceEntities from "../../functions/replaceEntities";
 
 const initialState = {
   after: "",
@@ -59,7 +60,7 @@ export const fetchIcon = createAsyncThunk(
   async (subredditName) => {
     const localIcon = localStorage.getItem(subredditName);
   
-    if (localIcon) {
+    if (localIcon && localIcon !== "null") {
       return {
         subredditName: subredditName,
         icon: localIcon,
@@ -70,7 +71,11 @@ export const fetchIcon = createAsyncThunk(
     const response = await axios.get(URL, {
       headers: "Access-Control-Allow-Origin",
     });
-    icon = response.data.data.icon_img || response.data.data.header_img;
+  
+    icon =
+      replaceEntities(response.data.data.community_icon) ||
+      replaceEntities(response.data.data.icon_img) ||
+      replaceEntities(response.data.data.header_img);
     localStorage.setItem(subredditName, icon);
     return {
       subredditName: subredditName,

@@ -2,9 +2,19 @@ import { useEffect, useState } from "react";
 import parseMarkdownText from "../functions/parseMarkdownText";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Skeleton, Card, CardHeader, CardContent, Avatar } from "@mui/material";
-import DefaultIcon from "/logoTransparent.png";
+import {
+  Skeleton,
+  Card,
+  CardHeader,
+  CardContent,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
+
 import replaceEntities from "../functions/replaceEntities";
+import SubredditAvatar from "./SubredditAvatar";
+import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
 
 function SubredditInfo() {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -13,13 +23,14 @@ function SubredditInfo() {
   document.title = `rLite | r/${subredditName}`;
 
   useEffect(() => {
-    async function getIcon(subredditName) {
+    async function getSubredditInfo(subredditName) {
       const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
       const response = await axios.get(URL);
       setSubredditInfo(response.data.data);
     }
-    getIcon(subredditName);
+    getSubredditInfo(subredditName);
   }, [window.URL]);
+
   return (
     <Card
       className="SubredditInfoContainer"
@@ -41,26 +52,7 @@ function SubredditInfo() {
           background: "none",
           bgcolor: "rgba(0, 0, 0, 0.6)",
         }}
-        avatar={
-          subredditInfo ? (
-            <Avatar
-              src={
-                subredditInfo.icon_img ||
-                subredditInfo.header_img ||
-                DefaultIcon
-              }
-              sx={{ bgcolor: "white" }}
-            />
-          ) : (
-            <Skeleton
-              variant="circular"
-              width="128px"
-              height="128px"
-              className="subredditIcon placeholder"
-              animation="wave"
-            />
-          )
-        }
+        avatar={<SubredditAvatar subredditName={subredditName} />}
         title={subredditInfo.title || <Skeleton animation="wave" />}
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "white", fontSize: 24 },
@@ -80,6 +72,7 @@ function SubredditInfo() {
           display: "flex",
           justifyContent: "center",
           bgcolor: "rgba(0, 0, 0, 0.6)",
+          flexDirection: "column",
         }}
       >
         {subredditInfo.public_description ? (
@@ -91,6 +84,44 @@ function SubredditInfo() {
             animation="wave"
           />
         )}
+        <Accordion
+          sx={{
+            bgcolor: "transparent",
+            color: "white",
+            flexDirection: "column",
+            a: {
+              color: "white",
+              textDecoration: "underline",
+            },
+            // "p, h1, h2, h3, h4, h5, h6": {
+            "*": {
+              mb: 2,
+            },
+            li: {
+              listStyle: "initial",
+            },
+            "*:last-child": {
+              marginBottom: "0",
+            },
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon htmlColor="white" />}
+            sx={{ ".MuiAccordionSummary-contentGutters": {display:"none"} }}
+          ></AccordionSummary>
+          <AccordionDetails>
+            {" "}
+            {subredditInfo.public_description ? (
+              parseMarkdownText(subredditInfo.description)
+            ) : (
+              <Skeleton
+                variant="text"
+                className="subredditDescription"
+                animation="wave"
+              />
+            )}
+          </AccordionDetails>
+        </Accordion>
       </CardContent>
     </Card>
   );

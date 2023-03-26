@@ -83,9 +83,7 @@ const ThreadCard = ({
           cardType !== "subreddit" && (
             <SubredditAvatar
               subredditName={subredditName}
-              type="avatar"
               alt="Subreddit avatar"
-              cardType={cardType}
             />
           )
         }
