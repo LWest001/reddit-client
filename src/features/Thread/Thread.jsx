@@ -37,15 +37,12 @@ const Thread = () => {
       cardType="thread"
       commentCount={threadData.commentCount}
       galleryCaptions={threadData.galleryCaptions}
-      galleryData={
-        threadData.galleryData
-      }
+      galleryData={threadData.galleryData}
       icon={threadData.icon}
       image={
         ["image", "video"].includes(threadData.threadType) && {
           fullSizeImage: threadData.image,
           previewSizeImage: threadData.imagePreview,
-    
         }
       }
       link={threadData.link}
@@ -78,6 +75,7 @@ const Thread = () => {
       return (
         <CommentCard
           author={data.author}
+          threadAuthor={threadData.author}
           body={data.body_html}
           id={data.id}
           indexTree={[data.index]}

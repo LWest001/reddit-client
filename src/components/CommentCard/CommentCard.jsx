@@ -5,13 +5,30 @@ import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReadMoreButton from "../ReadMoreButton";
-import { Avatar, Card, CardContent, CardHeader } from "@mui/material";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  Box,
+  Badge,
+  styled,
+} from "@mui/material";
 import stringAvatar from "../../functions/stringAvatar";
 
 import CommentHeaderText from "./CommentHeaderText";
 
 import { isMobile } from "react-device-detect";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    right: -4,
+    top: 7,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0",
+  },
+}));
 
 function CommentCard({
   author,
@@ -20,6 +37,7 @@ function CommentCard({
   indexTree,
   replies,
   score,
+  threadAuthor,
   timestamp,
   type,
 }) {
@@ -27,6 +45,7 @@ function CommentCard({
   const { subredditName, redditId, threadTitle } = useParams();
 
   const [clicked, setClicked] = useState(false);
+  const isOp = useMemo(() => threadAuthor === author);
 
   function handleCollapse() {
     const commentBody = document.getElementById(`comment-${id}`);
@@ -82,6 +101,7 @@ function CommentCard({
           key={data.id}
           replies={data.replies}
           score={data.ups}
+          threadAuthor={threadAuthor}
           timestamp={getTimeStamp(data.created_utc)}
           type="subcomment"
         />
@@ -99,40 +119,52 @@ function CommentCard({
         className="commentHeader"
         variant="commentCard"
         avatar={
-          <Avatar
-            {...stringAvatar(author)}
-            variant="rounded"
-            onMouseEnter={(e) => {
-              if (!isMobile) {
-                e.target.innerHTML = author;
-                e.target.style.width = "100%";
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isMobile && !clicked) {
-                e.target.innerHTML = author.substring(0, 1).toUpperCase();
-                e.target.style.width = "1.4rem";
-              }
-            }}
-            onClick={(e) => {
-              const text = document.querySelector(`#CommentHeaderText-${id}`);
-              if (!clicked) {
-                setClicked(true);
-                e.target.innerHTML = author;
-                e.target.style.width = "100%";
-                if (isMobile) {
-                  text.style.display = "none";
-                }
-              } else {
-                setClicked(false);
-                e.target.innerHTML = author.substring(0, 1).toUpperCase();
-                e.target.style.width = "1.4rem";
-                if (isMobile) {
-                  text.style.display = "flex";
-                }
-              }
-            }}
-          />
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <StyledBadge
+              badgeContent={"👑"}
+              invisible={!isOp}
+              color="secondary"
+            >
+              <Avatar
+                {...stringAvatar(author)}
+                variant="rounded"
+                onMouseEnter={(e) => {
+                  if (!isMobile) {
+                    e.target.innerHTML = author;
+                    e.target.style.width = "100%";
+                    e.target.style.maxWidth = "fit-content";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isMobile && !clicked) {
+                    e.target.innerHTML = author.substring(0, 1).toUpperCase();
+                    e.target.style.width = "1.4rem";
+                  }
+                }}
+                onClick={(e) => {
+                  const text = document.querySelector(
+                    `#CommentHeaderText-${id}`
+                  );
+                  if (!clicked) {
+                    setClicked(true);
+                    e.target.innerHTML = author;
+                    e.target.style.width = "100%";
+                    e.target.style.maxWidth = "fit-content";
+                    if (isMobile) {
+                      text.style.display = "none";
+                    }
+                  } else {
+                    setClicked(false);
+                    e.target.innerHTML = author.substring(0, 1).toUpperCase();
+                    e.target.style.width = "1.4rem";
+                    if (isMobile) {
+                      text.style.display = "flex";
+                    }
+                  }
+                }}
+              />
+            </StyledBadge>
+          </Box>
         }
         title={
           <CommentHeaderText
@@ -140,6 +172,7 @@ function CommentCard({
             score={score}
             handleCollapse={handleCollapse}
             id={id}
+            isOp={isOp}
           />
         }
       />
