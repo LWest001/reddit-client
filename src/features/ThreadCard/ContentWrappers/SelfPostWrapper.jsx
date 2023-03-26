@@ -32,7 +32,19 @@ function SelfPostWrapper({ text }) {
           </div>
         </AccordionSummary>
 
-        <AccordionDetails id={`${id}-content`}>{bodyTextHTML}</AccordionDetails>
+        <AccordionDetails
+          id={`${id}-content`}
+          sx={{
+            ">p": {
+              mb: 2,
+            },
+            ">p:last-of-type": {
+              marginBottom: "0",
+            },
+          }}
+        >
+          {bodyTextHTML}
+        </AccordionDetails>
       </Accordion>
     );
   } else {
