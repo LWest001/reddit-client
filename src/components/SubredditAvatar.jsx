@@ -6,7 +6,7 @@ import {
   fetchIcon,
   selectIconBySubreddit,
 } from "../features/ThreadList/threadListSlice";
-import DefaultIcon from "/logoTransparent.png";
+import DefaultIcon from "/DefaultIcon.png";
 import { setStatus } from "../features/ThreadList/threadListSlice";
 import { useEffect } from "react";
 
@@ -16,9 +16,10 @@ function SubredditAvatar({ subredditName }) {
     dispatch(setStatus("idle"));
   }
 
-  const icon = useSelector((state) =>
+  let icon = useSelector((state) =>
     selectIconBySubreddit(state, subredditName)
   );
+
   useEffect(() => {
     if (icon === undefined) {
       dispatch(fetchIcon(subredditName));
@@ -38,7 +39,7 @@ function SubredditAvatar({ subredditName }) {
   }
   return (
     <Avatar
-      src={icon || DefaultIcon}
+      src={icon}
       alt={`Avatar for subreddit r/${subredditName}`}
       component={Link}
       to={`/r/${subredditName}`}
@@ -47,7 +48,9 @@ function SubredditAvatar({ subredditName }) {
       sx={{
         background: "linear-gradient(45deg, rgba(0, 0, 255, 0.267), white)",
       }}
-    />
+    >
+      <img src={DefaultIcon} />
+    </Avatar>
   );
 }
 

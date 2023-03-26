@@ -29,14 +29,14 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.52221046"
-     inkscape:cx="517.99039"
-     inkscape:cy="463.41469"
+     inkscape:cx="664.48305"
+     inkscape:cy="464.37216"
      inkscape:window-width="1920"
-     inkscape:window-height="1009"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
+     inkscape:window-height="1111"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer5" />
+     inkscape:current-layer="g601" />
   <defs
      id="defs2">
     <rect
@@ -105,6 +105,16 @@
          xlink:href="#g1798"
          id="use1804" />
     </clipPath>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9328"
+       id="linearGradient9330-0"
+       x1="139.10115"
+       y1="12.845145"
+       x2="137.68288"
+       y2="61.503658"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.2370641,0,0,1.2370641,-37.671723,-38.366898)" />
   </defs>
   <g
      inkscape:groupmode="layer"
@@ -149,12 +159,14 @@
      id="layer3"
      inkscape:label="Layer 3"
      transform="matrix(1.0964225,0,0,1.0968758,0.00267163,-0.47073403)"
-     style="stroke-width:0.911869">
+     style="display:inline;stroke-width:0.911869">
     <g
        id="g902"
-       transform="translate(153.30787,7.0913394)">
+       transform="translate(153.30787,7.0913394)"
+       style="display:inline"
+       inkscape:label="FAce">
       <path
-         style="fill:none;fill-opacity:1;stroke:url(#linearGradient9330);stroke-width:12.2085;stroke-dasharray:none;stroke-opacity:1"
+         style="display:none;fill:none;fill-opacity:1;stroke:url(#linearGradient9330);stroke-width:12.2085;stroke-dasharray:none;stroke-opacity:1"
          d="M 153.98292,28.010606 C 141.6603,33.734217 135.42333,24.1208 117.53773,24.535107 100.62823,24.926803 79.748337,29.641654 88.352907,39.553245 96.748681,49.224313 74.123182,66.398278 77.163295,75.244714"
          id="path2336"
          sodipodi:nodetypes="cssc"
@@ -162,7 +174,7 @@
       <g
          id="g1088"
          transform="matrix(0.72831573,0,0,0.72831573,51.953991,2.6208063)"
-         style="stroke-width:1.25202">
+         style="display:none;stroke-width:1.25202">
         <ellipse
            style="fill:#fd9797;fill-opacity:1;stroke:none;stroke-width:1.01788"
            id="path9216"
@@ -218,8 +230,9 @@
        clip-path="url(#clipPath1802)"
        transform="matrix(1,0,-0.37205042,1,26.697003,8.683446)">
       <g
-         inkscape:label="Clip"
-         id="g1798">
+         inkscape:label="Text"
+         id="g1798"
+         style="display:inline">
         <text
            xml:space="preserve"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:23.1615px;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#ffffff;stroke-width:8.89164;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none"
@@ -233,6 +246,59 @@
              y="172.72398"
              id="tspan1964">A  minimal  Reddit  browser!</tspan></text>
       </g>
+    </g>
+    <g
+       id="g601"
+       transform="matrix(0.80836556,0,0,0.80836556,23.263884,36.893662)"
+       style="stroke-width:1.12804">
+      <ellipse
+         style="display:inline;fill:#fd9797;fill-opacity:1;stroke:none;stroke-width:0.836261"
+         id="path9216-2"
+         cx="317.92456"
+         cy="80.027573"
+         rx="95.249458"
+         ry="73.881813" />
+      <circle
+         style="display:inline;fill:#ffffff;stroke:none;stroke-width:2.06071"
+         id="path345-5-3"
+         cx="362.81055"
+         cy="-17.806026"
+         inkscape:label="bauble"
+         r="18.843161" />
+      <path
+         style="display:inline;fill:none;fill-opacity:1;stroke:url(#linearGradient9330-0);stroke-width:11.56353806;stroke-dasharray:none;stroke-opacity:1"
+         d="m 349.42669,-16.437442 c -8.04653,5.723611 -12.11921,-3.889806 -23.7983,-3.475499 -11.04172,0.391696 -24.67606,5.106547 -19.05737,15.018138 5.48235,9.671068 -7.42879,13.068104 -5.44363,21.91454"
+         id="path2336-3"
+         sodipodi:nodetypes="cssc"
+         inkscape:label="stem" />
+      <path
+         style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.26115;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:normal"
+         id="path11102-4"
+         sodipodi:type="arc"
+         sodipodi:cx="304.24365"
+         sodipodi:cy="147.58662"
+         sodipodi:rx="76.598862"
+         sodipodi:ry="76.769218"
+         sodipodi:start="0"
+         sodipodi:end="3.1468286"
+         sodipodi:arc-type="slice"
+         d="m 380.84251,147.58662 a 76.598862,76.769218 0 0 1 -38.41526,66.55099 76.598862,76.769218 0 0 1 -76.71435,-0.20128 76.598862,76.769218 0 0 1 -38.06706,-66.75166 l 76.59781,0.40195 z"
+         transform="matrix(0.9677646,-0.25185647,0.15922036,0.98724307,0,0)"
+         inkscape:label="mouth" />
+      <ellipse
+         style="display:inline;fill:#ff0000;stroke:none;stroke-width:2.18572"
+         id="path345-55"
+         cx="263.39578"
+         cy="51.702663"
+         rx="21.141739"
+         ry="19.759249" />
+      <ellipse
+         style="display:inline;fill:#ff0000;stroke:none;stroke-width:2.18572"
+         id="path345-7-4"
+         cx="328.6156"
+         cy="40.154865"
+         rx="19.75543"
+         ry="20.221161" />
     </g>
   </g>
 </svg>

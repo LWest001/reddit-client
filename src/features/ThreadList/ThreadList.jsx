@@ -8,7 +8,6 @@ import {
   selectQuery,
   selectSubredditThreads,
   selectSearchThreads,
-  selectIcons,
 } from "./threadListSlice";
 
 // Component imports
