@@ -18,6 +18,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
 
 function SubredditInfo() {
   const [subredditInfo, setSubredditInfo] = useState({});
+  const [bgImage, setBgImage] = useState(null);
   const { subredditName } = useParams();
 
   document.title = `rLite | r/${subredditName}`;
@@ -29,22 +30,22 @@ function SubredditInfo() {
       setSubredditInfo(response.data.data);
     }
     getSubredditInfo(subredditName);
-  }, [window.URL]);
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth < 600 && subredditInfo.mobile_banner_image) {
+      setBgImage(subredditInfo.mobile_banner_image);
+    } else {
+      setBgImage(subredditInfo.banner_background_image);
+    }
+  }, [subredditInfo]);
 
   return (
     <Card
       className="SubredditInfoContainer"
       sx={{
-        background:
-          window.innerWidth < 600 && subredditInfo.mobile_banner_image
-            ? `url(${replaceEntities(
-                subredditInfo.mobile_banner_image
-              )}) no-repeat center`
-            : subredditInfo.banner_background_image &&
-              `url(${replaceEntities(
-                subredditInfo.banner_background_image
-              )}) no-repeat center`,
-        backgroundSize: "cover",
+        background: `url(${replaceEntities(bgImage)}) no-repeat top`,
+        backgroundSize: "contain",
         justifyContent: "space-between",
         mt: "calc(var(--appbar-height) + 0.5rem)",
         minHeight: "min-content",
