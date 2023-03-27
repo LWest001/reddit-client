@@ -3,6 +3,7 @@ import {
   Link as RouterLink,
   useNavigate,
   createSearchParams,
+  useParams,
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
 import { setStatus as setHomepageStatus } from "../../features/ThreadList/threadListSlice";
@@ -30,13 +31,19 @@ const Header = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const query = e.target.children[1].children[0].value;
-    dispatch(setHomepageStatus("idle"));
-    const params = { q: query };
-    navigate({
-      pathname: "/search",
-      search: `?${createSearchParams(params)}`,
-    });
+    const query =
+      e.target.children[1].children[0].children[0].children[0].value;
+    if (query.substring(0, 2) === "r/") {
+      dispatch(setHomepageStatus("idle"));
+      navigate(query);
+    } else {
+      dispatch(setHomepageStatus("idle"));
+      const params = { q: query };
+      navigate({
+        pathname: "/search",
+        search: `?${createSearchParams(params)}`,
+      });
+    }
     window.scrollTo(0, 0);
     e.target[0].value = "";
   }

@@ -30,7 +30,7 @@ function SubredditInfo() {
       setSubredditInfo(response.data.data);
     }
     getSubredditInfo(subredditName);
-  }, []);
+  }, [subredditName]);
 
   useEffect(() => {
     if (window.innerWidth < 600 && subredditInfo.mobile_banner_image) {

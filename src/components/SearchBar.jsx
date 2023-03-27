@@ -1,5 +1,12 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha, InputBase } from "@mui/material";
+import {
+  styled,
+  alpha,
+  InputBase,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
+import TopSubs from "../assets/subreddits.json";
 
 function SearchBar({ handleSubmit }) {
   const Search = styled("form")(({ theme }) => ({
@@ -27,9 +34,9 @@ function SearchBar({ handleSubmit }) {
     justifyContent: "center",
   }));
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
     color: "inherit",
-    "& .MuiInputBase-input": {
+    "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -39,6 +46,9 @@ function SearchBar({ handleSubmit }) {
         width: "20ch",
       },
     },
+    "& 	.MuiAutocomplete-endAdornment": {
+      display: "none",
+    },
   }));
 
   return (
@@ -46,9 +56,22 @@ function SearchBar({ handleSubmit }) {
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase
+      <StyledAutocomplete
         placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
+        freeSolo
+        options={TopSubs.names.map((option) => `r/${option}`)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Search…"
+            variant="standard"
+            InputProps={{
+              ...params.InputProps,
+              type: "search",
+              endAdornment: <></>,
+            }}
+          />
+        )}
       />
     </Search>
   );

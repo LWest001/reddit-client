@@ -24,7 +24,7 @@ function SubredditAvatar({ subredditName, disabled }) {
     if (icon === undefined || icon === null) {
       dispatch(fetchIcon(subredditName));
     }
-  }, []);
+  }, [subredditName]);
 
   if (icon === "loading" || icon === undefined) {
     return (
