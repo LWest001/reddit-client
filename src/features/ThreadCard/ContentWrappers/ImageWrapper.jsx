@@ -16,7 +16,14 @@ function ImageWrapper({ image, link }) {
   return (
     <Box
       className="ImageWrapper"
-      sx={{ display: "flex", flexDirection: "column", placeItems: "center" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        placeItems: "center",
+        img: {
+          maxHeight: "80vh",
+        },
+      }}
     >
       <img
         srcSet={srcset}
