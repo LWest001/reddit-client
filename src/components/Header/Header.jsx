@@ -3,7 +3,6 @@ import {
   Link as RouterLink,
   useNavigate,
   createSearchParams,
-  useParams,
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
 import { setStatus as setHomepageStatus } from "../../features/ThreadList/threadListSlice";
@@ -18,6 +17,8 @@ import {
   Stack,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
+import { useState } from "react";
+import HintBox from "../HintBox";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -33,11 +34,11 @@ const Header = () => {
     e.preventDefault();
     const query =
       e.target.children[1].children[0].children[0].children[0].value;
+    dispatch(setHomepageStatus("idle"));
     if (query.substring(0, 2) === "r/") {
-      dispatch(setHomepageStatus("idle"));
-      navigate(query);
+      const spaceIndex = query.indexOf(" ");
+      navigate(query.substring(0, spaceIndex >= 0 ? spaceIndex : query.length));
     } else {
-      dispatch(setHomepageStatus("idle"));
       const params = { q: query };
       navigate({
         pathname: "/search",
@@ -45,8 +46,15 @@ const Header = () => {
       });
     }
     window.scrollTo(0, 0);
-    e.target[0].value = "";
   }
+
+  const [open, setOpen] = useState(false);
+  function handleClose() {
+    setOpen(false);
+    localStorage.setItem("hideSearchHint", true);
+  }
+
+
 
   return (
     <AppBar className="Header">
@@ -85,8 +93,17 @@ const Header = () => {
           </Button>
           <SortSelector />
         </Stack>
-        <SearchBar handleSubmit={handleSubmit} />
+        <SearchBar handleSubmit={handleSubmit} setOpen={setOpen} />
       </Toolbar>
+      <HintBox
+        horizontal="center"
+        vertical="top"
+        open={open}
+        onClose={handleClose}
+        message={
+          "Enter \"r/<Subreddit name>\" to navigate to a subreddit, or any other term to search Reddit threads!"
+        }
+      />
     </AppBar>
   );
 };

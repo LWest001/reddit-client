@@ -1,14 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
-import {
-  styled,
-  alpha,
-  InputBase,
-  Autocomplete,
-  TextField,
-} from "@mui/material";
+import { styled, alpha, Autocomplete, TextField } from "@mui/material";
 import TopSubs from "../assets/subreddits.json";
 
-function SearchBar({ handleSubmit }) {
+function SearchBar({ handleSubmit, setOpen }) {
   const Search = styled("form")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -46,10 +40,12 @@ function SearchBar({ handleSubmit }) {
         width: "20ch",
       },
     },
-    "& 	.MuiAutocomplete-endAdornment": {
-      display: "none",
-    },
+
   }));
+
+  function hideSearchHint() {
+    return localStorage.getItem("hideSearchHint");
+  }
 
   return (
     <Search onSubmit={(e) => handleSubmit(e)}>
@@ -59,6 +55,20 @@ function SearchBar({ handleSubmit }) {
       <StyledAutocomplete
         placeholder="Search…"
         freeSolo
+        onFocus={() => {
+          if (window.innerWidth < 600) {
+            const SortSelector = document.querySelector(".SortSelector");
+            SortSelector.style.display = "none";
+          }
+          if (!(hideSearchHint() === "true")) {
+            setOpen(true);
+          }
+        }}
+        onBlur={() => {
+          const SortSelector = document.querySelector(".SortSelector");
+          SortSelector.style.display = "block";
+        }}
+        autoComplete
         options={TopSubs.names.map((option) => `r/${option}`)}
         renderInput={(params) => (
           <TextField
