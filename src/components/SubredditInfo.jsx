@@ -36,10 +36,14 @@ function SubredditInfo() {
       className="SubredditInfoContainer"
       sx={{
         background:
-          subredditInfo.banner_background_image &&
-          `url(${replaceEntities(
-            subredditInfo.banner_background_image
-          )}) no-repeat center`,
+          window.innerWidth < 600 && subredditInfo.mobile_banner_image
+            ? `url(${replaceEntities(
+                subredditInfo.mobile_banner_image
+              )}) no-repeat center`
+            : subredditInfo.banner_background_image &&
+              `url(${replaceEntities(
+                subredditInfo.banner_background_image
+              )}) no-repeat center`,
         backgroundSize: "cover",
         justifyContent: "space-between",
         mt: "calc(var(--appbar-height) + 0.5rem)",
@@ -52,7 +56,7 @@ function SubredditInfo() {
           background: "none",
           bgcolor: "rgba(0, 0, 0, 0.6)",
         }}
-        avatar={<SubredditAvatar subredditName={subredditName} />}
+        avatar={<SubredditAvatar subredditName={subredditName} disabled />}
         title={subredditInfo.title || <Skeleton animation="wave" />}
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "white", fontSize: 24 },

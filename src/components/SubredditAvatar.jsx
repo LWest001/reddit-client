@@ -10,7 +10,7 @@ import DefaultIcon from "/DefaultIcon.png";
 import { setStatus } from "../features/ThreadList/threadListSlice";
 import { useEffect } from "react";
 
-function SubredditAvatar({ subredditName }) {
+function SubredditAvatar({ subredditName, disabled }) {
   const dispatch = useDispatch();
   function handleClick() {
     dispatch(setStatus("idle"));
@@ -43,7 +43,7 @@ function SubredditAvatar({ subredditName }) {
       alt={`Avatar for subreddit r/${subredditName}`}
       component={Link}
       to={`/r/${subredditName}`}
-      onClick={handleClick}
+      onClick={!disabled && handleClick}
       className={"subredditIcon"}
       sx={{
         background: "linear-gradient(45deg, rgba(0, 0, 255, 0.267), white)",
