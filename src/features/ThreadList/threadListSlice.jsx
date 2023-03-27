@@ -60,7 +60,7 @@ export const fetchIcon = createAsyncThunk(
   async (subredditName) => {
     const localIcon = localStorage.getItem(subredditName);
   
-    if (localIcon && localIcon !== "null") {
+    if (localIcon && localIcon !== "null" && localIcon !== "undefined") {
       return {
         subredditName: subredditName,
         icon: localIcon,

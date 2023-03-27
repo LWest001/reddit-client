@@ -84,44 +84,48 @@ function SubredditInfo() {
             animation="wave"
           />
         )}
-        <Accordion
-          sx={{
-            bgcolor: "transparent",
-            color: "white",
-            flexDirection: "column",
-            a: {
+        {subredditInfo.description && (
+          <Accordion
+            sx={{
+              bgcolor: "transparent",
               color: "white",
-              textDecoration: "underline",
-            },
-            // "p, h1, h2, h3, h4, h5, h6": {
-            "*": {
-              mb: 2,
-            },
-            li: {
-              listStyle: "initial",
-            },
-            "*:last-child": {
-              marginBottom: "0",
-            },
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon htmlColor="white" />}
-            sx={{ ".MuiAccordionSummary-contentGutters": {display:"none"} }}
-          ></AccordionSummary>
-          <AccordionDetails>
-            {" "}
-            {subredditInfo.public_description ? (
-              parseMarkdownText(subredditInfo.description)
-            ) : (
-              <Skeleton
-                variant="text"
-                className="subredditDescription"
-                animation="wave"
-              />
-            )}
-          </AccordionDetails>
-        </Accordion>
+              flexDirection: "column",
+              a: {
+                color: "white",
+                textDecoration: "underline",
+              },
+              // "p, h1, h2, h3, h4, h5, h6": {
+              "*": {
+                mb: 2,
+              },
+              li: {
+                listStyle: "initial",
+              },
+              "*:last-child": {
+                marginBottom: "0",
+              },
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon htmlColor="white" />}
+              sx={{
+                ".MuiAccordionSummary-contentGutters": { display: "none" },
+              }}
+            ></AccordionSummary>
+            <AccordionDetails>
+              {" "}
+              {subredditInfo.public_description ? (
+                parseMarkdownText(subredditInfo.description)
+              ) : (
+                <Skeleton
+                  variant="text"
+                  className="subredditDescription"
+                  animation="wave"
+                />
+              )}
+            </AccordionDetails>
+          </Accordion>
+        )}
       </CardContent>
     </Card>
   );
