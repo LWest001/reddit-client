@@ -23,6 +23,8 @@ function SubredditInfo() {
 
   document.title = `rLite | r/${subredditName}`;
 
+  const [expanded, setExpanded] = useState(false);
+
   useEffect(() => {
     async function getSubredditInfo(subredditName) {
       const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
@@ -45,7 +47,7 @@ function SubredditInfo() {
       className="SubredditInfoContainer"
       sx={{
         background: `url(${replaceEntities(bgImage)}) no-repeat top`,
-        backgroundSize: "contain",
+        backgroundSize: expanded ? "contain" : "cover",
         justifyContent: "space-between",
         mt: "calc(var(--appbar-height) + 0.5rem)",
         minHeight: "min-content",
@@ -91,10 +93,16 @@ function SubredditInfo() {
         )}
         {subredditInfo.description && (
           <Accordion
+            onChange={(event, expanded) => {
+              expanded
+                ? setExpanded(expanded)
+                : setTimeout(() => setExpanded(expanded), 719);
+            }}
             sx={{
               bgcolor: "transparent",
               color: "white",
               flexDirection: "column",
+
               a: {
                 color: "white",
                 textDecoration: "underline",
