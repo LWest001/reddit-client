@@ -40,7 +40,6 @@ function SearchBar({ handleSubmit, setOpen }) {
         width: "20ch",
       },
     },
-
   }));
 
   function hideSearchHint() {
@@ -79,6 +78,7 @@ function SearchBar({ handleSubmit, setOpen }) {
               ...params.InputProps,
               type: "search",
               endAdornment: <></>,
+              sx: { color: "white" },
             }}
           />
         )}
