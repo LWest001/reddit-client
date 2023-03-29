@@ -58,6 +58,7 @@ export const fetchThreadsList = createAsyncThunk(
 export const fetchIcon = createAsyncThunk(
   "threadList/fetchIcon",
   async (subredditName) => {
+    
     const doNotCheck = sessionStorage.getItem(subredditName);
     if (doNotCheck) {
       return {
