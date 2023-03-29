@@ -27,7 +27,8 @@ theme = createTheme(theme, {
         {
           props: { variant: "commentCard" },
           style: {
-            padding: "0.2rem 1rem",
+            padding: 0,
+            paddingRight: "1rem",
             fontSize: 14,
             display: "flex",
             alignItems: "center",

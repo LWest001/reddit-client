@@ -4,13 +4,14 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 import { fetchThread } from "../../features/Thread/threadSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import ReadMoreButton from "../ReadMoreButton";
-import { Card, CardContent, CardHeader } from "@mui/material";
+import ReadMoreButton from "./ReadMoreButton";
+import { Box, Card, CardContent, CardHeader } from "@mui/material";
 
 import CommentHeaderText from "./CommentHeaderText";
 import CommentAvatar from "./CommentAvatar";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import ExpandCollapseButton from "./ExpandCollapseButton";
 
 function CommentCard({
   author,
@@ -25,6 +26,7 @@ function CommentCard({
 }) {
   const dispatch = useDispatch();
   const { subredditName, redditId, threadTitle } = useParams();
+  const [expanded, setExpanded] = useState(true);
 
   const isOp = useMemo(() => threadAuthor === author);
 
@@ -32,8 +34,10 @@ function CommentCard({
     const commentBody = document.getElementById(`comment-${id}`);
     if (commentBody.style.display !== "none") {
       commentBody.style.display = "none";
+      setExpanded(false);
     } else {
       commentBody.style.display = "block";
+      setExpanded(true);
     }
   }
 
@@ -99,7 +103,14 @@ function CommentCard({
       <CardHeader
         className="commentHeader"
         variant="commentCard"
-        avatar={<CommentAvatar isOp={isOp} author={author} id={id} />}
+        avatar={
+          <Box
+            sx={{ display: "flex", width: "100%", alignItems: "center", py: 0 }}
+          >
+            <ExpandCollapseButton expanded={expanded} handleCollapse={handleCollapse}/>
+            <CommentAvatar isOp={isOp} author={author} id={id} />
+          </Box>
+        }
         title={
           <CommentHeaderText
             timestamp={timestamp}

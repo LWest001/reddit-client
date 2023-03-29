@@ -8,6 +8,7 @@ function CommentHeaderText({ timestamp, score, handleCollapse, id }) {
       justifyContent="space-between"
       onClick={handleCollapse}
       id={`CommentHeaderText-${id}`}
+      width="100%"
     >
       <span>{timestamp}</span>
       <Stack direction="row" gap={1}>

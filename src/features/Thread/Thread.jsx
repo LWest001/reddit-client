@@ -13,7 +13,7 @@ import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Card, Typography } from "@mui/material";
 
 const Thread = () => {
   const dispatch = useDispatch();
@@ -66,9 +66,15 @@ const Thread = () => {
     comments = commentsData.map((comment) => {
       if (comment.kind === "more") {
         return (
-          <button key={comment.data.id} id={comment.data.id}>
+          <Button
+          disabled
+            variant="contained"
+            key={comment.data.id}
+            id={comment.data.id}
+            sx={{ width: "fit-content", mb: 1 }}
+          >
             Read more comments
-          </button>
+          </Button>
         );
       }
       const { data } = comment;
@@ -109,7 +115,14 @@ const Thread = () => {
   }, [threadStatus, dispatch]);
 
   return (
-    <Box className="Thread">
+    <Box
+      className="Thread"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {threadStatus === "succeeded" || threadStatus === "loading-subreplies" ? (
         <>
           {thread}
