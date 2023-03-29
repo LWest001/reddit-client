@@ -59,7 +59,7 @@ export const fetchIcon = createAsyncThunk(
   "threadList/fetchIcon",
   async (subredditName) => {
     const localIcon = localStorage.getItem(subredditName);
-  
+
     if (localIcon && localIcon !== "null" && localIcon !== "undefined") {
       return {
         subredditName: subredditName,
@@ -71,11 +71,12 @@ export const fetchIcon = createAsyncThunk(
     const response = await axios.get(URL, {
       headers: "Access-Control-Allow-Origin",
     });
-  
+
     icon =
       replaceEntities(response.data.data.community_icon) ||
       replaceEntities(response.data.data.icon_img) ||
       replaceEntities(response.data.data.header_img);
+    subredditName === "liveaboard" && console.log(typeof icon, icon);
     localStorage.setItem(subredditName, icon);
     return {
       subredditName: subredditName,

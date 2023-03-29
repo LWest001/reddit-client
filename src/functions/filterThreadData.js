@@ -1,5 +1,6 @@
 import { getTimeStamp } from "./getTimeStamp";
 import providers from "../assets/providers.json";
+import replaceEntities from "./replaceEntities";
 
 function filterThreadData(data, threadType) {
   return {
@@ -16,12 +17,14 @@ function filterThreadData(data, threadType) {
     postFlair: {
       backgroundColor: data.link_flair_background_color,
       textColor: data.link_flair_text_color,
-      text: data.link_flair_richtext[0]?.t || data.link_flair_richtext[1]?.t,
+      text:
+        replaceEntities(data.link_flair_richtext[0]?.t) ||
+        replaceEntities(data.link_flair_richtext[1]?.t),
     },
     redditId: data.name,
     richVideo: threadType === "richVideo" && {
       oembed: data.media.oembed,
-      url: data.url,
+      url: replaceEntities(data.url),
       provider: providers.find(
         (provider) => provider.provider_name === data.media.oembed.provider_name
       ),
@@ -29,7 +32,7 @@ function filterThreadData(data, threadType) {
     score: data.score,
     selfText: threadType === "self" && data.selftext,
     subredditName: data.subreddit,
-    threadTitle: data.title,
+    threadTitle: replaceEntities(data.title),
     threadType: threadType,
     thumbnail: data.thumbnail,
     timestamp: getTimeStamp(data.created_utc),

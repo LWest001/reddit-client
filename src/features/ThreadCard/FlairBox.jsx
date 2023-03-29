@@ -1,7 +1,5 @@
 import { Typography } from "@mui/material";
 import { useContext } from "react";
-
-import replaceEntities from "../../functions/replaceEntities";
 import { ThreadContentContext } from "./ThreadCard";
 
 function FlairBox() {
@@ -24,7 +22,7 @@ function FlairBox() {
         mr: 1,
       }}
     >
-      {replaceEntities(flair?.text)}
+      {flair?.text}
     </Typography>
   );
 }

@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import VideoPlaceholder from "./VideoPlaceholder";
-import replaceEntities from "../../../functions/replaceEntities";
 import LazyLoad from "react-lazy-load";
 
 function RichVideoWrapper({ richVideo }) {
@@ -14,7 +13,7 @@ function RichVideoWrapper({ richVideo }) {
       <LazyLoad offset={screenHeight * 3} width={"100%"}>
         <Embed
           className="richVideoEmbed"
-          url={replaceEntities(richVideo.url)}
+          url={richVideo.url}
           providers={[...defaultProviders, richVideo.provider]}
           LoadingFallbackElement={
             <VideoPlaceholder thumbnail={richVideo.oembed} />
