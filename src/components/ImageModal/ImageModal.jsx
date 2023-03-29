@@ -23,15 +23,7 @@ const style = {
   maxHeight: "100%",
 };
 
-function ImageModal({
-  open,
-  handleClose,
-  link,
-  caption,
-  srcSet,
-  sizes,
-  src,
-}) {
+function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
   const dispatch = useDispatch();
   const { threadTitle } = useContext(ThreadContentContext);
   return (
@@ -42,6 +34,7 @@ function ImageModal({
           variant="h6"
           component="h2"
           textAlign="center"
+          fontSize={16}
         >
           {caption || threadTitle}
         </Typography>
@@ -53,7 +46,7 @@ function ImageModal({
           }}
         >
           <img
-            style={{ maxWidth: "100%", maxHeight: "80vh" }}
+            style={{ maxWidth: "100%", maxHeight: "70vh" }}
             srcSet={srcSet}
             sizes={sizes}
             src={src}

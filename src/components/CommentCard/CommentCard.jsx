@@ -25,7 +25,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     right: -4,
     top: 7,
-    border: `2px solid ${theme.palette.background.paper}`,
+    border: `1px solid ${theme.palette.background.paper}`,
     padding: "0",
   },
 }));
