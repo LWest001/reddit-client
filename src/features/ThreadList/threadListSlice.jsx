@@ -58,6 +58,13 @@ export const fetchThreadsList = createAsyncThunk(
 export const fetchIcon = createAsyncThunk(
   "threadList/fetchIcon",
   async (subredditName) => {
+    const doNotCheck = sessionStorage.getItem(subredditName);
+    if (doNotCheck) {
+      return {
+        subredditName: subredditName,
+        icon: null,
+      };
+    }
     const localIcon = localStorage.getItem(subredditName);
 
     if (localIcon && localIcon !== "null" && localIcon !== "undefined") {
@@ -76,11 +83,13 @@ export const fetchIcon = createAsyncThunk(
       replaceEntities(response.data.data.community_icon) ||
       replaceEntities(response.data.data.icon_img) ||
       replaceEntities(response.data.data.header_img);
-    subredditName === "liveaboard" && console.log(typeof icon, icon);
-    localStorage.setItem(subredditName, icon);
+    localStorage.setItem(subredditName, icon || null);
+    if (!icon) {
+      sessionStorage.setItem(subredditName, true);
+    }
     return {
       subredditName: subredditName,
-      icon: icon,
+      icon: icon || null,
     };
   }
 );
