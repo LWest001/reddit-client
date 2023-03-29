@@ -32,6 +32,8 @@ const Header = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const SortSelector = document.querySelector(".SortSelector");
+    SortSelector.style.display = "block";
     const query =
       e.target.children[1].children[0].children[0].children[0].value;
     dispatch(setHomepageStatus("idle"));
@@ -54,11 +56,9 @@ const Header = () => {
     localStorage.setItem("hideSearchHint", true);
   }
 
-
-
   return (
     <AppBar className="Header">
-      <Toolbar sx={{paddingLeft: [0, "24px"]}}>
+      <Toolbar sx={{ paddingLeft: [0, "24px"] }}>
         <Stack
           className="AppBar-Main"
           direction="row"
@@ -101,7 +101,7 @@ const Header = () => {
         open={open}
         onClose={handleClose}
         message={
-          "Enter \"r/<Subreddit name>\" to navigate to a subreddit, or any other term to search Reddit threads!"
+          'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         }
       />
     </AppBar>
