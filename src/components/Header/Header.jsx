@@ -58,7 +58,7 @@ const Header = () => {
 
   return (
     <AppBar className="Header">
-      <Toolbar>
+      <Toolbar sx={{paddingLeft: [0, "24px"]}}>
         <Stack
           className="AppBar-Main"
           direction="row"
