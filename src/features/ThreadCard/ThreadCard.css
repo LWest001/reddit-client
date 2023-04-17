@@ -1,6 +1,6 @@
 /* Global */
 
-.ThreadList .LazyLoad:first-of-type,
+.ThreadList>.LazyLoad:first-of-type,
 .Thread .ThreadCard,
 .SkeletonThreadCard:first-of-type {
   margin-top: calc(var(--appbar-height) + 0.5rem) !important;
