@@ -14,12 +14,10 @@ It is built using [React](https://reactjs.org/) with [Redux](https://redux.js.or
 - Search Reddit for the content you are looking for.
 - Scroll infinitely on the homepage or within subreddit.
 - Desktop and mobile support
-- Videos play smoothly using [ReactPlayer](https://github.com/cookpete/react-player) for Reddit Video and [React Tiny Oembed](https://github.com/muzam1l/react-tiny-oembed) for third-party embedded content..
 
 ## Planned features
 
-- Search for subreddits by name, or search within a subreddit.
-- Read more comments buttons load more comments.
+- Search within a subreddit.
 - Save favorite subreddits for easy access.
 
 All code written by Leo Westebbe.
