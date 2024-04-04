@@ -40,7 +40,7 @@ function filterThreadData(data, threadType) {
     video: threadType === "video" && {
       dashManifest: data.media.reddit_video.dash_url.substring(0, 48),
       fallback: data.media.reddit_video.fallback_url,
-      hls: data.media.reddit_video.hls_url,
+      hls: replaceEntities(data.media.reddit_video.hls_url),
     },
   };
 }
