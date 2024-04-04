@@ -101,7 +101,7 @@ const Header = () => {
         open={open}
         onClose={handleClose}
         message={
-          'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
+          "Enter \"r/<Subreddit name>\" to navigate to a subreddit, or any other term to search Reddit threads!"
         }
       />
     </AppBar>

@@ -17,7 +17,6 @@ import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
 import SubredditInfo from "../../components/SubredditInfo";
 import { Box } from "@mui/material";
-import LazyLoad from "react-lazy-load";
 
 // Function imports
 import useFetchThreads from "../../functions/useFetchThreads";
@@ -43,36 +42,35 @@ const ThreadList = ({ view }) => {
     const viewData = view === "subreddit" ? subredditThreadsData : threadsData;
     threads = viewData.map((thread) => {
       return (
-        <LazyLoad offset={window.innerHeight * 3} key={thread.id}>
-          <ThreadCard
-            id={thread.id}
-            author={thread.author}
-            cardType={view}
-            commentCount={thread.commentCount}
-            galleryCaptions={thread.galleryCaptions}
-            galleryData={thread.galleryData}
-            icon={thread.icon}
-            image={
-              ["image", "video"].includes(thread.threadType) && {
-                fullSizeImage: thread.image,
-                previewSizeImage: thread.imagePreview,
-              }
+        <ThreadCard
+          key={thread.id}
+          id={thread.id}
+          author={thread.author}
+          cardType={view}
+          commentCount={thread.commentCount}
+          galleryCaptions={thread.galleryCaptions}
+          galleryData={thread.galleryData}
+          icon={thread.icon}
+          image={
+            ["image", "video"].includes(thread.threadType) && {
+              fullSizeImage: thread.image,
+              previewSizeImage: thread.imagePreview,
             }
-            link={thread.link}
-            flair={thread.postFlair}
-            redditId={thread.redditId}
-            richVideo={thread.richVideo}
-            score={thread.score}
-            selfText={thread.selfText}
-            subredditName={thread.subredditName}
-            threadTitle={thread.threadTitle}
-            threadType={thread.threadType}
-            thumbnail={thread.thumbnail}
-            timestamp={thread.timestamp}
-            url={thread.url}
-            video={thread.video}
-          />
-        </LazyLoad>
+          }
+          link={thread.link}
+          flair={thread.postFlair}
+          redditId={thread.redditId}
+          richVideo={thread.richVideo}
+          score={thread.score}
+          selfText={thread.selfText}
+          subredditName={thread.subredditName}
+          threadTitle={thread.threadTitle}
+          threadType={thread.threadType}
+          thumbnail={thread.thumbnail}
+          timestamp={thread.timestamp}
+          url={thread.url}
+          video={thread.video}
+        />
       );
     });
   }
@@ -121,10 +119,8 @@ const ThreadList = ({ view }) => {
 
   useFetchThreads(view);
 
-
-
   return (
-    <Box className="ThreadList">
+    <Box className="ThreadList" mt={9}>
       {view === "subreddit" && <SubredditInfo />}
       {threadsStatus === "loading" && skeletons()}
       {(threadsStatus === "succeeded" || threadsStatus === "loadMore") &&
