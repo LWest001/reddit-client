@@ -67,7 +67,7 @@ const Thread = () => {
       if (comment.kind === "more") {
         return (
           <Button
-          disabled
+            disabled
             variant="contained"
             key={comment.data.id}
             id={comment.data.id}
