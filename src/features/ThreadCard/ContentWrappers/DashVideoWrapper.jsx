@@ -2,14 +2,14 @@ import { Box } from "@mui/material";
 import ReactPlayer from "react-player";
 import isiOS from "../../../functions/isiOS";
 
-function DashVideoWrapper({ video, previewUrl }) {
+function DashVideoWrapper({ data, previewUrl }) {
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", placeItems: "center" }}
       className="DashVideoWrapper"
     >
       <ReactPlayer
-        url={isiOS() ? video.hls : video.dashManifest}
+        url={isiOS() ? data.hls : data.dash_url}
         controls={true}
         width="100%"
         maxheight="80vh"
@@ -20,7 +20,7 @@ function DashVideoWrapper({ video, previewUrl }) {
         light={previewUrl}
         fallback={
           <video>
-            <source src={video.fallback} type="video/mp4" />
+            <source src={data.fallback} type="video/mp4" />
           </video>
         }
       />

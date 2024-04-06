@@ -5,13 +5,12 @@ import ImageModal from "../../../components/ImageModal/ImageModal";
 import generateImgSrcset from "../../../functions/generateSrcset";
 import { ThreadContentContext } from "../ThreadCard";
 
-function ImageWrapper({ image, link }) {
+function ImageWrapper({ preview, url, link }) {
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
-
   const { threadTitle } = useContext(ThreadContentContext);
-  const imageSource = generateImgSrcset(image.previewSizeImage);
+  const imageSource = generateImgSrcset(preview.images[0].resolutions);
   const { srcset, src, sizes } = imageSource;
   return (
     <Box
@@ -37,7 +36,7 @@ function ImageWrapper({ image, link }) {
         open={openModal}
         srcSet={srcset}
         sizes={sizes}
-        src={image.fullSizeImage}
+        src={url}
         handleClose={handleCloseModal}
         link={link}
       />

@@ -1,69 +1,33 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  fetchThread,
-  selectThreadData,
-  selectThreadStatus,
-  selectAllComments,
-  setThreadData,
-} from "./threadSlice";
 import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
 import { getTimeStamp } from "../../functions/getTimeStamp";
-import { Box, Button, ButtonBase, Card, Typography } from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { getThread } from "../../api";
 
 const Thread = () => {
-  const dispatch = useDispatch();
-  const threadStatus = useSelector(selectThreadStatus);
-  const threadData = useSelector(selectThreadData);
-  const commentsData = useSelector(selectAllComments);
-  const {
-    redditId,
-    subredditName,
-    threadTitle,
-    sortType = "hot",
-  } = useParams();
+  const { redditId, subredditName } = useParams();
 
-  document.title = `rLite | ${threadData.threadTitle || ""}`;
+  const { data, isLoading, isError, isSuccess } = useQuery({
+    queryKey: ["thread", redditId],
+    queryFn: () => getThread(subredditName, redditId),
+  });
 
-  const thread = (
-    <ThreadCard
-      key={threadData.id}
-      id={threadData.id}
-      author={threadData.author}
-      cardType="thread"
-      commentCount={threadData.commentCount}
-      galleryCaptions={threadData.galleryCaptions}
-      galleryData={threadData.galleryData}
-      icon={threadData.icon}
-      image={
-        ["image", "video"].includes(threadData.threadType) && {
-          fullSizeImage: threadData.image,
-          previewSizeImage: threadData.imagePreview,
-        }
-      }
-      link={threadData.link}
-      flair={threadData.postFlair}
-      redditId={threadData.redditId}
-      richVideo={threadData.richVideo}
-      score={threadData.score}
-      selfText={threadData.selfText}
-      subredditName={threadData.subredditName}
-      threadTitle={threadData.threadTitle}
-      threadType={threadData.threadType}
-      thumbnail={threadData.thumbnail}
-      timestamp={threadData.timestamp}
-      url={threadData.url}
-      video={threadData.video}
-    />
+  document.title = `rLite | ${data?.thread.title || ""}`;
+
+  const threadCard = data?.thread ? (
+    <ThreadCard key={redditId} data={data.thread} cardType="thread" />
+  ) : (
+    <SkeletonThreadCard animation="wave" />
   );
-  let comments;
 
-  if (commentsData.length) {
-    comments = commentsData.map((comment) => {
+  let commentCards;
+
+  if (data?.comments?.length) {
+    commentCards = data.comments.map((comment) => {
       if (comment.kind === "more") {
         return (
           <Button
@@ -77,42 +41,24 @@ const Thread = () => {
           </Button>
         );
       }
-      const { data } = comment;
+
       return (
         <CommentCard
-          author={data.author}
-          threadAuthor={threadData.author}
-          body={data.body_html}
-          id={data.id}
-          indexTree={[data.index]}
-          key={data.id}
-          replies={data.replies}
-          score={data.ups}
-          timestamp={getTimeStamp(data.created_utc)}
+          data={comment.data}
+          threadAuthor={data.thread.author}
+          indexTree={[comment.data.index]}
+          key={comment.data.id}
           type={"top-level-comment"}
         />
       );
     });
   } else {
-    comments = (
+    commentCards = (
       <Card sx={{ display: "flex", alignItems: "center", p: 4 }}>
         <Typography>No comments yet!</Typography>
       </Card>
     );
   }
-
-  useEffect(() => {
-    if (threadStatus === "idle") {
-      dispatch(setThreadData(""));
-      dispatch(
-        fetchThread({
-          link: `https://www.reddit.com/r/${subredditName}/comments/${redditId}/${threadTitle}`,
-          sortType: sortType,
-          requestType: "thread",
-        })
-      );
-    }
-  }, [threadStatus, dispatch]);
 
   return (
     <Box
@@ -123,14 +69,13 @@ const Thread = () => {
         alignItems: "center",
       }}
     >
-      {threadStatus === "succeeded" || threadStatus === "loading-subreplies" ? (
+      {isSuccess ? (
         <>
-          {thread}
-          {comments}
+          {threadCard}
+          {commentCards}
         </>
       ) : (
         <>
-          <SkeletonThreadCard animation="wave" />
           <SkeletonCommentCard animation="wave" />
           <SkeletonCommentCard animation="wave" />
           <SkeletonCommentCard animation="wave" />

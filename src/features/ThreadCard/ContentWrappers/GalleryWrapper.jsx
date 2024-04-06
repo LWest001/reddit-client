@@ -5,15 +5,19 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import generateImgSrcset from "../../../functions/generateSrcset";
 import ThreadTitle from "../ThreadTitle";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import ImageModal from "../../../components/ImageModal/ImageModal";
+import { ThreadContentContext } from "../ThreadCard";
 
-function GalleryWrapper({ galleryData, galleryCaptions }) {
+function GalleryWrapper() {
   const theme = useTheme();
+  const data = useContext(ThreadContentContext);
+  const galleryData = data.media_metadata;
+  const galleryCaptions = data.gallery_data.items;
 
   const steps = [];
   const [openModal, setOpenModal] = useState(false);
@@ -66,7 +70,7 @@ function GalleryWrapper({ galleryData, galleryCaptions }) {
             srcSet={steps[activeStep].srcset}
             sizes={steps[activeStep].sizes}
             src={steps[activeStep].src}
-            style={{ maxHeight: "60vh", maxWidth:"100%" }}
+            style={{ maxHeight: "60vh", maxWidth: "100%" }}
             alt={`Image ${activeStep + 1}: "${steps[activeStep]?.caption}"`}
           />
           <Box

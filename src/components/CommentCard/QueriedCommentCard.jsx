@@ -1,6 +1,7 @@
 import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import { useParams } from "react-router-dom";
 import ReadMoreButton from "./ReadMoreButton";
 import { Box, Card, CardContent, CardHeader } from "@mui/material";
 
@@ -9,9 +10,19 @@ import CommentAvatar from "./CommentAvatar";
 
 import { useEffect, useMemo, useState } from "react";
 import ExpandCollapseButton from "./ExpandCollapseButton";
-import QueriedCommentCard from "./QueriedCommentCard";
+import useGetReply from "../../functions/useGetReplies";
+import CommentCard from "./CommentCard";
+import SkeletonCommentCard from "./SkeletonCommentCard";
 
-function CommentCard({ data, indexTree, threadAuthor, type }) {
+function QueriedCommentCard({ id, indexTree, threadAuthor, type }) {
+  const { redditId, subredditName, threadTitle } = useParams();
+  const { data, isLoading, isError } = useGetReply(
+    id,
+    subredditName,
+    redditId,
+    threadTitle
+  );
+
   const [expanded, setExpanded] = useState(true);
   const [replies, setReplies] = useState([]);
 
@@ -30,6 +41,7 @@ function CommentCard({ data, indexTree, threadAuthor, type }) {
   }
 
   const bodyTextHTML = parseMarkdownText(data?.body_html);
+  let subcomments;
 
   function handleReadMore(reply, e) {
     e.target.disabled = true;
@@ -81,6 +93,14 @@ function CommentCard({ data, indexTree, threadAuthor, type }) {
     []
   );
 
+  if (isLoading) {
+    return <SkeletonCommentCard animation="wave" />;
+  }
+
+  if (isError) {
+    return;
+  }
+
   return (
     data && (
       <Card
@@ -130,4 +150,4 @@ function CommentCard({ data, indexTree, threadAuthor, type }) {
   );
 }
 
-export default CommentCard;
+export default QueriedCommentCard;

@@ -5,11 +5,11 @@ import FlairBox from "../FlairBox";
 import ThreadTitle from "../ThreadTitle";
 import { useContext } from "react";
 import { ThreadContentContext } from "../ThreadCard";
+import { getFlair } from "../../../functions/getFlair";
 
 function SelfPostWrapper({ text }) {
-  const { threadTitle } = useContext(ThreadContentContext);
-
-  let { flair, id } = useContext(ThreadContentContext);
+  const data = useContext(ThreadContentContext);
+  let flair = getFlair(data);
   const bodyTextHTML = parseMarkdownText(text);
   if (!flair) {
     flair = {
@@ -23,17 +23,17 @@ function SelfPostWrapper({ text }) {
       <Accordion className="SelfPostWrapper">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls={`${id}-content`}
-          id={`${id}-header`}
+          aria-controls={`${data.id}-content`}
+          id={`${data.id}-header`}
         >
           <div>
             <FlairBox />
-            <span className="threadTitle">{threadTitle}</span>
+            <span className="threadTitle">{data.title}</span>
           </div>
         </AccordionSummary>
 
         <AccordionDetails
-          id={`${id}-content`}
+          id={`${data.id}-content`}
           sx={{
             ">p": {
               mb: 2,

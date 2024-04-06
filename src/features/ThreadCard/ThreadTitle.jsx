@@ -3,10 +3,13 @@ import { useContext } from "react";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import FlairBox from "./FlairBox";
 import { ThreadContentContext } from "./ThreadCard";
+import { getFlair } from "../../functions/getFlair";
 
 function ThreadTitle() {
-  const { threadTitle, flair } = useContext(ThreadContentContext);
-  const titleTextHTML = parseMarkdownText(`${threadTitle}`);
+  const data = useContext(ThreadContentContext);
+  const flair = getFlair(data);
+  const { title } = data;
+  const titleTextHTML = parseMarkdownText(`${title}`);
 
   return (
     <Box className="ThreadTitle" sx={{ py: 1 }}>

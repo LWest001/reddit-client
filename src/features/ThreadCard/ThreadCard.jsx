@@ -44,66 +44,52 @@ import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 import replaceEntities from "../../functions/replaceEntities";
 import SubredditAvatar from "../../components/SubredditAvatar";
+import { getThreadType } from "../../functions/getThreadType";
 
-export const ThreadContentContext = createContext({
-  threadTitle: null,
-  flair: null,
-  id: null,
-});
+export const ThreadContentContext = createContext({});
 
-const ThreadCard = ({
-  author,
-  cardType,
-  commentCount,
-  galleryCaptions,
-  galleryData,
-  id,
-  image,
-  link,
-  flair,
-  richVideo,
-  score,
-  selfText,
-  subredditName,
-  timestamp,
-  threadTitle,
-  threadType, // gallery | link | self | video | richVideo | image
-  thumbnail,
-  url,
-  video,
-}) => {
+const ThreadCard = ({ data, cardType }) => {
+  let {
+    numcomments,
+    permalink,
+    media,
+    preview,
+    richVideo,
+    score,
+    selftext,
+    thumbnail,
+    url,
+  } = data;
+
+  const threadType = getThreadType(data);
   const dispatch = useDispatch();
-  thumbnail = getDefaultThumbnail(thumbnail);
-
+  thumbnail = getDefaultThumbnail(data.thumbnail);
   return (
-    <Card className="ThreadCard" id={id}>
+    <Card className="ThreadCard" id={data.id}>
       <CardHeader
         className="ThreadCardHeader"
         avatar={
           cardType !== "subreddit" && (
-            <SubredditAvatar
-              subredditName={subredditName}
-              alt="Subreddit avatar"
-            />
+            <SubredditAvatar subredditName={data.subreddit} alt="Subreddit avatar" />
           )
         }
         title={
           cardType !== "subreddit" && (
             <ThreadCardHeaderTitle
-              subredditName={subredditName}
-              timestamp={timestamp}
+              subredditName={data.subreddit}
+              timestamp={data.timestamp}
             />
           )
         }
         subheader={
           <ThreadCardSubheader
-            author={author}
-            timestamp={cardType === "subreddit" && timestamp}
+            author={data.author}
+            timestamp={cardType === "subreddit" && data.timestamp}
           />
         }
       />
 
-      <ThreadContentContext.Provider value={{ threadTitle, flair, id }}>
+      <ThreadContentContext.Provider value={data}>
         <CardContent className="threadPreview">
           {["image", "video", "richVideo"].includes(threadType) && (
             <ThreadTitle />
@@ -111,30 +97,25 @@ const ThreadCard = ({
 
           <Box className="threadContentPreview">
             {threadType == "image" && (
-              <ImageWrapper image={image} link={link} />
+              <ImageWrapper preview={preview} url={url} link={permalink} />
             )}
 
-            {threadType == "gallery" && (
-              <GalleryWrapper
-                galleryData={galleryData}
-                galleryCaptions={galleryCaptions}
-              />
-            )}
+            {threadType == "gallery" && <GalleryWrapper />}
 
             {threadType === "link" && (
               <LinkPostWrapper url={url} thumbnail={thumbnail} />
             )}
 
-            {threadType == "video" && (
+            {threadType === "video" && (
               <DashVideoWrapper
-                video={video}
+                data={media.reddit_video}
                 previewUrl={replaceEntities(
-                  image.previewSizeImage[image.previewSizeImage.length - 1].url
+                  preview.images[0].resolutions.at(-1).url
                 )}
               />
             )}
 
-            {threadType === "self" && <SelfPostWrapper text={selfText} />}
+            {threadType === "self" && <SelfPostWrapper text={selftext} />}
 
             {threadType === "richVideo" && (
               <RichVideoWrapper richVideo={richVideo} />
@@ -156,7 +137,7 @@ const ThreadCard = ({
         {cardType !== "thread" && (
           <Button
             component={Link}
-            to={`/${link.substring(19)}`}
+            to={permalink}
             onClick={() => {
               dispatch(setThreadStatus("idle"));
             }}
@@ -164,7 +145,7 @@ const ThreadCard = ({
             sx={{ gap: 1 }}
           >
             <CommentOutlinedIcon />
-            <Typography>View {commentCount} comments</Typography>
+            <Typography>View {numcomments} comments</Typography>
           </Button>
         )}
         <Stack direction="row" gap={1}>
