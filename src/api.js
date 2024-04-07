@@ -4,7 +4,6 @@ export async function getThreads(options) {
   const { sort = "hot", subredditName, query, after } = options;
   const baseURL = "https://www.reddit.com";
   let URL;
-  let isFetchingMore = false;
   if (subredditName) {
     if (sort) {
       URL = `/r/${subredditName}/${sort}.json`;
@@ -18,19 +17,17 @@ export async function getThreads(options) {
   }
 
   if (after) {
-    isFetchingMore = true;
     if (query) {
       URL = `${URL}&after=${after}`;
     } else {
       URL = `${URL}?after=${after}`;
     }
   }
-
+  
   const response = await axios.get(baseURL + URL);
   return {
     threads: response.data.data.children,
     after: response.data.data.after,
-    isFetchingMore,
     query,
     subredditName,
   };
