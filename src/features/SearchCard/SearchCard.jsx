@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
@@ -16,26 +14,14 @@ import {
 import SearchCardHeaderTitle from "./SearchCardHeaderTitle";
 import SearchFlair from "./SearchFlair";
 import SubredditAvatar from "../../components/SubredditAvatar";
+import { getTimeStamp } from "../../functions/getTimeStamp";
 
-const SearchCard = ({
-  id,
-  subredditName,
-  author,
-  timestamp,
-  threadTitle,
-  score,
-  link,
-  threadType,
-  thumbnail,
-  commentCount,
-}) => {
-  const dispatch = useDispatch();
-  thumbnail = getDefaultThumbnail(thumbnail);
-
+const SearchCard = ({ data, threadType }) => {
+  const thumbnail = getDefaultThumbnail(data.thumbnail);
   return (
     <Card
       className="SearchCard"
-      id={id}
+      id={data.id}
       sx={{
         borderRadius: 0,
         my: 0,
@@ -52,12 +38,12 @@ const SearchCard = ({
     >
       <CardHeader
         className="searchCardHeader"
-        avatar={<SubredditAvatar subredditName={subredditName} />}
+        avatar={<SubredditAvatar subredditName={data.subreddit} />}
         title={
           <SearchCardHeaderTitle
-            subredditName={subredditName}
-            author={author}
-            timestamp={timestamp}
+            subredditName={data.subreddit}
+            author={data.author}
+            timestamp={getTimeStamp(data.created_utc)}
           />
         }
         subheader={
@@ -70,11 +56,11 @@ const SearchCard = ({
             }}
           >
             <Stack direction="row" gap={1}>
-              <CommentOutlinedIcon fontSize="small" /> {commentCount}
+              <CommentOutlinedIcon fontSize="small" /> {data.num_comments}
             </Stack>
             <Stack direction="row" gap={1}>
               <ThumbUpOutlinedIcon fontSize="small" />
-              {score}
+              {data.score}
             </Stack>
           </Stack>
         }
@@ -86,16 +72,11 @@ const SearchCard = ({
         }}
       />
       <CardContent className="threadPreview" sx={{ p: 0 }}>
-        <Link
-          to={`/${link.substring(19)}`}
-          onClick={() => {
-            dispatch(setThreadStatus("idle"));
-          }}
-        >
+        <Link to={`/${data.permalink.substring(19)}`}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Box width="100%" sx={{ m: 1 }}>
               <SearchFlair threadType={threadType} />
-              <Typography>{threadTitle}</Typography>
+              <Typography>{data.title}</Typography>
             </Box>
 
             <img

@@ -1,10 +1,6 @@
 // Library imports
 import { createContext } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-// Slice imports
-import { setStatus as setThreadStatus } from "../Thread/threadSlice";
 
 // Component imports
 import ThreadCardSubheader from "./ThreadCardSubheader";
@@ -45,39 +41,33 @@ import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 import replaceEntities from "../../functions/replaceEntities";
 import SubredditAvatar from "../../components/SubredditAvatar";
 import { getThreadType } from "../../functions/getThreadType";
+import { getTimeStamp } from "../../functions/getTimeStamp";
 
 export const ThreadContentContext = createContext({});
 
 const ThreadCard = ({ data, cardType }) => {
-  let {
-    numcomments,
-    permalink,
-    media,
-    preview,
-    richVideo,
-    score,
-    selftext,
-    thumbnail,
-    url,
-  } = data;
+  let { preview, score, selftext } = data;
 
   const threadType = getThreadType(data);
-  const dispatch = useDispatch();
-  thumbnail = getDefaultThumbnail(data.thumbnail);
+
+  const thumbnail = getDefaultThumbnail(data.thumbnail);
   return (
     <Card className="ThreadCard" id={data.id}>
       <CardHeader
         className="ThreadCardHeader"
         avatar={
           cardType !== "subreddit" && (
-            <SubredditAvatar subredditName={data.subreddit} alt="Subreddit avatar" />
+            <SubredditAvatar
+              subredditName={data.subreddit}
+              alt="Subreddit avatar"
+            />
           )
         }
         title={
           cardType !== "subreddit" && (
             <ThreadCardHeaderTitle
               subredditName={data.subreddit}
-              timestamp={data.timestamp}
+              timestamp={getTimeStamp(data.created_utc)}
             />
           )
         }
@@ -97,18 +87,22 @@ const ThreadCard = ({ data, cardType }) => {
 
           <Box className="threadContentPreview">
             {threadType == "image" && (
-              <ImageWrapper preview={preview} url={url} link={permalink} />
+              <ImageWrapper
+                preview={data.preview}
+                url={data.url}
+                link={data.permalink}
+              />
             )}
 
             {threadType == "gallery" && <GalleryWrapper />}
 
             {threadType === "link" && (
-              <LinkPostWrapper url={url} thumbnail={thumbnail} />
+              <LinkPostWrapper url={data.url} thumbnail={thumbnail} />
             )}
 
             {threadType === "video" && (
               <DashVideoWrapper
-                data={media.reddit_video}
+                data={data.media.reddit_video}
                 previewUrl={replaceEntities(
                   preview.images[0].resolutions.at(-1).url
                 )}
@@ -118,7 +112,10 @@ const ThreadCard = ({ data, cardType }) => {
             {threadType === "self" && <SelfPostWrapper text={selftext} />}
 
             {threadType === "richVideo" && (
-              <RichVideoWrapper richVideo={richVideo} />
+              <RichVideoWrapper
+                url={replaceEntities(data.url)}
+                richVideo={data.secure_media.oembed}
+              />
             )}
           </Box>
         </CardContent>
@@ -137,15 +134,12 @@ const ThreadCard = ({ data, cardType }) => {
         {cardType !== "thread" && (
           <Button
             component={Link}
-            to={permalink}
-            onClick={() => {
-              dispatch(setThreadStatus("idle"));
-            }}
+            to={data.permalink}
             className="viewComments button"
             sx={{ gap: 1 }}
           >
             <CommentOutlinedIcon />
-            <Typography>View {numcomments} comments</Typography>
+            <Typography>View {data.num_comments} comments</Typography>
           </Button>
         )}
         <Stack direction="row" gap={1}>

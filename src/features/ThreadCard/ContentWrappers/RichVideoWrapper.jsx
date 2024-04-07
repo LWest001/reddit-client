@@ -2,8 +2,9 @@ import { Box } from "@mui/material";
 import Embed, { defaultProviders } from "react-tiny-oembed";
 import VideoPlaceholder from "./VideoPlaceholder";
 import LazyLoad from "react-lazy-load";
+import getRichVideoProviders from "../../../functions/getRichVideoProviders";
 
-function RichVideoWrapper({ richVideo }) {
+function RichVideoWrapper({ url, richVideo }) {
   const screenHeight = window.innerHeight;
   return (
     <Box
@@ -13,14 +14,10 @@ function RichVideoWrapper({ richVideo }) {
       <LazyLoad offset={screenHeight * 3} width={"100%"}>
         <Embed
           className="richVideoEmbed"
-          url={richVideo.url}
-          providers={[...defaultProviders, richVideo.provider]}
-          LoadingFallbackElement={
-            <VideoPlaceholder thumbnail={richVideo.oembed} />
-          }
-          FallbackElement={
-            <VideoPlaceholder thumbnail={richVideo.oembed} disabled />
-          }
+          url={url}
+          providers={[...defaultProviders, getRichVideoProviders(richVideo)]}
+          LoadingFallbackElement={<VideoPlaceholder thumbnail={richVideo} />}
+          FallbackElement={<VideoPlaceholder thumbnail={richVideo} disabled />}
           // proxy="https://cors-anywhere.herokuapp.com/"
         />
       </LazyLoad>

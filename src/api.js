@@ -1,20 +1,20 @@
 import axios from "axios";
 
 export async function getThreads(options) {
-  const { sortType = "hot", subredditName, query, after } = options;
+  const { sort = "hot", subredditName, query, after } = options;
   const baseURL = "https://www.reddit.com";
   let URL;
   let isFetchingMore = false;
   if (subredditName) {
-    if (sortType) {
-      URL = `/r/${subredditName}/${sortType}.json`;
+    if (sort) {
+      URL = `/r/${subredditName}/${sort}.json`;
     } else {
       URL = `/r/${subredditName}.json`;
     }
   } else if (query) {
-    URL = `/search.json?q=${query}&sort=${sortType}`;
+    URL = `/search.json?q=${query}&sort=${sort}`;
   } else {
-    URL = `/${sortType}.json`;
+    URL = `/${sort}.json`;
   }
 
   if (after) {
@@ -26,8 +26,6 @@ export async function getThreads(options) {
     }
   }
 
-  console.log(URL);
-
   const response = await axios.get(baseURL + URL);
   return {
     threads: response.data.data.children,
@@ -38,9 +36,9 @@ export async function getThreads(options) {
   };
 }
 
-export async function getThread(subreddit, id) {
+export async function getThread(subreddit, id, sort = "hot") {
   const baseURL = "https://www.reddit.com";
-  const url = `/r/${subreddit}/comments/${id}/phone_dead_about_to_explode.json?sort=hot`;
+  const url = `/r/${subreddit}/comments/${id}.json?sort=${sort}`;
   const response = await axios.get(baseURL + url);
   return {
     thread: response.data[0].data.children[0].data,

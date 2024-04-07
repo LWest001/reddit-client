@@ -1,11 +1,9 @@
-import { useDispatch } from "react-redux";
 import {
   Link as RouterLink,
   useNavigate,
   createSearchParams,
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
-import { setStatus as setHomepageStatus } from "../../features/ThreadList/threadListSlice";
 import SearchBar from "../SearchBar";
 
 import {
@@ -21,11 +19,9 @@ import { useState } from "react";
 import HintBox from "../HintBox";
 
 const Header = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    dispatch(setHomepageStatus("idle"));
     navigate("/");
     window.scrollTo(0, 0);
   };
@@ -36,7 +32,6 @@ const Header = () => {
     SortSelector.style.display = "block";
     const query =
       e.target.children[1].children[0].children[0].children[0].value;
-    dispatch(setHomepageStatus("idle"));
     if (query.substring(0, 2) === "r/") {
       const spaceIndex = query.indexOf(" ");
       navigate(query.substring(0, spaceIndex >= 0 ? spaceIndex : query.length));

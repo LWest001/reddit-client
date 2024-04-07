@@ -1,6 +1,4 @@
 import { Link, useRouteError } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setStatus } from "./ThreadList/threadListSlice";
 import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
 import errorLogo from "/errorLogo.svg";
 import theme from "../assets/theme";
@@ -8,7 +6,6 @@ import theme from "../assets/theme";
 const ErrorPage = () => {
   let error = useRouteError();
   console.log(error);
-  const dispatch = useDispatch();
   return (
     <Card
       className="ErrorPage"
@@ -27,7 +24,6 @@ const ErrorPage = () => {
           variant="contained"
           component={Link}
           to="/"
-          onClick={() => dispatch(setStatus("idle"))}
           sx={{ width: "fit-content" }}
         >
           Return home

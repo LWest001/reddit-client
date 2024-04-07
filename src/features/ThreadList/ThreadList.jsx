@@ -1,9 +1,3 @@
-// Library imports
-import { useSelector } from "react-redux";
-
-// Slice imports
-import { selectQuery } from "./threadListSlice";
-
 // Component imports
 import ThreadCard from "../ThreadCard/ThreadCard";
 import SearchCard from "../SearchCard/SearchCard";
@@ -15,6 +9,9 @@ import { Box } from "@mui/material";
 // Function imports
 import { useQuery } from "@tanstack/react-query";
 import { getThreads } from "../../api";
+import { useParams, useSearchParams } from "react-router-dom";
+import { getThreadType } from "../../functions/getThreadType";
+import { getTimeStamp } from "../../functions/getTimeStamp";
 
 // Generate skeletons
 const skeletons = (view) => {
@@ -38,21 +35,17 @@ const skeletons = (view) => {
 };
 
 const ThreadList = ({ view }) => {
-  const query = useSelector(selectQuery);
-  const { isLoading, isError, isSuccess, data, status } = useQuery({
-    queryKey: ["threads"],
-    queryFn: getThreads,
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q");
+  const { subredditName, sort } = useParams();
+  const { isLoading, isError, isSuccess, data } = useQuery({
+    queryKey: ["threads", sort, subredditName],
+    queryFn: () => getThreads({ subredditName, sort, query }),
   });
- 
+
   if (isLoading) {
     return skeletons(view);
   }
-
-  //   Selectors
-  // const threadsStatus = useSelector(selectThreadsStatus);
-  // const threadsData = useSelector(selectAllThreads);
-  // const subredditThreadsData = useSelector(selectSubredditThreads);
-  // const searchThreadsData = useSelector(selectSearchThreads);
 
   // Set title
   if (view === "homepage") {
@@ -60,39 +53,39 @@ const ThreadList = ({ view }) => {
   } else if (view === "searchResults") {
     document.title = `rLite | Search results: ${query}`;
   }
+
   // Generate list
   let searchResults;
   let threads;
   if (view !== "searchResults") {
-    const viewData = view === "subreddit" ? data.threads : data.threads;
-    threads = viewData.map((thread) => {
+    threads = data.threads.map((thread) => {
       return (
         <ThreadCard key={thread.data.id} data={thread.data} cardType={view} />
       );
     });
   }
+
   if (view === "searchResults") {
-    searchResults = data.map((thread) => {
+    return data.threads.map((thread) => {
       return (
         <SearchCard
-          key={thread.id}
-          id={thread.id}
-          author={thread.author}
-          commentCount={thread.commentCount}
-          icon={thread.icon}
-          link={thread.link}
-          score={thread.score}
-          subredditName={thread.subredditName}
-          threadTitle={thread.threadTitle}
-          threadType={thread.threadType}
-          thumbnail={thread.thumbnail}
-          timestamp={thread.timestamp}
+          key={thread.data.id}
+          data={thread.data}
+          id={thread.data.id}
+          author={thread.data.author}
+          commentCount={thread.data.num_comments}
+          icon={thread.data.icon}
+          link={thread.data.permalink}
+          score={thread.data.score}
+          subredditName={thread.data.subreddit}
+          threadTitle={thread.data.title}
+          threadType={getThreadType(thread.data)}
+          thumbnail={thread.data.thumbnail}
+          timestamp={getTimeStamp(thread.data.created_utc)}
         />
       );
     });
   }
-
-  // useFetchThreads(view);
 
   return (
     <Box className="ThreadList" mt={9}>

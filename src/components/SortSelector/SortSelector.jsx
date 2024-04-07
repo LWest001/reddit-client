@@ -1,8 +1,5 @@
-import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { setStatus as setThreadListStatus } from "../../features/ThreadList/threadListSlice";
-import { setStatus as setThreadStatus } from "../../features/Thread/threadSlice";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import HotIcon from "@mui/icons-material/LocalFireDepartment";
 import TopIcon from "@mui/icons-material/ArrowUpward";
@@ -12,25 +9,14 @@ import RisingIcon from "@mui/icons-material/TrendingUp";
 import SortSelectorMenuItem from "./SortSelectorMenuItem";
 
 const SortSelector = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {
-    sortType = "hot",
-    subredditName,
-    threadTitle,
-    redditId,
-  } = useParams();
+  const { sort = "hot", subredditName, threadTitle, redditId } = useParams();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const searchSort = searchParams.get("sort");
 
   const handleChange = ({ target }) => {
-    if (!threadTitle) {
-      dispatch(setThreadListStatus("idle"));
-    }
-
     if (threadTitle) {
-      dispatch(setThreadStatus("idle"));
       navigate(
         `r/${subredditName}/comments/${redditId}/${threadTitle}/${target.value}`
       );
@@ -51,7 +37,7 @@ const SortSelector = () => {
         name="SortSelector"
         onChange={handleChange}
         notched={false}
-        value={searchSort || sortType}
+        value={searchSort || sort}
         // label="SORT"
         sx={{
           color: "primary.contrastText",

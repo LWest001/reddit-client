@@ -14,7 +14,7 @@ import useGetReply from "../../functions/useGetReplies";
 import CommentCard from "./CommentCard";
 import SkeletonCommentCard from "./SkeletonCommentCard";
 
-function QueriedCommentCard({ id, indexTree, threadAuthor, type }) {
+function QueriedCommentCard({ id, threadAuthor, type }) {
   const { redditId, subredditName, threadTitle } = useParams();
   const { data, isLoading, isError } = useGetReply(
     id,
@@ -41,8 +41,7 @@ function QueriedCommentCard({ id, indexTree, threadAuthor, type }) {
   }
 
   const bodyTextHTML = parseMarkdownText(data?.body_html);
-  let subcomments;
-
+  
   function handleReadMore(reply, e) {
     e.target.disabled = true;
     e.target.style.textDecoration = "none";
@@ -64,7 +63,7 @@ function QueriedCommentCard({ id, indexTree, threadAuthor, type }) {
   useEffect(
     () =>
       setReplies(
-        data?.replies?.data?.children.map((reply, subIndex) => {
+        data?.replies?.data?.children.map((reply) => {
           if (!reply) return;
           if (reply.data?.count === 0) return;
           if (reply.kind === "more") {
@@ -82,7 +81,6 @@ function QueriedCommentCard({ id, indexTree, threadAuthor, type }) {
           return (
             <CommentCard
               data={reply.data}
-              indexTree={[...indexTree, subIndex]}
               key={reply.data?.id}
               threadAuthor={threadAuthor}
               type="subcomment"

@@ -7,13 +7,38 @@ import { Box, Card, CardContent, CardHeader } from "@mui/material";
 import CommentHeaderText from "./CommentHeaderText";
 import CommentAvatar from "./CommentAvatar";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import ExpandCollapseButton from "./ExpandCollapseButton";
 import QueriedCommentCard from "./QueriedCommentCard";
 
-function CommentCard({ data, indexTree, threadAuthor, type }) {
+function CommentCard({ data, threadAuthor, type }) {
   const [expanded, setExpanded] = useState(true);
-  const [replies, setReplies] = useState([]);
+  const [replies, setReplies] = useState(
+    data?.replies?.data?.children.map((reply) => {
+      if (!reply) return;
+      if (reply.data?.count === 0) return;
+      if (reply.kind === "more") {
+        return (
+          <ReadMoreButton
+            key={`btn_${reply.data.id}`}
+            data={reply.data}
+            onClick={(e) => handleReadMore(reply, e)}
+            id={`readMore-${reply.data.id}`}
+          >
+            {reply.data.children.length} more replies
+          </ReadMoreButton>
+        );
+      }
+      return (
+        <CommentCard
+          data={reply.data}
+          key={reply.data?.id}
+          threadAuthor={threadAuthor}
+          type="subcomment"
+        />
+      );
+    })
+  );
 
   const isOp = useMemo(() => threadAuthor === data?.author);
   const timestamp = getTimeStamp(data?.created_utc);
@@ -48,38 +73,6 @@ function CommentCard({ data, indexTree, threadAuthor, type }) {
     ]);
     e.target.remove();
   }
-
-  useEffect(
-    () =>
-      setReplies(
-        data?.replies?.data?.children.map((reply, subIndex) => {
-          if (!reply) return;
-          if (reply.data?.count === 0) return;
-          if (reply.kind === "more") {
-            return (
-              <ReadMoreButton
-                key={`btn_${reply.data.id}`}
-                data={reply.data}
-                onClick={(e) => handleReadMore(reply, e)}
-                id={`readMore-${reply.data.id}`}
-              >
-                {reply.data.children.length} more replies
-              </ReadMoreButton>
-            );
-          }
-          return (
-            <CommentCard
-              data={reply.data}
-              indexTree={[...indexTree, subIndex]}
-              key={reply.data?.id}
-              threadAuthor={threadAuthor}
-              type="subcomment"
-            />
-          );
-        })
-      ),
-    []
-  );
 
   return (
     data && (

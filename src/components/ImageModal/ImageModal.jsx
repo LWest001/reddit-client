@@ -1,10 +1,8 @@
-import { useDispatch } from "react-redux";
 import { Modal, Box, Typography, Stack, Button } from "@mui/material";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import { selectThreadStatus } from "../../features/Thread/threadSlice";
 import { useContext } from "react";
 import { ThreadContentContext } from "../../features/ThreadCard/ThreadCard";
 
@@ -24,7 +22,6 @@ const style = {
 };
 
 function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
-  const dispatch = useDispatch();
   const { threadTitle } = useContext(ThreadContentContext);
   return (
     <Modal open={open} onClose={handleClose}>
@@ -60,9 +57,6 @@ function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
               component={Link}
               variant="contained"
               to={`/${link.substring(19)}`}
-              onClick={() => {
-                dispatch(selectThreadStatus("idle"));
-              }}
             >
               <CommentOutlinedIcon />
             </Button>

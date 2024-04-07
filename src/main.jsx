@@ -19,19 +19,19 @@ import theme from "./assets/theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/:sortType?" element={<App />} errorElement={<ErrorPage />}>
+    <Route path="/:sort?" element={<App />} errorElement={<ErrorPage />}>
       <Route
         index
         element={<ThreadList view="homepage" />}
         errorElement={<ErrorPage />}
       />
       <Route
-        path="r/:subredditName/:sortType?"
+        path="r/:subredditName/:sort?"
         element={<ThreadList view="subreddit" />}
         errorElement={<ErrorPage />}
       ></Route>
       <Route
-        path="r/:subredditName/comments/:redditId/:threadTitle/:sortType?"
+        path="r/:subredditName/comments/:redditId/:threadTitle/:sort?"
         element={<Thread />}
         errorElement={<ErrorPage />}
       />

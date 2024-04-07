@@ -59,7 +59,7 @@ function SubredditInfo() {
           background: "none",
           bgcolor: "rgba(0, 0, 0, 0.6)",
         }}
-        avatar={<SubredditAvatar subredditName={subredditName} disabled />}
+        avatar={<SubredditAvatar subredditName={subredditName} />}
         title={subredditInfo.title || <Skeleton animation="wave" />}
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "white", fontSize: 24 },
