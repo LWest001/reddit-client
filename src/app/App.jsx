@@ -14,7 +14,6 @@ function App() {
       <CssBaseline />
       <BottomScrollListener onBottom={() => {}} offset={5000} />
       <Layout />
-      {status === "failed" && <ErrorPage />}
 
       <ScrollRestoration />
     </QueryClientProvider>

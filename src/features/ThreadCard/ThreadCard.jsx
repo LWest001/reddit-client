@@ -49,7 +49,6 @@ const ThreadCard = ({ data, cardType }) => {
   let { preview, score, selftext } = data;
 
   const threadType = getThreadType(data);
-
   const thumbnail = getDefaultThumbnail(data.thumbnail);
   return (
     <Card className="ThreadCard" id={data.id}>

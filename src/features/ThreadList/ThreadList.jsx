@@ -12,6 +12,7 @@ import { getThreads } from "../../api";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import ErrorPage from "../ErrorPage";
 
 // Generate skeletons
 const skeletons = (view) => {
@@ -45,6 +46,10 @@ const ThreadList = ({ view }) => {
 
   if (isLoading) {
     return skeletons(view);
+  }
+
+  if (isError) {
+    return <ErrorPage />;
   }
 
   // Set title

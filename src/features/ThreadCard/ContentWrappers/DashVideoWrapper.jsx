@@ -3,13 +3,14 @@ import ReactPlayer from "react-player";
 import isiOS from "../../../functions/isiOS";
 
 function DashVideoWrapper({ data, previewUrl }) {
+  console.log(data);
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", placeItems: "center" }}
       className="DashVideoWrapper"
     >
       <ReactPlayer
-        url={isiOS() ? data.hls : data.dash_url}
+        url={isiOS() ? data.hls_url : data.dash_url}
         controls={true}
         width="100%"
         maxheight="80vh"
