@@ -1,6 +1,8 @@
 * {
   font-family: "Noto Sans", sans-serif;
   --appbar-height: 64px;
+  --mobile-appbar-height: 56px;
+  --subreddit-header-height: 156.016px;
 }
 
 body {

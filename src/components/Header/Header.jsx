@@ -2,6 +2,7 @@ import {
   Link as RouterLink,
   useNavigate,
   createSearchParams,
+  useParams,
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
 import SearchBar from "../SearchBar";
@@ -15,10 +16,26 @@ import {
   Stack,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HintBox from "../HintBox";
+import SubredditInfo from "../SubredditInfo";
 
-const Header = () => {
+const Header = ({ onResize }) => {
+  const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const appbarRef = useRef();
+
+  useEffect(() => {
+    if (!appbarRef.current || expanded) return;
+    const resizeObserver = new ResizeObserver(() => {
+      onResize(appbarRef.current?.offsetHeight);
+    });
+    resizeObserver.observe(appbarRef.current);
+    return () => resizeObserver.disconnect(); // clean up
+  }, [expanded]);
+
+  const { subredditName, threadTitle } = useParams();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -45,14 +62,13 @@ const Header = () => {
     window.scrollTo(0, 0);
   }
 
-  const [open, setOpen] = useState(false);
   function handleClose() {
     setOpen(false);
     localStorage.setItem("hideSearchHint", true);
   }
 
   return (
-    <AppBar className="Header">
+    <AppBar className="Header" ref={appbarRef}>
       <Toolbar sx={{ paddingLeft: [0, "24px"] }}>
         <Stack
           className="AppBar-Main"
@@ -96,9 +112,12 @@ const Header = () => {
         open={open}
         onClose={handleClose}
         message={
-          "Enter \"r/<Subreddit name>\" to navigate to a subreddit, or any other term to search Reddit threads!"
+          'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         }
       />
+      {subredditName && !threadTitle && (
+        <SubredditInfo expandedState={[expanded, setExpanded]} />
+      )}
     </AppBar>
   );
 };

@@ -3,7 +3,6 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import SearchCard from "../SearchCard/SearchCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
-import SubredditInfo from "../../components/SubredditInfo";
 import { Box } from "@mui/material";
 
 // Function imports
@@ -13,29 +12,33 @@ import { useParams, useSearchParams } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
 import React from "react";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
+import { useMargin } from "../../functions/useMargin";
 
 // Generate skeletons
-const skeletons = (view) =>
-  view === "searchResults" ? (
-    <>
+const Skeletons = ({ view }) => {
+  const marginTop = useMargin();
+  return view === "searchResults" ? (
+    <Box mt={marginTop}>
       <SkeletonSearchCard />
       <SkeletonSearchCard />
       <SkeletonSearchCard />
       <SkeletonSearchCard />
       <SkeletonSearchCard />
-    </>
+    </Box>
   ) : (
-    <>
+    <Box mt={marginTop}>
       <SkeletonThreadCard />
       <SkeletonThreadCard />
-    </>
+    </Box>
   );
+};
 
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const sort = searchParams.get("sort") || useParams().sort;
   const { subredditName } = useParams();
+  const marginTop = useMargin();
 
   const {
     isLoading,
@@ -43,9 +46,7 @@ const ThreadList = ({ view }) => {
     data,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
-    status,
   } = useInfiniteQuery({
     queryKey: ["threads", sort, query, subredditName],
     queryFn: ({ pageParam }) =>
@@ -56,13 +57,12 @@ const ThreadList = ({ view }) => {
     },
   });
 
-
   function onBottom() {
     fetchNextPage();
   }
 
   if (isLoading) {
-    return skeletons(view);
+    return <Skeletons view={view} />;
   }
 
   if (isError) {
@@ -90,11 +90,14 @@ const ThreadList = ({ view }) => {
   ));
 
   return (
-    <Box className="ThreadList" mt={9}>
+    <Box className="ThreadList" mt={marginTop}>
       <BottomScrollListener onBottom={onBottom} offset={1000} debounce={2000} />
-      {view === "subreddit" && <SubredditInfo />}
       {threads}
-      {hasNextPage ? skeletons(view) : "Nothing more to show."}
+      {hasNextPage && isFetchingNextPage ? (
+        <Skeletons view={view} />
+      ) : (
+        "Nothing more to show."
+      )}
     </Box>
   );
 };

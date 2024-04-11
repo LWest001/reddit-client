@@ -7,6 +7,7 @@ import { Box, Button, Card, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getThread } from "../../api";
 import { useMemo } from "react";
+import { useMargin } from "../../functions/useMargin";
 
 const Thread = () => {
   const { redditId, subredditName, sort } = useParams();
@@ -55,14 +56,14 @@ const Thread = () => {
   );
 
   return isLoading ? (
-    <>
+    <Box mt={useMargin()}>
       <SkeletonThreadCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
-    </>
+    </Box>
   ) : (
     <Box
       className="Thread"
@@ -71,6 +72,7 @@ const Thread = () => {
         flexDirection: "column",
         alignItems: "center",
       }}
+      mt={useMargin()}
     >
       {isSuccess && (
         <>

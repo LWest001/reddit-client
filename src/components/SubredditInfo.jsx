@@ -10,20 +10,21 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Slide,
+  Collapse,
 } from "@mui/material";
 
 import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
 
-function SubredditInfo() {
+function SubredditInfo({ expandedState }) {
   const [subredditInfo, setSubredditInfo] = useState({});
   const [bgImage, setBgImage] = useState(null);
   const { subredditName } = useParams();
+  const [expanded, setExpanded] = expandedState;
 
   document.title = `rLite | r/${subredditName}`;
-
-  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     async function getSubredditInfo(subredditName) {
@@ -42,6 +43,18 @@ function SubredditInfo() {
     }
   }, [subredditInfo]);
 
+  const [showContent, setShowContent] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      window.scrollY > 100 ? setShowContent(false) : setShowContent(true);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <Card
       className="SubredditInfoContainer"
@@ -49,15 +62,18 @@ function SubredditInfo() {
         background: `url(${replaceEntities(bgImage)}) no-repeat top`,
         backgroundSize: expanded ? "contain" : "cover",
         justifyContent: "space-between",
-        mt: "calc(var(--appbar-height) + 0.5rem)",
         minHeight: "min-content",
         color: "white",
+        borderRadius: 0,
+        my: 0,
       }}
     >
       <CardHeader
         sx={{
           background: "none",
           bgcolor: "rgba(0, 0, 0, 0.6)",
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
         }}
         avatar={<SubredditAvatar subredditName={subredditName} />}
         title={subredditInfo.title || <Skeleton animation="wave" />}
@@ -72,74 +88,77 @@ function SubredditInfo() {
           subredditInfo.display_name_prefixed || <Skeleton animation="wave" />
         }
       />
-      <CardContent
-        sx={{
-          px: 2,
-          py: 0.5,
-          display: "flex",
-          justifyContent: "center",
-          bgcolor: "rgba(0, 0, 0, 0.6)",
-          flexDirection: "column",
-        }}
-      >
-        {subredditInfo.public_description ? (
-          parseMarkdownText(subredditInfo.public_description)
-        ) : (
-          <Skeleton
-            variant="text"
-            className="subredditDescription"
-            animation="wave"
-          />
-        )}
-        {subredditInfo.description && (
-          <Accordion
-            onChange={(event, expanded) => {
-              expanded
-                ? setExpanded(expanded)
-                : setTimeout(() => setExpanded(expanded), 719);
-            }}
-            sx={{
-              bgcolor: "transparent",
-              color: "white",
-              flexDirection: "column",
 
-              a: {
-                color: "white",
-                textDecoration: "underline",
-              },
-              // "p, h1, h2, h3, h4, h5, h6": {
-              "*": {
-                mb: 2,
-              },
-              li: {
-                listStyle: "initial",
-              },
-              "*:last-child": {
-                marginBottom: "0",
-              },
-            }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon htmlColor="white" />}
-              sx={{
-                ".MuiAccordionSummary-contentGutters": { display: "none" },
+      <Collapse in={showContent || expanded} timeout={20}>
+        <CardContent
+          sx={{
+            px: 2,
+            py: 0.5,
+            justifyContent: "center",
+            bgcolor: "rgba(0, 0, 0, 0.6)",
+            flexDirection: "column",
+            // display: showContent || expanded ? "flex" : "none",
+            display: "flex",
+          }}
+        >
+          {subredditInfo.public_description ? (
+            parseMarkdownText(subredditInfo.public_description)
+          ) : (
+            <Skeleton
+              variant="text"
+              className="subredditDescription"
+              animation="wave"
+            />
+          )}
+          {subredditInfo.description && (
+            <Accordion
+              onChange={(event, expanded) => {
+                expanded
+                  ? setExpanded(expanded)
+                  : setTimeout(() => setExpanded(expanded), 700);
               }}
-            ></AccordionSummary>
-            <AccordionDetails>
-              {" "}
-              {subredditInfo.public_description ? (
-                parseMarkdownText(subredditInfo.description)
-              ) : (
-                <Skeleton
-                  variant="text"
-                  className="subredditDescription"
-                  animation="wave"
-                />
-              )}
-            </AccordionDetails>
-          </Accordion>
-        )}
-      </CardContent>
+              sx={{
+                bgcolor: "transparent",
+                color: "white",
+                flexDirection: "column",
+
+                a: {
+                  color: "white",
+                  textDecoration: "underline",
+                },
+                // "p, h1, h2, h3, h4, h5, h6": {
+                "*": {
+                  mb: 2,
+                },
+                li: {
+                  listStyle: "initial",
+                },
+                "*:last-child": {
+                  marginBottom: "0",
+                },
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon htmlColor="white" />}
+                sx={{
+                  ".MuiAccordionSummary-contentGutters": { display: "none" },
+                }}
+              ></AccordionSummary>
+              <AccordionDetails>
+                {subredditInfo.public_description ? (
+                  parseMarkdownText(subredditInfo.description)
+                ) : (
+                  <Skeleton
+                    variant="text"
+                    className="subredditDescription"
+                    animation="wave"
+                  />
+                )}
+              </AccordionDetails>
+            </Accordion>
+          )}
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }
