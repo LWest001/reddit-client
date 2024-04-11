@@ -61,6 +61,19 @@ export async function getInfiniteThreads({
     subredditName,
   };
 }
+export async function getInfiniteComment({
+  subreddit,
+  threadId,
+  threadTitle,
+  ids,
+}) {
+  const responses = await Promise.allSettled(
+    ids.map(async (id) => await getReply(subreddit, threadId, threadTitle, id))
+  ).catch((e) => {
+    throw e;
+  });
+  return responses;
+}
 
 export async function getThread(subreddit, id, sort = "hot") {
   const baseURL = "https://www.reddit.com";
