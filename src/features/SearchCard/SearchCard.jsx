@@ -73,7 +73,7 @@ const SearchCard = ({ data, threadType }) => {
         }}
       />
       <CardContent className="threadPreview" sx={{ p: 0 }}>
-        <Link to={`/${data.permalink.substring(19)}`}>
+        <Link to={data.permalink}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Box width="100%" sx={{ m: 1 }}>
               <SearchFlair threadType={threadType} />

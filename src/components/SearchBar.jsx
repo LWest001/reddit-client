@@ -1,6 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha, Autocomplete, TextField } from "@mui/material";
 import TopSubs from "../assets/subreddits.json";
+import { useSearchParams } from "react-router-dom";
 
 function SearchBar({ handleSubmit, setOpen }) {
   const Search = styled("form")(({ theme }) => ({
@@ -46,13 +47,14 @@ function SearchBar({ handleSubmit, setOpen }) {
     return localStorage.getItem("hideSearchHint");
   }
 
+  const currentQuery = useSearchParams()[0].get("q");
+
   return (
     <Search onSubmit={(e) => handleSubmit(e)}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledAutocomplete
-        placeholder="Search…"
         freeSolo
         onFocus={() => {
           if (window.innerWidth < 600) {
@@ -72,7 +74,7 @@ function SearchBar({ handleSubmit, setOpen }) {
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder="Search…"
+            placeholder={currentQuery || "Search…"}
             variant="standard"
             InputProps={{
               ...params.InputProps,

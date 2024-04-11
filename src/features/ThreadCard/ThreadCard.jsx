@@ -73,7 +73,9 @@ const ThreadCard = ({ data, cardType }) => {
         subheader={
           <ThreadCardSubheader
             author={data.author}
-            timestamp={cardType === "subreddit" && data.timestamp}
+            timestamp={
+              cardType === "subreddit" && getTimeStamp(data.created_utc)
+            }
           />
         }
       />

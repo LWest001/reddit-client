@@ -34,7 +34,8 @@ const skeletons = (view) =>
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
-  const { subredditName, sort } = useParams();
+  const sort = searchParams.get("sort") || useParams().sort;
+  const { subredditName } = useParams();
 
   const {
     isLoading,
@@ -46,7 +47,7 @@ const ThreadList = ({ view }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["threads", query, subredditName, sort],
+    queryKey: ["threads", sort, query, subredditName],
     queryFn: ({ pageParam }) =>
       getInfiniteThreads({ after: pageParam, query, subredditName, sort }),
     initialPageParam: "",
@@ -55,7 +56,6 @@ const ThreadList = ({ view }) => {
     },
   });
 
-  console.log(data);
 
   function onBottom() {
     fetchNextPage();
@@ -76,11 +76,8 @@ const ThreadList = ({ view }) => {
     document.title = `rLite | Search results: ${query}`;
   }
 
-  console.log(view, status);
-
   // Generate list
-  let searchResults = [];
-  let threads = data.pages.map((group, i) => (
+  const threads = data.pages.map((group, i) => (
     <React.Fragment key={i}>
       {group.threads.map((thread) =>
         view !== "searchResults" ? (
@@ -97,7 +94,7 @@ const ThreadList = ({ view }) => {
       <BottomScrollListener onBottom={onBottom} offset={1000} debounce={2000} />
       {view === "subreddit" && <SubredditInfo />}
       {threads}
-      {skeletons(view)}
+      {hasNextPage ? skeletons(view) : "Nothing more to show."}
     </Box>
   );
 };

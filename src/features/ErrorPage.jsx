@@ -1,5 +1,12 @@
 import { Link, useRouteError } from "react-router-dom";
-import { Button, Card, CardContent, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import errorLogo from "/errorLogo.svg";
 import theme from "../assets/theme";
 
@@ -20,14 +27,24 @@ const ErrorPage = () => {
             Oops! We have encountered an error.
           </Typography>
         </Stack>
-        <Button
-          variant="contained"
-          component={Link}
-          to="/"
-          sx={{ width: "fit-content" }}
-        >
-          Return home
-        </Button>
+        <ButtonGroup>
+          <Button
+            variant="contained"
+            component={Link}
+            to={-1}
+            // sx={{ width: "50%" }}
+          >
+            Back
+          </Button>
+          <Button
+            variant="outlined"
+            component={Link}
+            to="/"
+            // sx={{ width: "50%" }}
+          >
+            Home
+          </Button>
+        </ButtonGroup>
       </CardContent>
     </Card>
   );
