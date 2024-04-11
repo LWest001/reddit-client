@@ -3,6 +3,7 @@ import {
   useNavigate,
   createSearchParams,
   useParams,
+  useSearchParams,
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
 import SearchBar from "../SearchBar";
@@ -12,6 +13,8 @@ import {
   Toolbar,
   Icon,
   Button,
+  ToggleButtonGroup,
+  ToggleButton,
   Typography,
   Stack,
 } from "@mui/material";
@@ -35,7 +38,11 @@ const Header = ({ onResize }) => {
     return () => resizeObserver.disconnect(); // clean up
   }, [expanded]);
 
-  const { subredditName, threadTitle } = useParams();
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  const time = searchParams.get("t");
+
+  const { subredditName, threadTitle, sort } = useParams();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -65,6 +72,12 @@ const Header = ({ onResize }) => {
   function handleClose() {
     setOpen(false);
     localStorage.setItem("hideSearchHint", true);
+  }
+
+  function handleToggle(value) {
+    const query = searchParams.get("q");
+    const params = { t: value };
+    query ? setSearchParams({ q: query, ...params }) : setSearchParams(params);
   }
 
   return (
@@ -115,6 +128,23 @@ const Header = ({ onResize }) => {
           'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         }
       />
+      {sort === "top" && (
+        <ToggleButtonGroup
+          size="small"
+          
+          sx={{ color: "white", marginX: "auto", bgcolor: "whitesmoke", marginY: ".5rem" }}
+          onChange={(e) => handleToggle(e.target.value)}
+          value={time}
+          color="primary"
+        >
+          <ToggleButton value={"hour"}>Now</ToggleButton>
+          <ToggleButton value={"day"}>Today</ToggleButton>
+          <ToggleButton value={"week"}>This Week</ToggleButton>
+          <ToggleButton value={"month"}>This Month</ToggleButton>
+          <ToggleButton value={"year"}>This Year</ToggleButton>
+          <ToggleButton value={"all"}>All Time</ToggleButton>
+        </ToggleButtonGroup>
+      )}
       {subredditName && !threadTitle && (
         <SubredditInfo expandedState={[expanded, setExpanded]} />
       )}

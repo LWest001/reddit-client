@@ -38,19 +38,22 @@ export async function getInfiniteThreads({
   sort = "hot",
   subredditName,
   query,
+  time,
 }) {
   const baseURL = "https://www.reddit.com";
+  const conditionalAfter = after ? "after=" + after : "";
+  const conditionalTime = time ? "&t=" + time : "";
   let URL;
   if (subredditName) {
     if (sort) {
-      URL = `/r/${subredditName}/${sort}.json?&after=${after}`;
+      URL = `/r/${subredditName}/${sort}.json?${conditionalAfter}${conditionalTime}`;
     } else {
-      URL = `/r/${subredditName}.json?after=${after}`;
+      URL = `/r/${subredditName}.json?${conditionalAfter}${conditionalTime}`;
     }
   } else if (query) {
-    URL = `/search.json?q=${query}&sort=${sort}&after=${after}`;
+    URL = `/search.json?q=${query}&sort=${sort}&${conditionalAfter}${conditionalTime}`;
   } else {
-    URL = `/${sort}.json?after=${after}`;
+    URL = `/${sort}.json?${conditionalAfter}${conditionalTime}`;
   }
 
   const response = await axios.get(baseURL + URL);

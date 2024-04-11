@@ -21,7 +21,7 @@ const Thread = () => {
     setMoreComments((prev) => [...prev, ...moreData]);
     setMoreIndices((prev) => [
       prev[0] + 20,
-      moreIndices[1] > moreCommentsCount ? moreCommmentsCount : prev[1] + 20,
+      moreIndices[1] > moreCommentsCount ? moreCommentsCount - 1 : prev[1] + 20,
     ]);
   }
 

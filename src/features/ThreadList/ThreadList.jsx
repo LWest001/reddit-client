@@ -36,6 +36,7 @@ const Skeletons = ({ view }) => {
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const time = searchParams.get("t");
   const sort = searchParams.get("sort") || useParams().sort;
   const { subredditName } = useParams();
   const marginTop = useMargin();
@@ -48,9 +49,15 @@ const ThreadList = ({ view }) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["threads", sort, query, subredditName],
+    queryKey: ["threads", sort, query, time, subredditName],
     queryFn: ({ pageParam }) =>
-      getInfiniteThreads({ after: pageParam, query, subredditName, sort }),
+      getInfiniteThreads({
+        after: pageParam,
+        query,
+        subredditName,
+        sort,
+        time,
+      }),
     initialPageParam: "",
     getNextPageParam: (lastPage) => {
       return lastPage.after;
