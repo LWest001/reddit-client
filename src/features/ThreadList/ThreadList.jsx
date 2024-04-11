@@ -13,8 +13,9 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import ErrorPage from "../ErrorPage";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
+import { ThreadsContext } from "../../app/App";
 
 // Generate skeletons
 const skeletons = (view) => {
@@ -42,46 +43,54 @@ const ThreadList = ({ view }) => {
   const query = searchParams.get("q");
   const { subredditName, sort } = useParams();
   const [after, setAfter] = useState([]);
-  const [threadsus, setThreads] = useState([]);
+  const [threadz, setThreadz] = useContext(ThreadsContext);
   const { isLoading, isError, isSuccess, data } = useQuery({
     queryKey: ["threads", sort, subredditName],
     queryFn: () => getThreads({ subredditName, sort, query }),
   });
 
-  const queries = useQueries({
-    queries: after.map((id) => {
-      return {
-        queryKey: ["threads", sort, subredditName, after, id],
-        queryFn: () => getThreads({ subredditName, sort, query, after: id }),
-      };
-    }),
-    combine: (results) => {
-      return {
-        data: results.map((result) => result.data),
-        pending: results.some((result) => result.isPending),
-      };
-    },
+  // const queries = useQueries({
+  //   queries: after.map((id) => {
+  //     return {
+  //       queryKey: ["threads", sort, subredditName, after, id],
+  //       queryFn: () => getThreads({ subredditName, sort, query, after: id }),
+  //     };
+  //   }),
+  //   combine: (results) => {
+  //     return {
+  //       data: results.map((result) => result.data),
+  //       pending: results.some((result) => result.isPending),
+  //     };
+  //   },
+  // });
+
+  const { data: nextData, isPending: isPendingNext } = useQuery({
+    queryKey: ["threads", sort, subredditName, after],
+    queryFn: () => getThreads({ subredditName, sort, query, after }),
   });
 
   useEffect(() => {
     if (!isLoading) {
-      setThreads(data.threads);
-      setAfter([data.after]);
+      setThreadz(data.threads);
+      setAfter(data.after);
     }
   }, [data]);
 
   useEffect(() => {
-    if (!queries.pending && queries.data.length) {
-      setThreads((prev) => [...prev, ...queries.data.at(-1).threads].flat());
+    if (!isPendingNext && nextData) {
+      setThreadz((prev) => [...prev, nextData.threads].flat());
     }
-  }, [queries]);
+  }, [nextData]);
 
-  console.log(threadsus, queries, after);
-
+  // function onBottom() {
+  //   const nextAfter = queries.data.at(-1).after;
+  //   if (!after.includes(nextAfter)) {
+  //     setAfter((prev) => [...prev.filter((id) => id !== nextAfter), nextAfter]);
+  //   }
+  // }
   function onBottom() {
-    const nextAfter = queries.data.at(-1).after;
-    if (!after.includes(nextAfter)) {
-      setAfter((prev) => [...prev.filter((id) => id !== nextAfter), nextAfter]);
+    {
+      setAfter(nextData.after);
     }
   }
 
@@ -104,7 +113,7 @@ const ThreadList = ({ view }) => {
   let searchResults = [];
   let threads = [];
   if (view !== "searchResults") {
-    threads = threadsus.map((thread) => {
+    threads = threadz.map((thread) => {
       return (
         <ThreadCard key={thread.data.id} data={thread.data} cardType={view} />
       );
