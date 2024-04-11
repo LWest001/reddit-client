@@ -23,7 +23,36 @@ export async function getThreads(options) {
       URL = `${URL}?after=${after}`;
     }
   }
-  
+
+  const response = await axios.get(baseURL + URL);
+  return {
+    threads: response.data.data.children,
+    after: response.data.data.after,
+    query,
+    subredditName,
+  };
+}
+
+export async function getInfiniteThreads({
+  after,
+  sort = "hot",
+  subredditName,
+  query,
+}) {
+  const baseURL = "https://www.reddit.com";
+  let URL;
+  if (subredditName) {
+    if (sort) {
+      URL = `/r/${subredditName}/${sort}.json?&after=${after}`;
+    } else {
+      URL = `/r/${subredditName}.json?after=${after}`;
+    }
+  } else if (query) {
+    URL = `/search.json?q=${query}&sort=${sort}&after=${after}`;
+  } else {
+    URL = `/${sort}.json?after=${after}`;
+  }
+
   const response = await axios.get(baseURL + URL);
   return {
     threads: response.data.data.children,

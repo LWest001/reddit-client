@@ -7,91 +7,58 @@ import SubredditInfo from "../../components/SubredditInfo";
 import { Box } from "@mui/material";
 
 // Function imports
-import { useQueries, useQuery } from "@tanstack/react-query";
-import { getThreads } from "../../api";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getInfiniteThreads } from "../../api";
 import { useParams, useSearchParams } from "react-router-dom";
-import { getThreadType } from "../../functions/getThreadType";
-import { getTimeStamp } from "../../functions/getTimeStamp";
 import ErrorPage from "../ErrorPage";
-import { useContext, useEffect, useState } from "react";
+import React from "react";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
-import { ThreadsContext } from "../../app/App";
 
 // Generate skeletons
-const skeletons = (view) => {
-  if (view === "searchResults") {
-    return (
-      <Box>
-        <SkeletonSearchCard />
-        <SkeletonSearchCard />
-        <SkeletonSearchCard />
-        <SkeletonSearchCard />
-        <SkeletonSearchCard />
-      </Box>
-    );
-  }
-  return (
-    <Box>
+const skeletons = (view) =>
+  view === "searchResults" ? (
+    <>
+      <SkeletonSearchCard />
+      <SkeletonSearchCard />
+      <SkeletonSearchCard />
+      <SkeletonSearchCard />
+      <SkeletonSearchCard />
+    </>
+  ) : (
+    <>
       <SkeletonThreadCard />
       <SkeletonThreadCard />
-    </Box>
+    </>
   );
-};
 
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const { subredditName, sort } = useParams();
-  const [after, setAfter] = useState([]);
-  const [threadz, setThreadz] = useContext(ThreadsContext);
-  const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ["threads", sort, subredditName],
-    queryFn: () => getThreads({ subredditName, sort, query }),
+
+  const {
+    isLoading,
+    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["threads", query, subredditName, sort],
+    queryFn: ({ pageParam }) =>
+      getInfiniteThreads({ after: pageParam, query, subredditName, sort }),
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => {
+      return lastPage.after;
+    },
   });
 
-  // const queries = useQueries({
-  //   queries: after.map((id) => {
-  //     return {
-  //       queryKey: ["threads", sort, subredditName, after, id],
-  //       queryFn: () => getThreads({ subredditName, sort, query, after: id }),
-  //     };
-  //   }),
-  //   combine: (results) => {
-  //     return {
-  //       data: results.map((result) => result.data),
-  //       pending: results.some((result) => result.isPending),
-  //     };
-  //   },
-  // });
+  console.log(data);
 
-  const { data: nextData, isPending: isPendingNext } = useQuery({
-    queryKey: ["threads", sort, subredditName, after],
-    queryFn: () => getThreads({ subredditName, sort, query, after }),
-  });
-
-  useEffect(() => {
-    if (!isLoading) {
-      setThreadz(data.threads);
-      setAfter(data.after);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (!isPendingNext && nextData) {
-      setThreadz((prev) => [...prev, nextData.threads].flat());
-    }
-  }, [nextData]);
-
-  // function onBottom() {
-  //   const nextAfter = queries.data.at(-1).after;
-  //   if (!after.includes(nextAfter)) {
-  //     setAfter((prev) => [...prev.filter((id) => id !== nextAfter), nextAfter]);
-  //   }
-  // }
   function onBottom() {
-    {
-      setAfter(nextData.after);
-    }
+    fetchNextPage();
   }
 
   if (isLoading) {
@@ -109,52 +76,28 @@ const ThreadList = ({ view }) => {
     document.title = `rLite | Search results: ${query}`;
   }
 
+  console.log(view, status);
+
   // Generate list
   let searchResults = [];
-  let threads = [];
-  if (view !== "searchResults") {
-    threads = threadz.map((thread) => {
-      return (
-        <ThreadCard key={thread.data.id} data={thread.data} cardType={view} />
-      );
-    });
-  }
-
-  if (view === "searchResults") {
-    return data.threads.map((thread) => {
-      return (
-        <SearchCard
-          key={thread.data.id}
-          data={thread.data}
-          id={thread.data.id}
-          author={thread.data.author}
-          commentCount={thread.data.num_comments}
-          icon={thread.data.icon}
-          link={thread.data.permalink}
-          score={thread.data.score}
-          subredditName={thread.data.subreddit}
-          threadTitle={thread.data.title}
-          threadType={getThreadType(thread.data)}
-          thumbnail={thread.data.thumbnail}
-          timestamp={getTimeStamp(thread.data.created_utc)}
-        />
-      );
-    });
-  }
+  let threads = data.pages.map((group, i) => (
+    <React.Fragment key={i}>
+      {group.threads.map((thread) =>
+        view !== "searchResults" ? (
+          <ThreadCard key={thread.data.id} data={thread.data} cardType={view} />
+        ) : (
+          <SearchCard key={thread.data.id} data={thread.data} />
+        )
+      )}
+    </React.Fragment>
+  ));
 
   return (
     <Box className="ThreadList" mt={9}>
-      <BottomScrollListener onBottom={onBottom} offset={5000} />
+      <BottomScrollListener onBottom={onBottom} offset={1000} debounce={2000} />
       {view === "subreddit" && <SubredditInfo />}
-      {isLoading && skeletons()}
-      {(isSuccess || isLoading) &&
-        searchResults &&
-        view === "searchResults" &&
-        searchResults}
-      {(isSuccess || isLoading) &&
-        threads &&
-        view !== "searchResults" &&
-        threads}
+      {threads}
+      {skeletons(view)}
     </Box>
   );
 };

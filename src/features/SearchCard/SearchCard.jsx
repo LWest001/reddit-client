@@ -18,6 +18,7 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 
 const SearchCard = ({ data, threadType }) => {
   const thumbnail = getDefaultThumbnail(data.thumbnail);
+
   return (
     <Card
       className="SearchCard"
