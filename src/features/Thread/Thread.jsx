@@ -8,12 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getThread } from "../../api";
 import { useMemo } from "react";
 import { useMargin } from "../../functions/useMargin";
+import ErrorPage from "../ErrorPage";
 
 const Thread = () => {
   const { redditId, subredditName, sort } = useParams();
 
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["thread", redditId],
+    queryKey: ["thread", sort, redditId],
     queryFn: () => getThread(subredditName, redditId, sort),
   });
 
@@ -64,6 +65,8 @@ const Thread = () => {
       <SkeletonCommentCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
     </Box>
+  ) : isError ? (
+    <ErrorPage />
   ) : (
     <Box
       className="Thread"
