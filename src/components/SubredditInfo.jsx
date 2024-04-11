@@ -60,7 +60,7 @@ function SubredditInfo({ expandedState }) {
       className="SubredditInfoContainer"
       sx={{
         background: `url(${replaceEntities(bgImage)}) no-repeat top`,
-        backgroundSize: expanded ? "contain" : "cover",
+        backgroundSize: "cover",
         justifyContent: "space-between",
         minHeight: "min-content",
         color: "white",
@@ -144,7 +144,14 @@ function SubredditInfo({ expandedState }) {
                   ".MuiAccordionSummary-contentGutters": { display: "none" },
                 }}
               ></AccordionSummary>
-              <AccordionDetails>
+              <AccordionDetails
+                sx={{
+                  maxHeight: "60vh",
+                  overflow: "auto",
+                  scrollBehavior: "smooth",
+                  scroll,
+                }}
+              >
                 {subredditInfo.public_description ? (
                   parseMarkdownText(subredditInfo.description)
                 ) : (
