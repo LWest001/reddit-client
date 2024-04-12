@@ -36,9 +36,7 @@ const SortSelector = () => {
         className="SortSelector"
         name="SortSelector"
         onChange={handleChange}
-        notched={false}
         value={searchSort || sort}
-        // label="SORT"
         sx={{
           color: "primary.contrastText",
           ".MuiOutlinedInput-notchedOutline": {
@@ -49,9 +47,6 @@ const SortSelector = () => {
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: "rgba(228, 219, 233, 0.25)",
-          },
-          ".MuiSvgIcon-root ": {
-            fill: "white !important",
           },
         }}
       >

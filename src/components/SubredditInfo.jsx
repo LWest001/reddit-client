@@ -17,6 +17,7 @@ import {
 import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
+import { isSmallScreen } from "../functions/isSmallScreen";
 
 function SubredditInfo({ expandedState }) {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -36,7 +37,7 @@ function SubredditInfo({ expandedState }) {
   }, [subredditName]);
 
   useEffect(() => {
-    if (window.innerWidth < 600 && subredditInfo.mobile_banner_image) {
+    if (isSmallScreen && subredditInfo.mobile_banner_image) {
       setBgImage(subredditInfo.mobile_banner_image);
     } else {
       setBgImage(subredditInfo.banner_background_image);

@@ -17,15 +17,20 @@ import {
   ToggleButton,
   Typography,
   Stack,
+  IconButton,
+  Popover,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import HintBox from "../HintBox";
 import SubredditInfo from "../SubredditInfo";
+import ClockIcon from "@mui/icons-material/AccessTime";
+import { isSmallScreen } from "../../functions/isSmallScreen";
 
 const Header = ({ onResize }) => {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [timeSelectAnchor, setTimeSelectAnchor] = useState(null);
 
   const appbarRef = useRef();
 
@@ -45,12 +50,12 @@ const Header = ({ onResize }) => {
   const { subredditName, threadTitle, sort } = useParams();
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClickLogo = () => {
     navigate("/");
     window.scrollTo(0, 0);
   };
 
-  function handleSubmit(e) {
+  function handleSort(e) {
     e.preventDefault();
     const SortSelector = document.querySelector(".SortSelector");
     SortSelector.style.display = "block";
@@ -69,15 +74,31 @@ const Header = ({ onResize }) => {
     window.scrollTo(0, 0);
   }
 
-  function handleClose() {
+  function handleCloseSearchhint() {
     setOpen(false);
     localStorage.setItem("hideSearchHint", true);
   }
 
-  function handleToggle(value) {
+  // Time Selector vars and handlers
+  const timeSelectOpen = !!timeSelectAnchor;
+  const anchorTop = useMemo(
+    () => (isSmallScreen ? 56 : 64),
+    [window.innerWidth]
+  );
+  const id = timeSelectOpen ? "simple-popover" : undefined;
+  function handleToggle(_, values) {
     const query = searchParams.get("q");
-    const params = { t: value };
+    const params = { t: values };
     query ? setSearchParams({ q: query, ...params }) : setSearchParams(params);
+    handleCloseClock();
+  }
+
+  function handleClickClock(e) {
+    setTimeSelectAnchor(e.currentTarget);
+  }
+
+  function handleCloseClock() {
+    setTimeSelectAnchor(null);
   }
 
   return (
@@ -91,7 +112,7 @@ const Header = ({ onResize }) => {
           <Button
             component={RouterLink}
             to="/"
-            onClick={handleClick}
+            onClick={handleClickLogo}
             sx={{ color: "primary.contrastText" }}
             variant="outlined"
           >
@@ -100,7 +121,6 @@ const Header = ({ onResize }) => {
               gap={0.5}
               sx={{ alignItems: "center", justifyContent: "center" }}
             >
-              {/* <HomeIcon variant="headerIcon" /> */}
               <Icon component="img" src={Logo} fontSize="medium" />
               <Typography
                 color="primary.contrastText"
@@ -116,35 +136,60 @@ const Header = ({ onResize }) => {
             </Stack>
           </Button>
           <SortSelector />
+          {sort === "top" && (
+            <>
+              <IconButton
+                sx={{ color: "white", marginLeft: ".6rem" }}
+                onClick={handleClickClock}
+              >
+                <ClockIcon />
+              </IconButton>
+              <Popover
+                onClose={handleCloseClock}
+                id={id}
+                anchorEl={timeSelectAnchor}
+                open={timeSelectOpen}
+                anchorReference="anchorPosition"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                anchorPosition={{ left: 0, top: anchorTop }}
+              >
+                <ToggleButtonGroup
+                  size="small"
+                  exclusive
+                  sx={{
+                    fontWeight: "bold",
+                    width: "fit-content",
+                  }}
+                  onChange={handleToggle}
+                  value={time}
+                  color="secondary"
+                >
+                  <ToggleButton value={"hour"}>Now</ToggleButton>
+                  <ToggleButton value={"day"}>Day</ToggleButton>
+                  <ToggleButton value={"week"}>Week</ToggleButton>
+                  <ToggleButton value={"month"}>Month</ToggleButton>
+                  <ToggleButton value={"year"}>Year</ToggleButton>
+                  <ToggleButton value={"all"}>all time</ToggleButton>
+                </ToggleButtonGroup>
+              </Popover>
+            </>
+          )}
         </Stack>
-        <SearchBar handleSubmit={handleSubmit} setOpen={setOpen} />
+        <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
       </Toolbar>
       <HintBox
         horizontal="center"
         vertical="top"
         open={open}
-        onClose={handleClose}
+        onClose={handleCloseSearchhint}
         message={
           'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         }
       />
-      {sort === "top" && (
-        <ToggleButtonGroup
-          size="small"
-          
-          sx={{ color: "white", marginX: "auto", bgcolor: "whitesmoke", marginY: ".5rem" }}
-          onChange={(e) => handleToggle(e.target.value)}
-          value={time}
-          color="primary"
-        >
-          <ToggleButton value={"hour"}>Now</ToggleButton>
-          <ToggleButton value={"day"}>Today</ToggleButton>
-          <ToggleButton value={"week"}>This Week</ToggleButton>
-          <ToggleButton value={"month"}>This Month</ToggleButton>
-          <ToggleButton value={"year"}>This Year</ToggleButton>
-          <ToggleButton value={"all"}>All Time</ToggleButton>
-        </ToggleButtonGroup>
-      )}
+
       {subredditName && !threadTitle && (
         <SubredditInfo expandedState={[expanded, setExpanded]} />
       )}

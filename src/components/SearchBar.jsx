@@ -2,6 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha, Autocomplete, TextField } from "@mui/material";
 import TopSubs from "../assets/subreddits.json";
 import { useSearchParams } from "react-router-dom";
+import { isSmallScreen } from "../functions/isSmallScreen";
 
 function SearchBar({ handleSubmit, setOpen }) {
   const Search = styled("form")(({ theme }) => ({
@@ -57,7 +58,7 @@ function SearchBar({ handleSubmit, setOpen }) {
       <StyledAutocomplete
         freeSolo
         onFocus={() => {
-          if (window.innerWidth < 600) {
+          if (isSmallScreen) {
             const SortSelector = document.querySelector(".SortSelector");
             SortSelector.style.display = "none";
           }

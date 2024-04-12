@@ -7,9 +7,10 @@ function parseMarkdownText(markdown) {
   let txt = document.createElement("textarea");
   txt.innerHTML = markdown;
   const html = converter.makeHtml(txt.value);
-
+  
   // parse html to DOM object
   const selfText = parse(html);
+  console.log(html,selfText);
   return selfText;
 }
 

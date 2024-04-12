@@ -4,7 +4,7 @@ function SortSelectorMenuItem({ icon, text }) {
   return (
     <Box sx={{ display: "flex", flexDirection: "row" }}>
       {icon}
-      <Typography>{text.toUpperCase()}</Typography>
+      <Typography marginLeft={".5rem"}>{text.toUpperCase()}</Typography>
     </Box>
   );
 }

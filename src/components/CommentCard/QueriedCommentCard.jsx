@@ -41,7 +41,7 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
   }
 
   const bodyTextHTML = parseMarkdownText(data?.body_html);
-  
+
   function handleReadMore(reply, e) {
     e.target.disabled = true;
     e.target.style.textDecoration = "none";
