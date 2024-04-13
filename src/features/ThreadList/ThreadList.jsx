@@ -16,7 +16,7 @@ import { useMargin } from "../../functions/useMargin";
 
 // Generate skeletons
 const Skeletons = ({ view }) => {
-  const marginTop = useMargin();
+  const marginTop = useMargin(0.5);
   return view === "searchResults" ? (
     <Box mt={marginTop}>
       <SkeletonSearchCard />
@@ -39,7 +39,8 @@ const ThreadList = ({ view }) => {
   const time = searchParams.get("t");
   const sort = searchParams.get("sort") || useParams().sort;
   const { subredditName } = useParams();
-  const marginTop = useMargin();
+  const marginTop = useMargin(0.5);
+  // console.log(marginTop)
 
   const {
     isLoading,
@@ -97,7 +98,10 @@ const ThreadList = ({ view }) => {
   ));
 
   return (
-    <Box className="ThreadList" mt={marginTop}>
+    <Box
+      className="ThreadList"
+      mt={view !== "subreddit" ? marginTop : "initial"}
+    >
       <BottomScrollListener onBottom={onBottom} offset={1000} debounce={2000} />
       {threads}
       {hasNextPage && isFetchingNextPage ? (

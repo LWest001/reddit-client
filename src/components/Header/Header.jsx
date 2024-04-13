@@ -35,13 +35,13 @@ const Header = ({ onResize }) => {
   const appbarRef = useRef();
 
   useEffect(() => {
-    if (!appbarRef.current || expanded) return;
+    if (!appbarRef.current) return;
     const resizeObserver = new ResizeObserver(() => {
       onResize(appbarRef.current?.offsetHeight);
     });
     resizeObserver.observe(appbarRef.current);
     return () => resizeObserver.disconnect(); // clean up
-  }, [expanded]);
+  }, []);
 
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -102,98 +102,100 @@ const Header = ({ onResize }) => {
   }
 
   return (
-    <AppBar className="Header" ref={appbarRef}>
-      <Toolbar sx={{ paddingLeft: [0, "24px"] }}>
-        <Stack
-          className="AppBar-Main"
-          direction="row"
-          sx={{ alignItems: "center", justifyContent: "center" }}
-        >
-          <Button
-            component={RouterLink}
-            to="/"
-            onClick={handleClickLogo}
-            sx={{ color: "primary.contrastText" }}
-            variant="outlined"
+    <>
+      <AppBar className="Header" ref={appbarRef}>
+        <Toolbar sx={{ paddingLeft: [0, "24px"] }}>
+          <Stack
+            className="AppBar-Main"
+            direction="row"
+            sx={{ alignItems: "center", justifyContent: "center" }}
           >
-            <Stack
-              direction="row"
-              gap={0.5}
-              sx={{ alignItems: "center", justifyContent: "center" }}
+            <Button
+              component={RouterLink}
+              to="/"
+              onClick={handleClickLogo}
+              sx={{ color: "primary.contrastText" }}
+              variant="outlined"
             >
-              <Icon component="img" src={Logo} fontSize="medium" />
-              <Typography
-                color="primary.contrastText"
-                fontWeight="700"
-                fontSize="1.5rem"
-                sx={{
-                  fontFamily: "Caveat, Lucida Handwriting, cursive",
-                  textTransform: "none",
-                }}
+              <Stack
+                direction="row"
+                gap={0.5}
+                sx={{ alignItems: "center", justifyContent: "center" }}
               >
-                rLite
-              </Typography>
-            </Stack>
-          </Button>
-          <SortSelector />
-          {sort === "top" && (
-            <>
-              <IconButton
-                sx={{ color: "white", marginLeft: ".6rem" }}
-                onClick={handleClickClock}
-              >
-                <ClockIcon />
-              </IconButton>
-              <Popover
-                onClose={handleCloseClock}
-                id={id}
-                anchorEl={timeSelectAnchor}
-                open={timeSelectOpen}
-                anchorReference="anchorPosition"
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                anchorPosition={{ left: 0, top: anchorTop }}
-              >
-                <ToggleButtonGroup
-                  size="small"
-                  exclusive
+                <Icon component="img" src={Logo} fontSize="medium" />
+                <Typography
+                  color="primary.contrastText"
+                  fontWeight="700"
+                  fontSize="1.5rem"
                   sx={{
-                    fontWeight: "bold",
-                    width: "fit-content",
+                    fontFamily: "Caveat, Lucida Handwriting, cursive",
+                    textTransform: "none",
                   }}
-                  onChange={handleToggle}
-                  value={time}
-                  color="secondary"
                 >
-                  <ToggleButton value={"hour"}>Now</ToggleButton>
-                  <ToggleButton value={"day"}>Day</ToggleButton>
-                  <ToggleButton value={"week"}>Week</ToggleButton>
-                  <ToggleButton value={"month"}>Month</ToggleButton>
-                  <ToggleButton value={"year"}>Year</ToggleButton>
-                  <ToggleButton value={"all"}>all time</ToggleButton>
-                </ToggleButtonGroup>
-              </Popover>
-            </>
-          )}
-        </Stack>
-        <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
-      </Toolbar>
-      <HintBox
-        horizontal="center"
-        vertical="top"
-        open={open}
-        onClose={handleCloseSearchhint}
-        message={
-          'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
-        }
-      />
+                  rLite
+                </Typography>
+              </Stack>
+            </Button>
+            <SortSelector />
+            {sort === "top" && (
+              <>
+                <IconButton
+                  sx={{ color: "white", marginLeft: ".6rem" }}
+                  onClick={handleClickClock}
+                >
+                  <ClockIcon />
+                </IconButton>
+                <Popover
+                  onClose={handleCloseClock}
+                  id={id}
+                  anchorEl={timeSelectAnchor}
+                  open={timeSelectOpen}
+                  anchorReference="anchorPosition"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  anchorPosition={{ left: 0, top: anchorTop }}
+                >
+                  <ToggleButtonGroup
+                    size="small"
+                    exclusive
+                    sx={{
+                      fontWeight: "bold",
+                      width: "fit-content",
+                    }}
+                    onChange={handleToggle}
+                    value={time}
+                    color="secondary"
+                  >
+                    <ToggleButton value={"hour"}>Now</ToggleButton>
+                    <ToggleButton value={"day"}>Day</ToggleButton>
+                    <ToggleButton value={"week"}>Week</ToggleButton>
+                    <ToggleButton value={"month"}>Month</ToggleButton>
+                    <ToggleButton value={"year"}>Year</ToggleButton>
+                    <ToggleButton value={"all"}>all time</ToggleButton>
+                  </ToggleButtonGroup>
+                </Popover>
+              </>
+            )}
+          </Stack>
+          <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
+        </Toolbar>
+        <HintBox
+          horizontal="center"
+          vertical="top"
+          open={open}
+          onClose={handleCloseSearchhint}
+          message={
+            'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
+          }
+        />
 
-      {subredditName && !threadTitle && (
-        <SubredditInfo expandedState={[expanded, setExpanded]} />
-      )}
-    </AppBar>
+      </AppBar>
+        {subredditName && !threadTitle && (
+          <SubredditInfo expandedState={[expanded, setExpanded]} />
+        )}
+    </>
   );
 };
 

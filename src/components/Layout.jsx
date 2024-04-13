@@ -11,8 +11,8 @@ const Layout = () => {
   return (
     <>
       <Container className="App" sx={{ px: { xs: 0.2, sm: 1 } }}>
-        <Header onResize={setHeaderHeight} />
         <HeaderHeight.Provider value={headerHeight}>
+          <Header onResize={setHeaderHeight} />
           <Outlet />
         </HeaderHeight.Provider>
       </Container>

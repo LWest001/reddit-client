@@ -12,7 +12,7 @@ module.exports = {
   plugins: ["react"],
   rules: {
     "react/prop-types": 0,
-    indent: ["error", 2],
+    // indent: ["error", 2],
     "linebreak-style": ["error", "windows"],
     quotes: ["error", "double"],
     semi: ["error", "always"],

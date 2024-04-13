@@ -3,7 +3,7 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
-import { Box, Button, Card, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getInfiniteComment, getThread } from "../../api";
 import { useMemo, useState } from "react";
@@ -99,7 +99,7 @@ const Thread = () => {
   );
 
   return isLoading ? (
-    <Box mt={useMargin()}>
+    <Box mt={useMargin(0.5)}>
       <SkeletonThreadCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
       <SkeletonCommentCard animation="wave" />
@@ -117,7 +117,7 @@ const Thread = () => {
         flexDirection: "column",
         alignItems: "center",
       }}
-      mt={useMargin()}
+      mt={useMargin(0.5)}
     >
       <BottomScrollListener onBottom={onBottom} debounce={2000} offset={500}>
         {isSuccess && (

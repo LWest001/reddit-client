@@ -10,7 +10,6 @@ function parseMarkdownText(markdown) {
   
   // parse html to DOM object
   const selfText = parse(html);
-  console.log(html,selfText);
   return selfText;
 }
 

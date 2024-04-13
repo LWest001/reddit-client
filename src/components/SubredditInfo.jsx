@@ -10,7 +10,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Slide,
   Collapse,
 } from "@mui/material";
 
@@ -18,12 +17,14 @@ import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
 import { isSmallScreen } from "../functions/isSmallScreen";
+import { useMargin } from "../functions/useMargin";
 
 function SubredditInfo({ expandedState }) {
   const [subredditInfo, setSubredditInfo] = useState({});
   const [bgImage, setBgImage] = useState(null);
   const { subredditName } = useParams();
   const [expanded, setExpanded] = expandedState;
+  const margin = useMargin();
 
   document.title = `rLite | r/${subredditName}`;
 
@@ -48,7 +49,7 @@ function SubredditInfo({ expandedState }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      window.scrollY > 100 ? setShowContent(false) : setShowContent(true);
+      window.scrollY > 0 ? setShowContent(false) : setShowContent(true);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -66,7 +67,11 @@ function SubredditInfo({ expandedState }) {
         minHeight: "min-content",
         color: "white",
         borderRadius: 0,
-        my: 0,
+        // my: 0,
+        mt: margin,
+        position: "sticky",
+        top: margin,
+        zIndex: 10000,
       }}
     >
       <CardHeader
@@ -90,7 +95,7 @@ function SubredditInfo({ expandedState }) {
         }
       />
 
-      <Collapse in={showContent || expanded} timeout={20}>
+      <Collapse in={showContent || expanded}>
         <CardContent
           sx={{
             px: 2,
@@ -98,7 +103,6 @@ function SubredditInfo({ expandedState }) {
             justifyContent: "center",
             bgcolor: "rgba(0, 0, 0, 0.6)",
             flexDirection: "column",
-            // display: showContent || expanded ? "flex" : "none",
             display: "flex",
           }}
         >
