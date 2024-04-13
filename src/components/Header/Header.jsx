@@ -190,11 +190,10 @@ const Header = ({ onResize }) => {
             'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
           }
         />
-
       </AppBar>
-        {subredditName && !threadTitle && (
-          <SubredditInfo expandedState={[expanded, setExpanded]} />
-        )}
+      {subredditName && !threadTitle && (
+        <SubredditInfo expandedState={[expanded, setExpanded]} />
+      )}
     </>
   );
 };

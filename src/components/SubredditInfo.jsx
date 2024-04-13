@@ -71,7 +71,7 @@ function SubredditInfo({ expandedState }) {
         mt: margin,
         position: "sticky",
         top: margin,
-        zIndex: 10000,
+        zIndex: 1,
       }}
     >
       <CardHeader
