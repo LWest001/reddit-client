@@ -1,42 +1,62 @@
 import "./ThreadCard.css";
-import { Skeleton, Card, CardHeader, CardContent, Stack } from "@mui/material";
+import {
+  Skeleton,
+  Card,
+  CardHeader,
+  CardContent,
+  Stack,
+  Box,
+} from "@mui/material";
 
 import theme from "../../assets/theme";
 
-const SkeletonThreadCard = () => {
+const SkeletonThreadCard = ({ subreddit }) => {
   return (
     <Card className="SkeletonThreadCard">
       <CardHeader
         className="ThreadCardHeader"
         avatar={
-          <Skeleton
-            variant="circular"
-            width={40}
-            height={40}
-            animation="wave"
-          />
+          !subreddit && (
+            <Skeleton
+              variant="circular"
+              width={40}
+              height={40}
+              animation="wave"
+            />
+          )
         }
         title={
-          <Skeleton
-            animation="wave"
-            variant="text"
-            width={200}
-            className="skeletonContent"
-          />
+          <Box display="flex" width={"100%"} justifyContent="space-between">
+            <Skeleton
+              animation="wave"
+              variant="text"
+              width={100}
+              className="skeletonContent"
+            />
+            <Skeleton
+              animation="wave"
+              variant="text"
+              width={50}
+              ml={"100%"}
+              className="skeletonContent"
+            />
+          </Box>
         }
         subheader={
-          <Skeleton
-            animation="wave"
-            variant="text"
-            width={100}
-            className="skeletonContent"
-          />
+          !subreddit && (
+            <Skeleton
+              animation="wave"
+              variant="text"
+              width={200}
+              className="skeletonContent"
+            />
+          )
         }
       />
 
       <CardContent>
         <Skeleton animation="wave" variant="text" />
-        <Skeleton animation="wave" variant="rounded" height={400} />
+        <Skeleton animation="wave" variant="rounded" height={200} />
       </CardContent>
       <Stack
         direction="row"
@@ -50,7 +70,7 @@ const SkeletonThreadCard = () => {
         <Skeleton
           variant="rounded"
           animation="wave"
-          height="36px"
+          height="1rem"
           width="220px"
         />
 

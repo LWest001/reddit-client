@@ -1,28 +1,23 @@
 import { Typography } from "@mui/material";
 import { useContext } from "react";
 import { ThreadContentContext } from "./ThreadCard";
+import { getFlair } from "../../functions/getFlair";
 
 function FlairBox() {
-  let { flair } = useContext(ThreadContentContext);
-  if (!flair?.text) {
-    flair = {
-      text: "Text post",
-      bgcolor: "primary.main",
-      textColor: "light",
-    };
-  }
+  let data = useContext(ThreadContentContext);
+  const flair = getFlair(data);
 
-  const textColor = flair.textColor === "light" ? "white" : "black";
+  if (!flair) return;
   return (
     <Typography
       className="postFlair"
       sx={{
         bgcolor: flair?.backgroundColor || "primary.light",
-        color: flair?.backgroundColor ? textColor : "white",
+        color: flair?.textColor === "dark" ? "black" : "white",
         mr: 1,
       }}
     >
-      {flair?.text}
+      {flair.text}
     </Typography>
   );
 }

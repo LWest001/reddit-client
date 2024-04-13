@@ -21,27 +21,16 @@ import {
   Popover,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import HintBox from "../HintBox";
 import SubredditInfo from "../SubredditInfo";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import { isSmallScreen } from "../../functions/isSmallScreen";
 
-const Header = ({ onResize }) => {
+const Header = forwardRef(function Header({ onResize }, ref) {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [timeSelectAnchor, setTimeSelectAnchor] = useState(null);
-
-  const appbarRef = useRef();
-
-  useEffect(() => {
-    if (!appbarRef.current) return;
-    const resizeObserver = new ResizeObserver(() => {
-      onResize(appbarRef.current?.offsetHeight);
-    });
-    resizeObserver.observe(appbarRef.current);
-    return () => resizeObserver.disconnect(); // clean up
-  }, []);
 
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -103,7 +92,7 @@ const Header = ({ onResize }) => {
 
   return (
     <>
-      <AppBar className="Header" ref={appbarRef}>
+      <AppBar className="Header" ref={ref}>
         <Toolbar sx={{ paddingLeft: [0, "24px"] }}>
           <Stack
             className="AppBar-Main"
@@ -192,10 +181,13 @@ const Header = ({ onResize }) => {
         />
       </AppBar>
       {subredditName && !threadTitle && (
-        <SubredditInfo expandedState={[expanded, setExpanded]} />
+        <SubredditInfo
+          expandedState={[expanded, setExpanded]}
+          headerHeight={ref.current?.offsetHeight}
+        />
       )}
     </>
   );
-};
+});
 
 export default Header;

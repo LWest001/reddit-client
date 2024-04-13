@@ -16,9 +16,10 @@ import { useMargin } from "../../functions/useMargin";
 
 // Generate skeletons
 const Skeletons = ({ view }) => {
+  const subreddit = view === "subreddit";
   const marginTop = useMargin(0.5);
   return view === "searchResults" ? (
-    <Box mt={marginTop}>
+    <Box mt={!subreddit ? marginTop : "initial"}>
       <SkeletonSearchCard />
       <SkeletonSearchCard />
       <SkeletonSearchCard />
@@ -26,9 +27,9 @@ const Skeletons = ({ view }) => {
       <SkeletonSearchCard />
     </Box>
   ) : (
-    <Box mt={marginTop}>
-      <SkeletonThreadCard />
-      <SkeletonThreadCard />
+    <Box mt={!subreddit ? marginTop : "initial"}>
+      <SkeletonThreadCard subreddit={subreddit} />
+      <SkeletonThreadCard subreddit={subreddit} />
     </Box>
   );
 };
@@ -40,7 +41,6 @@ const ThreadList = ({ view }) => {
   const sort = searchParams.get("sort") || useParams().sort;
   const { subredditName } = useParams();
   const marginTop = useMargin(0.5);
-  // console.log(marginTop)
 
   const {
     isLoading,

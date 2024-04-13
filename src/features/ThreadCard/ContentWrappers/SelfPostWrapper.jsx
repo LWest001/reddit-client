@@ -5,19 +5,12 @@ import FlairBox from "../FlairBox";
 import ThreadTitle from "../ThreadTitle";
 import { useContext } from "react";
 import { ThreadContentContext } from "../ThreadCard";
-import { getFlair } from "../../../functions/getFlair";
 
 function SelfPostWrapper({ text }) {
   const data = useContext(ThreadContentContext);
-  let flair = getFlair(data);
+
   const bodyTextHTML = parseMarkdownText(text);
-  if (!flair) {
-    flair = {
-      text: "Text post",
-      backgroundColor: "primary.main",
-      textColor: "light",
-    };
-  }
+
   if (text) {
     return (
       <Accordion className="SelfPostWrapper">
@@ -27,8 +20,10 @@ function SelfPostWrapper({ text }) {
           id={`${data.id}-header`}
         >
           <div>
-            <FlairBox />
-            <span className="threadTitle">{data.title}</span>
+            {(data.link_flair_text || data.link_flair_richtext) && <FlairBox />}
+          
+
+            <span className="threadTitle">{parseMarkdownText(data.title)}</span>
           </div>
         </AccordionSummary>
 

@@ -17,14 +17,14 @@ import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
 import { isSmallScreen } from "../functions/isSmallScreen";
-import { useMargin } from "../functions/useMargin";
 
-function SubredditInfo({ expandedState }) {
+function SubredditInfo({ expandedState, headerHeight }) {
   const [subredditInfo, setSubredditInfo] = useState({});
   const [bgImage, setBgImage] = useState(null);
   const { subredditName } = useParams();
   const [expanded, setExpanded] = expandedState;
-  const margin = useMargin();
+
+  const margin = `calc(${headerHeight}px)`;
 
   document.title = `rLite | r/${subredditName}`;
 
@@ -61,7 +61,9 @@ function SubredditInfo({ expandedState }) {
     <Card
       className="SubredditInfoContainer"
       sx={{
-        background: `url(${replaceEntities(bgImage)}) no-repeat top`,
+        background: bgImage
+          ? `url(${replaceEntities(bgImage)}) no-repeat top`
+          : "black",
         backgroundSize: "cover",
         justifyContent: "space-between",
         minHeight: "min-content",
