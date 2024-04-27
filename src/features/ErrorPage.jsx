@@ -12,7 +12,7 @@ import theme from "../assets/theme";
 
 const ErrorPage = () => {
   let error = useRouteError();
-  console.log(error);
+  console.error(error);
   return (
     <Card
       className="ErrorPage"
