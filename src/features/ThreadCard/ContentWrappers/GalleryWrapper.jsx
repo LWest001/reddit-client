@@ -16,8 +16,9 @@ import { ThreadContentContext } from "../ThreadCard";
 function GalleryWrapper() {
   const theme = useTheme();
   const data = useContext(ThreadContentContext);
-  const galleryData = data.media_metadata;
   const galleryCaptions = data.gallery_data.items;
+  const galleryOrder = data.gallery_data.items.map((item) => item.media_id);
+  const galleryData = data.media_metadata;
 
   const steps = [];
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +26,8 @@ function GalleryWrapper() {
   const handleCloseModal = () => setOpenModal(false);
 
   for (let image in galleryData) {
-    steps.push(generateImgSrcset(galleryData[image].p, "gallery"));
+    const index = galleryOrder.findIndex((id) => id === galleryData[image].id);
+    steps[index] = generateImgSrcset(galleryData[image].p, "gallery");
   }
 
   for (let i = 0; i < galleryCaptions.length; i++) {
