@@ -3,7 +3,14 @@ import parseMarkdownText from "../../functions/parseMarkdownText";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { useParams } from "react-router-dom";
 import ReadMoreButton from "./ReadMoreButton";
-import { Box, Card, CardContent, CardHeader } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Paper,
+  Typography,
+} from "@mui/material";
 
 import CommentHeaderText from "./CommentHeaderText";
 import CommentAvatar from "./CommentAvatar";
@@ -96,7 +103,13 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
   }
 
   if (isError) {
-    return;
+    return (
+      <Paper>
+        <Typography fontSize={10} color="grey" m={1}>
+          [Deleted]
+        </Typography>
+      </Paper>
+    );
   }
 
   return (
