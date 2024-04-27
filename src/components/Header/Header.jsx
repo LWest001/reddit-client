@@ -21,13 +21,13 @@ import {
   Popover,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import HintBox from "../HintBox";
 import SubredditInfo from "../SubredditInfo";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import { isSmallScreen } from "../../functions/isSmallScreen";
 
-const Header = forwardRef(function Header({ onResize }, ref) {
+const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [timeSelectAnchor, setTimeSelectAnchor] = useState(null);

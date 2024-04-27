@@ -15,6 +15,7 @@ function VideoPlaceholder({ thumbnail, disabled = false }) {
         placeItems: "center",
       }}
     >
+      <img src={thumbnail.thumbnail_url} />
       <Icon
         fontSize="large"
         sx={{ position: "relative", top: thumbnail_height / 2 + 14 }}
@@ -30,7 +31,7 @@ function VideoPlaceholder({ thumbnail, disabled = false }) {
         width={thumbnail_width}
         height={thumbnail_height}
         alt="Loading rich video content..."
-        animation={disabled ? "none" : "wave"}
+        animation={disabled ? false : "wave"}
         sx={{ maxWidth: "100%" }}
       ></Skeleton>
     </Box>

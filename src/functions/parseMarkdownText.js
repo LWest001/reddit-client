@@ -1,7 +1,7 @@
 import parse from "html-react-parser";
 import showdown from "showdown";
 
-function parseMarkdownText(markdown) {
+function    parseMarkdownText(markdown) {
   // convert any HTML entities to unicode character, then convert markdown to HTML
   const converter = new showdown.Converter();
   let txt = document.createElement("textarea");

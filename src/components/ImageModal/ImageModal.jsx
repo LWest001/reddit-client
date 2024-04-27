@@ -1,10 +1,25 @@
-import { Modal, Box, Typography, Stack, Button } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  Stack,
+  Button,
+  Popover,
+  ButtonGroup,
+  IconButton,
+} from "@mui/material";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThreadContentContext } from "../../features/ThreadCard/ThreadCard";
+import RedditIcon from "@mui/icons-material/Reddit";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import PinterestIcon from "@mui/icons-material/Pinterest";
+import EmailIcon from "@mui/icons-material/Email";
 
 const style = {
   position: "absolute",
@@ -23,6 +38,15 @@ const style = {
 
 function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
   const { threadTitle } = useContext(ThreadContentContext);
+  const [shareAnchor, setShareAnchor] = useState(null);
+  const shareOpen = !!shareAnchor;
+  const shareId = open ? "share" : undefined;
+  function handleClickShare(e) {
+    setShareAnchor(e.currentTarget);
+  }
+  function handleCloseShare() {
+    setShareAnchor(null);
+  }
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -57,11 +81,43 @@ function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
               component={Link}
               variant="contained"
               to={`/${link.substring(19)}`}
+              aria-describedby={shareId}
             >
               <CommentOutlinedIcon />
             </Button>
           )}
-          <Button variant="contained" disabled>
+          <Popover
+            onClose={handleCloseShare}
+            id={shareId}
+            open={shareOpen}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            anchorEl={shareAnchor}
+          >
+            <ButtonGroup>
+              <IconButton>
+                <RedditIcon />
+              </IconButton>
+              <IconButton>
+                <FacebookIcon />
+              </IconButton>
+              <IconButton>
+                <XIcon />
+              </IconButton>
+              <IconButton>
+                <InstagramIcon />
+              </IconButton>
+              <IconButton>
+                <PinterestIcon />
+              </IconButton>
+              <IconButton>
+                <EmailIcon />
+              </IconButton>
+            </ButtonGroup>
+          </Popover>
+          <Button variant="contained" onClick={handleClickShare}>
             <ShareIcon />
           </Button>
           <Button variant="contained" onClick={handleClose} color="warning">
