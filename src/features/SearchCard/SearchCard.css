@@ -123,7 +123,6 @@
 }
 
 .SearchCard .threadType {
-  background: radial-gradient(ellipse at top left, slategray, lightgray);
   height: min-content;
   float: left;
   color: black;

@@ -7,7 +7,8 @@ import {
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
 import SearchBar from "../SearchBar";
-
+import Brightness7 from "@mui/icons-material/Brightness7";
+import Brightness4 from "@mui/icons-material/Brightness4";
 import {
   AppBar,
   Toolbar,
@@ -21,11 +22,12 @@ import {
   Popover,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
-import { forwardRef, useMemo, useState } from "react";
+import { forwardRef, useContext, useMemo, useState } from "react";
 import HintBox from "../HintBox";
 import SubredditInfo from "../SubredditInfo";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import { isSmallScreen } from "../../functions/isSmallScreen";
+import { ColorModeContext } from "../../app/App";
 
 const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
@@ -89,6 +91,8 @@ const Header = forwardRef(function Header(props, ref) {
   function handleCloseClock() {
     setTimeSelectAnchor(null);
   }
+
+  const { toggleColorMode, mode } = useContext(ColorModeContext);
 
   return (
     <>
@@ -168,6 +172,9 @@ const Header = forwardRef(function Header(props, ref) {
               </>
             )}
           </Stack>
+          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
+            {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
           <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
         </Toolbar>
         <HintBox

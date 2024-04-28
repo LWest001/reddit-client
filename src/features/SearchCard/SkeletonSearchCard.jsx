@@ -38,8 +38,6 @@ function SkeletonSearchCard() {
         sx={{
           borderRadius: 0,
           p: 0.5,
-          background:
-            "radial-gradient(ellipse at top left, #ffffff, lightgray)",
         }}
       />
       <CardContent className="threadPreview" sx={{ p: 0 }}>

@@ -10,6 +10,7 @@ import {
   CardHeader,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import SearchCardHeaderTitle from "./SearchCardHeaderTitle";
 import SearchFlair from "./SearchFlair";
@@ -18,6 +19,7 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 
 const SearchCard = ({ data, threadType }) => {
   const thumbnail = getDefaultThumbnail(data.thumbnail);
+  const theme = useTheme();
 
   return (
     <Card
@@ -68,16 +70,16 @@ const SearchCard = ({ data, threadType }) => {
         sx={{
           borderRadius: 0,
           p: 0.5,
-          background:
-            "radial-gradient(ellipse at top left, #ffffff, lightgray)",
         }}
       />
       <CardContent className="threadPreview" sx={{ p: 0 }}>
-        <Link to={data.permalink}>
+        <Link to={data.permalink} className="no-underline">
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Box width="100%" sx={{ m: 1 }}>
               <SearchFlair threadType={threadType} />
-              <Typography>{data.title}</Typography>
+              <Typography color={theme.palette.text.primary}>
+                {data.title}
+              </Typography>
             </Box>
 
             <img

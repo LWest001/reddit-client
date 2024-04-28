@@ -11,7 +11,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: slategray;
+  /* background-color: slategray; */
 }
 
 #root {
@@ -59,7 +59,6 @@ h1 {
 
 a {
   text-decoration: none;
-  color: initial;
 }
 
 @media (hover: hover) {
@@ -70,7 +69,13 @@ a {
   select:hover,
   .button:hover {
     cursor: pointer;
-    background-color: darkgray;
+    /* background-color: darkgray; */
     text-decoration: none;
   }
+}
+
+
+
+.no-underline, .no-underline * {
+  text-decoration: none !important;
 }

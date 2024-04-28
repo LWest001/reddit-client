@@ -26,6 +26,7 @@ import {
   CardHeader,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 
 // Content Wrapper imports
@@ -35,8 +36,6 @@ import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
 import GalleryWrapper from "./ContentWrappers/GalleryWrapper";
 import DashVideoWrapper from "./ContentWrappers/DashVideoWrapper";
 import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
-
-import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 import replaceEntities from "../../functions/replaceEntities";
 import SubredditAvatar from "../../components/SubredditAvatar";
@@ -46,6 +45,7 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 export const ThreadContentContext = createContext({});
 
 const ThreadCard = ({ data, cardType }) => {
+  const theme = useTheme();
   let { preview, score, selftext } = data;
 
   const threadType = getThreadType(data);
@@ -128,7 +128,7 @@ const ThreadCard = ({ data, cardType }) => {
           px: 1,
           justifyContent: "space-between",
           alignItems: "center",
-          background: theme.palette.headerGradient.default,
+          background: theme.palette.headerGradient?.default,
           width: "100%",
         }}
       >

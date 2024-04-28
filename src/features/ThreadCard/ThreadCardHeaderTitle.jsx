@@ -9,7 +9,7 @@ function ThreadCardHeaderTitle({ subredditName, timestamp }) {
       sx={{ justifyContent: "space-between" }}
     >
       <SubredditLink subredditName={subredditName} type="text" />
-      <Typography color="rgba(0, 0, 0, 0.6)">{timestamp}</Typography>
+      <Typography>{timestamp}</Typography>
     </Stack>
   );
 }
