@@ -13,7 +13,7 @@ function SelfPostWrapper({ text }) {
 
   if (text) {
     return (
-      <Accordion className="SelfPostWrapper">
+      <Accordion className="SelfPostWrapper" elevation={5}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls={`${data.id}-content`}

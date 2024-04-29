@@ -137,7 +137,7 @@ const ThreadCard = ({ data, cardType }) => {
             component={Link}
             to={data.permalink}
             className="viewComments button"
-            sx={{ gap: 1 }}
+            sx={{ gap: 1, color: theme.palette.primary?.contrastText }}
           >
             <CommentOutlinedIcon />
             <Typography>View {data.num_comments} comments</Typography>
