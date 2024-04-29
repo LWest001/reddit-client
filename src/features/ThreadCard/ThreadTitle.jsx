@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { useContext } from "react";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import FlairBox from "./FlairBox";
@@ -12,9 +12,7 @@ function ThreadTitle() {
   return (
     <Box className="ThreadTitle" sx={{ py: 1 }}>
       {(link_flair_text || link_flair_richtext) && <FlairBox />}
-      <Typography color={theme.palette.text.primary}>
-        {titleTextHTML}
-      </Typography>
+      <Box color={theme.palette.text.primary}>{titleTextHTML}</Box>
     </Box>
   );
 }

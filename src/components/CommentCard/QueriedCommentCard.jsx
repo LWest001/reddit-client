@@ -67,36 +67,35 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
     e.target.remove();
   }
 
-  useEffect(
-    () =>
-      setReplies(
-        data?.replies?.data?.children.map((reply) => {
-          if (!reply) return;
-          if (reply.data?.count === 0) return;
-          if (reply.kind === "more") {
-            return (
-              <ReadMoreButton
-                key={`btn_${reply.data.id}`}
-                data={reply.data}
-                onClick={(e) => handleReadMore(reply, e)}
-                id={`readMore-${reply.data.id}`}
-              >
-                {reply.data.children.length} more replies
-              </ReadMoreButton>
-            );
-          }
+  useEffect(() => {
+    setReplies(
+      data?.replies?.data?.children.map((reply) => {
+        if (!reply) return;
+        if (reply.data?.count === 0) return;
+        if (reply.kind === "more") {
           return (
-            <CommentCard
+            <ReadMoreButton
+              key={`btn_${reply.data.id}`}
               data={reply.data}
-              key={reply.data?.id}
-              threadAuthor={threadAuthor}
-              type="subcomment"
-            />
+              onClick={(e) => handleReadMore(reply, e)}
+              id={`readMore-${reply.data.id}`}
+            >
+              {reply.data.children.length} more replies
+            </ReadMoreButton>
           );
-        })
-      ),
-    []
-  );
+        }
+        return (
+          <CommentCard
+            data={reply.data}
+            key={reply.data?.id}
+            threadAuthor={threadAuthor}
+            type="subcomment"
+          />
+        );
+      })
+    );
+    return setReplies([]);
+  }, []);
 
   if (isLoading) {
     return <SkeletonCommentCard animation="wave" />;
@@ -105,7 +104,7 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
   if (isError) {
     return (
       <Paper>
-        <Typography fontSize={10} color="grey" m={1}>
+        <Typography  color="grey" m={1}>
           [Deleted]
         </Typography>
       </Paper>

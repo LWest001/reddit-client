@@ -108,7 +108,6 @@ const Header = forwardRef(function Header(props, ref) {
               to="/"
               onClick={handleClickLogo}
               sx={{ color: "primary.contrastText" }}
-              variant="outlined"
             >
               <Stack
                 direction="row"
@@ -172,19 +171,17 @@ const Header = forwardRef(function Header(props, ref) {
               </>
             )}
           </Stack>
-          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
+          <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
+          <IconButton onClick={toggleColorMode} color="inherit" sx={{ ml: 1 }}>
             {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-          <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
         </Toolbar>
         <HintBox
           horizontal="center"
           vertical="top"
           open={open}
           onClose={handleCloseSearchhint}
-          message={
-            'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
-          }
+          message='Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         />
       </AppBar>
       {subredditName && !threadTitle && (

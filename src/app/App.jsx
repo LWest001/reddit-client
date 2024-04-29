@@ -1,8 +1,13 @@
 import Layout from "../components/Layout";
 import { ScrollRestoration } from "react-router-dom";
-import { Button, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import {
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getDesignTokens } from "../assets/theme";
 
@@ -11,16 +16,24 @@ export const ThreadsContext = createContext([[], () => {}]);
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
-
-
+const sessionColorMode = localStorage.getItem("colorMode");
 
 export default function ToggleColorMode() {
-  const [mode, setMode] = useState("light");
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [mode, setMode] = useState(prefersDarkMode ? "dark" : "light");
+  useEffect(() => {
+    sessionColorMode && setMode(sessionColorMode);
+  }, []);
+
   const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        setMode((prevMode) => {
+          const newMode = prevMode === "light" ? "dark" : "light";
+          localStorage.setItem("colorMode", newMode);
+          return newMode;
+        });
       },
       mode,
     }),

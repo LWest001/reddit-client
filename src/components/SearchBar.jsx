@@ -15,7 +15,7 @@ function SearchBar({ handleSubmit, setOpen }) {
     marginLeft: theme.spacing(2),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
+      marginLeft: "auto",
       width: "auto",
     },
   }));

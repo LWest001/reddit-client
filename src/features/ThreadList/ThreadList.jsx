@@ -3,7 +3,13 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import SearchCard from "../SearchCard/SearchCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
-import { Box } from "@mui/material";
+import {
+  Alert,
+  Box,
+  LinearProgress,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 
 // Function imports
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -109,6 +115,16 @@ const ThreadList = ({ view }) => {
       ) : (
         "Nothing more to show."
       )}
+      <Snackbar
+        open={isLoading || (hasNextPage && isFetchingNextPage)}
+        autoHideDuration={6000}
+        message="Loading more threads"
+      >
+        <Alert severity="info" sx={{ alignItems: "center" }}>
+          <Typography display="inline">Loading more threads</Typography>
+          <LinearProgress size={"1rem"} />
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

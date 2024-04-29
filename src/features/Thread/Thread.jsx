@@ -3,32 +3,34 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonCommentCard from "../../components/CommentCard/SkeletonCommentCard";
-import { Box, Card, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Card,
+  LinearProgress,
+  Snackbar,
+  Typography,
+} from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getInfiniteComment, getThread } from "../../api";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useMargin } from "../../functions/useMargin";
 import ErrorPage from "../ErrorPage";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 
+const MORE_INDICES_THRESHOLD = 40;
+
 const Thread = () => {
   const { redditId, subredditName, sort, threadTitle } = useParams();
   const [moreComments, setMoreComments] = useState([]);
-  const [moreIndices, setMoreIndices] = useState([0, 20]);
-
-  function onBottom() {
-    if (isFetchingMore) return;
-    setMoreComments((prev) => [...prev, ...moreData]);
-    setMoreIndices((prev) => [
-      prev[0] + 20,
-      moreIndices[1] > moreCommentsCount ? moreCommentsCount - 1 : prev[1] + 20,
-    ]);
-  }
+  const [moreIndices, setMoreIndices] = useState([0, MORE_INDICES_THRESHOLD]);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["thread", sort, redditId],
     queryFn: () => getThread(subredditName, redditId, sort),
   });
+
+  document.title = `rLite | ${data?.thread.title || ""}`;
 
   const moreCommentIds =
     data?.comments
@@ -52,7 +54,22 @@ const Thread = () => {
       }),
   });
 
-  document.title = `rLite | ${data?.thread.title || ""}`;
+  const onBottom = useCallback(() => {
+    if (isFetchingMore) return;
+    setMoreComments((prev) => [...prev, ...moreData]);
+    setMoreIndices((prev) => [
+      prev[0] + MORE_INDICES_THRESHOLD,
+      moreIndices[1] > moreCommentsCount
+        ? moreCommentsCount - 1
+        : prev[1] + MORE_INDICES_THRESHOLD,
+    ]);
+  }, [
+    isFetchingMore,
+    setMoreComments,
+    setMoreIndices,
+    moreIndices,
+    moreCommentsCount,
+  ]);
 
   const commentCards = useMemo(
     () =>
@@ -94,7 +111,7 @@ const Thread = () => {
               />
             );
           })
-        : [],
+        : [<Box key="more"></Box>],
     [moreComments]
   );
 
@@ -119,13 +136,19 @@ const Thread = () => {
       }}
       mt={useMargin(0.5)}
     >
-      <BottomScrollListener onBottom={onBottom} debounce={2000} offset={500}>
-        {isSuccess && (
-          <>
-            <ThreadCard key={redditId} data={data.thread} cardType="thread" />
-            {commentCards}
+      {isSuccess && (
+        <>
+          <ThreadCard key={redditId} data={data.thread} cardType="thread" />
+          {commentCards}
+          <BottomScrollListener
+            onBottom={onBottom}
+            debounce={2000}
+            offset={500}
+          >
             {moreCommentCards}
-            {isFetchingMore && (
+          </BottomScrollListener>
+          {isLoadingMore ||
+            (isFetchingMore && (
               <>
                 <SkeletonCommentCard animation="wave" />
                 <SkeletonCommentCard animation="wave" />
@@ -133,10 +156,15 @@ const Thread = () => {
                 <SkeletonCommentCard animation="wave" />
                 <SkeletonCommentCard animation="wave" />
               </>
-            )}
-          </>
-        )}
-      </BottomScrollListener>
+            ))}
+        </>
+      )}
+      <Snackbar open={isLoadingMore || isFetchingMore} autoHideDuration={6000}>
+        <Alert severity="info" sx={{ alignItems: "center" }}>
+          <Typography display="inline">Loading more comments</Typography>
+          <LinearProgress size={"1rem"} />
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

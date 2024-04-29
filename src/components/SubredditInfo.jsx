@@ -16,7 +16,6 @@ import {
 import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
-import { isSmallScreen } from "../functions/isSmallScreen";
 
 function SubredditInfo({ expandedState, headerHeight }) {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -35,16 +34,16 @@ function SubredditInfo({ expandedState, headerHeight }) {
       setSubredditInfo(response.data.data);
     }
     getSubredditInfo(subredditName);
+    return setSubredditInfo({});
   }, [subredditName]);
 
   useEffect(() => {
-    if (isSmallScreen && subredditInfo.mobile_banner_image) {
+    if (window.innerWidth <= 600 && subredditInfo.mobile_banner_image) {
       setBgImage(subredditInfo.mobile_banner_image);
     } else {
       setBgImage(subredditInfo.banner_background_image);
     }
-  }, [subredditInfo]);
-
+  }, [subredditInfo, window.innerWidth]);
   const [showContent, setShowContent] = useState(true);
 
   useEffect(() => {
