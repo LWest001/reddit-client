@@ -12,7 +12,6 @@ import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 // Media imports
 
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
@@ -41,6 +40,7 @@ import replaceEntities from "../../functions/replaceEntities";
 import SubredditAvatar from "../../components/SubredditAvatar";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import UpvoteChip from "../../components/UpvoteChip";
 
 export const ThreadContentContext = createContext({});
 
@@ -137,16 +137,20 @@ const ThreadCard = ({ data, cardType }) => {
             component={Link}
             to={data.permalink}
             className="viewComments button"
-            sx={{ gap: 1, color: theme.palette.primary?.contrastText }}
+            sx={{
+              gap: 1,
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.primary?.contrastText
+                  : undefined,
+            }}
           >
             <CommentOutlinedIcon />
             <Typography>View {data.num_comments} comments</Typography>
           </Button>
         )}
-        <Stack direction="row" gap={1}>
-          <ThumbUpOutlinedIcon />
-          {score}
-        </Stack>
+
+        <UpvoteChip score={score} />
       </Stack>
     </Card>
   );

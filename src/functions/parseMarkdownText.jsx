@@ -1,5 +1,7 @@
-import parse from "html-react-parser";
+import { Link } from "@mui/material";
+import parse, { domToReact } from "html-react-parser";
 import showdown from "showdown";
+import BlockQuote from "../components/BlockQuote";
 
 function parseMarkdownText(markdown) {
   // convert any HTML entities to unicode character, then convert markdown to HTML
@@ -17,6 +19,19 @@ function parseMarkdownText(markdown) {
         return (
           <img src={domNode.attribs.href} style={{ maxWidth: "100%" }}></img>
         );
+      }
+      if (
+        domNode?.attribs?.href &&
+        !domNode.attribs.href.includes("preview.redd.it")
+      ) {
+        return (
+          <Link href={domNode.attribs.href} target="_blank">
+            {domNode.children[0].data}
+          </Link>
+        );
+      }
+      if (domNode.name === "blockquote") {
+        return <BlockQuote>{domToReact(domNode.children)}</BlockQuote>;
       }
     },
   });

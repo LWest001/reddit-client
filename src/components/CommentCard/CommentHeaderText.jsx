@@ -1,20 +1,19 @@
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import UpvoteChip from "../UpvoteChip";
 
 function CommentHeaderText({ timestamp, score, handleCollapse, id }) {
   return (
     <Stack
       direction="row"
-      justifyContent="space-between"
+      justifyContent="end"
       onClick={handleCollapse}
       id={`CommentHeaderText-${id}`}
       width="100%"
+      alignItems={"center"}
+      gap={1}
     >
-      <span>{timestamp}</span>
-      <Stack direction="row" gap={1}>
-        <ThumbUpOutlinedIcon />
-        {score}
-      </Stack>
+      <Typography fontSize="small">{timestamp}</Typography>
+      <UpvoteChip score={score} />
     </Stack>
   );
 }

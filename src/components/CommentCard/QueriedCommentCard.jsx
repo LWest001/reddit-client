@@ -1,27 +1,16 @@
-import "./CommentCard.css";
 import parseMarkdownText from "../../functions/parseMarkdownText";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import { useParams } from "react-router-dom";
 import ReadMoreButton from "./ReadMoreButton";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Paper,
-  Typography,
-} from "@mui/material";
-
-import CommentHeaderText from "./CommentHeaderText";
-import CommentAvatar from "./CommentAvatar";
+import { Paper, Typography } from "@mui/material";
 
 import { useEffect, useMemo, useState } from "react";
-import ExpandCollapseButton from "./ExpandCollapseButton";
 import useGetReply from "../../functions/useGetReplies";
 import CommentCard from "./CommentCard";
 import SkeletonCommentCard from "./SkeletonCommentCard";
+import CommentCardTemplate from "./CommentCardTemplate";
 
-function QueriedCommentCard({ id, threadAuthor, type }) {
+function QueriedCommentCard({ id, threadAuthor }) {
   const { redditId, subredditName, threadTitle } = useParams();
   const { data, isLoading, isError } = useGetReply(
     id,
@@ -49,13 +38,10 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
 
   const bodyTextHTML = parseMarkdownText(data?.body_html);
 
-  function handleReadMore(reply, e) {
-    e.target.disabled = true;
-    e.target.style.textDecoration = "none";
-    e.target.style.cursor = "wait";
+  function handleReadMore(data) {
     setReplies((prev) => [
       ...prev,
-      ...reply.data.children.map((id) => (
+      ...data.children.map((id) => (
         <QueriedCommentCard
           key={id}
           id={id}
@@ -64,7 +50,6 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
         />
       )),
     ]);
-    e.target.remove();
   }
 
   useEffect(() => {
@@ -77,11 +62,9 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
             <ReadMoreButton
               key={`btn_${reply.data.id}`}
               data={reply.data}
-              onClick={(e) => handleReadMore(reply, e)}
+              onClick={handleReadMore}
               id={`readMore-${reply.data.id}`}
-            >
-              {reply.data.children.length} more replies
-            </ReadMoreButton>
+            />
           );
         }
         return (
@@ -89,7 +72,6 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
             data={reply.data}
             key={reply.data?.id}
             threadAuthor={threadAuthor}
-            type="subcomment"
           />
         );
       })
@@ -104,7 +86,7 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
   if (isError) {
     return (
       <Paper>
-        <Typography  color="grey" m={1}>
+        <Typography color="grey" m={1}>
           [Deleted]
         </Typography>
       </Paper>
@@ -113,49 +95,15 @@ function QueriedCommentCard({ id, threadAuthor, type }) {
 
   return (
     data && (
-      <Card
-        raised={true}
-        className={`CommentCard ${type}`}
-        id={`cc-${data.id}`}
-      >
-        <CardHeader
-          className="commentHeader"
-          variant="commentCard"
-          avatar={
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
-                py: 0,
-              }}
-            >
-              <ExpandCollapseButton
-                expanded={expanded}
-                handleCollapse={handleCollapse}
-              />
-              <CommentAvatar isOp={isOp} author={data.author} id={data.id} />
-            </Box>
-          }
-          title={
-            <CommentHeaderText
-              timestamp={timestamp}
-              score={data.score}
-              handleCollapse={handleCollapse}
-              id={data.id}
-            />
-          }
-        />
-        <CardContent
-          className="commentBody"
-          id={`comment-${data.id}`}
-          sx={{ paddingRight: 0, paddingTop: "0.2rem" }}
-        >
-          {bodyTextHTML}
-
-          {replies}
-        </CardContent>
-      </Card>
+      <CommentCardTemplate
+        bodyTextHTML={bodyTextHTML}
+        data={data}
+        expanded={expanded}
+        handleCollapse={handleCollapse}
+        isOp={isOp}
+        replies={replies}
+        timestamp={timestamp}
+      />
     )
   );
 }

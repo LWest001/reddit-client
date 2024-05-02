@@ -8,6 +8,7 @@ import {
   Box,
   LinearProgress,
   Snackbar,
+  Stack,
   Typography,
 } from "@mui/material";
 
@@ -104,7 +105,7 @@ const ThreadList = ({ view }) => {
   ));
 
   return (
-    <Box
+    <Stack
       className="ThreadList"
       mt={view !== "subreddit" ? marginTop : "initial"}
     >
@@ -125,7 +126,7 @@ const ThreadList = ({ view }) => {
           <LinearProgress size={"1rem"} />
         </Alert>
       </Snackbar>
-    </Box>
+    </Stack>
   );
 };
 

@@ -1,5 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha, Autocomplete, TextField } from "@mui/material";
+import { styled, Autocomplete, TextField } from "@mui/material";
 import TopSubs from "../assets/subreddits.json";
 import { useSearchParams } from "react-router-dom";
 import { isSmallScreen } from "../functions/isSmallScreen";
@@ -7,11 +7,6 @@ import { isSmallScreen } from "../functions/isSmallScreen";
 function SearchBar({ handleSubmit, setOpen }) {
   const Search = styled("form")(({ theme }) => ({
     position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
     marginLeft: theme.spacing(2),
     width: "100%",
     [theme.breakpoints.up("sm")]: {

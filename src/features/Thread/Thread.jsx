@@ -85,7 +85,6 @@ const Thread = () => {
               threadAuthor={data.thread.author}
               indexTree={[comment.data.index]}
               key={comment.data.id}
-              type={"top-level-comment"}
             />
           );
         })

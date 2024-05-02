@@ -5,6 +5,7 @@ import HotIcon from "@mui/icons-material/LocalFireDepartment";
 import TopIcon from "@mui/icons-material/ArrowUpward";
 import NewIcon from "@mui/icons-material/AutoAwesome";
 import RisingIcon from "@mui/icons-material/TrendingUp";
+import SportsMmaIcon from "@mui/icons-material/SportsMma";
 
 import SortSelectorMenuItem from "./SortSelectorMenuItem";
 import { isSmallScreen } from "../../functions/isSmallScreen";
@@ -34,64 +35,44 @@ const SortSelector = () => {
 
   const getRenderedVal = useCallback(
     (val) => {
-      if (window.innerWidth <= 600) {
-        switch (val) {
-          case "hot":
-            return (
-              <Box display="flex">
-                <HotIcon sx={{ color: "orange" }} />
-              </Box>
-            );
-          case "new":
-            return (
-              <Box display="flex">
-                <NewIcon sx={{ color: "gold" }} />
-              </Box>
-            );
-          case "top":
-            return (
-              <Box display="flex">
-                <TopIcon sx={{ color: "lightblue" }} />
-              </Box>
-            );
-          case "rising":
-            return (
-              <Box display="flex">
-                <RisingIcon sx={{ color: "springgreen" }} />
-              </Box>
-            );
-          default:
-            return val;
-        }
-      } else {
-        switch (val) {
-          case "hot":
-            return (
-              <Box display="flex" gap={1}>
-                <HotIcon sx={{ color: "orange" }} /> HOT
-              </Box>
-            );
-          case "new":
-            return (
-              <Box display="flex" gap={1}>
-                <NewIcon sx={{ color: "gold" }} /> NEW
-              </Box>
-            );
-          case "top":
-            return (
-              <Box display="flex" gap={1}>
-                <TopIcon sx={{ color: "lightblue" }} /> TOP
-              </Box>
-            );
-          case "rising":
-            return (
-              <Box display="flex" gap={1}>
-                <RisingIcon sx={{ color: "springgreen" }} /> RISING
-              </Box>
-            );
-          default:
-            return val;
-        }
+      switch (val) {
+        case "hot":
+          return (
+            <Box display="flex" gap={1}>
+              <HotIcon sx={{ color: "orange" }} />{" "}
+              {window.innerWidth > 600 && "HOT"}
+            </Box>
+          );
+        case "new":
+          return (
+            <Box display="flex" gap={1}>
+              <NewIcon sx={{ color: "gold" }} />{" "}
+              {window.innerWidth > 600 && "NEW"}
+            </Box>
+          );
+        case "top":
+          return (
+            <Box display="flex" gap={1}>
+              <TopIcon sx={{ color: "lightblue" }} />{" "}
+              {window.innerWidth > 600 && "TOP"}
+            </Box>
+          );
+        case "rising":
+          return (
+            <Box display="flex" gap={1}>
+              <RisingIcon sx={{ color: "springgreen" }} />{" "}
+              {window.innerWidth > 600 && "RISING"}
+            </Box>
+          );
+        case "controversial":
+          return (
+            <Box display="flex" gap={1}>
+              <SportsMmaIcon sx={{ color: "red" }} />{" "}
+              {window.innerWidth > 600 && "CONTROVERSIAL"}
+            </Box>
+          );
+        default:
+          return val;
       }
     },
     [window.innerWidth, isSmallScreen]
@@ -146,6 +127,12 @@ const SortSelector = () => {
           <SortSelectorMenuItem
             text="rising"
             icon={<RisingIcon sx={{ color: "springgreen" }} />}
+          />
+        </MenuItem>
+        <MenuItem value="controversial">
+          <SortSelectorMenuItem
+            text="controversial"
+            icon={<SportsMmaIcon sx={{ color: "red" }} />}
           />
         </MenuItem>
       </Select>

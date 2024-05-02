@@ -1,27 +1,29 @@
-import { Button } from "@mui/material";
-import { useContext } from "react";
-import { ColorModeContext } from "../../app/App";
+import { Chip } from "@mui/material";
+import { useState } from "react";
+import ListRoundedIcon from "@mui/icons-material/ExpandCircleDown";
 
 function ReadMoreButton({ data, id, onClick }) {
-  const { mode: colorMode } = useContext(ColorModeContext);
+  const [hidden, setHidden] = useState(false);
   return (
-    <Button
-      onClick={onClick}
+    <Chip
+      clickable
+      onClick={() => {
+        setHidden(true);
+        onClick(data);
+      }}
       key={`btn_${data.id}`}
       id={id}
-      type="readMore"
+      // type="readMore"
       size="small"
-      variant={"text"}
       sx={{
-        py: 0.2,
-        mb: 0.3,
-        fontWeight: "bold",
-        cursor: "pointer",
-        color:colorMode === "dark" ? "whitesmoke" : undefined
+        display: hidden ? "none" : undefined,
+        // color: colorMode === "dark" ? "lightblue" : undefined,
+        width: "fit-content",
+        marginY: 0.5,
       }}
-    >
-      {data.children.length} more replies
-    </Button>
+      icon={<ListRoundedIcon fontSize="small" />}
+      label={data.children.length + " replies"}
+    ></Chip>
   );
 }
 

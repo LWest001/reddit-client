@@ -28,15 +28,6 @@ const SearchCard = ({ data, threadType }) => {
       sx={{
         borderRadius: 0,
         my: 0,
-        ":first-of-type": {
-          borderTopLeftRadius: "calc(var(--radius) + var(--border))",
-          borderTopRightRadius: "calc(var(--radius) + var(--border))",
-          marginTop: "calc(var(--appbar-height) + 0.5rem)",
-        },
-        ":last-of-type": {
-          borderBottomLeftRadius: "calc(var(--radius) + var(--border))",
-          borderBottomRightRadius: "calc(var(--radius) + var(--border))",
-        },
       }}
     >
       <CardHeader

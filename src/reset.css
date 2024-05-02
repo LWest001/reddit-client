@@ -127,29 +127,6 @@ q:after {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-blockquote:before {
-  content: "“";
-}
-
-blockquote:after {
-  content: "”";
-  margin-left: auto;
-}
-
-blockquote {
-  margin: 1rem;
-  align-items: start;
-  justify-content: start;
-  display: flex;
-  flex-direction: column;
-  /* background-color: lightgray; */
-  padding: 0.5rem;
-  width: fit-content;
-  /* border-radius: 0.5rem; */
-  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
-}
-
 table {
   border-collapse: collapse;
   border-spacing: 0;

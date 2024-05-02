@@ -1,4 +1,4 @@
-import { deepPurple, grey, teal } from "@mui/material/colors";
+import { blue, deepPurple, grey, teal } from "@mui/material/colors";
 
 const lightHeaderGradient =
   "radial-gradient(ellipse at top left, #ffffff, lightgray)";
@@ -15,7 +15,6 @@ export const getDesignTokens = (mode) => ({
       ? {
           primary: {
             main: "#006064",
-            contrastText: "#ffffff",
           },
           secondary: {
             main: "#640061",
@@ -48,6 +47,11 @@ export const getDesignTokens = (mode) => ({
         }),
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiCardHeader: {
       variants: [
         {
@@ -133,6 +137,11 @@ export const getDesignTokens = (mode) => ({
           },
         },
       ],
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: { color: mode === "dark" && blue[300] },
+      },
     },
   },
 });
