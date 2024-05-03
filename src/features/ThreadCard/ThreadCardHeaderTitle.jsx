@@ -1,15 +1,22 @@
-import { Stack, Typography } from "@mui/material";
-import SubredditLink from "../../components/SubredditLink";
+import { Stack } from "@mui/material";
+import SubredditChip from "../../components/Chips/SubredditChip";
+import AuthorChip from "../../components/Chips/AuthorChip";
+import { useParams } from "react-router-dom";
 
-function ThreadCardHeaderTitle({ subredditName, timestamp }) {
+function ThreadCardHeaderTitle({ subreddit, author }) {
+  const { subreddit: subredditParam, redditId } = useParams();
+  const isSubreddit = !!subredditParam && !redditId;
   return (
     <Stack
       direction="row"
       className="ThreadCardHeaderTitle"
       sx={{ justifyContent: "space-between" }}
+      flexWrap={"wrap"}
+      gap={0.5}
+      alignItems={"center"}
     >
-      <SubredditLink subredditName={subredditName} type="text" />
-      <Typography>{timestamp}</Typography>
+      {!isSubreddit && <SubredditChip subreddit={subreddit} />}
+      {window.innerWidth && <AuthorChip author={author} />}
     </Stack>
   );
 }

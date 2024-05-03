@@ -46,7 +46,7 @@ const ThreadList = ({ view }) => {
   const query = searchParams.get("q");
   const time = searchParams.get("t");
   const sort = searchParams.get("sort") || useParams().sort;
-  const { subredditName } = useParams();
+  const { subreddit } = useParams();
   const marginTop = useMargin(0.5);
 
   const {
@@ -57,12 +57,12 @@ const ThreadList = ({ view }) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["threads", sort, query, time, subredditName],
+    queryKey: ["threads", sort, query, time, subreddit],
     queryFn: ({ pageParam }) =>
       getInfiniteThreads({
         after: pageParam,
         query,
-        subredditName,
+        subreddit,
         sort,
         time,
       }),

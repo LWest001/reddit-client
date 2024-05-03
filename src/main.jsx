@@ -24,12 +24,12 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
       />
       <Route
-        path="r/:subredditName/:sort?"
+        path="r/:subreddit/:sort?"
         element={<ThreadList view="subreddit" />}
         errorElement={<ErrorPage />}
       ></Route>
       <Route
-        path="r/:subredditName/comments/:redditId/:threadTitle/:sort?"
+        path="r/:subreddit/comments/:redditId/:threadTitle/:sort?"
         element={<Thread />}
         errorElement={<ErrorPage />}
       />

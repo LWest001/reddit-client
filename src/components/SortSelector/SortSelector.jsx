@@ -13,7 +13,7 @@ import { useCallback } from "react";
 
 const SortSelector = () => {
   const navigate = useNavigate();
-  const { sort = "hot", subredditName, threadTitle, redditId } = useParams();
+  const { sort = "hot", subreddit, threadTitle, redditId } = useParams();
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const searchSort = searchParams.get("sort");
@@ -21,10 +21,10 @@ const SortSelector = () => {
   const handleChange = ({ target }) => {
     if (threadTitle) {
       navigate(
-        `r/${subredditName}/comments/${redditId}/${threadTitle}/${target.value}`
+        `r/${subreddit}/comments/${redditId}/${threadTitle}/${target.value}`
       );
-    } else if (subredditName) {
-      navigate(`r/${subredditName}/${target.value}`);
+    } else if (subreddit) {
+      navigate(`r/${subreddit}/${target.value}`);
     } else if (query) {
       navigate(`search?q=${query}&sort=${target.value}`);
     } else {

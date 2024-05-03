@@ -21,13 +21,13 @@ import { BottomScrollListener } from "react-bottom-scroll-listener";
 const MORE_INDICES_THRESHOLD = 40;
 
 const Thread = () => {
-  const { redditId, subredditName, sort, threadTitle } = useParams();
+  const { redditId, subreddit, sort, threadTitle } = useParams();
   const [moreComments, setMoreComments] = useState([]);
   const [moreIndices, setMoreIndices] = useState([0, MORE_INDICES_THRESHOLD]);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["thread", sort, redditId],
-    queryFn: () => getThread(subredditName, redditId, sort),
+    queryFn: () => getThread(subreddit, redditId, sort),
   });
 
   document.title = `rLite | ${data?.thread.title || ""}`;
@@ -47,7 +47,7 @@ const Thread = () => {
     queryKey: ["comments", redditId, moreCommentIds],
     queryFn: () =>
       getInfiniteComment({
-        subreddit: subredditName,
+        subreddit: subreddit,
         threadId: redditId,
         threadTitle,
         ids: moreCommentIds,

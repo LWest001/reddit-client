@@ -1,13 +1,14 @@
-import { Chip } from "@mui/material";
+import { Chip, Typography } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 const UpvoteChip = ({ score }) => {
   return (
     <Chip
-      sx={{ display: "flex", marginY: 0.5 }}
+      sx={{ display: "flex", marginY: 0.5, p: 0.5 }}
       icon={<ThumbUpOutlinedIcon fontSize="small" />}
-      label={score}
+      label={<Typography>{score}</Typography>}
       size="small"
+      variant="outlined"
     />
   );
 };

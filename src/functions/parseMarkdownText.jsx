@@ -26,7 +26,7 @@ function parseMarkdownText(markdown) {
       ) {
         return (
           <Link href={domNode.attribs.href} target="_blank">
-            {domNode.children[0].data}
+            {domNode.children[0]?.data}
           </Link>
         );
       }

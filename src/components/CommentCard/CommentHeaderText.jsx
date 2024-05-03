@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
-import UpvoteChip from "../UpvoteChip";
+import { Stack } from "@mui/material";
+import UpvoteChip from "../Chips/UpvoteChip";
+import TimestampChip from "../Chips/TimestampChip";
 
 function CommentHeaderText({ timestamp, score, handleCollapse, id }) {
   return (
@@ -12,7 +13,7 @@ function CommentHeaderText({ timestamp, score, handleCollapse, id }) {
       alignItems={"center"}
       gap={1}
     >
-      <Typography fontSize="small">{timestamp}</Typography>
+      <TimestampChip timestamp={timestamp} />
       <UpvoteChip score={score} />
     </Stack>
   );

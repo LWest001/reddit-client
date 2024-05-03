@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 import {
   Box,
@@ -16,6 +14,8 @@ import SearchCardHeaderTitle from "./SearchCardHeaderTitle";
 import SearchFlair from "./SearchFlair";
 import SubredditAvatar from "../../components/SubredditAvatar";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import UpvoteChip from "../../components/Chips/UpvoteChip";
+import CommentsChip from "../../components/Chips/CommentsChip";
 
 const SearchCard = ({ data, threadType }) => {
   const thumbnail = getDefaultThumbnail(data.thumbnail);
@@ -32,10 +32,10 @@ const SearchCard = ({ data, threadType }) => {
     >
       <CardHeader
         className="searchCardHeader"
-        avatar={<SubredditAvatar subredditName={data.subreddit} />}
+        avatar={<SubredditAvatar subreddit={data.subreddit} />}
         title={
           <SearchCardHeaderTitle
-            subredditName={data.subreddit}
+            subreddit={data.subreddit}
             author={data.author}
             timestamp={getTimeStamp(data.created_utc)}
           />
@@ -49,13 +49,8 @@ const SearchCard = ({ data, threadType }) => {
               alignItems: "center",
             }}
           >
-            <Stack direction="row" gap={1}>
-              <CommentOutlinedIcon fontSize="small" /> {data.num_comments}
-            </Stack>
-            <Stack direction="row" gap={1}>
-              <ThumbUpOutlinedIcon fontSize="small" />
-              {data.score}
-            </Stack>
+            <CommentsChip count={data.num_comments} />
+            <UpvoteChip score={data.score} />
           </Stack>
         }
         sx={{

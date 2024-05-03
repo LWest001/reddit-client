@@ -68,8 +68,8 @@ export const getDesignTokens = (mode) => ({
       ],
       styleOverrides: {
         root: {
-          borderTopLeftRadius: "calc(var(--radius) + var(--border))",
-          borderTopRightRadius: "calc(var(--radius) + var(--border))",
+          // borderTopLeftRadius: "calc(var(--radius) + var(--border))",
+          // borderTopRightRadius: "calc(var(--radius) + var(--border))",
           background: getHeaderGradient(mode),
         },
       },
@@ -77,7 +77,7 @@ export const getDesignTokens = (mode) => ({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: "calc(var(--radius) + var(--border));",
+          // borderRadius: "calc(var(--radius) + var(--border));",
           margin: "5px auto",
           width: "100%",
         },

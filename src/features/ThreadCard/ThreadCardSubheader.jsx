@@ -1,10 +1,10 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
+import AuthorChip from "../../components/Chips/AuthorChip";
 
 function ThreadCardSubheader({ author, timestamp }) {
   return (
-    <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-      <Typography>Posted by u/{author}</Typography>
-      {timestamp && <Typography>{timestamp}</Typography>}
+    <Stack direction="row" sx={{ justifyContent: "space-between" }} mt={1}>
+      <AuthorChip author={author} />
     </Stack>
   );
 }

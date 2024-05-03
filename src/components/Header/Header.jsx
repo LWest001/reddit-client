@@ -38,7 +38,7 @@ const Header = forwardRef(function Header(props, ref) {
 
   const time = searchParams.get("t");
 
-  const { subredditName, threadTitle, sort } = useParams();
+  const { subreddit, threadTitle, sort } = useParams();
   const navigate = useNavigate();
 
   const handleClickLogo = () => {
@@ -184,7 +184,7 @@ const Header = forwardRef(function Header(props, ref) {
           message='Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         />
       </AppBar>
-      {subredditName && !threadTitle && (
+      {subreddit && !threadTitle && (
         <SubredditInfo
           expandedState={[expanded, setExpanded]}
           headerHeight={ref.current?.offsetHeight}
