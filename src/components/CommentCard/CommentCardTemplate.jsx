@@ -24,7 +24,7 @@ const CommentCardTemplate = ({ data, replies, threadAuthor }) => {
   const isOp = useMemo(() => threadAuthor === data?.author);
 
   return (
-    <Card raised square className={"CommentCard"} id={`cc-${data.id}`}>
+    <Card raised className={"CommentCard"} id={`cc-${data.id}`}>
       <CardHeader
         className="commentHeader"
         variant="commentCard"
