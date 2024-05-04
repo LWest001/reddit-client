@@ -10,7 +10,7 @@ function ThreadTitle() {
   const titleTextHTML = parseMarkdownText(`${title}`);
   const theme = useTheme();
   return (
-    <Box className="ThreadTitle" sx={{ py: 1 }}>
+    <Box className="ThreadTitle">
       {(link_flair_text || link_flair_richtext) && <FlairBox />}
       <Box color={theme.palette.text.primary}>{titleTextHTML}</Box>
     </Box>

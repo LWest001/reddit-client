@@ -55,7 +55,7 @@ const Thread = () => {
   });
 
   const onBottom = useCallback(() => {
-    if (isFetchingMore) return;
+    if (isFetchingMore || isLoading) return;
     setMoreComments((prev) => [...prev, ...moreData]);
     setMoreIndices((prev) => [
       prev[0] + MORE_INDICES_THRESHOLD,
