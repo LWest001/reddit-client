@@ -1,12 +1,12 @@
 import {
   Modal,
-  Box,
   Typography,
   Stack,
   Button,
   Popover,
   ButtonGroup,
   IconButton,
+  Box,
 } from "@mui/material";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ShareIcon from "@mui/icons-material/Share";
@@ -20,6 +20,7 @@ import XIcon from "@mui/icons-material/X";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import EmailIcon from "@mui/icons-material/Email";
+import GalleryWrapper from "../../features/ThreadCard/ContentWrappers/GalleryWrapper";
 
 const style = {
   position: "absolute",
@@ -37,13 +38,13 @@ const style = {
 };
 
 function ImageModal({ open, handleClose, link, caption, src }) {
-  const { title } = useContext(ThreadContentContext);
+  const { title, gallery_data } = useContext(ThreadContentContext);
   const [shareAnchor, setShareAnchor] = useState(null);
   const [expand, setExpand] = useState(false);
   const { threadTitle: titleParam } = useParams();
   const shareOpen = !!shareAnchor;
   const shareId = open ? "share" : undefined;
-  const imageHeight = expand ? undefined : "80vh";
+  const imageHeight = expand ? undefined : "70vh";
 
   function handleClickShare(e) {
     setShareAnchor(e.currentTarget);
@@ -54,13 +55,12 @@ function ImageModal({ open, handleClose, link, caption, src }) {
   }
 
   function handleExpand() {
-    console.log(expand);
     setExpand((prev) => !prev);
   }
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={{ ...style, overflow: expand ? "scroll" : "hidden" }}>
+      <Stack sx={{ ...style, overflow: expand ? "scroll" : "hidden" }}>
         <Typography
           id="modal-modal-title"
           variant="h6"
@@ -70,31 +70,21 @@ function ImageModal({ open, handleClose, link, caption, src }) {
         >
           {caption || title}
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <img
-            style={{ maxWidth: "100%", maxHeight: imageHeight }}
-            src={src}
-            alt={title}
-            className="modalImage"
-            onClick={handleExpand}
-          />
-        </Box>
-        <Stack direction="row" justifyContent="space-between" mt={1}>
-          {link && !titleParam && (
-            <Button
-              component={Link}
-              variant="contained"
-              to={link}
-              aria-describedby={shareId}
-            >
-              <CommentOutlinedIcon />
-            </Button>
+        <Stack maxWidth={"100%"} alignItems={"center"}>
+          {gallery_data ? (
+            <GalleryWrapper
+              modal
+              onModalClick={handleExpand}
+              imageHeight={imageHeight}
+            />
+          ) : (
+            <img
+              style={{ maxWidth: "100%", maxHeight: imageHeight }}
+              src={src}
+              alt={title}
+              className="modalImage"
+              onClick={handleExpand}
+            />
           )}
           <Popover
             onClose={handleCloseShare}
@@ -127,14 +117,32 @@ function ImageModal({ open, handleClose, link, caption, src }) {
               </IconButton>
             </ButtonGroup>
           </Popover>
-          <Button variant="contained" onClick={handleClickShare}>
-            <ShareIcon />
-          </Button>
-          <Button variant="contained" onClick={handleClose} color="warning">
-            <CloseIcon />
-          </Button>
+          <Box
+            className="ModalButtons"
+            sx={{ width: "100%" }}
+            marginTop={1}
+            display={"flex"}
+            justifyContent={"space-between"}
+          >
+            {link && !titleParam && (
+              <Button
+                component={Link}
+                variant="contained"
+                to={link}
+                aria-describedby={shareId}
+              >
+                <CommentOutlinedIcon />
+              </Button>
+            )}
+            <Button variant="contained" onClick={handleClickShare}>
+              <ShareIcon />
+            </Button>
+            <Button variant="contained" onClick={handleClose} color="warning">
+              <CloseIcon />
+            </Button>
+          </Box>
         </Stack>
-      </Box>
+      </Stack>
     </Modal>
   );
 }

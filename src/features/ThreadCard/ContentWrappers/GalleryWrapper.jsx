@@ -13,7 +13,7 @@ import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftR
 import ImageModal from "../../../components/ImageModal/ImageModal";
 import { ThreadContentContext } from "../ThreadCard";
 
-function GalleryWrapper() {
+function GalleryWrapper({ modal, onModalClick, imageHeight }) {
   const theme = useTheme();
   const data = useContext(ThreadContentContext);
   if (!data?.gallery_data) return <Typography>{data.title}</Typography>;
@@ -47,12 +47,12 @@ function GalleryWrapper() {
 
   return (
     <Box className="GalleryWrapper">
-      <ThreadTitle />
+      {!modal && <ThreadTitle />}
       <Box
         className="carouselContainer"
         sx={{
           maxWidth: "100%",
-          maxHeight: "80vh",
+          maxHeight: modal ? `calc(${imageHeight}+20vh)` : "80vh",
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
@@ -69,11 +69,14 @@ function GalleryWrapper() {
           component="figure"
         >
           <img
-            onClick={handleOpenModal}
-            srcSet={steps[activeStep].srcset}
-            sizes={steps[activeStep].sizes}
+            onClick={modal ? onModalClick : handleOpenModal}
+            srcSet={modal ? undefined : steps[activeStep].srcset}
+            sizes={modal ? undefined : steps[activeStep].sizes}
             src={steps[activeStep].src}
-            style={{ maxHeight: "60vh", maxWidth: "100%" }}
+            style={{
+              maxHeight: modal ? imageHeight : "60vh",
+              maxWidth: "100%",
+            }}
             alt={`Image ${activeStep + 1}: "${steps[activeStep]?.caption}"`}
           />
           <Box
@@ -87,6 +90,7 @@ function GalleryWrapper() {
         </Box>
 
         <MobileStepper
+          sx={{ maxWidth: 600, width: "100%", margin: "auto" }}
           variant="text"
           steps={maxSteps}
           position="static"
