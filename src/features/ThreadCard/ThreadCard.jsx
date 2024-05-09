@@ -7,9 +7,6 @@ import ThreadTitle from "./ThreadTitle";
 // Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
 
-// Media imports
-
-
 // Stylesheet
 import "./ThreadCard.css";
 
@@ -109,6 +106,7 @@ const ThreadCard = ({ data, cardType }) => {
           alignItems: "center",
           background: theme.palette.headerGradient?.default,
           width: "100%",
+          gap: 1,
         }}
       >
         <Stack direction="row" alignItems={"center"} gap={1}>

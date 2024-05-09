@@ -11,7 +11,7 @@ const CommentsChip = ({ count, link }) => {
       clickable={isLink}
       component={isLink && Link}
       to={link}
-      sx={{ marginY: 1 }}
+      sx={{ marginY: 1, width: "100%", maxWidth: 140 }}
       size={isLink ? "medium" : "small"}
       variant={isLink ? "filled" : "outlined"}
     />

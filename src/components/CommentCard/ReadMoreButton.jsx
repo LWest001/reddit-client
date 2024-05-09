@@ -14,7 +14,7 @@ function ReadMoreButton({ data, id, onClick }) {
       key={`btn_${data.id}`}
       id={id}
       // type="readMore"
-      size="small"
+      size="medium"
       sx={{
         display: hidden ? "none" : undefined,
         // color: colorMode === "dark" ? "lightblue" : undefined,
