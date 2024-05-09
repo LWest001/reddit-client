@@ -11,7 +11,7 @@ import {
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ThreadContentContext } from "../../features/ThreadCard/ThreadCard";
 import RedditIcon from "@mui/icons-material/Reddit";
@@ -37,19 +37,30 @@ const style = {
 };
 
 function ImageModal({ open, handleClose, link, caption, src }) {
-  const { threadTitle } = useContext(ThreadContentContext);
+  const { title } = useContext(ThreadContentContext);
   const [shareAnchor, setShareAnchor] = useState(null);
+  const [expand, setExpand] = useState(false);
+  const { threadTitle: titleParam } = useParams();
   const shareOpen = !!shareAnchor;
   const shareId = open ? "share" : undefined;
+  const imageHeight = expand ? undefined : "80vh";
+
   function handleClickShare(e) {
     setShareAnchor(e.currentTarget);
   }
+
   function handleCloseShare() {
     setShareAnchor(null);
   }
+
+  function handleExpand() {
+    console.log(expand);
+    setExpand((prev) => !prev);
+  }
+
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>
+      <Box sx={{ ...style, overflow: expand ? "scroll" : "hidden" }}>
         <Typography
           id="modal-modal-title"
           variant="h6"
@@ -57,7 +68,7 @@ function ImageModal({ open, handleClose, link, caption, src }) {
           textAlign="center"
           fontSize={16}
         >
-          {caption || threadTitle}
+          {caption || title}
         </Typography>
         <Box
           sx={{
@@ -67,14 +78,15 @@ function ImageModal({ open, handleClose, link, caption, src }) {
           }}
         >
           <img
-            style={{ maxWidth: "100%", maxHeight: "80vh" }}
+            style={{ maxWidth: "100%", maxHeight: imageHeight }}
             src={src}
-            alt={threadTitle}
+            alt={title}
             className="modalImage"
+            onClick={handleExpand}
           />
         </Box>
         <Stack direction="row" justifyContent="space-between" mt={1}>
-          {link && (
+          {link && !titleParam && (
             <Button
               component={Link}
               variant="contained"
