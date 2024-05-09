@@ -7,7 +7,8 @@ import {
 } from "react-router-dom";
 import SortSelector from "../SortSelector/SortSelector";
 import SearchBar from "../SearchBar";
-
+import Brightness7 from "@mui/icons-material/Brightness7";
+import Brightness4 from "@mui/icons-material/Brightness4";
 import {
   AppBar,
   Toolbar,
@@ -21,11 +22,12 @@ import {
   Popover,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
-import { forwardRef, useMemo, useState } from "react";
+import { forwardRef, useContext, useMemo, useState } from "react";
 import HintBox from "../HintBox";
 import SubredditInfo from "../SubredditInfo";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import { isSmallScreen } from "../../functions/isSmallScreen";
+import { ColorModeContext } from "../../app/App";
 
 const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
@@ -36,7 +38,7 @@ const Header = forwardRef(function Header(props, ref) {
 
   const time = searchParams.get("t");
 
-  const { subredditName, threadTitle, sort } = useParams();
+  const { subreddit, threadTitle, sort } = useParams();
   const navigate = useNavigate();
 
   const handleClickLogo = () => {
@@ -90,6 +92,8 @@ const Header = forwardRef(function Header(props, ref) {
     setTimeSelectAnchor(null);
   }
 
+  const { toggleColorMode, mode } = useContext(ColorModeContext);
+
   return (
     <>
       <AppBar className="Header" ref={ref}>
@@ -104,7 +108,6 @@ const Header = forwardRef(function Header(props, ref) {
               to="/"
               onClick={handleClickLogo}
               sx={{ color: "primary.contrastText" }}
-              variant="outlined"
             >
               <Stack
                 direction="row"
@@ -169,18 +172,19 @@ const Header = forwardRef(function Header(props, ref) {
             )}
           </Stack>
           <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
+          <IconButton onClick={toggleColorMode} color="inherit" sx={{ ml: 1 }}>
+            {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
         </Toolbar>
         <HintBox
           horizontal="center"
           vertical="top"
           open={open}
           onClose={handleCloseSearchhint}
-          message={
-            'Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
-          }
+          message='Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         />
       </AppBar>
-      {subredditName && !threadTitle && (
+      {subreddit && !threadTitle && (
         <SubredditInfo
           expandedState={[expanded, setExpanded]}
           headerHeight={ref.current?.offsetHeight}

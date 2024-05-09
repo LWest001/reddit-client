@@ -6,11 +6,12 @@ import {
   CardContent,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import errorLogo from "/errorLogo.svg";
-import theme from "../assets/theme";
 
 const ErrorPage = () => {
+  const theme = useTheme();
   let error = useRouteError();
   console.error(error);
   return (

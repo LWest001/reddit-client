@@ -39,7 +39,7 @@
     "eslint": "^8.36.0",
     "eslint-plugin-react": "^7.32.2",
     "jsdom": "^20.0.3",
-    "netlify-cli": "^15.3.1",
+    "netlify-cli": "^17.23.1",
     "vite": "^4.3.9",
     "vite-plugin-node-polyfills": "^0.21.0",
     "vitest": "^0.26.3"

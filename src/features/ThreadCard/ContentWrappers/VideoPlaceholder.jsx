@@ -1,7 +1,5 @@
-import {
-  PlayCircleFilledRounded as PlayArrow,
-  PlayDisabledRounded as PlayDisabled,
-} from "@mui/icons-material";
+import PlayArrow from "@mui/icons-material/PlayCircleFilledRounded";
+import PlayDisabled from "@mui/icons-material/PlayDisabledRounded";
 import { Box, Icon, Skeleton } from "@mui/material";
 
 function VideoPlaceholder({ thumbnail, disabled = false }) {

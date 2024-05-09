@@ -80,7 +80,7 @@ function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
             <Button
               component={Link}
               variant="contained"
-              to={`/${link.substring(19)}`}
+              to={link}
               aria-describedby={shareId}
             >
               <CommentOutlinedIcon />

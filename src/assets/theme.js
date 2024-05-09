@@ -1,27 +1,57 @@
-import { createTheme } from "@mui/material";
+import { blue, deepPurple, grey, teal } from "@mui/material/colors";
 
-let theme = createTheme({
+const lightHeaderGradient =
+  "radial-gradient(ellipse at top left, #ffffff, lightgray)";
+const darkHeaderGradient = `radial-gradient(ellipse at top left, ${grey[900]}, ${teal[900]})`;
+
+function getHeaderGradient(mode) {
+  return mode === "light" ? lightHeaderGradient : darkHeaderGradient;
+}
+
+export const getDesignTokens = (mode) => ({
   palette: {
-    type: "light",
-    primary: {
-      main: "#006064",
-      contrastText: "#ffffff",
-    },
-    secondary: {
-      main: "#640061",
-    },
-    background: {
-      default: "#d3d3d3",
-    },
-    headerGradient: {
-      default: "radial-gradient(ellipse at top left, #ffffff, lightgray)",
-    },
+    mode,
+    ...(mode === "light"
+      ? {
+          primary: {
+            main: "#006064",
+          },
+          secondary: {
+            main: "#640061",
+          },
+          background: {
+            default: "#d3d3d3",
+          },
+          headerGradient: {
+            default: lightHeaderGradient,
+          },
+        }
+      : {
+          // palette values for dark mode
+          primary: { main: teal[500], contrastText: grey[50] },
+          secondary: {
+            main: deepPurple[500],
+          },
+          divider: teal[700],
+          background: {
+            default: teal[900],
+            paper: teal[900],
+          },
+          text: {
+            primary: grey[50],
+            secondary: grey[500],
+          },
+          headerGradient: {
+            default: darkHeaderGradient,
+          },
+        }),
   },
-});
-
-// MuiCard*
-theme = createTheme(theme, {
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiCardHeader: {
       variants: [
         {
@@ -38,16 +68,16 @@ theme = createTheme(theme, {
       ],
       styleOverrides: {
         root: {
-          background: theme.palette.headerGradient.default,
-          borderTopLeftRadius: "calc(var(--radius) + var(--border))",
-          borderTopRightRadius: "calc(var(--radius) + var(--border))",
+          // borderTopLeftRadius: "calc(var(--radius) + var(--border))",
+          // borderTopRightRadius: "calc(var(--radius) + var(--border))",
+          background: getHeaderGradient(mode),
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: "calc(var(--radius) + var(--border));",
+          // borderRadius: "calc(var(--radius) + var(--border));",
           margin: "5px auto",
           width: "100%",
         },
@@ -63,29 +93,13 @@ theme = createTheme(theme, {
         },
       },
     },
-  },
-});
-
-// MuiSvgIcon
-theme = createTheme(theme, {
-  components: {
-    MuiSvgIcon: {
-      variants: [
-        {
-          props: { variant: "headerIcon" },
-          style: {
-            color: theme.palette.primary.contrastText,
-          },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        content: {
+          flexDirection: "column",
         },
-      ],
+      },
     },
-  },
-});
-
-// MuiToolbar
-
-theme = createTheme(theme, {
-  components: {
     MuiToolbar: {
       styleOverrides: {
         root: {
@@ -114,21 +128,20 @@ theme = createTheme(theme, {
         },
       },
     },
-  },
-});
-
-// MuiAccordion
-
-theme = createTheme(theme, {
-  components: {
-    MuiAccordionSummary: {
-      styleOverrides: {
-        content: {
-          flexDirection: "column",
+    MuiSvgIcon: {
+      variants: [
+        {
+          props: { variant: "headerIcon" },
+          style: {
+            color: getHeaderGradient(mode),
+          },
         },
+      ],
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: { color: mode === "dark" && blue[300] },
       },
     },
   },
 });
-
-export default theme;

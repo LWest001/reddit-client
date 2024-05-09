@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 
-function SubredditLink({ subredditName }) {
+function SubredditLink({ subreddit }) {
+  const theme = useTheme();
   return (
-    <Typography component={Link} to={`/r/${subredditName}`}>
-      r/{subredditName}
+    <Typography
+      component={Link}
+      to={`/r/${subreddit}`}
+      color={theme.palette.text.primary}
+    >
+      r/{subreddit}
     </Typography>
   );
 }

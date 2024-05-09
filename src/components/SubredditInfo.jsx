@@ -16,35 +16,34 @@ import {
 import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
-import { isSmallScreen } from "../functions/isSmallScreen";
 
 function SubredditInfo({ expandedState, headerHeight }) {
   const [subredditInfo, setSubredditInfo] = useState({});
   const [bgImage, setBgImage] = useState(null);
-  const { subredditName } = useParams();
+  const { subreddit } = useParams();
   const [expanded, setExpanded] = expandedState;
 
   const margin = `calc(${headerHeight}px)`;
 
-  document.title = `rLite | r/${subredditName}`;
+  document.title = `rLite | r/${subreddit}`;
 
   useEffect(() => {
-    async function getSubredditInfo(subredditName) {
-      const URL = `https://www.reddit.com/r/${subredditName}/about.json`;
+    async function getSubredditInfo(subreddit) {
+      const URL = `https://www.reddit.com/r/${subreddit}/about.json`;
       const response = await axios.get(URL);
       setSubredditInfo(response.data.data);
     }
-    getSubredditInfo(subredditName);
-  }, [subredditName]);
+    getSubredditInfo(subreddit);
+    return setSubredditInfo({});
+  }, [subreddit]);
 
   useEffect(() => {
-    if (isSmallScreen && subredditInfo.mobile_banner_image) {
+    if (window.innerWidth <= 600 && subredditInfo.mobile_banner_image) {
       setBgImage(subredditInfo.mobile_banner_image);
     } else {
       setBgImage(subredditInfo.banner_background_image);
     }
-  }, [subredditInfo]);
-
+  }, [subredditInfo, window.innerWidth]);
   const [showContent, setShowContent] = useState(true);
 
   useEffect(() => {
@@ -83,7 +82,7 @@ function SubredditInfo({ expandedState, headerHeight }) {
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
         }}
-        avatar={<SubredditAvatar subredditName={subredditName} />}
+        avatar={<SubredditAvatar subreddit={subreddit} />}
         title={subredditInfo.title || <Skeleton animation="wave" />}
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "white", fontSize: 24 },

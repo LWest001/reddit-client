@@ -3,7 +3,14 @@ import ThreadCard from "../ThreadCard/ThreadCard";
 import SearchCard from "../SearchCard/SearchCard";
 import SkeletonThreadCard from "../ThreadCard/SkeletonThreadCard";
 import SkeletonSearchCard from "../SearchCard/SkeletonSearchCard";
-import { Box } from "@mui/material";
+import {
+  Alert,
+  Box,
+  LinearProgress,
+  Snackbar,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 // Function imports
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -39,7 +46,7 @@ const ThreadList = ({ view }) => {
   const query = searchParams.get("q");
   const time = searchParams.get("t");
   const sort = searchParams.get("sort") || useParams().sort;
-  const { subredditName } = useParams();
+  const { subreddit } = useParams();
   const marginTop = useMargin(0.5);
 
   const {
@@ -50,12 +57,12 @@ const ThreadList = ({ view }) => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["threads", sort, query, time, subredditName],
+    queryKey: ["threads", sort, query, time, subreddit],
     queryFn: ({ pageParam }) =>
       getInfiniteThreads({
         after: pageParam,
         query,
-        subredditName,
+        subreddit,
         sort,
         time,
       }),
@@ -98,7 +105,7 @@ const ThreadList = ({ view }) => {
   ));
 
   return (
-    <Box
+    <Stack
       className="ThreadList"
       mt={view !== "subreddit" ? marginTop : "initial"}
     >
@@ -109,7 +116,17 @@ const ThreadList = ({ view }) => {
       ) : (
         "Nothing more to show."
       )}
-    </Box>
+      <Snackbar
+        open={isLoading || (hasNextPage && isFetchingNextPage)}
+        autoHideDuration={6000}
+        message="Loading more threads"
+      >
+        <Alert severity="info" sx={{ alignItems: "center" }}>
+          <Typography display="inline">Loading more threads</Typography>
+          <LinearProgress size={"1rem"} />
+        </Alert>
+      </Snackbar>
+    </Stack>
   );
 };
 

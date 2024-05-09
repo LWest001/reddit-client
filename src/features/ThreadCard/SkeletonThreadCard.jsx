@@ -6,11 +6,12 @@ import {
   CardContent,
   Stack,
   Box,
+  useTheme,
 } from "@mui/material";
 
-import theme from "../../assets/theme";
 
 const SkeletonThreadCard = ({ subreddit }) => {
+  const theme = useTheme();
   return (
     <Card className="SkeletonThreadCard">
       <CardHeader

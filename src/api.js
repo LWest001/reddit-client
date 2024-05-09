@@ -1,14 +1,14 @@
 import axios from "axios";
 
 export async function getThreads(options) {
-  const { sort = "hot", subredditName, query, after } = options;
+  const { sort = "hot", subreddit, query, after } = options;
   const baseURL = "https://www.reddit.com";
   let URL;
-  if (subredditName) {
+  if (subreddit) {
     if (sort) {
-      URL = `/r/${subredditName}/${sort}.json`;
+      URL = `/r/${subreddit}/${sort}.json`;
     } else {
-      URL = `/r/${subredditName}.json`;
+      URL = `/r/${subreddit}.json`;
     }
   } else if (query) {
     URL = `/search.json?q=${query}&sort=${sort}`;
@@ -29,14 +29,14 @@ export async function getThreads(options) {
     threads: response.data.data.children,
     after: response.data.data.after,
     query,
-    subredditName,
+    subreddit,
   };
 }
 
 export async function getInfiniteThreads({
   after,
   sort = "hot",
-  subredditName,
+  subreddit,
   query,
   time,
 }) {
@@ -44,11 +44,11 @@ export async function getInfiniteThreads({
   const conditionalAfter = after ? "after=" + after : "";
   const conditionalTime = time ? "&t=" + time : "";
   let URL;
-  if (subredditName) {
+  if (subreddit) {
     if (sort) {
-      URL = `/r/${subredditName}/${sort}.json?${conditionalAfter}${conditionalTime}`;
+      URL = `/r/${subreddit}/${sort}.json?${conditionalAfter}${conditionalTime}`;
     } else {
-      URL = `/r/${subredditName}.json?${conditionalAfter}${conditionalTime}`;
+      URL = `/r/${subreddit}.json?${conditionalAfter}${conditionalTime}`;
     }
   } else if (query) {
     URL = `/search.json?q=${query}&sort=${sort}&${conditionalAfter}${conditionalTime}`;
@@ -61,7 +61,7 @@ export async function getInfiniteThreads({
     threads: response.data.data.children,
     after: response.data.data.after,
     query,
-    subredditName,
+    subreddit,
   };
 }
 export async function getInfiniteComment({

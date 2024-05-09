@@ -14,8 +14,6 @@ import {
 import ErrorPage from "./features/ErrorPage";
 import Thread from "./features/Thread/Thread";
 import ThreadList from "./features/ThreadList/ThreadList";
-import { ThemeProvider } from "@emotion/react";
-import theme from "./assets/theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,12 +24,12 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
       />
       <Route
-        path="r/:subredditName/:sort?"
+        path="r/:subreddit/:sort?"
         element={<ThreadList view="subreddit" />}
         errorElement={<ErrorPage />}
       ></Route>
       <Route
-        path="r/:subredditName/comments/:redditId/:threadTitle/:sort?"
+        path="r/:subreddit/comments/:redditId/:threadTitle/:sort?"
         element={<Thread />}
         errorElement={<ErrorPage />}
       />
@@ -47,9 +45,7 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );

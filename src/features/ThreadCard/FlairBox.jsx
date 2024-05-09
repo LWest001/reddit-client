@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import { useContext } from "react";
 import { ThreadContentContext } from "./ThreadCard";
 import { getFlair } from "../../functions/getFlair";
+import replaceEntities from "../../functions/replaceEntities";
 
 function FlairBox() {
   let data = useContext(ThreadContentContext);
@@ -17,7 +18,7 @@ function FlairBox() {
         mr: 1,
       }}
     >
-      {flair.text}
+      {replaceEntities( flair.text)}
     </Typography>
   );
 }

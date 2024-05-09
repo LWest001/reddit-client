@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 import {
   Box,
@@ -10,14 +8,18 @@ import {
   CardHeader,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import SearchCardHeaderTitle from "./SearchCardHeaderTitle";
 import SearchFlair from "./SearchFlair";
 import SubredditAvatar from "../../components/SubredditAvatar";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import UpvoteChip from "../../components/Chips/UpvoteChip";
+import CommentsChip from "../../components/Chips/CommentsChip";
 
 const SearchCard = ({ data, threadType }) => {
   const thumbnail = getDefaultThumbnail(data.thumbnail);
+  const theme = useTheme();
 
   return (
     <Card
@@ -26,23 +28,14 @@ const SearchCard = ({ data, threadType }) => {
       sx={{
         borderRadius: 0,
         my: 0,
-        ":first-of-type": {
-          borderTopLeftRadius: "calc(var(--radius) + var(--border))",
-          borderTopRightRadius: "calc(var(--radius) + var(--border))",
-          marginTop: "calc(var(--appbar-height) + 0.5rem)",
-        },
-        ":last-of-type": {
-          borderBottomLeftRadius: "calc(var(--radius) + var(--border))",
-          borderBottomRightRadius: "calc(var(--radius) + var(--border))",
-        },
       }}
     >
       <CardHeader
         className="searchCardHeader"
-        avatar={<SubredditAvatar subredditName={data.subreddit} />}
+        avatar={<SubredditAvatar subreddit={data.subreddit} />}
         title={
           <SearchCardHeaderTitle
-            subredditName={data.subreddit}
+            subreddit={data.subreddit}
             author={data.author}
             timestamp={getTimeStamp(data.created_utc)}
           />
@@ -56,28 +49,23 @@ const SearchCard = ({ data, threadType }) => {
               alignItems: "center",
             }}
           >
-            <Stack direction="row" gap={1}>
-              <CommentOutlinedIcon fontSize="small" /> {data.num_comments}
-            </Stack>
-            <Stack direction="row" gap={1}>
-              <ThumbUpOutlinedIcon fontSize="small" />
-              {data.score}
-            </Stack>
+            <CommentsChip count={data.num_comments} />
+            <UpvoteChip score={data.score} />
           </Stack>
         }
         sx={{
           borderRadius: 0,
           p: 0.5,
-          background:
-            "radial-gradient(ellipse at top left, #ffffff, lightgray)",
         }}
       />
       <CardContent className="threadPreview" sx={{ p: 0 }}>
-        <Link to={data.permalink}>
+        <Link to={data.permalink} className="no-underline">
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Box width="100%" sx={{ m: 1 }}>
               <SearchFlair threadType={threadType} />
-              <Typography>{data.title}</Typography>
+              <Typography color={theme.palette.text.primary}>
+                {data.title}
+              </Typography>
             </Box>
 
             <img

@@ -1,18 +1,11 @@
 // Library imports
 import { createContext } from "react";
-import { Link } from "react-router-dom";
 
 // Component imports
-import ThreadCardSubheader from "./ThreadCardSubheader";
 import ThreadTitle from "./ThreadTitle";
 
 // Function imports
 import getDefaultThumbnail from "../../functions/getDefaultThumbnail";
-
-// Media imports
-
-import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 
 // Stylesheet
 import "./ThreadCard.css";
@@ -20,12 +13,11 @@ import "./ThreadCard.css";
 // MUI imports
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
   Stack,
-  Typography,
+  useTheme,
 } from "@mui/material";
 
 // Content Wrapper imports
@@ -35,17 +27,18 @@ import SelfPostWrapper from "./ContentWrappers/SelfPostWrapper";
 import GalleryWrapper from "./ContentWrappers/GalleryWrapper";
 import DashVideoWrapper from "./ContentWrappers/DashVideoWrapper";
 import RichVideoWrapper from "./ContentWrappers/RichVideoWrapper";
-
-import theme from "../../assets/theme";
 import ThreadCardHeaderTitle from "./ThreadCardHeaderTitle";
 import replaceEntities from "../../functions/replaceEntities";
-import SubredditAvatar from "../../components/SubredditAvatar";
 import { getThreadType } from "../../functions/getThreadType";
 import { getTimeStamp } from "../../functions/getTimeStamp";
+import UpvoteChip from "../../components/Chips/UpvoteChip";
+import TimestampChip from "../../components/Chips/TimestampChip";
+import CommentsChip from "../../components/Chips/CommentsChip";
 
 export const ThreadContentContext = createContext({});
 
 const ThreadCard = ({ data, cardType }) => {
+  const theme = useTheme();
   let { preview, score, selftext } = data;
 
   const threadType = getThreadType(data);
@@ -54,28 +47,11 @@ const ThreadCard = ({ data, cardType }) => {
     <Card className="ThreadCard" id={data.id}>
       <CardHeader
         className="ThreadCardHeader"
-        avatar={
-          cardType !== "subreddit" && (
-            <SubredditAvatar
-              subredditName={data.subreddit}
-              alt="Subreddit avatar"
-            />
-          )
-        }
         title={
-          cardType !== "subreddit" && (
-            <ThreadCardHeaderTitle
-              subredditName={data.subreddit}
-              timestamp={getTimeStamp(data.created_utc)}
-            />
-          )
-        }
-        subheader={
-          <ThreadCardSubheader
+          <ThreadCardHeaderTitle
+            subreddit={data.subreddit}
+            timestamp={getTimeStamp(data.created_utc)}
             author={data.author}
-            timestamp={
-              cardType === "subreddit" && getTimeStamp(data.created_utc)
-            }
           />
         }
       />
@@ -128,25 +104,18 @@ const ThreadCard = ({ data, cardType }) => {
           px: 1,
           justifyContent: "space-between",
           alignItems: "center",
-          background: theme.palette.headerGradient.default,
+          background: theme.palette.headerGradient?.default,
           width: "100%",
+          gap: 1,
         }}
       >
-        {cardType !== "thread" && (
-          <Button
-            component={Link}
-            to={data.permalink}
-            className="viewComments button"
-            sx={{ gap: 1 }}
-          >
-            <CommentOutlinedIcon />
-            <Typography>View {data.num_comments} comments</Typography>
-          </Button>
-        )}
-        <Stack direction="row" gap={1}>
-          <ThumbUpOutlinedIcon />
-          {score}
+        <Stack direction="row" alignItems={"center"} gap={1}>
+          <UpvoteChip score={score} />
+          <TimestampChip timestamp={getTimeStamp(data.created_utc)} />
         </Stack>
+        {cardType !== "thread" && (
+          <CommentsChip link={data.permalink} count={data.num_comments} />
+        )}
       </Stack>
     </Card>
   );
