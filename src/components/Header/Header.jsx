@@ -33,6 +33,8 @@ const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [timeSelectAnchor, setTimeSelectAnchor] = useState(null);
+  const [value, setValue] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -48,10 +50,10 @@ const Header = forwardRef(function Header(props, ref) {
 
   function handleSort(e) {
     e.preventDefault();
+    e.target[0].blur();
     const SortSelector = document.querySelector(".SortSelector");
     SortSelector.style.display = "block";
-    const query =
-      e.target.children[1].children[0].children[0].children[0].value;
+    const query = value;
     if (query.substring(0, 2) === "r/") {
       const spaceIndex = query.indexOf(" ");
       navigate(query.substring(0, spaceIndex >= 0 ? spaceIndex : query.length));
@@ -63,6 +65,8 @@ const Header = forwardRef(function Header(props, ref) {
       });
     }
     window.scrollTo(0, 0);
+    setValue(null);
+    setInputValue("");
   }
 
   function handleCloseSearchhint() {
@@ -171,7 +175,14 @@ const Header = forwardRef(function Header(props, ref) {
               </>
             )}
           </Stack>
-          <SearchBar handleSubmit={handleSort} setOpen={setOpen} />
+          <SearchBar
+            handleSubmit={handleSort}
+            setOpen={setOpen}
+            value={value}
+            setValue={setValue}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+          />
           <IconButton onClick={toggleColorMode} color="inherit" sx={{ ml: 1 }}>
             {mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>

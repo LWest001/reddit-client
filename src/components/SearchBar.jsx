@@ -5,7 +5,6 @@ import { useSearchParams } from "react-router-dom";
 import { isSmallScreen } from "../functions/isSmallScreen";
 import { useQuery } from "@tanstack/react-query";
 import { getSubreddits } from "../api";
-import { useState } from "react";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -41,20 +40,21 @@ const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
 }));
 
-function SearchBar({ handleSubmit, setOpen }) {
-  const [inputValue, setInputValue] = useState("");
-
-  function handleChange(e) {
-    setInputValue(e.target.value);
-  }
-
+function SearchBar({
+  handleSubmit,
+  setOpen,
+  value,
+  setValue,
+  inputValue,
+  setInputValue,
+}) {
 
   const srSearchEnabled = inputValue
     ? !!(inputValue?.substring(0, 2) === "r/") &&
       Boolean(inputValue?.substring(2))
     : false;
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryFn: () => getSubreddits(inputValue ? inputValue?.substring(2) : ""),
     queryKey: [{ subreddits: inputValue?.substring(2) }],
     enabled: srSearchEnabled,
@@ -67,12 +67,20 @@ function SearchBar({ handleSubmit, setOpen }) {
   const currentQuery = useSearchParams()[0].get("q");
 
   return (
-    <Search onSubmit={handleSubmit} key="form" onChange={handleChange}>
+    <Search onSubmit={handleSubmit} key="form">
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledAutocomplete
         freeSolo
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
         onFocus={() => {
           if (isSmallScreen) {
             const SortSelector = document.querySelector(".SortSelector");
@@ -94,6 +102,7 @@ function SearchBar({ handleSubmit, setOpen }) {
             : TopSubs.names.map((option) => `r/${option}`)
         }
         key="autocomplete"
+        loading={isLoading}
         renderInput={(params) => (
           <TextField
             key="textfield"
