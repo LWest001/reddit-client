@@ -59,7 +59,13 @@ function ImageModal({ open, handleClose, link, caption, src }) {
   }
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal
+      open={open}
+      onClose={(e, r) => {
+        setExpand(false);
+        handleClose(e, r);
+      }}
+    >
       <Stack sx={{ ...style, overflow: expand ? "scroll" : "hidden" }}>
         <Typography
           id="modal-modal-title"
