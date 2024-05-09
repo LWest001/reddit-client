@@ -17,7 +17,7 @@ const ErrorPage = () => {
   return (
     <Card
       className="ErrorPage"
-      sx={{ background: theme.palette.headerGradient.default }}
+      sx={{ background: theme?.palette?.headerGradient?.default }}
     >
       <CardContent
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -32,18 +32,23 @@ const ErrorPage = () => {
           <Button
             variant="contained"
             component={Link}
-            to={-1}
-            // sx={{ width: "50%" }}
+            to={0}
           >
-            Back
+            reload page
           </Button>
           <Button
-            variant="outlined"
+            component={Link}
+            to={-1}
+          >
+            go Back
+          </Button>
+          <Button
+            
             component={Link}
             to="/"
             // sx={{ width: "50%" }}
           >
-            Home
+            go Home
           </Button>
         </ButtonGroup>
       </CardContent>

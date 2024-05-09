@@ -42,13 +42,14 @@ const Skeletons = ({ view }) => {
 };
 
 const SORT_TYPES = ["hot", "top", "controversial", "new", "rising"];
+export const getSort = (sort) => (SORT_TYPES.includes(sort) ? sort : "hot");
 
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const time = searchParams.get("t");
-  let sort = searchParams.get("sort") || useParams().sort;
-  sort = SORT_TYPES.includes(sort) ? sort : "hot";
+  let sort = getSort(searchParams.get("sort") || useParams().sort);
+
   const { subreddit } = useParams();
   const marginTop = useMargin(0.5);
 

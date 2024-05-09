@@ -10,6 +10,7 @@ import SportsMmaIcon from "@mui/icons-material/SportsMma";
 import SortSelectorMenuItem from "./SortSelectorMenuItem";
 import { isSmallScreen } from "../../functions/isSmallScreen";
 import { useCallback } from "react";
+import { getSort } from "../../features/ThreadList/ThreadList";
 
 const SortSelector = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const SortSelector = () => {
         className="SortSelector"
         name="SortSelector"
         onChange={handleChange}
-        value={searchSort || sort}
+        value={getSort(searchSort) || getSort(sort)}
         variant="standard"
         size="medium"
         disableUnderline

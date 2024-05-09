@@ -38,6 +38,7 @@ const router = createBrowserRouter(
         element={<ThreadList view="searchResults" />}
         errorElement={<ErrorPage />}
       />
+      <Route path="*" element={<ErrorPage />} />
     </Route>
   )
 );
