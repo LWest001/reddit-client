@@ -93,3 +93,9 @@ export async function getReply(subreddit, threadId, threadTitle, replyId) {
   const response = await axios.get(url);
   return response.data[1].data.children[0].data;
 }
+
+export async function getSubreddits(query) {
+  const url = `https://www.reddit.com/search.json?q=${query}&type=sr`;
+  const response = await axios.get(url);
+  return response.data.data || {};
+}

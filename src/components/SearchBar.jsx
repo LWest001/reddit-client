@@ -3,41 +3,59 @@ import { styled, Autocomplete, TextField } from "@mui/material";
 import TopSubs from "../assets/subreddits.json";
 import { useSearchParams } from "react-router-dom";
 import { isSmallScreen } from "../functions/isSmallScreen";
+import { useQuery } from "@tanstack/react-query";
+import { getSubreddits } from "../api";
+import { useState } from "react";
+
+const Search = styled("form")(({ theme }) => ({
+  position: "relative",
+  marginLeft: theme.spacing(2),
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: "auto",
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
 
 function SearchBar({ handleSubmit, setOpen }) {
-  const Search = styled("form")(({ theme }) => ({
-    position: "relative",
-    marginLeft: theme.spacing(2),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: "auto",
-      width: "auto",
-    },
-  }));
+  const [inputValue, setInputValue] = useState("");
 
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
+  function handleChange(e) {
+    setInputValue(e.target.value);
+  }
 
-  const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
-    color: "inherit",
-    "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
-      },
-    },
-  }));
+  const srSearchEnabled = inputValue
+    ? !!(inputValue?.substring(0, 2) === "r/")
+    : false;
+  const { data } = useQuery({
+    queryFn: () => getSubreddits(inputValue ? inputValue?.substring(2) : ""),
+    queryKey: [{ subreddits: inputValue?.substring(2) }],
+    enabled: srSearchEnabled,
+  });
 
   function hideSearchHint() {
     return localStorage.getItem("hideSearchHint");
@@ -46,7 +64,7 @@ function SearchBar({ handleSubmit, setOpen }) {
   const currentQuery = useSearchParams()[0].get("q");
 
   return (
-    <Search onSubmit={(e) => handleSubmit(e)}>
+    <Search onSubmit={handleSubmit} key="form" onChange={handleChange}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
@@ -66,9 +84,16 @@ function SearchBar({ handleSubmit, setOpen }) {
           SortSelector.style.display = "block";
         }}
         autoComplete
-        options={TopSubs.names.map((option) => `r/${option}`)}
+        filterOptions={(x) => x}
+        options={
+          data?.children
+            ? data.children.map((sub) => sub.data.display_name_prefixed)
+            : TopSubs.names.map((option) => `r/${option}`)
+        }
+        key="autocomplete"
         renderInput={(params) => (
           <TextField
+            key="textfield"
             {...params}
             placeholder={currentQuery || "Search…"}
             variant="standard"

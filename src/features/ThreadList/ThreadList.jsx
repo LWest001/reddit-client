@@ -124,7 +124,7 @@ const ThreadList = ({ view }) => {
       <Snackbar
         open={isLoading || (hasNextPage && isFetchingNextPage)}
         autoHideDuration={6000}
-        message="Loading more threads"
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert severity="info" sx={{ alignItems: "center" }}>
           <Typography display="inline">Loading more threads</Typography>

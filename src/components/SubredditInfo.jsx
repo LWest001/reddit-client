@@ -83,7 +83,9 @@ function SubredditInfo({ expandedState, headerHeight }) {
           borderTopRightRadius: 0,
         }}
         avatar={<SubredditAvatar subreddit={subreddit} />}
-        title={subredditInfo.title || <Skeleton animation="wave" />}
+        title={
+          replaceEntities(subredditInfo.title) || <Skeleton animation="wave" />
+        }
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "white", fontSize: 24 },
           variant: "h1",
