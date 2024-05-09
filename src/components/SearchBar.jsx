@@ -48,9 +48,12 @@ function SearchBar({ handleSubmit, setOpen }) {
     setInputValue(e.target.value);
   }
 
+
   const srSearchEnabled = inputValue
-    ? !!(inputValue?.substring(0, 2) === "r/")
+    ? !!(inputValue?.substring(0, 2) === "r/") &&
+      Boolean(inputValue?.substring(2))
     : false;
+
   const { data } = useQuery({
     queryFn: () => getSubreddits(inputValue ? inputValue?.substring(2) : ""),
     queryKey: [{ subreddits: inputValue?.substring(2) }],
@@ -87,7 +90,7 @@ function SearchBar({ handleSubmit, setOpen }) {
         filterOptions={(x) => x}
         options={
           data?.children
-            ? data.children.map((sub) => sub.data.display_name_prefixed)
+            ? [...data.children.map((sub) => sub.data.display_name_prefixed)]
             : TopSubs.names.map((option) => `r/${option}`)
         }
         key="autocomplete"

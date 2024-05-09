@@ -1,4 +1,4 @@
-import { blue, deepPurple, grey, teal } from "@mui/material/colors";
+import { blue, deepPurple, green, grey, teal } from "@mui/material/colors";
 
 const lightHeaderGradient =
   "radial-gradient(ellipse at top left, #ffffff, lightgray)";
@@ -8,14 +8,18 @@ function getHeaderGradient(mode) {
   return mode === "light" ? lightHeaderGradient : darkHeaderGradient;
 }
 
+const defaultPalette = {
+  active: { main: green[500], light: green[300], contrastText: grey[100] },
+  primary: { main: teal[500] },
+  black: { main: grey[800] },
+};
+
 export const getDesignTokens = (mode) => ({
   palette: {
     mode,
     ...(mode === "light"
       ? {
-          primary: {
-            main: "#006064",
-          },
+          ...defaultPalette,
           secondary: {
             main: "#640061",
           },
@@ -28,7 +32,7 @@ export const getDesignTokens = (mode) => ({
         }
       : {
           // palette values for dark mode
-          primary: { main: teal[500], contrastText: grey[50] },
+          ...defaultPalette,
           secondary: {
             main: deepPurple[500],
           },

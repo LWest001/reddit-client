@@ -11,11 +11,15 @@ import {
   AccordionSummary,
   AccordionDetails,
   Collapse,
+  Chip,
+  Stack,
 } from "@mui/material";
 
 import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
+import OnlineIcon from "@mui/icons-material/RadioButtonChecked";
+import GroupIcon from "@mui/icons-material/Group";
 
 function SubredditInfo({ expandedState, headerHeight }) {
   const [subredditInfo, setSubredditInfo] = useState({});
@@ -24,8 +28,6 @@ function SubredditInfo({ expandedState, headerHeight }) {
   const [expanded, setExpanded] = expandedState;
 
   const margin = `calc(${headerHeight}px)`;
-
-  document.title = `rLite | r/${subreddit}`;
 
   useEffect(() => {
     async function getSubredditInfo(subreddit) {
@@ -36,6 +38,8 @@ function SubredditInfo({ expandedState, headerHeight }) {
     getSubredditInfo(subreddit);
     return setSubredditInfo({});
   }, [subreddit]);
+
+  document.title = `rLite | r/${subredditInfo?.display_name || subreddit}`;
 
   useEffect(() => {
     if (window.innerWidth <= 600 && subredditInfo.mobile_banner_image) {
@@ -97,7 +101,6 @@ function SubredditInfo({ expandedState, headerHeight }) {
           subredditInfo.display_name_prefixed || <Skeleton animation="wave" />
         }
       />
-
       <Collapse in={showContent || expanded}>
         <CardContent
           sx={{
@@ -110,7 +113,29 @@ function SubredditInfo({ expandedState, headerHeight }) {
           }}
         >
           {subredditInfo.public_description ? (
-            parseMarkdownText(subredditInfo.public_description)
+            <Stack>
+              <Stack direction="row" gap={1}>
+                {subredditInfo?.subscribers && (
+                  <Chip
+                    size="small"
+                    label={`${subredditInfo.subscribers} subscribed`}
+                    icon={<GroupIcon />}
+                    color="info"
+                    sx={{ width: "fit-content" }}
+                  />
+                )}
+                {subredditInfo?.accounts_active && (
+                  <Chip
+                    size="small"
+                    label={`${subredditInfo.accounts_active} active now`}
+                    icon={<OnlineIcon />}
+                    color="active"
+                    sx={{ width: "fit-content" }}
+                  />
+                )}
+              </Stack>
+              {parseMarkdownText(subredditInfo.public_description)}
+            </Stack>
           ) : (
             <Skeleton
               variant="text"
@@ -160,7 +185,7 @@ function SubredditInfo({ expandedState, headerHeight }) {
                   scroll,
                 }}
               >
-                {subredditInfo.public_description ? (
+                {subredditInfo.description ? (
                   parseMarkdownText(subredditInfo.description)
                 ) : (
                   <Skeleton
