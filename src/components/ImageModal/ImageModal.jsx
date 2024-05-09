@@ -36,7 +36,7 @@ const style = {
   maxHeight: "100%",
 };
 
-function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
+function ImageModal({ open, handleClose, link, caption, src }) {
   const { threadTitle } = useContext(ThreadContentContext);
   const [shareAnchor, setShareAnchor] = useState(null);
   const shareOpen = !!shareAnchor;
@@ -67,9 +67,7 @@ function ImageModal({ open, handleClose, link, caption, srcSet, sizes, src }) {
           }}
         >
           <img
-            style={{ maxWidth: "100%", maxHeight: "70vh" }}
-            srcSet={srcSet}
-            sizes={sizes}
+            style={{ maxWidth: "100%", maxHeight: "80vh" }}
             src={src}
             alt={threadTitle}
             className="modalImage"
