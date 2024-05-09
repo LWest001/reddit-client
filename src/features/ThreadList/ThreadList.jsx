@@ -47,8 +47,8 @@ const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const time = searchParams.get("t");
-  const sort = searchParams.get("sort") || useParams().sort;
-  const normalizedSort = SORT_TYPES.includes(sort) ? sort : "hot";
+  let sort = searchParams.get("sort") || useParams().sort;
+  sort = SORT_TYPES.includes(sort) ? sort : "hot";
   const { subreddit } = useParams();
   const marginTop = useMargin(0.5);
 
@@ -66,13 +66,14 @@ const ThreadList = ({ view }) => {
         after: pageParam,
         query,
         subreddit,
-        normalizedSort,
+        sort,
         time,
       }),
     initialPageParam: "",
     getNextPageParam: (lastPage) => {
       return lastPage.after;
     },
+    refetchOnWindowFocus: false,
   });
 
   function onBottom() {

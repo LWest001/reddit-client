@@ -16,10 +16,12 @@ import { ThreadContentContext } from "../ThreadCard";
 function GalleryWrapper({ modal, onModalClick, imageHeight }) {
   const theme = useTheme();
   const data = useContext(ThreadContentContext);
-  if (!data?.gallery_data) return <Typography>{data.title}</Typography>;
-  const galleryCaptions = data.gallery_data.items;
-  const galleryOrder = data.gallery_data.items.map((item) => item.media_id);
-  const galleryData = data.media_metadata;
+  const galleryCaptions = data?.gallery_data?.items;
+  const galleryOrder = data?.gallery_data?.items?.map((item) => item.media_id);
+  const galleryData = data?.media_metadata;
+  if (!galleryData || !galleryCaptions) {
+    return <Typography>{data.title}</Typography>;
+  }
 
   const steps = [];
   const [openModal, setOpenModal] = useState(false);

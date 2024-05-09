@@ -28,6 +28,7 @@ const Thread = () => {
   const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["thread", sort, redditId],
     queryFn: () => getThread(subreddit, redditId, sort),
+    refetchOnWindowFocus: false,
   });
 
   document.title = `rLite | ${data?.thread.title || ""}`;
@@ -52,6 +53,7 @@ const Thread = () => {
         threadTitle,
         ids: moreCommentIds,
       }),
+    refetchOnWindowFocus: false,
   });
 
   const onBottom = useCallback(() => {
