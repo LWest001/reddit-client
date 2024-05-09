@@ -25,8 +25,9 @@ function SearchFlair({ threadType }) {
 
   return (
     <Typography
-      sx={{ bgcolor: settings.bgcolor, mr: 1, fontWeight: "bold" }}
+      sx={{ bgcolor: settings.bgcolor, mr: 1 }}
       className="postFlair"
+      color="black"
     >
       {settings.text}
     </Typography>

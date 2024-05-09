@@ -41,7 +41,7 @@ function SubredditAvatar({ subreddit }) {
         // width: "auto",
       }}
     >
-      <img src={DefaultIcon} alt={`Avatar for subreddit r/${subreddit}`} />
+      <img src={DefaultIcon} alt={`Avatar for r/${subreddit}`} />
     </Avatar>
   );
 }

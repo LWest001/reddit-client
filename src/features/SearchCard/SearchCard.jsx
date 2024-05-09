@@ -16,8 +16,12 @@ import SubredditAvatar from "../../components/SubredditAvatar";
 import { getTimeStamp } from "../../functions/getTimeStamp";
 import UpvoteChip from "../../components/Chips/UpvoteChip";
 import CommentsChip from "../../components/Chips/CommentsChip";
+import Thumbnail from "../../components/Thumbnail";
+import { getThreadType } from "../../functions/getThreadType";
+import parseMarkdownText from "../../functions/parseMarkdownText";
 
-const SearchCard = ({ data, threadType }) => {
+const SearchCard = ({ data }) => {
+  const threadType = getThreadType(data);
   const thumbnail = getDefaultThumbnail(data.thumbnail);
   const theme = useTheme();
 
@@ -27,7 +31,6 @@ const SearchCard = ({ data, threadType }) => {
       id={data.id}
       sx={{
         borderRadius: 0,
-        my: 0,
       }}
     >
       <CardHeader
@@ -64,17 +67,11 @@ const SearchCard = ({ data, threadType }) => {
             <Box width="100%" sx={{ m: 1 }}>
               <SearchFlair threadType={threadType} />
               <Typography color={theme.palette.text.primary}>
-                {data.title}
+                {parseMarkdownText(data.title)}
               </Typography>
             </Box>
 
-            <img
-              className="thumbnail"
-              src={thumbnail}
-              alt="Thumbnail"
-              width="96px"
-              height="auto"
-            />
+            <Thumbnail image={thumbnail} alt={data.title} />
           </Stack>
         </Link>
       </CardContent>

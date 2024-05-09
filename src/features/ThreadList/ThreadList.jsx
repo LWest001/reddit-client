@@ -41,11 +41,14 @@ const Skeletons = ({ view }) => {
   );
 };
 
+const SORT_TYPES = ["hot", "top", "controversial", "new", "rising"];
+
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const time = searchParams.get("t");
   const sort = searchParams.get("sort") || useParams().sort;
+  const normalizedSort = SORT_TYPES.includes(sort) ? sort : "hot";
   const { subreddit } = useParams();
   const marginTop = useMargin(0.5);
 
@@ -63,7 +66,7 @@ const ThreadList = ({ view }) => {
         after: pageParam,
         query,
         subreddit,
-        sort,
+        normalizedSort,
         time,
       }),
     initialPageParam: "",
