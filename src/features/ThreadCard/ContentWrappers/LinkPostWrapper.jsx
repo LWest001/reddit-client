@@ -8,10 +8,8 @@ function LinkPostWrapper({ url, thumbnail }) {
   const { title } = useContext(ThreadContentContext);
   return (
     <Box className="LinkPostWrapper">
-      <a href={url}>
-        <Thumbnail image={thumbnail} alt={title} />
-        <ThreadTitle />
-      </a>
+      <Thumbnail image={thumbnail} alt={title} />
+      <ThreadTitle link={url} />
     </Box>
   );
 }

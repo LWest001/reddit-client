@@ -99,3 +99,9 @@ export async function getSubreddits(query) {
   const response = await axios.get(url);
   return response.data.data || {};
 }
+
+export async function getSubredditInfo(subreddit) {
+  const URL = `https://www.reddit.com/r/${subreddit}/about.json`;
+  const response = await axios.get(URL);
+  return response?.data?.data;
+}

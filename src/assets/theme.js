@@ -12,6 +12,7 @@ const defaultPalette = {
   active: { main: green[500], light: green[300], contrastText: grey[100] },
   primary: { main: teal[500] },
   black: { main: grey[800] },
+  white: { main: grey[100] },
 };
 
 export const getDesignTokens = (mode) => ({
@@ -93,6 +94,15 @@ export const getDesignTokens = (mode) => ({
           wordBreak: "break-word",
           ":last-child": {
             paddingBottom: "inherit",
+          },
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          ":before": {
+            backgroundColor: "unset",
           },
         },
       },

@@ -19,7 +19,7 @@ function SubredditAvatar({ subreddit }) {
     }
   }, [subreddit]);
 
-  if (icon === "loading" || icon === undefined) {
+  if (icon === "loading") {
     return (
       <Skeleton
         variant="circular"

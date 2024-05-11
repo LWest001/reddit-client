@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import parseMarkdownText from "../functions/parseMarkdownText";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import {
   Skeleton,
   Card,
@@ -13,41 +12,48 @@ import {
   Collapse,
   Chip,
   Stack,
+  Fade,
 } from "@mui/material";
 
 import replaceEntities from "../functions/replaceEntities";
 import SubredditAvatar from "./SubredditAvatar";
-import ExpandMoreIcon from "@mui/icons-material/ExpandCircleDown";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OnlineIcon from "@mui/icons-material/RadioButtonChecked";
 import GroupIcon from "@mui/icons-material/Group";
+import { useQuery } from "@tanstack/react-query";
+import { getSubredditInfo } from "../api";
+
+const BG_TINT = "rgba(0,0,0,0.6)";
 
 function SubredditInfo({ expandedState, headerHeight }) {
-  const [subredditInfo, setSubredditInfo] = useState({});
-  const [bgImage, setBgImage] = useState(null);
+  const card = useRef();
   const { subreddit } = useParams();
   const [expanded, setExpanded] = expandedState;
-
   const margin = `calc(${headerHeight}px)`;
 
-  useEffect(() => {
-    async function getSubredditInfo(subreddit) {
-      const URL = `https://www.reddit.com/r/${subreddit}/about.json`;
-      const response = await axios.get(URL);
-      setSubredditInfo(response.data.data);
-    }
-    getSubredditInfo(subreddit);
-    return setSubredditInfo({});
-  }, [subreddit]);
+  const { data, isLoading, isError } = useQuery({
+    queryFn: () => getSubredditInfo(subreddit),
+    queryKey: [subreddit],
+  });
 
-  document.title = `rLite | r/${subredditInfo?.display_name || subreddit}`;
+  document.title = `rLite | r/${data?.display_name || subreddit}`;
 
-  useEffect(() => {
-    if (window.innerWidth <= 600 && subredditInfo.mobile_banner_image) {
-      setBgImage(subredditInfo.mobile_banner_image);
-    } else {
-      setBgImage(subredditInfo.banner_background_image);
-    }
-  }, [subredditInfo, window.innerWidth]);
+  const isMobileBanner = data?.mobile_banner_image?.length;
+  const isBanner = data?.banner_background_image?.length;
+  const smallScreen = window.innerWidth <= 600;
+
+  const bannerImage = useMemo(
+    () =>
+      smallScreen && isMobileBanner
+        ? replaceEntities(data.mobile_banner_image)
+        : smallScreen && isBanner
+        ? replaceEntities(data.banner_background_image)
+        : isBanner
+        ? replaceEntities(data.banner_background_image)
+        : replaceEntities(data?.mobile_banner_image),
+    [data, isMobileBanner, isBanner, smallScreen]
+  );
+
   const [showContent, setShowContent] = useState(true);
 
   useEffect(() => {
@@ -64,13 +70,13 @@ function SubredditInfo({ expandedState, headerHeight }) {
     <Card
       className="SubredditInfoContainer"
       sx={{
-        background: bgImage
-          ? `url(${replaceEntities(bgImage)}) no-repeat top`
+        background: bannerImage
+          ? `url(${replaceEntities(bannerImage)}) no-repeat top`
           : "black",
         backgroundSize: "cover",
         justifyContent: "space-between",
         minHeight: "min-content",
-        color: "white",
+        color: "white !important",
         borderRadius: 0,
         // my: 0,
         mt: margin,
@@ -82,13 +88,18 @@ function SubredditInfo({ expandedState, headerHeight }) {
       <CardHeader
         sx={{
           background: "none",
-          bgcolor: "rgba(0, 0, 0, 0.6)",
+          bgcolor: BG_TINT,
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
         }}
-        avatar={<SubredditAvatar subreddit={subreddit} />}
+        avatar={!isError && <SubredditAvatar subreddit={subreddit} />}
         title={
-          replaceEntities(subredditInfo.title) || <Skeleton animation="wave" />
+          replaceEntities(data?.title) ||
+          (isLoading ? (
+            <Skeleton animation="wave" />
+          ) : (
+            isError && `r/${subreddit} doesn't exist.`
+          ))
         }
         titleTypographyProps={{
           sx: { fontWeight: "bold", color: "white", fontSize: 24 },
@@ -98,7 +109,8 @@ function SubredditInfo({ expandedState, headerHeight }) {
           sx: { fontWeight: "bold", color: "white" },
         }}
         subheader={
-          subredditInfo.display_name_prefixed || <Skeleton animation="wave" />
+          data?.display_name_prefixed ||
+          (isLoading && <Skeleton animation="wave" />)
         }
       />
       <Collapse in={showContent || expanded}>
@@ -107,97 +119,89 @@ function SubredditInfo({ expandedState, headerHeight }) {
             px: 2,
             py: 0.5,
             justifyContent: "center",
-            bgcolor: "rgba(0, 0, 0, 0.6)",
+            bgcolor: BG_TINT,
             flexDirection: "column",
             display: "flex",
           }}
         >
-          {subredditInfo.public_description ? (
-            <Stack>
-              <Stack direction="row" gap={1}>
-                {subredditInfo?.subscribers && (
-                  <Chip
-                    size="small"
-                    label={`${subredditInfo.subscribers} subscribed`}
-                    icon={<GroupIcon />}
-                    color="info"
-                    sx={{ width: "fit-content" }}
-                  />
-                )}
-                {subredditInfo?.accounts_active && (
-                  <Chip
-                    size="small"
-                    label={`${subredditInfo.accounts_active} active now`}
-                    icon={<OnlineIcon />}
-                    color="active"
-                    sx={{ width: "fit-content" }}
-                  />
-                )}
-              </Stack>
-              {parseMarkdownText(subredditInfo.public_description)}
+          <Stack>
+            <Stack direction="row" gap={1} my={1} className="SubredditChips">
+              {data?.subscribers && (
+                <Chip
+                  size="small"
+                  label={`${data.subscribers} subscribed`}
+                  icon={<GroupIcon />}
+                  color="info"
+                  sx={{ width: "fit-content" }}
+                />
+              )}
+              {data?.accounts_active && (
+                <Chip
+                  size="small"
+                  label={`${data?.accounts_active} active now`}
+                  icon={<OnlineIcon />}
+                  color="active"
+                  sx={{ width: "fit-content" }}
+                />
+              )}
             </Stack>
-          ) : (
-            <Skeleton
-              variant="text"
-              className="subredditDescription"
-              animation="wave"
-            />
-          )}
-          {subredditInfo.description && (
-            <Accordion
-              onChange={(event, expanded) => {
-                expanded
-                  ? setExpanded(expanded)
-                  : setTimeout(() => setExpanded(expanded), 700);
-              }}
-              sx={{
-                bgcolor: "transparent",
+          </Stack>
+        </CardContent>
+        {data?.description && (
+          <Accordion
+            onChange={(_, expanded) => {
+              expanded
+                ? setExpanded(expanded)
+                : setTimeout(() => setExpanded(expanded), 50);
+            }}
+            sx={{
+              bgcolor: BG_TINT,
+              p: 1,
+              flexDirection: "column",
+              a: {
                 color: "white",
-                flexDirection: "column",
-
-                a: {
-                  color: "white",
-                  textDecoration: "underline",
-                },
-                // "p, h1, h2, h3, h4, h5, h6": {
-                "*": {
-                  mb: 2,
-                },
-                li: {
-                  listStyle: "initial",
-                },
-                "*:last-child": {
-                  marginBottom: "0",
-                },
+                textDecoration: "underline",
+              },
+              li: {
+                listStyle: "initial",
+              },
+              m: "0 !important",
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon htmlColor="white" />}
+              sx={{ color: "white !important" }}
+            >
+              {data?.public_description
+                ? parseMarkdownText(data.public_description)
+                : isLoading && (
+                    <Skeleton
+                      variant="text"
+                      className="subredditDescription"
+                      animation="wave"
+                    />
+                  )}
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                color: "white !important",
+                maxHeight: "60vh",
+                overflow: "auto",
+                scrollBehavior: "smooth",
               }}
             >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon htmlColor="white" />}
-                sx={{
-                  ".MuiAccordionSummary-contentGutters": { display: "none" },
-                }}
-              ></AccordionSummary>
-              <AccordionDetails
-                sx={{
-                  maxHeight: "60vh",
-                  overflow: "auto",
-                  scrollBehavior: "smooth",
-                  scroll,
-                }}
-              >
-                {subredditInfo.description ? (
-                  parseMarkdownText(subredditInfo.description)
-                ) : (
-                  <Skeleton
-                    variant="text"
-                    className="subredditDescription"
-                    animation="wave"
-                  />
-                )}
-              </AccordionDetails>
-            </Accordion>
-          )}
-        </CardContent>
+              {data.description
+                ? parseMarkdownText(data.description)
+                : isLoading && (
+                    <Skeleton
+                      variant="text"
+                      className="subredditDescription"
+                      animation="wave"
+                    />
+                  )}
+            </AccordionDetails>
+          </Accordion>
+        )}
       </Collapse>
     </Card>
   );
