@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import parseMarkdownText from "../functions/parseMarkdownText";
 import { useParams } from "react-router-dom";
 import {
@@ -12,7 +12,6 @@ import {
   Collapse,
   Chip,
   Stack,
-  Fade,
 } from "@mui/material";
 
 import replaceEntities from "../functions/replaceEntities";
@@ -26,7 +25,6 @@ import { getSubredditInfo } from "../api";
 const BG_TINT = "rgba(0,0,0,0.6)";
 
 function SubredditInfo({ expandedState, headerHeight }) {
-  const card = useRef();
   const { subreddit } = useParams();
   const [expanded, setExpanded] = expandedState;
   const margin = `calc(${headerHeight}px)`;
