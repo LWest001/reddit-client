@@ -10,10 +10,10 @@ import {
 } from "@mui/material";
 import errorLogo from "/errorLogo.svg";
 
-const ErrorPage = () => {
+const ErrorPage = (error) => {
   const theme = useTheme();
-  let error = useRouteError();
-  console.error(error);
+  let routeError = useRouteError();
+  console.error(error || routeError);
   return (
     <Card
       className="ErrorPage"
@@ -29,21 +29,13 @@ const ErrorPage = () => {
           </Typography>
         </Stack>
         <ButtonGroup>
-          <Button
-            variant="contained"
-            component={Link}
-            to={0}
-          >
+          <Button variant="contained" component={Link} to={0}>
             reload page
           </Button>
-          <Button
-            component={Link}
-            to={-1}
-          >
+          <Button component={Link} to={-1}>
             go Back
           </Button>
           <Button
-            
             component={Link}
             to="/"
             // sx={{ width: "50%" }}

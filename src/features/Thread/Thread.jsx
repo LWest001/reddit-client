@@ -25,7 +25,7 @@ const Thread = () => {
   const [moreComments, setMoreComments] = useState([]);
   const [moreIndices, setMoreIndices] = useState([0, MORE_INDICES_THRESHOLD]);
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
+  const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: ["thread", sort, redditId],
     queryFn: () => getThread(subreddit, redditId, sort),
     refetchOnWindowFocus: false,
@@ -126,7 +126,7 @@ const Thread = () => {
       <SkeletonCommentCard animation="wave" />
     </Box>
   ) : isError ? (
-    <ErrorPage />
+    <ErrorPage error={error} />
   ) : (
     <Box
       className="Thread"

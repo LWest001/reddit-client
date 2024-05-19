@@ -42,20 +42,25 @@ const Skeletons = ({ view }) => {
 };
 
 const SORT_TYPES = ["hot", "top", "controversial", "new", "rising"];
-export const getSort = (sort) => (SORT_TYPES.includes(sort) ? sort : "hot");
+export const getSort = (sort) => {
+  return SORT_TYPES.includes(sort) ? sort : undefined;
+};
 
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const time = searchParams.get("t");
-  let sort = getSort(searchParams.get("sort") || useParams().sort);
 
-  const { subreddit } = useParams();
+  const { subreddit, sort: sortParam } = useParams();
+
+  let sort = getSort(searchParams.get("sort") || sortParam);
+
   const marginTop = useMargin(0.5);
 
   const {
     isLoading,
     isError,
+    error,
     data,
     fetchNextPage,
     hasNextPage,
@@ -75,6 +80,7 @@ const ThreadList = ({ view }) => {
       return lastPage.after;
     },
     refetchOnWindowFocus: false,
+    enabled: SORT_TYPES.includes(sort),
   });
 
   function onBottom() {
@@ -86,7 +92,7 @@ const ThreadList = ({ view }) => {
   }
 
   if (isError) {
-    return <ErrorPage />;
+    return <ErrorPage error={error} />;
   }
 
   // Set title
