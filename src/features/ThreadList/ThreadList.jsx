@@ -53,7 +53,7 @@ const ThreadList = ({ view }) => {
 
   const { subreddit, sort: sortParam } = useParams();
 
-  let sort = getSort(searchParams.get("sort") || sortParam);
+  let sort = getSort(searchParams.get("sort") || sortParam || "hot");
 
   const marginTop = useMargin(0.5);
 
@@ -103,7 +103,7 @@ const ThreadList = ({ view }) => {
   }
 
   // Generate list
-  const threads = data.pages.map((group, i) => (
+  const threads = data?.pages.map((group, i) => (
     <React.Fragment key={i}>
       {group.threads.map((thread) =>
         view !== "searchResults" ? (
