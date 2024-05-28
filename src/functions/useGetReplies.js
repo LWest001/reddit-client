@@ -6,6 +6,7 @@ function useGetReply(id, subreddit, threadId, threadTitle) {
     queryKey: ["comment", id],
     queryFn: () => getReply(subreddit, threadId, threadTitle, id),
     refetchOnWindowFocus: false,
+    retry: false,
   });
   return replies;
 }

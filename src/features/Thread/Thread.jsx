@@ -24,6 +24,7 @@ const Thread = () => {
   const { redditId, subreddit, sort, threadTitle } = useParams();
   const [moreComments, setMoreComments] = useState([]);
   const [moreIndices, setMoreIndices] = useState([0, MORE_INDICES_THRESHOLD]);
+  const [enableScrolling, setEnableScrolling] = useState(false);
 
   const { data, isLoading, isError, error, isSuccess } = useQuery({
     queryKey: ["thread", sort, redditId],
@@ -54,23 +55,29 @@ const Thread = () => {
         ids: moreCommentIds,
       }),
     refetchOnWindowFocus: false,
+    enabled: enableScrolling && window.scrollY > 0,
   });
 
   const onBottom = useCallback(() => {
-    if (isFetchingMore || isLoading) return;
-    setMoreComments((prev) => [...prev, ...moreData]);
-    setMoreIndices((prev) => [
-      prev[0] + MORE_INDICES_THRESHOLD,
-      moreIndices[1] > moreCommentsCount
-        ? moreCommentsCount - 1
-        : prev[1] + MORE_INDICES_THRESHOLD,
-    ]);
+    if (!enableScrolling) {
+      setEnableScrolling(true);
+    } else {
+      setMoreComments((prev) => [...prev, ...moreData]);
+      setMoreIndices((prev) => [
+        prev[0] + MORE_INDICES_THRESHOLD,
+        moreIndices[1] > moreCommentsCount
+          ? moreCommentsCount - 1
+          : prev[1] + MORE_INDICES_THRESHOLD,
+      ]);
+    }
   }, [
-    isFetchingMore,
     setMoreComments,
     setMoreIndices,
     moreIndices,
     moreCommentsCount,
+    enableScrolling,
+    setEnableScrolling,
+    moreData,
   ]);
 
   const commentCards = useMemo(
