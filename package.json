@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.17",
-    "@reduxjs/toolkit": "^1.9.1",
     "@tanstack/react-query": "^5.29.0",
     "@tanstack/react-query-devtools": "^5.29.2",
     "html-react-parser": "^3.0.12",
@@ -24,10 +23,8 @@
     "react-dom": "^18.2.0",
     "react-lazy-load": "^4.0.1",
     "react-player": "^2.11.0",
-    "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-tiny-oembed": "^1.1.0",
-    "redux": "^4.2.0",
     "showdown": "^2.1.0"
   },
   "devDependencies": {
