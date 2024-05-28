@@ -45,6 +45,7 @@ const Thread = () => {
     data: moreData,
     isLoading: isLoadingMore,
     isFetching: isFetchingMore,
+    isError: moreDataError,
   } = useQuery({
     queryKey: ["comments", redditId, moreCommentIds],
     queryFn: () =>
@@ -65,7 +66,8 @@ const Thread = () => {
       !isLoading &&
       !isLoadingMore &&
       !isFetchingMore &&
-      !isFetching
+      !isFetching &&
+      !moreDataError
     ) {
       setMoreComments((prev) => [...prev, ...moreData]);
       setMoreIndices((prev) => [
