@@ -26,7 +26,7 @@ const Thread = () => {
   const [moreIndices, setMoreIndices] = useState([0, MORE_INDICES_THRESHOLD]);
   const [enableScrolling, setEnableScrolling] = useState(false);
 
-  const { data, isLoading, isError, error, isSuccess } = useQuery({
+  const { data, isLoading, isFetching, isError, error, isSuccess } = useQuery({
     queryKey: ["thread", sort, redditId],
     queryFn: () => getThread(subreddit, redditId, sort),
     refetchOnWindowFocus: false,
@@ -57,11 +57,16 @@ const Thread = () => {
     refetchOnWindowFocus: false,
     enabled: enableScrolling && window.scrollY > 0,
   });
-
   const onBottom = useCallback(() => {
     if (!enableScrolling) {
       setEnableScrolling(true);
-    } else {
+    } else if (
+      moreData &&
+      !isLoading &&
+      !isLoadingMore &&
+      !isFetchingMore &&
+      !isFetching
+    ) {
       setMoreComments((prev) => [...prev, ...moreData]);
       setMoreIndices((prev) => [
         prev[0] + MORE_INDICES_THRESHOLD,
@@ -78,6 +83,10 @@ const Thread = () => {
     enableScrolling,
     setEnableScrolling,
     moreData,
+    isLoading,
+    isLoadingMore,
+    isFetchingMore,
+    isFetching,
   ]);
 
   const commentCards = useMemo(
