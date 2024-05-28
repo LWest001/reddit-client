@@ -13,11 +13,11 @@ import {
 } from "@mui/material";
 
 // Function imports
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getInfiniteThreads } from "../../api";
+import { useInfiniteQuery, useQueries } from "@tanstack/react-query";
+import { fetchIcon, getInfiniteThreads } from "../../api";
 import { useParams, useSearchParams } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
-import React from "react";
+import React, { createContext, useMemo } from "react";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import { useMargin } from "../../functions/useMargin";
 
@@ -45,6 +45,8 @@ const SORT_TYPES = ["hot", "top", "controversial", "new", "rising"];
 export const getSort = (sort) => {
   return SORT_TYPES.includes(sort) ? sort : undefined;
 };
+
+export const IconsContext = createContext({});
 
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
@@ -81,6 +83,38 @@ const ThreadList = ({ view }) => {
     },
     refetchOnWindowFocus: false,
     enabled: SORT_TYPES.includes(sort),
+  });
+
+  const subreddits = useMemo(
+    () =>
+      data
+        ? data?.pages
+            ?.map((page) =>
+              page.threads?.map((thread) => thread.data.subreddit)
+            )
+            .flat()
+        : [],
+    [data]
+  );
+
+  const communityIcons = useQueries({
+    queries: subreddits.map((sub, i) => {
+      return {
+        queryKey: ["icon", sub],
+        queryFn: async ({ signal }) => fetchIcon(sub, signal, i * 1000),
+      };
+    }),
+    combine: (results) => {
+      const combinedData = {};
+      for (const key of results) {
+        const sub = key?.data?.subreddit;
+        combinedData[sub] = key?.data?.icon;
+      }
+      return {
+        data: combinedData,
+        pending: results.some((result) => result.isPending),
+      };
+    },
   });
 
   function onBottom() {
@@ -121,7 +155,7 @@ const ThreadList = ({ view }) => {
       mt={view !== "subreddit" ? marginTop : "initial"}
     >
       <BottomScrollListener onBottom={onBottom} offset={1000} debounce={2000} />
-      {threads}
+      <IconsContext.Provider value={communityIcons}>{threads}</IconsContext.Provider>
       {hasNextPage && isFetchingNextPage ? (
         <Skeletons view={view} />
       ) : (

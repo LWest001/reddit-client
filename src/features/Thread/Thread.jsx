@@ -18,7 +18,7 @@ import { useMargin } from "../../functions/useMargin";
 import ErrorPage from "../ErrorPage";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 
-const MORE_INDICES_THRESHOLD = 40;
+const MORE_INDICES_THRESHOLD = 10;
 
 const Thread = () => {
   const { redditId, subreddit, sort, threadTitle } = useParams();

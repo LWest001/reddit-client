@@ -1,4 +1,5 @@
 import axios from "axios";
+import replaceEntities from "./functions/replaceEntities";
 
 export async function getThreads(options) {
   const { sort = "hot", subreddit, query, after } = options;
@@ -57,6 +58,7 @@ export async function getInfiniteThreads({
   }
 
   const response = await axios.get(baseURL + URL);
+
   return {
     threads: response.data.data.children,
     after: response.data.data.after,
@@ -104,4 +106,43 @@ export async function getSubredditInfo(subreddit) {
   const URL = `https://www.reddit.com/r/${subreddit}/about.json`;
   const response = await axios.get(URL);
   return response?.data?.data;
+}
+
+const sleep = (ms = 1000) => new Promise((resolve) => setTimeout(resolve, ms));
+export async function fetchIcon(subreddit, signal, delay) {
+  const doNotCheck = sessionStorage.getItem(subreddit);
+
+  if (doNotCheck) {
+    return {
+      subreddit: subreddit,
+      icon: null,
+    };
+  }
+  const localIcon = localStorage.getItem(subreddit);
+
+  if (localIcon && localIcon !== "null" && localIcon !== "undefined") {
+    return {
+      subreddit: subreddit,
+      icon: localIcon,
+    };
+  }
+
+  let icon;
+  await sleep(delay);
+  if (!signal?.aborted) {
+    const URL = `https://www.reddit.com/r/${subreddit}/about.json`;
+    const response = await axios.get(URL, {
+      headers: "Access-Control-Allow-Origin",
+    });
+
+    icon = replaceEntities(response.data.data.community_icon);
+    localStorage.setItem(subreddit, icon || null);
+    if (!icon) {
+      sessionStorage.setItem(subreddit, true);
+    }
+    return {
+      subreddit: subreddit,
+      icon: icon || null,
+    };
+  }
 }

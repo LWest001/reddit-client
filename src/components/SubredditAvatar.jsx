@@ -1,23 +1,11 @@
-import { useDispatch } from "react-redux";
 import { Avatar, Skeleton } from "@mui/material";
-import { useSelector } from "react-redux";
-import {
-  fetchIcon,
-  selectIconBySubreddit,
-} from "../features/ThreadList/threadListSlice";
 import DefaultIcon from "/DefaultIcon.png";
-import { useEffect } from "react";
+import { useContext } from "react";
+import { IconsContext } from "../features/ThreadList/ThreadList";
 
 function SubredditAvatar({ subreddit }) {
-  const dispatch = useDispatch();
-
-  let icon = useSelector((state) => selectIconBySubreddit(state, subreddit));
-
-  useEffect(() => {
-    if (icon === undefined || icon === null) {
-      dispatch(fetchIcon(subreddit));
-    }
-  }, [subreddit]);
+  const icons = useContext(IconsContext);
+  const icon = icons?.data?.[subreddit];
 
   if (icon === "loading") {
     return (
