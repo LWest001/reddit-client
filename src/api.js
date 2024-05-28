@@ -135,7 +135,9 @@ export async function fetchIcon(subreddit, signal, delay) {
       headers: "Access-Control-Allow-Origin",
     });
 
-    icon = replaceEntities(response.data.data.community_icon);
+    icon =
+      replaceEntities(response.data.data.community_icon) ||
+      replaceEntities(response.data.data.icon_img);
     localStorage.setItem(subreddit, icon || null);
     if (!icon) {
       sessionStorage.setItem(subreddit, true);
