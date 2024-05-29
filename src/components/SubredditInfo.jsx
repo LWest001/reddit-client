@@ -20,7 +20,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OnlineIcon from "@mui/icons-material/RadioButtonChecked";
 import GroupIcon from "@mui/icons-material/Group";
 import { useQuery } from "@tanstack/react-query";
-import { getSubredditInfo } from "../api";
+import { fetchIcon, getSubredditInfo } from "../api";
+import { IconsContext } from "../features/ThreadList/ThreadList";
 
 const BG_TINT = "rgba(0,0,0,0.6)";
 
@@ -32,6 +33,11 @@ function SubredditInfo({ expandedState, headerHeight }) {
   const { data, isLoading, isError } = useQuery({
     queryFn: () => getSubredditInfo(subreddit),
     queryKey: [subreddit],
+  });
+
+  const { data: icon } = useQuery({
+    queryFn: () => fetchIcon(subreddit),
+    queryKey: ["icon", subreddit],
   });
 
   document.title = `rLite | r/${data?.display_name || subreddit}`;
@@ -90,7 +96,15 @@ function SubredditInfo({ expandedState, headerHeight }) {
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
         }}
-        avatar={!isError && <SubredditAvatar subreddit={subreddit} />}
+        avatar={
+          !isError && (
+            <IconsContext.Provider
+              value={{ data: { [subreddit]: icon?.icon } }}
+            >
+              <SubredditAvatar subreddit={subreddit} />
+            </IconsContext.Provider>
+          )
+        }
         title={
           replaceEntities(data?.title) ||
           (isLoading ? (

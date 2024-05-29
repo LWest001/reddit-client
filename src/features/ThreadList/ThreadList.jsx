@@ -17,7 +17,7 @@ import { useInfiniteQuery, useQueries } from "@tanstack/react-query";
 import { fetchIcon, getInfiniteThreads } from "../../api";
 import { useParams, useSearchParams } from "react-router-dom";
 import ErrorPage from "../ErrorPage";
-import React, { createContext, useMemo } from "react";
+import React, { createContext, useCallback, useMemo } from "react";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
 import { useMargin } from "../../functions/useMargin";
 
@@ -117,9 +117,11 @@ const ThreadList = ({ view }) => {
     },
   });
 
-  function onBottom() {
-    fetchNextPage();
-  }
+  const onBottom = useCallback(() => {
+    if (!isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) {
     return <Skeletons view={view} />;
@@ -155,7 +157,9 @@ const ThreadList = ({ view }) => {
       mt={view !== "subreddit" ? marginTop : "initial"}
     >
       <BottomScrollListener onBottom={onBottom} offset={1000} debounce={2000} />
-      <IconsContext.Provider value={communityIcons}>{threads}</IconsContext.Provider>
+      <IconsContext.Provider value={communityIcons}>
+        {threads}
+      </IconsContext.Provider>
       {hasNextPage && isFetchingNextPage ? (
         <Skeletons view={view} />
       ) : (
