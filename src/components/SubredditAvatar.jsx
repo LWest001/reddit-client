@@ -3,9 +3,9 @@ import DefaultIcon from "/DefaultIcon.png";
 import { useContext } from "react";
 import { IconsContext } from "../features/ThreadList/ThreadList";
 
-function SubredditAvatar({ subreddit }) {
+function SubredditAvatar({ subreddit, crosspost }) {
   const icons = useContext(IconsContext);
-  const icon = icons?.data?.[subreddit];
+  const icon = icons?.data?.[subreddit] || localStorage.getItem(subreddit);
 
   if (icon === "loading") {
     return (
@@ -25,8 +25,8 @@ function SubredditAvatar({ subreddit }) {
       className={"subredditIcon"}
       sx={{
         background: "linear-gradient(45deg, rgba(0, 0, 255, 0.267), white)",
-        // height: "100%",
-        // width: "auto",
+        width: crosspost && 30,
+        height: crosspost && 30,
       }}
     >
       <img src={DefaultIcon} alt={`Avatar for r/${subreddit}`} />

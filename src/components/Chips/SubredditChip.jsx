@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ColorModeContext } from "../../app/App";
 
-const SubredditChip = ({ subreddit }) => {
+const SubredditChip = ({ subreddit, crosspost }) => {
   const { mode } = useContext(ColorModeContext);
   return (
     <Button
@@ -20,11 +20,11 @@ const SubredditChip = ({ subreddit }) => {
       component={Link}
       to={`/r/${subreddit}`}
     >
-      <SubredditAvatar subreddit={subreddit} alt="Subreddit avatar" />
+      <SubredditAvatar subreddit={subreddit} alt="Subreddit avatar" crosspost={crosspost} />
       <Typography
         sx={{ textDecoration: "none" }}
         fontSize="large"
-        color={mode === "light" ? "#000" : "white"}
+        color={mode === "light" ? "#000" : "white !important"}
       >
         r/{subreddit}
       </Typography>

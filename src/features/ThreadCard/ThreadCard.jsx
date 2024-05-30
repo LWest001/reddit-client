@@ -34,10 +34,11 @@ import { getTimeStamp } from "../../functions/getTimeStamp";
 import UpvoteChip from "../../components/Chips/UpvoteChip";
 import TimestampChip from "../../components/Chips/TimestampChip";
 import CommentsChip from "../../components/Chips/CommentsChip";
+import CrosspostWrapper from "./ContentWrappers/CrosspostWrapper";
 
 export const ThreadContentContext = createContext({});
 
-const ThreadCard = ({ data, cardType }) => {
+const ThreadCard = ({ data, cardType, crosspost }) => {
   const theme = useTheme();
   let { preview, score, selftext } = data;
 
@@ -47,20 +48,23 @@ const ThreadCard = ({ data, cardType }) => {
     <Card className="ThreadCard" id={data.id}>
       <CardHeader
         className="ThreadCardHeader"
+        sx={{
+          p: crosspost ? "2px" : "1rem",
+        }}
         title={
           <ThreadCardHeaderTitle
             subreddit={data.subreddit}
-            timestamp={getTimeStamp(data.created_utc)}
             author={data.author}
+            crosspost={crosspost}
           />
         }
       />
 
       <ThreadContentContext.Provider value={data}>
         <CardContent className="threadPreview">
-          {["image", "video", "richVideo"].includes(threadType) && (
-            <ThreadTitle />
-          )}
+          {["image", "video", "richVideo", "crosspost"].includes(
+            threadType
+          ) && <ThreadTitle />}
 
           <Box className="threadContentPreview">
             {threadType == "image" && (
@@ -87,6 +91,9 @@ const ThreadCard = ({ data, cardType }) => {
             )}
 
             {threadType === "self" && <SelfPostWrapper text={selftext} />}
+            {threadType === "crosspost" && (
+              <CrosspostWrapper data={data.crosspost_parent_list[0]} />
+            )}
 
             {threadType === "richVideo" && (
               <RichVideoWrapper
@@ -114,7 +121,7 @@ const ThreadCard = ({ data, cardType }) => {
           <TimestampChip timestamp={getTimeStamp(data.created_utc)} />
         </Stack>
         {cardType !== "thread" && (
-          <CommentsChip link={data.permalink} count={data.num_comments} />
+          <CommentsChip link={data.permalink} count={data.num_comments} crosspost={crosspost}/>
         )}
       </Stack>
     </Card>

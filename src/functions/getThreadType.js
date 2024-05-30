@@ -5,6 +5,9 @@ export const getThreadType = (data) => {
   if (data.is_self) {
     return "self";
   }
+  if (data.crosspost_parent) {
+    return "crosspost";
+  }
   if (data.post_hint) {
     switch (data.post_hint) {
       case "image":
