@@ -21,8 +21,10 @@ export const ColorModeContext = createContext({
 const sessionColorMode = getSetting("colorMode");
 
 export default function ToggleColorMode() {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [mode, setMode] = useState(prefersDarkMode ? "dark" : "light");
+  const preferredMode = useMediaQuery("(prefers-color-scheme: dark)")
+    ? "dark"
+    : "light";
+  const [mode, setMode] = useState(preferredMode);
   useEffect(() => {
     sessionColorMode && setMode(sessionColorMode);
   }, []);
@@ -41,6 +43,10 @@ export default function ToggleColorMode() {
     }),
     [mode]
   );
+  if (!mode || mode === "undefined") {
+    setMode(preferredMode);
+    setSetting("colorMode", preferredMode);
+  }
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
