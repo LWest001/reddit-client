@@ -4,7 +4,7 @@ import { ThreadContentContext } from "./ThreadCard";
 import { getFlair } from "../../functions/getFlair";
 import replaceEntities from "../../functions/replaceEntities";
 
-function FlairBox() {
+function FlairBox({ crosspost }) {
   let data = useContext(ThreadContentContext);
   const flair = getFlair(data);
 
@@ -18,7 +18,7 @@ function FlairBox() {
         mr: 1,
       }}
     >
-      {replaceEntities( flair.text)}
+      {crosspost ? "Crosspost" : replaceEntities(flair.text)}
     </Typography>
   );
 }

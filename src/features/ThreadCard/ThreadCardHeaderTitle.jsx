@@ -15,6 +15,7 @@ function ThreadCardHeaderTitle({ subreddit, author, crosspost }) {
       flexWrap={"wrap"}
       gap={0.5}
       alignItems={"center"}
+      px={1}
     >
       {(!isSubreddit || crosspost) && (
         <SubredditChip subreddit={subreddit} crosspost={crosspost} />

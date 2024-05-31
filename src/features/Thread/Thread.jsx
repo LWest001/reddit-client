@@ -12,11 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getInfiniteComment, getThread } from "../../api";
+import { fetchIcon, getInfiniteComment, getThread } from "../../api";
 import { useCallback, useMemo, useState } from "react";
 import { useMargin } from "../../functions/useMargin";
 import ErrorPage from "../ErrorPage";
 import { BottomScrollListener } from "react-bottom-scroll-listener";
+import { IconsContext } from "../ThreadList/ThreadList";
 
 const MORE_INDICES_THRESHOLD = 10;
 
@@ -30,6 +31,12 @@ const Thread = () => {
     queryKey: ["thread", sort, redditId],
     queryFn: () => getThread(subreddit, redditId, sort),
     refetchOnWindowFocus: false,
+  });
+
+  const { data: icon } = useQuery({
+    queryFn: () => fetchIcon(data?.thread?.subreddit),
+    queryKey: ["icon", [data?.thread?.subreddit] || "null"],
+    enabled: data && isSuccess,
   });
 
   document.title = `rLite | ${data?.thread.title || ""}`;
@@ -156,7 +163,9 @@ const Thread = () => {
       mt={useMargin(0.5)}
     >
       {isSuccess && (
-        <>
+        <IconsContext.Provider
+          value={{ data: { [data.subreddit]: icon?.icon } }}
+        >
           <ThreadCard key={redditId} data={data.thread} cardType="thread" />
           {commentCards}
           <BottomScrollListener
@@ -176,7 +185,7 @@ const Thread = () => {
                 <SkeletonCommentCard animation="wave" />
               </>
             ))}
-        </>
+        </IconsContext.Provider>
       )}
       <Snackbar open={isLoadingMore || isFetchingMore} autoHideDuration={6000}>
         <Alert severity="info" sx={{ alignItems: "center" }}>
