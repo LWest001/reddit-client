@@ -13,7 +13,9 @@ function FlairBox({ crosspost }) {
     <Typography
       className="postFlair"
       sx={{
-        bgcolor: flair?.backgroundColor || "primary.light",
+        bgcolor: crosspost
+          ? "primary.light"
+          : flair?.backgroundColor || "primary.light",
         color: flair?.textColor === "dark" ? "black" : "white",
         mr: 1,
       }}
