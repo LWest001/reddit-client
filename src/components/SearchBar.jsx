@@ -5,6 +5,9 @@ import { useSearchParams } from "react-router-dom";
 import { isSmallScreen } from "../functions/isSmallScreen";
 import { useQuery } from "@tanstack/react-query";
 import { getSubreddits } from "../api";
+import debounce from "lodash.debounce";
+import { useEffect, useMemo } from "react";
+import { getSetting } from "../functions/getSetting";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -47,7 +50,25 @@ function SearchBar({
   setValue,
   inputValue,
   setInputValue,
+  hideOptions,
 }) {
+  //debounced used to prevent making an api request on every keystroke
+  const handleChange = (_, newValue) => setValue(newValue);
+  const handleInputChange = (_, newInputValue) => setInputValue(newInputValue);
+  const debouncedChange = useMemo(() => {
+    return debounce(handleChange, 1000);
+  }, []);
+  const debouncedInputChange = useMemo(() => {
+    return debounce(handleInputChange, 1000);
+  }, []);
+
+  // Clean up side effects from debounce when component unmounst
+  useEffect(() => {
+    return () => {
+      debouncedChange.cancel();
+      debouncedInputChange.cancel();
+    };
+  });
 
   const srSearchEnabled = inputValue
     ? !!(inputValue?.substring(0, 2) === "r/") &&
@@ -61,7 +82,7 @@ function SearchBar({
   });
 
   function hideSearchHint() {
-    return localStorage.getItem("hideSearchHint");
+    return getSetting("hideSearchHint");
   }
 
   const currentQuery = useSearchParams()[0].get("q");
@@ -74,13 +95,9 @@ function SearchBar({
       <StyledAutocomplete
         freeSolo
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        onChange={handleChange}
         inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
+        onInputChange={handleInputChange}
         onFocus={() => {
           if (isSmallScreen) {
             const SortSelector = document.querySelector(".SortSelector");
@@ -97,7 +114,9 @@ function SearchBar({
         autoComplete
         filterOptions={(x) => x}
         options={
-          data?.children
+          hideOptions
+            ? []
+            : data?.children
             ? [...data.children.map((sub) => sub.data.display_name_prefixed)]
             : TopSubs.names.map((option) => `r/${option}`)
         }

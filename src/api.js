@@ -1,5 +1,6 @@
 import axios from "axios";
 import replaceEntities from "./functions/replaceEntities";
+import { getSetting } from "./functions/getSetting";
 
 export async function getThreads(options) {
   const { sort = "hot", subreddit, query, after } = options;
@@ -131,8 +132,9 @@ export async function fetchIcon(subreddit, signal, delay) {
   let icon;
   await sleep(delay);
   if (!signal?.aborted) {
-    const loadNew = localStorage.getItem("loadNew");
-    if (loadNew === "false") return null;
+    const loadNew = getSetting("loadNew");
+
+    if (loadNew === "false" || loadNew === false) return null;
     const URL = `https://www.reddit.com/r/${subreddit}/about.json`;
     const response = await axios.get(URL, {
       headers: "Access-Control-Allow-Origin",

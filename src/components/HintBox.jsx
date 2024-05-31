@@ -19,7 +19,7 @@ export default function HintBox({
           color="secondary"
           size="small"
           onClick={onClose}
-          sx={{ bgcolor: theme.palette.secondary.main, color: "white" }}
+          sx={{ bgcolor: theme.palette.secondary.main, color: "white !important" }}
         >
           Dismiss and don&apos;t show again
         </Button>

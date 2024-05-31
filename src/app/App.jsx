@@ -10,13 +10,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createContext, useEffect, useMemo, useState } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getDesignTokens } from "../assets/theme";
+import { setSetting } from "../functions/setSettings";
+import { getSetting } from "../functions/getSetting";
 
 const queryClient = new QueryClient();
 export const ThreadsContext = createContext([[], () => {}]);
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
-const sessionColorMode = localStorage.getItem("colorMode");
+const sessionColorMode = getSetting("colorMode");
 
 export default function ToggleColorMode() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -31,7 +33,7 @@ export default function ToggleColorMode() {
       toggleColorMode: () => {
         setMode((prevMode) => {
           const newMode = prevMode === "light" ? "dark" : "light";
-          localStorage.setItem("colorMode", newMode);
+          setSetting("colorMode", newMode);
           return newMode;
         });
       },
@@ -39,7 +41,6 @@ export default function ToggleColorMode() {
     }),
     [mode]
   );
-
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (

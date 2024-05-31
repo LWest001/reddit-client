@@ -33,6 +33,8 @@ import SubredditInfo from "../SubredditInfo";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import { isSmallScreen } from "../../functions/isSmallScreen";
 import { ColorModeContext } from "../../app/App";
+import { setSetting } from "../../functions/setSettings";
+import { getSetting } from "../../functions/getSetting";
 
 const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
@@ -41,12 +43,10 @@ const Header = forwardRef(function Header(props, ref) {
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [loadNew, setLoadNew] = useState(
-    localStorage.getItem("loadNew") !== "false"
-  );
+  const [loadNew, setLoadNew] = useState(getSetting("loadNew") !== "false");
   const openSettings = Boolean(anchorEl);
 
-  useEffect(() => localStorage.setItem("loadNew", loadNew), [loadNew]);
+  useEffect(() => setSetting("loadNew", loadNew), [loadNew]);
 
   const handleClickSettings = (event) => {
     setAnchorEl(event.currentTarget);
@@ -91,7 +91,7 @@ const Header = forwardRef(function Header(props, ref) {
 
   function handleCloseSearchhint() {
     setOpen(false);
-    localStorage.setItem("hideSearchHint", true);
+    setSetting("hideSearchHint", true);
   }
 
   // Time Selector vars and handlers
@@ -121,7 +121,6 @@ const Header = forwardRef(function Header(props, ref) {
 
   function handleChangeLoadnew() {
     setLoadNew((prev) => {
-      // localStorage.setItem("loadNew", !prev);
       return !prev;
     });
   }
@@ -212,6 +211,7 @@ const Header = forwardRef(function Header(props, ref) {
             setValue={setValue}
             inputValue={inputValue}
             setInputValue={setInputValue}
+            hideOptions={open}
           />
 
           <IconButton
