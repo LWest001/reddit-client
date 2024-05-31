@@ -1,1 +1,3 @@
 /*  /index.html 200
+/api/*  https://api.reddit.com/:splat  200
+/booga https://www.google.com/
