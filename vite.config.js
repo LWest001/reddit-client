@@ -10,4 +10,14 @@ export default defineConfig({
     environment: "jsdom",
   },
   plugins: [react(), nodePolyfills()],
+  server: {
+    open: true,
+    proxy: {
+      "/api": {
+        target: "https://api.reddit.com/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });
