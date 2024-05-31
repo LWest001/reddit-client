@@ -2,7 +2,7 @@ import axios from "axios";
 import replaceEntities from "./functions/replaceEntities";
 import { getSetting } from "./functions/getSetting";
 
-const baseUrl = "/api";
+const baseUrl = "api";
 
 export async function getThreads(options) {
   const { sort = "hot", subreddit, query, after } = options;
