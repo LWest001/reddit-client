@@ -1,2 +1,2 @@
-/api/*  https://api.reddit.com/:splat  200
+/api/*  https://www.reddit.com/:splat  200
 /*  /index.html 200
