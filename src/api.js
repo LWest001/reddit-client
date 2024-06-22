@@ -41,13 +41,16 @@ export async function getInfiniteThreads({
   subreddit,
   query,
   time,
+  searchWithin,
 }) {
   const baseURL = "https://www.reddit.com";
   const conditionalAfter = after ? "after=" + after : "";
   const conditionalTime = time ? "&t=" + time : "";
   let URL;
   if (subreddit) {
-    if (sort) {
+    if (searchWithin && subreddit) {
+      URL = `/r/${subreddit}/search.json?q=${query}&sort=${sort}&${conditionalAfter}${conditionalTime}&restrict_sr=on`;
+    } else if (sort) {
       URL = `/r/${subreddit}/${sort}.json?${conditionalAfter}${conditionalTime}`;
     } else {
       URL = `/r/${subreddit}.json?${conditionalAfter}${conditionalTime}`;

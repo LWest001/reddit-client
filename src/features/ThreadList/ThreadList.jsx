@@ -51,6 +51,7 @@ export const IconsContext = createContext({});
 const ThreadList = ({ view }) => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const searchWithin = searchParams.get("restrict_sr");
   const time = searchParams.get("t");
 
   const { subreddit, sort: sortParam } = useParams();
@@ -76,6 +77,7 @@ const ThreadList = ({ view }) => {
         subreddit,
         sort,
         time,
+        searchWithin: searchWithin === "on",
       }),
     initialPageParam: "",
     getNextPageParam: (lastPage) => {

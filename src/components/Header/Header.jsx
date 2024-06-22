@@ -84,9 +84,11 @@ const Header = forwardRef(function Header(props, ref) {
       const spaceIndex = query.indexOf(" ");
       navigate(query.substring(0, spaceIndex >= 0 ? spaceIndex : query.length));
     } else {
-      const params = { q: query };
+      const params = { q: query, restrict_sr: searchWithin ? "on" : null };
+      if (!searchWithin) delete params.restrict_sr;
+
       navigate({
-        pathname: "/search",
+        pathname: `${searchWithin ? `/r/${subreddit}` : ""}/search`,
         search: `?${createSearchParams(params)}`,
       });
     }
@@ -230,12 +232,12 @@ const Header = forwardRef(function Header(props, ref) {
               setValue={setValue}
               inputValue={inputValue}
               setInputValue={setInputValue}
-              hideOptions={open}
+              hideOptions={open || searchWithin}
             />
             {subreddit && (
               <Chip
                 clickable
-                label={<SubredditAvatar subreddit={subreddit} crosspost/>}
+                label={<SubredditAvatar subreddit={subreddit} crosspost />}
                 variant={searchWithin ? "filled" : "outlined"}
                 onClick={() => setSearchWithin((prev) => !prev)}
                 // color={"secondary"}

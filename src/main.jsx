@@ -25,7 +25,12 @@ const router = createBrowserRouter(
         path="r/:subreddit/:sort?"
         element={<ThreadList view="subreddit" />}
         errorElement={<ErrorPage />}
-      ></Route>
+      />
+      <Route
+        path="r/:subreddit/search"
+        element={<ThreadList view="searchResults" />}
+        errorElement={<ErrorPage />}
+      />
       <Route
         path="r/:subreddit/comments/:redditId/:threadTitle/:sort?"
         element={<Thread />}
