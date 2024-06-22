@@ -25,6 +25,9 @@ import {
   styled,
   FormControlLabel,
   Checkbox,
+  Box,
+  Chip,
+  useTheme,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
 import { forwardRef, useContext, useEffect, useMemo, useState } from "react";
@@ -35,6 +38,7 @@ import { isSmallScreen } from "../../functions/isSmallScreen";
 import { ColorModeContext } from "../../app/App";
 import { setSetting } from "../../functions/setSettings";
 import { getSetting } from "../../functions/getSetting";
+import SubredditAvatar from "../SubredditAvatar";
 
 const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
@@ -44,7 +48,9 @@ const Header = forwardRef(function Header(props, ref) {
   const [inputValue, setInputValue] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const [loadNew, setLoadNew] = useState(getSetting("loadNew") !== "false");
+  const [searchWithin, setSearchWithin] = useState(false);
   const openSettings = Boolean(anchorEl);
+  const theme = useTheme();
 
   useEffect(() => setSetting("loadNew", loadNew), [loadNew]);
 
@@ -68,7 +74,7 @@ const Header = forwardRef(function Header(props, ref) {
     window.scrollTo(0, 0);
   };
 
-  function handleSort(e) {
+  function handleSearch(e) {
     e.preventDefault();
     e.target[0].blur();
     const SortSelector = document.querySelector(".SortSelector");
@@ -204,15 +210,40 @@ const Header = forwardRef(function Header(props, ref) {
               </>
             )}
           </Stack>
-          <SearchBar
-            handleSubmit={handleSort}
-            setOpen={setOpen}
-            value={value}
-            setValue={setValue}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            hideOptions={open}
-          />
+          <Box
+            display={"flex"}
+            flexDirection={"row"}
+            sx={{
+              position: "relative",
+              marginLeft: theme.spacing(2),
+              width: "100%",
+              [theme.breakpoints.up("sm")]: {
+                marginLeft: "auto",
+                width: "auto",
+              },
+            }}
+          >
+            <SearchBar
+              handleSubmit={handleSearch}
+              setOpen={setOpen}
+              value={value}
+              setValue={setValue}
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+              hideOptions={open}
+            />
+            {subreddit && (
+              <Chip
+                clickable
+                label={<SubredditAvatar subreddit={subreddit} crosspost/>}
+                variant={searchWithin ? "filled" : "outlined"}
+                onClick={() => setSearchWithin((prev) => !prev)}
+                // color={"secondary"}
+                sx={{ my: 1 }}
+                // size={"small"}
+              />
+            )}
+          </Box>
 
           <IconButton
             color="inherit"

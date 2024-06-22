@@ -1,5 +1,9 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { styled, Autocomplete, TextField } from "@mui/material";
+import {
+  styled,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
 import TopSubs from "../assets/subreddits.json";
 import { useSearchParams } from "react-router-dom";
 import { isSmallScreen } from "../functions/isSmallScreen";
