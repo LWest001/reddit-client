@@ -13,8 +13,8 @@ const Search = styled("form")(({ theme }) => ({
   // position: "relative",
   // marginLeft: theme.spacing(2),
   width: "100%",
-  display:"flex",
-  alignItems:"center",
+  display: "flex",
+  alignItems: "center",
   [theme.breakpoints.up("sm")]: {
     marginLeft: "auto",
     width: "auto",
@@ -103,15 +103,27 @@ function SearchBar({
         onFocus={() => {
           if (isSmallScreen) {
             const SortSelector = document.querySelector(".SortSelector");
+            const SettingsButton = document.querySelector(".SettingsButton");
+            const SearchWithinChip =
+              document.querySelector(".SearchWithinChip");
             SortSelector.style.display = "none";
+            SettingsButton.style.display = "none";
+            SearchWithinChip.style.display = "none";
           }
           if (!(hideSearchHint() === "true")) {
             setOpen(true);
           }
         }}
         onBlur={() => {
-          const SortSelector = document.querySelector(".SortSelector");
-          SortSelector.style.display = "block";
+          if (isSmallScreen) {
+            const SortSelector = document.querySelector(".SortSelector");
+            const SettingsButton = document.querySelector(".SettingsButton");
+            const SearchWithinChip =
+              document.querySelector(".SearchWithinChip");
+            SortSelector.style.display = "block";
+            SettingsButton.style.display = "flex";
+            SearchWithinChip.style.display = "flex";
+          }
         }}
         autoComplete
         filterOptions={(x) => x}
@@ -128,7 +140,7 @@ function SearchBar({
           <TextField
             key="textfield"
             {...params}
-            placeholder={currentQuery || "Search…"}
+            placeholder={currentQuery || "Search"}
             variant="standard"
             InputProps={{
               ...params.InputProps,

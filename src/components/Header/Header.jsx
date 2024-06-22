@@ -28,6 +28,8 @@ import {
   Box,
   Chip,
   useTheme,
+  Alert,
+  Collapse,
 } from "@mui/material";
 import Logo from "/logoTransparent.png";
 import { forwardRef, useContext, useEffect, useMemo, useState } from "react";
@@ -42,6 +44,7 @@ import SubredditAvatar from "../SubredditAvatar";
 
 const Header = forwardRef(function Header(props, ref) {
   const [open, setOpen] = useState(false);
+  const [searchAlertOpen, setSearchAlertOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [timeSelectAnchor, setTimeSelectAnchor] = useState(null);
   const [value, setValue] = useState(null);
@@ -137,7 +140,7 @@ const Header = forwardRef(function Header(props, ref) {
 
   return (
     <>
-      <AppBar className="Header" ref={ref}>
+      <AppBar className="Header" ref={ref} sx={{ transition: "2000" }}>
         <Toolbar sx={{ paddingLeft: [0, "24px"] }}>
           <Stack
             className="AppBar-Main"
@@ -214,10 +217,11 @@ const Header = forwardRef(function Header(props, ref) {
           </Stack>
           <Box
             display={"flex"}
-            flexDirection={"row"}
+            flexDirection={"column"}
+            alignItems="start"
             sx={{
               position: "relative",
-              marginLeft: theme.spacing(2),
+              // marginLeft: theme.spacing(2),
               width: "100%",
               [theme.breakpoints.up("sm")]: {
                 marginLeft: "auto",
@@ -225,29 +229,37 @@ const Header = forwardRef(function Header(props, ref) {
               },
             }}
           >
-            <SearchBar
-              handleSubmit={handleSearch}
-              setOpen={setOpen}
-              value={value}
-              setValue={setValue}
-              inputValue={inputValue}
-              setInputValue={setInputValue}
-              hideOptions={open || searchWithin}
-            />
-            {subreddit && (
-              <Chip
-                clickable
-                label={<SubredditAvatar subreddit={subreddit} crosspost />}
-                variant={searchWithin ? "filled" : "outlined"}
-                onClick={() => setSearchWithin((prev) => !prev)}
-                // color={"secondary"}
-                sx={{ my: 1 }}
-                // size={"small"}
+            <Box display={"flex"} flexDirection={"row"}>
+              <SearchBar
+                handleSubmit={handleSearch}
+                setOpen={setOpen}
+                value={value}
+                setValue={setValue}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+                hideOptions={open || searchWithin}
               />
-            )}
+
+              {subreddit && (
+                <Chip
+                  className="SearchWithinChip"
+                  clickable
+                  label={<SubredditAvatar subreddit={subreddit} crosspost />}
+                  variant={searchWithin ? "filled" : "outlined"}
+                  onClick={() => {
+                    setSearchWithin((prev) => !prev);
+                    setSearchAlertOpen(true);
+                  }}
+                  // color={"secondary"}
+                  sx={{ my: 1 }}
+                  // size={"small"}
+                />
+              )}
+            </Box>
           </Box>
 
           <IconButton
+            className={"SettingsButton"}
             color="inherit"
             sx={{ ml: 1 }}
             aria-controls={openSettings ? "basic-menu" : undefined}
@@ -298,6 +310,16 @@ const Header = forwardRef(function Header(props, ref) {
           onClose={handleCloseSearchhint}
           message='Enter "r/<Subreddit name>" to navigate to a subreddit, or any other term to search Reddit threads!'
         />
+        {subreddit && searchWithin && searchAlertOpen && (
+          <Alert
+            icon={<SubredditAvatar subreddit={subreddit} crosspost />}
+            onClose={() => {
+              setSearchAlertOpen(false);
+            }}
+          >
+            <Typography>Searching r/{subreddit}</Typography>
+          </Alert>
+        )}
       </AppBar>
       {subreddit && !threadTitle && (
         <SubredditInfo
